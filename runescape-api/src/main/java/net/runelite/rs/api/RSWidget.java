@@ -64,7 +64,8 @@ public interface RSWidget extends Widget
 	int getClickMask();
 
 	@Import("flags")
-	void rs$setClickMask(int mask);
+	@Override
+	RSWidget setClickMask(int mask);
 
 	//@Import("boundsIndex") -- unused for now
 	//int getBoundsIndex();
@@ -74,7 +75,8 @@ public interface RSWidget extends Widget
 	int getModelId();
 
 	@Import("modelId")
-	void rs$setModelId(int modelId);
+	@Override
+	RSWidget setModelId(int modelId);
 
 	@Import("itemIds")
 	int[] getItemIds();
@@ -86,13 +88,15 @@ public interface RSWidget extends Widget
 	int getModelType();
 
 	@Import("modelType")
-	void rs$setModelType(int modelType);
+	@Override
+	RSWidget setModelType(int modelType);
 
 	@Import("sequenceId")
 	int getAnimationId();
 
 	@Import("sequenceId")
-	void rs$setAnimationId(int animationId);
+	@Override
+	RSWidget setAnimationId(int animationId);
 
 	@Import("actions")
 	@Override
@@ -118,21 +122,24 @@ public interface RSWidget extends Widget
 	void setRSName(String name);
 
 	@Import("text")
-	void rs$setText(String text);
+	@Override
+	RSWidget setText(String text);
 
 	@Import("color")
 	@Override
 	int getTextColor();
 
 	@Import("color")
-	void rs$setTextColor(int textColor);
+	@Override
+	RSWidget setTextColor(int textColor);
 
 	@Import("transparencyTop")
 	@Override
 	int getOpacity();
 
 	@Import("transparencyTop")
-	void rs$setOpacity(int opacity);
+	@Override
+	RSWidget setOpacity(int opacity);
 
 	@Import("x")
 	@Override
@@ -171,7 +178,8 @@ public interface RSWidget extends Widget
 	boolean isSelfHidden();
 
 	@Import("isHidden")
-	void rs$setHidden(boolean hidden);
+	@Override
+	RSWidget setHidden(boolean hidden);
 
 	@Import("childIndex")
 	int getIndex();
@@ -184,34 +192,39 @@ public interface RSWidget extends Widget
 	int getRotationX();
 
 	@Import("modelAngleX")
-	void rs$setRotationX(int rotationX);
+	@Override
+	RSWidget setRotationX(int rotationX);
 
 	@Import("modelAngleZ") // Do not change
 	@Override
 	int getRotationY();
 
 	@Import("modelAngleZ") // Do not change
-	void rs$setRotationY(int rotationY);
+	@Override
+	RSWidget setRotationY(int rotationY);
 
 	@Import("modelAngleY") // Do not change
 	int getRotationZ();
 
 	@Import("modelAngleY") // Do not change
-	void rs$setRotationZ(int rotationZ);
+	@Override
+	RSWidget setRotationZ(int rotationZ);
 
 	@Import("modelZoom")
 	@Override
 	int getModelZoom();
 
 	@Import("modelZoom")
-	void rs$setModelZoom(int modelZoom);
+	@Override
+	RSWidget setModelZoom(int modelZoom);
 
 	@Import("contentType")
 	@Override
 	int getContentType();
 
 	@Import("contentType")
-	void rs$setContentType(int contentType);
+	@Override
+	RSWidget setContentType(int contentType);
 
 	@Import("type")
 	@Override
@@ -230,42 +243,48 @@ public interface RSWidget extends Widget
 	int getScrollX();
 
 	@Import("scrollX")
-	void rs$setScrollX(int scrollX);
+	@Override
+	RSWidget setScrollX(int scrollX);
 
 	@Import("scrollY")
 	@Override
 	int getScrollY();
 
 	@Import("scrollY")
-	void rs$setScrollY(int scrollY);
+	@Override
+	RSWidget setScrollY(int scrollY);
 
 	@Import("scrollWidth")
 	@Override
 	int getScrollWidth();
 
 	@Import("scrollWidth")
-	void rs$setScrollWidth(int width);
+	@Override
+	RSWidget setScrollWidth(int width);
 
 	@Import("scrollHeight")
 	@Override
 	int getScrollHeight();
 
 	@Import("scrollHeight")
-	void rs$setScrollHeight(int height);
+	@Override
+	RSWidget setScrollHeight(int height);
 
 	@Import("spriteId2")
 	@Override
 	int getSpriteId();
 
 	@Import("spriteId2")
-	void rs$setSpriteId(int spriteId);
+	@Override
+	RSWidget setSpriteId(int spriteId);
 
 	@Import("spriteTiling")
 	@Override
 	boolean getSpriteTiling();
 
 	@Import("spriteTiling")
-	void rs$setSpriteTiling(boolean tiling);
+	@Override
+	RSWidget setSpriteTiling(boolean tiling);
 
 	@Import("outline")
 	@Override
@@ -280,42 +299,48 @@ public interface RSWidget extends Widget
 	int getItemId();
 
 	@Import("itemId")
-	void rs$setItemId(int itemId);
+	@Override
+	RSWidget setItemId(int itemId);
 
 	@Import("itemQuantity")
 	@Override
 	int getItemQuantity();
 
 	@Import("itemQuantity")
-	void rs$setItemQuantity(int quantity);
+	@Override
+	RSWidget setItemQuantity(int quantity);
 
 	@Import("rawX")
 	@Override
 	int getOriginalX();
 
 	@Import("rawX")
-	void rs$setOriginalX(int originalX);
+	@Override
+	RSWidget setOriginalX(int originalX);
 
 	@Import("rawY")
 	@Override
 	int getOriginalY();
 
 	@Import("rawY")
-	void rs$setOriginalY(int originalY);
+	@Override
+	RSWidget setOriginalY(int originalY);
 
 	@Import("rawHeight")
 	@Override
 	int getOriginalHeight();
 
 	@Import("rawHeight")
-	void rs$setOriginalHeight(int originalHeight);
+	@Override
+	RSWidget setOriginalHeight(int originalHeight);
 
 	@Import("rawWidth")
 	@Override
 	int getOriginalWidth();
 
 	@Import("rawWidth")
-	void rs$setOriginalWidth(int originalWidth);
+	@Override
+	RSWidget setOriginalWidth(int originalWidth);
 
 	@Import("paddingX")
 	int getPaddingX();
@@ -352,7 +377,8 @@ public interface RSWidget extends Widget
 	boolean hasListener();
 
 	@Import("hasListener")
-	void rs$setHasListener(boolean hasListener);
+	@Override
+	RSWidget setHasListener(boolean hasListener);
 
 	@Import("onKey")
 	@Override
@@ -403,14 +429,16 @@ public interface RSWidget extends Widget
 	int getFontId();
 
 	@Import("fontId")
-	void rs$setFontId(int id);
+	@Override
+	RSWidget setFontId(int id);
 
 	@Import("textShadowed")
 	@Override
 	boolean getTextShadowed();
 
 	@Import("textShadowed")
-	void rs$setTextShadowed(boolean shadowed);
+	@Override
+	RSWidget setTextShadowed(boolean shadowed);
 
 	@Import("dragZoneSize")
 	@Override
@@ -433,49 +461,56 @@ public interface RSWidget extends Widget
 	int getItemQuantityMode();
 
 	@Import("itemQuantityMode")
-	void rs$setItemQuantityMode(int itemQuantityMode);
+	@Override
+	RSWidget setItemQuantityMode(int itemQuantityMode);
 
 	@Import("xAlignment")
 	@Override
 	int getXPositionMode();
 
 	@Import("xAlignment")
-	void rs$setXPositionMode(int xpm);
+	@Override
+	RSWidget setXPositionMode(int xpm);
 
 	@Import("yAlignment")
 	@Override
 	int getYPositionMode();
 
 	@Import("yAlignment")
-	void rs$setYPositionMode(int ypm);
+	@Override
+	RSWidget setYPositionMode(int ypm);
 
 	@Import("textXAlignment")
 	@Override
 	int getXTextAlignment();
 
 	@Import("textXAlignment")
-	void rs$setXTextAlignment(int xta);
+	@Override
+	RSWidget setXTextAlignment(int xta);
 
 	@Import("textYAlignment")
 	@Override
 	int getYTextAlignment();
 
 	@Import("textYAlignment")
-	void rs$setYTextAlignment(int yta);
+	@Override
+	RSWidget setYTextAlignment(int yta);
 
 	@Import("widthAlignment")
 	@Override
 	int getWidthMode();
 
 	@Import("widthAlignment")
-	void rs$setWidthMode(int widthMode);
+	@Override
+	RSWidget setWidthMode(int widthMode);
 
 	@Import("heightAlignment")
 	@Override
 	int getHeightMode();
 
 	@Import("heightAlignment")
-	void rs$setHeightMode(int heightMode);
+	@Override
+	RSWidget setHeightMode(int heightMode);
 
 	@Import("getFont")
 	@Override
@@ -486,7 +521,8 @@ public interface RSWidget extends Widget
 	boolean isFilled();
 
 	@Import("fill")
-	void rs$setFilled(boolean filled);
+	@Override
+	RSWidget setFilled(boolean filled);
 
 	@Import("spellActionName")
 	@Override
@@ -558,7 +594,8 @@ public interface RSWidget extends Widget
 	RSWidget getDragParent();
 
 	@Import("parent")
-	void rs$setDragParent(Widget dragParent);
+	@Override
+	RSWidget setDragParent(Widget dragParent);
 
 	@Import("onVarTransmit")
 	@Override
@@ -575,7 +612,8 @@ public interface RSWidget extends Widget
 	int getLineHeight();
 
 	@Import("textLineHeight")
-	void rs$setLineHeight(int height);
+	@Override
+	RSWidget setLineHeight(int height);
 
 	void broadcastHidden(boolean hidden);
 }
