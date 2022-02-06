@@ -26,13 +26,16 @@ package net.runelite.client;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.common.base.Strings;
+import com.google.common.math.DoubleMath;
 import com.google.gson.Gson;
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
+import com.google.inject.binder.ConstantBindingBuilder;
 import com.google.inject.name.Names;
 import com.openosrs.client.config.OpenOSRSConfig;
 import java.applet.Applet;
 import java.io.File;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -69,6 +72,7 @@ public class RuneLiteModule extends AbstractModule
 {
 	private final OkHttpClient okHttpClient;
 	private final Supplier<Applet> clientLoader;
+	private final Supplier<RuntimeConfig> configSupplier;
 	private final boolean developerMode;
 	private final boolean safeMode;
 	private final File sessionfile;
@@ -77,12 +81,40 @@ public class RuneLiteModule extends AbstractModule
 	@Override
 	protected void configure()
 	{
+		// bind properties
 		Properties properties = RuneLiteProperties.getProperties();
 		for (String key : properties.stringPropertyNames())
 		{
 			String value = properties.getProperty(key);
 			bindConstant().annotatedWith(Names.named(key)).to(value);
 		}
+
+		// bind runtime config
+		RuntimeConfig runtimeConfig = configSupplier.get();
+		if (runtimeConfig != null && runtimeConfig.getProps() != null)
+		{
+			for (Map.Entry<String, ?> entry : runtimeConfig.getProps().entrySet())
+			{
+				if (entry.getValue() instanceof String)
+				{
+					ConstantBindingBuilder binder = bindConstant().annotatedWith(Names.named(entry.getKey()));
+					binder.to((String) entry.getValue());
+				}
+				else if (entry.getValue() instanceof Double)
+				{
+					ConstantBindingBuilder binder = bindConstant().annotatedWith(Names.named(entry.getKey()));
+					if (DoubleMath.isMathematicalInteger((double) entry.getValue()))
+					{
+						binder.to((int) (double) entry.getValue());
+					}
+					else
+					{
+						binder.to((double) entry.getValue());
+					}
+				}
+			}
+		}
+
 		bindConstant().annotatedWith(Names.named("developerMode")).to(developerMode);
 		bindConstant().annotatedWith(Names.named("safeMode")).to(safeMode);
 		bind(File.class).annotatedWith(Names.named("sessionfile")).toInstance(sessionfile);
@@ -120,6 +152,13 @@ public class RuneLiteModule extends AbstractModule
 	Client provideClient(@Nullable Applet applet)
 	{
 		return applet instanceof Client ? (Client) applet : null;
+	}
+
+	@Provides
+	@Singleton
+	RuntimeConfig provideRuntimeConfig()
+	{
+		return configSupplier.get();
 	}
 
 	@Provides

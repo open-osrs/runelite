@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
+ * Copyright (c) 2022, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,50 +22,14 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins;
+package net.runelite.client;
 
-import com.google.inject.Binder;
-import com.google.inject.Injector;
-import com.google.inject.Module;
-import lombok.Getter;
-import org.pf4j.ExtensionPoint;
+import java.util.Collections;
+import java.util.Map;
+import lombok.Data;
 
-public abstract class Plugin implements Module, ExtensionPoint
+@Data
+public class RuntimeConfig
 {
-	@Getter
-	protected Injector injector;
-
-	@Override
-	public final int hashCode()
-	{
-		return super.hashCode();
-	}
-
-	@Override
-	public final boolean equals(Object obj)
-	{
-		return super.equals(obj);
-	}
-
-	@Override
-	public void configure(Binder binder)
-	{
-	}
-
-	protected void startUp() throws Exception
-	{
-	}
-
-	protected void shutDown() throws Exception
-	{
-	}
-
-	public void resetConfiguration()
-	{
-	}
-
-	public String getName()
-	{
-		return getClass().getAnnotation(PluginDescriptor.class).name();
-	}
+	private Map<String, ?> props = Collections.emptyMap();
 }
