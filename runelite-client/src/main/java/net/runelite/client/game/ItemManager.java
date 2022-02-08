@@ -176,7 +176,7 @@ public class ItemManager
 
 	@Inject
 	public ItemManager(Client client, ScheduledExecutorService scheduledExecutorService, ClientThread clientThread,
-					   ItemClient itemClient, RuneLiteConfig runeLiteConfig)
+						ItemClient itemClient, RuneLiteConfig runeLiteConfig)
 	{
 		this.client = client;
 		this.clientThread = clientThread;
