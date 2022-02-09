@@ -86,7 +86,7 @@ public class DynamicObject extends Renderable {
 			}
 
 			if (var8 && this.sequenceDefinition.frameCount != -1) { // L: 38
-				if (!this.sequenceDefinition.method3600()) { // L: 39
+				if (!this.sequenceDefinition.isCachedModelIdSet()) { // L: 39
 					this.frame = (int)(Math.random() * (double)this.sequenceDefinition.frameIds.length); // L: 40
 					this.cycleStart -= (int)(Math.random() * (double)this.sequenceDefinition.frameLengths[this.frame]); // L: 41
 				} else {
@@ -111,7 +111,7 @@ public class DynamicObject extends Renderable {
 				var1 = 100;
 			}
 
-			if (this.sequenceDefinition.method3600()) { // L: 54
+			if (this.sequenceDefinition.isCachedModelIdSet()) { // L: 54
 				var2 = this.sequenceDefinition.method3637(); // L: 68
 				this.frame += var1; // L: 69
 				var1 = 0; // L: 70
