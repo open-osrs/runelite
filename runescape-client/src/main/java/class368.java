@@ -1,60 +1,50 @@
-import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import net.runelite.mapping.ObfuscatedGetter;
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("nr")
+@ObfuscatedName("np")
 public class class368 {
-	@ObfuscatedName("c")
-	float[] field4212;
-	@ObfuscatedName("b")
-	@ObfuscatedGetter(
-		intValue = -219137761
+	@ObfuscatedName("e")
+	@ObfuscatedSignature(
+		descriptor = "(S)[Lpd;",
+		garbageValue = "12112"
 	)
-	int field4211;
-
-	class368(float[] var1, int var2) {
-		this.field4212 = var1;
-		this.field4211 = var2;
+	@Export("FillMode_values")
+	public static FillMode[] FillMode_values() {
+		return new FillMode[]{FillMode.field4588, FillMode.SOLID, FillMode.field4591}; // L: 15
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("hx")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-719426176"
+		descriptor = "(ZLpc;I)V",
+		garbageValue = "89997932"
 	)
-	public static void method6744() {
-		try {
-			File var0 = new File(class409.userHomeDirectory, "random.dat");
-			int var2;
-			if (var0.exists()) {
-				JagexCache.JagexCache_randomDat = new BufferedFile(new AccessFile(var0, "rw", 25L), 24, 0);
-			} else {
-				label36:
-				for (int var1 = 0; var1 < BufferedSource.cacheSubPaths.length; ++var1) {
-					for (var2 = 0; var2 < UserComparator3.cacheParentPaths.length; ++var2) {
-						File var3 = new File(UserComparator3.cacheParentPaths[var2] + BufferedSource.cacheSubPaths[var1] + File.separatorChar + "random.dat");
-						if (var3.exists()) {
-							JagexCache.JagexCache_randomDat = new BufferedFile(new AccessFile(var3, "rw", 25L), 24, 0);
-							break label36;
-						}
-					}
+	@Export("updateNpcs")
+	static final void updateNpcs(boolean var0, PacketBuffer var1) {
+		Client.field625 = 0; // L: 7561
+		Client.field548 = 0; // L: 7562
+		SecureRandomCallable.method2059(); // L: 7563
+		class20.method290(var0, var1); // L: 7564
+		class142.method2952(var1); // L: 7565
+
+		int var2;
+		for (var2 = 0; var2 < Client.field625; ++var2) { // L: 7566
+			int var3 = Client.field683[var2]; // L: 7567
+			if (Client.npcs[var3].npcCycle != Client.cycle) { // L: 7568
+				Client.npcs[var3].definition = null; // L: 7569
+				Client.npcs[var3] = null; // L: 7570
+			}
+		}
+
+		if (var1.offset != Client.packetWriter.serverPacketLength) { // L: 7573
+			throw new RuntimeException(var1.offset + "," + Client.packetWriter.serverPacketLength);
+		} else {
+			for (var2 = 0; var2 < Client.npcCount; ++var2) { // L: 7574
+				if (Client.npcs[Client.npcIndices[var2]] == null) { // L: 7575
+					throw new RuntimeException(var2 + "," + Client.npcCount); // L: 7576
 				}
 			}
 
-			if (JagexCache.JagexCache_randomDat == null) {
-				RandomAccessFile var4 = new RandomAccessFile(var0, "rw");
-				var2 = var4.read();
-				var4.seek(0L);
-				var4.write(var2);
-				var4.seek(0L);
-				var4.close();
-				JagexCache.JagexCache_randomDat = new BufferedFile(new AccessFile(var0, "rw", 25L), 24, 0);
-			}
-		} catch (IOException var5) {
 		}
-
-	}
+	} // L: 7579
 }

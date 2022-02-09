@@ -1,82 +1,79 @@
-import java.awt.FontMetrics;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dh")
+@ObfuscatedName("di")
 public enum class114 implements MouseWheel {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Ldh;"
+		descriptor = "Ldi;"
 	)
-	field1390(0, 0),
-	@ObfuscatedName("b")
+	field1408(0, 0),
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Ldh;"
+		descriptor = "Ldi;"
 	)
-	field1383(1, 1),
-	@ObfuscatedName("p")
-	@ObfuscatedSignature(
-		descriptor = "Ldh;"
-	)
-	field1384(2, 2),
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		descriptor = "Ldh;"
-	)
-	field1391(3, 3),
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		descriptor = "Ldh;"
-	)
-	field1386(4, 4);
-
-	@ObfuscatedName("r")
-	public static short[][] field1382;
-	@ObfuscatedName("ax")
-	@Export("loginScreenFontMetrics")
-	static FontMetrics loginScreenFontMetrics;
-	@ObfuscatedName("gl")
-	@ObfuscatedSignature(
-		descriptor = "Llx;"
-	)
-	@Export("fontPlain12")
-	static Font fontPlain12;
+	field1409(1, 1),
 	@ObfuscatedName("s")
-	@ObfuscatedGetter(
-		intValue = -401638189
+	@ObfuscatedSignature(
+		descriptor = "Ldi;"
 	)
-	final int field1387;
-	@ObfuscatedName("j")
-	@ObfuscatedGetter(
-		intValue = 733610371
+	field1410(2, 2),
+	@ObfuscatedName("e")
+	@ObfuscatedSignature(
+		descriptor = "Ldi;"
 	)
-	final int field1388;
+	field1413(3, 3),
+	@ObfuscatedName("r")
+	@ObfuscatedSignature(
+		descriptor = "Ldi;"
+	)
+	field1412(4, 4);
+
+	@ObfuscatedName("o")
+	@ObfuscatedGetter(
+		intValue = -2088995773
+	)
+	final int field1411;
+	@ObfuscatedName("i")
+	@ObfuscatedGetter(
+		intValue = 1603954707
+	)
+	final int field1414;
 
 	class114(int var3, int var4) {
-		this.field1387 = var3;
-		this.field1388 = var4;
-	}
+		this.field1411 = var3; // L: 141
+		this.field1414 = var4; // L: 142
+	} // L: 143
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "48"
+		descriptor = "(I)I",
+		garbageValue = "-303340189"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field1388;
+		return this.field1414; // L: 146
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "1912506868"
+		descriptor = "(II)F",
+		garbageValue = "-1896502825"
 	)
-	public static int method2629(int var0) {
-		long var2 = ViewportMouse.ViewportMouse_entityTags[var0];
-		int var1 = (int)(var2 >>> 14 & 3L);
-		return var1;
+	public static float method2609(int var0) {
+		var0 &= 16383; // L: 24
+		return (float)(6.283185307179586D * (double)((float)var0 / 16384.0F)); // L: 25
+	}
+
+	@ObfuscatedName("w")
+	@ObfuscatedSignature(
+		descriptor = "(S)Lbi;",
+		garbageValue = "13401"
+	)
+	@Export("getNextWorldListWorld")
+	static World getNextWorldListWorld() {
+		return World.World_listCount < World.World_count ? class33.World_worlds[++World.World_listCount - 1] : null; // L: 252 253
 	}
 }

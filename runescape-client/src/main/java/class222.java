@@ -2,12 +2,12 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hc")
+@ObfuscatedName("hi")
 public class class222 {
-	@ObfuscatedName("rj")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		descriptor = "Lej;"
+		descriptor = "Lkq;"
 	)
-	@Export("guestClanSettings")
-	static ClanSettings guestClanSettings;
+	@Export("Widget_fontsArchive")
+	public static AbstractArchive Widget_fontsArchive;
 }

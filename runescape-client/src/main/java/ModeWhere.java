@@ -6,159 +6,165 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lq")
+@ObfuscatedName("ll")
 @Implements("ModeWhere")
 public enum ModeWhere implements MouseWheel {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Llq;"
+		descriptor = "Lll;"
 	)
-	field3948("", 0, new class313[]{class313.field3915}),
-	@ObfuscatedName("b")
+	field3995("", 0, new class318[]{class318.field3975}),
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Llq;"
+		descriptor = "Lll;"
 	)
-	field3940("", 1, new class313[]{class313.field3917, class313.field3915}),
-	@ObfuscatedName("p")
-	@ObfuscatedSignature(
-		descriptor = "Llq;"
-	)
-	field3938("", 2, new class313[]{class313.field3917, class313.field3916, class313.field3915}),
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		descriptor = "Llq;"
-	)
-	field3939("", 3, new class313[]{class313.field3917}),
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		descriptor = "Llq;"
-	)
-	field3955("", 4),
+	field3992("", 1, new class318[]{class318.field3973, class318.field3975}),
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Llq;"
+		descriptor = "Lll;"
 	)
-	field3941("", 5, new class313[]{class313.field3917, class313.field3915}),
-	@ObfuscatedName("j")
+	field3993("", 2, new class318[]{class318.field3973, class318.field3974, class318.field3975}),
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "Llq;"
+		descriptor = "Lll;"
 	)
-	field3943("", 6, new class313[]{class313.field3915}),
-	@ObfuscatedName("w")
-	@ObfuscatedSignature(
-		descriptor = "Llq;"
-	)
-	field3937("", 8, new class313[]{class313.field3917, class313.field3915}),
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "Llq;"
-	)
-	field3944("", 9, new class313[]{class313.field3917, class313.field3916}),
+	field3994("", 3, new class318[]{class318.field3973}),
 	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		descriptor = "Llq;"
+		descriptor = "Lll;"
 	)
-	field3945("", 10, new class313[]{class313.field3917}),
+	field3991("", 4),
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Llq;"
+		descriptor = "Lll;"
 	)
-	field3947("", 11, new class313[]{class313.field3917}),
+	field4007("", 5, new class318[]{class318.field3973, class318.field3975}),
+	@ObfuscatedName("i")
+	@ObfuscatedSignature(
+		descriptor = "Lll;"
+	)
+	field3997("", 6, new class318[]{class318.field3975}),
+	@ObfuscatedName("w")
+	@ObfuscatedSignature(
+		descriptor = "Lll;"
+	)
+	field3998("", 8, new class318[]{class318.field3973, class318.field3975}),
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Llq;"
+		descriptor = "Lll;"
 	)
-	field3942("", 12, new class313[]{class313.field3917, class313.field3915}),
-	@ObfuscatedName("d")
+	field4001("", 9, new class318[]{class318.field3973, class318.field3974}),
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "Llq;"
+		descriptor = "Lll;"
 	)
-	field3936("", 13, new class313[]{class313.field3917});
-
-	@ObfuscatedName("sl")
-	@ObfuscatedGetter(
-		intValue = -1096965871
+	field4000("", 10, new class318[]{class318.field3973}),
+	@ObfuscatedName("y")
+	@ObfuscatedSignature(
+		descriptor = "Lll;"
 	)
-	static int field3951;
-	@ObfuscatedName("cr")
-	public static char field3954;
-	@ObfuscatedName("ms")
-	@ObfuscatedGetter(
-		intValue = -936877643
+	field3996("", 11, new class318[]{class318.field3973}),
+	@ObfuscatedName("u")
+	@ObfuscatedSignature(
+		descriptor = "Lll;"
 	)
-	@Export("menuX")
-	static int menuX;
+	field4002("", 12, new class318[]{class318.field3973, class318.field3975}),
 	@ObfuscatedName("h")
+	@ObfuscatedSignature(
+		descriptor = "Lll;"
+	)
+	field3999("", 13, new class318[]{class318.field3973});
+
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -91884081
+		intValue = -824392411
 	)
 	@Export("id")
 	final int id;
-	@ObfuscatedName("g")
-	final Set field3950;
+	@ObfuscatedName("x")
+	final Set field4005;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;I[Llp;)V"
+		descriptor = "(Ljava/lang/String;I[Llx;)V"
 	)
-	ModeWhere(String var3, int var4, class313[] var5) {
-		this.field3950 = new HashSet();
-		this.id = var4;
-		class313[] var6 = var5;
+	ModeWhere(String var3, int var4, class318[] var5) {
+		this.field4005 = new HashSet();
+		this.id = var4; // L: 39
+		class318[] var6 = var5; // L: 41
 
-		for (int var7 = 0; var7 < var6.length; ++var7) {
-			class313 var8 = var6[var7];
-			this.field3950.add(var8);
+		for (int var7 = 0; var7 < var6.length; ++var7) { // L: 42
+			class318 var8 = var6[var7]; // L: 43
+			this.field4005.add(var8); // L: 44
 		}
 
 	}
 
 	ModeWhere(String var3, int var4) {
-		this.field3950 = new HashSet();
-		this.id = var4;
-	}
+		this.field4005 = new HashSet(); // L: 32
+		this.id = var4; // L: 35
+	} // L: 36
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "48"
+		descriptor = "(I)I",
+		garbageValue = "-303340189"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.id;
+		return this.id; // L: 51
 	}
 
-	@ObfuscatedName("ht")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(IIIB)V",
-		garbageValue = "14"
+		descriptor = "(Lkq;Lkq;Lkq;I)V",
+		garbageValue = "-505919587"
 	)
-	@Export("worldToScreen")
-	static final void worldToScreen(int var0, int var1, int var2) {
-		if (var0 >= 128 && var1 >= 128 && var0 <= 13056 && var1 <= 13056) {
-			int var3 = FaceNormal.getTileHeight(var0, var1, class20.Client_plane) - var2;
-			var0 -= UserComparator7.cameraX;
-			var3 -= AbstractByteArrayCopier.cameraY;
-			var1 -= UserComparator10.cameraZ;
-			int var4 = Rasterizer3D.Rasterizer3D_sine[UserComparator7.cameraPitch];
-			int var5 = Rasterizer3D.Rasterizer3D_cosine[UserComparator7.cameraPitch];
-			int var6 = Rasterizer3D.Rasterizer3D_sine[class379.cameraYaw];
-			int var7 = Rasterizer3D.Rasterizer3D_cosine[class379.cameraYaw];
-			int var8 = var6 * var1 + var0 * var7 >> 16;
-			var1 = var7 * var1 - var0 * var6 >> 16;
-			var0 = var8;
-			var8 = var5 * var3 - var4 * var1 >> 16;
-			var1 = var5 * var1 + var4 * var3 >> 16;
-			if (var1 >= 50) {
-				Client.viewportTempX = var0 * Client.viewportZoom / var1 + Client.viewportWidth / 2;
-				Client.viewportTempY = var8 * Client.viewportZoom / var1 + Client.viewportHeight / 2;
-			} else {
-				Client.viewportTempX = -1;
-				Client.viewportTempY = -1;
-			}
+	public static void method5816(AbstractArchive var0, AbstractArchive var1, AbstractArchive var2) {
+		class377.SequenceDefinition_archive = var0; // L: 46
+		WorldMapData_0.SequenceDefinition_animationsArchive = var1; // L: 47
+		SequenceDefinition.SequenceDefinition_skeletonsArchive = var2; // L: 48
+	} // L: 49
 
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		descriptor = "(III)Ljz;",
+		garbageValue = "1578285523"
+	)
+	@Export("getWidgetChild")
+	public static Widget getWidgetChild(int var0, int var1) {
+		Widget var2 = class130.getWidget(var0); // L: 200
+		if (var1 == -1) { // L: 201
+			return var2;
 		} else {
-			Client.viewportTempX = -1;
-			Client.viewportTempY = -1;
+			return var2 != null && var2.children != null && var1 < var2.children.length ? var2.children[var1] : null; // L: 202 203
 		}
 	}
+
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		descriptor = "(S)V",
+		garbageValue = "3770"
+	)
+	static void method5819() {
+		if (Login.clearLoginScreen) { // L: 275
+			Login.titleboxSprite = null; // L: 276
+			class259.titlebuttonSprite = null; // L: 277
+			Login.runesSprite = null; // L: 278
+			class260.leftTitleSprite = null; // L: 279
+			FriendSystem.rightTitleSprite = null; // L: 280
+			class28.logoSprite = null; // L: 281
+			class371.title_muteSprite = null; // L: 282
+			Script.options_buttons_0Sprite = null; // L: 283
+			class1.options_buttons_2Sprite = null; // L: 284
+			WorldMapRectangle.worldSelectBackSprites = null; // L: 285
+			Occluder.worldSelectFlagSprites = null; // L: 286
+			VertexNormal.worldSelectArrows = null; // L: 287
+			Archive.worldSelectStars = null; // L: 288
+			Coord.field3230 = null; // L: 289
+			Login.loginScreenRunesAnimation.method2208(); // L: 290
+			class259.method4998(2); // L: 291
+			UserComparator4.method2434(true); // L: 292
+			Login.clearLoginScreen = false; // L: 293
+		}
+	} // L: 294
 }

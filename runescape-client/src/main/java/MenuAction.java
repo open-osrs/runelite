@@ -4,100 +4,62 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bb")
+@ObfuscatedName("bh")
 @Implements("MenuAction")
 public class MenuAction {
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 120335157
+		intValue = 683087729
 	)
 	@Export("param0")
 	int param0;
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 175747701
+		intValue = -1027855045
 	)
 	@Export("param1")
 	int param1;
-	@ObfuscatedName("p")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = 1628688501
+		intValue = 791610257
 	)
 	@Export("opcode")
 	int opcode;
-	@ObfuscatedName("m")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 1421448927
+		intValue = 1555115433
 	)
 	@Export("identifier")
 	int identifier;
-	@ObfuscatedName("t")
+	@ObfuscatedName("r")
 	@Export("action")
 	String action;
 
 	MenuAction() {
-	}
+	} // L: 12200
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		descriptor = "(Lkq;IIIZB)V",
+		garbageValue = "-93"
+	)
+	public static void method1894(AbstractArchive var0, int var1, int var2, int var3, boolean var4) {
+		class265.musicPlayerStatus = 1; // L: 34
+		class265.musicTrackArchive = var0; // L: 35
+		class265.musicTrackGroupId = var1; // L: 36
+		class140.musicTrackFileId = var2; // L: 37
+		class167.musicTrackVolume = var3; // L: 38
+		MusicPatch.musicTrackBoolean = var4; // L: 39
+		GrandExchangeOfferNameComparator.pcmSampleLength = 10000; // L: 40
+	} // L: 41
+
+	@ObfuscatedName("lv")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "1427914294"
+		garbageValue = "-1125693830"
 	)
-	public static void method1961() {
-		synchronized(MouseHandler.MouseHandler_instance) {
-			MouseHandler.MouseHandler_currentButton = MouseHandler.MouseHandler_currentButtonVolatile;
-			MouseHandler.MouseHandler_x = MouseHandler.MouseHandler_xVolatile;
-			MouseHandler.MouseHandler_y = MouseHandler.MouseHandler_yVolatile;
-			MouseHandler.MouseHandler_millis = MouseHandler.MouseHandler_lastMovedVolatile;
-			MouseHandler.MouseHandler_lastButton = MouseHandler.MouseHandler_lastButtonVolatile;
-			MouseHandler.MouseHandler_lastPressedX = MouseHandler.MouseHandler_lastPressedXVolatile;
-			MouseHandler.MouseHandler_lastPressedY = MouseHandler.MouseHandler_lastPressedYVolatile;
-			MouseHandler.MouseHandler_lastPressedTimeMillis = MouseHandler.MouseHandler_lastPressedTimeMillisVolatile;
-			MouseHandler.MouseHandler_lastButtonVolatile = 0;
-		}
-	}
-
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		descriptor = "(IB)J",
-		garbageValue = "33"
-	)
-	public static long method1960(int var0) {
-		return ViewportMouse.ViewportMouse_entityTags[var0];
-	}
-
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		descriptor = "(IIII)V",
-		garbageValue = "-1808275608"
-	)
-	static final void method1959(int var0, int var1, int var2) {
-		int var3;
-		for (var3 = 0; var3 < 8; ++var3) {
-			for (int var4 = 0; var4 < 8; ++var4) {
-				Tiles.Tiles_heights[var0][var3 + var1][var4 + var2] = 0;
-			}
-		}
-
-		if (var1 > 0) {
-			for (var3 = 1; var3 < 8; ++var3) {
-				Tiles.Tiles_heights[var0][var1][var3 + var2] = Tiles.Tiles_heights[var0][var1 - 1][var3 + var2];
-			}
-		}
-
-		if (var2 > 0) {
-			for (var3 = 1; var3 < 8; ++var3) {
-				Tiles.Tiles_heights[var0][var3 + var1][var2] = Tiles.Tiles_heights[var0][var3 + var1][var2 - 1];
-			}
-		}
-
-		if (var1 > 0 && Tiles.Tiles_heights[var0][var1 - 1][var2] != 0) {
-			Tiles.Tiles_heights[var0][var1][var2] = Tiles.Tiles_heights[var0][var1 - 1][var2];
-		} else if (var2 > 0 && Tiles.Tiles_heights[var0][var1][var2 - 1] != 0) {
-			Tiles.Tiles_heights[var0][var1][var2] = Tiles.Tiles_heights[var0][var1][var2 - 1];
-		} else if (var1 > 0 && var2 > 0 && Tiles.Tiles_heights[var0][var1 - 1][var2 - 1] != 0) {
-			Tiles.Tiles_heights[var0][var1][var2] = Tiles.Tiles_heights[var0][var1 - 1][var2 - 1];
-		}
-
-	}
+	static void method1895() {
+		class424.clientPreferences.field1231 = Client.field699; // L: 12164
+		GameEngine.savePreferences(); // L: 12165
+	} // L: 12166
 }

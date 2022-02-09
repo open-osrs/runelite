@@ -1,122 +1,84 @@
-import java.awt.image.BufferedImage;
-import java.awt.image.PixelGrabber;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import javax.imageio.ImageIO;
+import java.util.Iterator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cd")
+@ObfuscatedName("cu")
 @Implements("MouseRecorder")
 public class MouseRecorder implements Runnable {
-	@ObfuscatedName("j")
-	@ObfuscatedSignature(
-		descriptor = "[[Ljm;"
-	)
-	@Export("Widget_interfaceComponents")
-	public static Widget[][] Widget_interfaceComponents;
-	@ObfuscatedName("ay")
-	@ObfuscatedSignature(
-		descriptor = "Lme;"
-	)
-	static Bounds field1044;
 	@ObfuscatedName("c")
 	@Export("isRunning")
 	boolean isRunning;
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@Export("lock")
 	Object lock;
-	@ObfuscatedName("p")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = 1539237497
+		intValue = 28944215
 	)
 	@Export("index")
 	int index;
-	@ObfuscatedName("m")
+	@ObfuscatedName("e")
 	@Export("xs")
 	int[] xs;
-	@ObfuscatedName("t")
+	@ObfuscatedName("r")
 	@Export("ys")
 	int[] ys;
-	@ObfuscatedName("s")
+	@ObfuscatedName("o")
 	@Export("millis")
 	long[] millis;
 
 	MouseRecorder() {
-		this.isRunning = true;
-		this.lock = new Object();
-		this.index = 0;
-		this.xs = new int[500];
-		this.ys = new int[500];
-		this.millis = new long[500];
-	}
+		this.isRunning = true; // L: 7
+		this.lock = new Object(); // L: 8
+		this.index = 0; // L: 9
+		this.xs = new int[500]; // L: 10
+		this.ys = new int[500]; // L: 11
+		this.millis = new long[500]; // L: 12
+	} // L: 14
 
 	public void run() {
-		for (; this.isRunning; Bounds.method6608(50L)) {
-			synchronized(this.lock) {
-				if (this.index < 500) {
-					this.xs[this.index] = MouseHandler.MouseHandler_x;
-					this.ys[this.index] = MouseHandler.MouseHandler_y;
-					this.millis[this.index] = MouseHandler.MouseHandler_millis;
-					++this.index;
+		for (; this.isRunning; Language.method5813(50L)) { // L: 18 27
+			synchronized(this.lock) { // L: 19
+				if (this.index < 500) { // L: 20
+					this.xs[this.index] = MouseHandler.MouseHandler_x; // L: 21
+					this.ys[this.index] = MouseHandler.MouseHandler_y; // L: 22
+					this.millis[this.index] = MouseHandler.MouseHandler_millis; // L: 23
+					++this.index; // L: 24
 				}
 			}
 		}
 
-	}
+	} // L: 29
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "([BB)Lpl;",
-		garbageValue = "-5"
+		descriptor = "(B)V",
+		garbageValue = "-122"
 	)
-	public static final SpritePixels method2161(byte[] var0) {
-		BufferedImage var1 = null;
+	public static void method2100() {
+		StructComposition.StructDefinition_cached.clear(); // L: 57
+	} // L: 58
 
-		try {
-			var1 = ImageIO.read(new ByteArrayInputStream(var0));
-			int var2 = var1.getWidth();
-			int var3 = var1.getHeight();
-			int[] var4 = new int[var2 * var3];
-			PixelGrabber var5 = new PixelGrabber(var1, 0, 0, var2, var3, var4, 0, var2);
-			var5.grabPixels();
-			return new SpritePixels(var4, var2, var3);
-		} catch (IOException var7) {
-		} catch (InterruptedException var8) {
+	@ObfuscatedName("kz")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "1953012058"
+	)
+	@Export("FriendSystem_invalidateIgnoreds")
+	static final void FriendSystem_invalidateIgnoreds() {
+		Iterator var0 = Messages.Messages_hashTable.iterator(); // L: 11885
+
+		while (var0.hasNext()) { // L: 11890
+			Message var1 = (Message)var0.next(); // L: 11886
+			var1.clearIsFromIgnored(); // L: 11888
 		}
 
-		return new SpritePixels(0, 0);
-	}
-
-	@ObfuscatedName("p")
-	@ObfuscatedSignature(
-		descriptor = "(IIB)I",
-		garbageValue = "-41"
-	)
-	static int method2160(int var0, int var1) {
-		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0);
-		if (var2 == null) {
-			return 0;
-		} else if (var1 == -1) {
-			return 0;
-		} else {
-			int var3 = 0;
-
-			for (int var4 = 0; var4 < var2.quantities.length; ++var4) {
-				if (var2.ids[var4] == var1) {
-					var3 += var2.quantities[var4];
-				}
-			}
-
-			return var3;
+		if (class67.friendsChat != null) { // L: 11892
+			class67.friendsChat.invalidateIgnoreds(); // L: 11893
 		}
-	}
 
-	@ObfuscatedName("s")
-	public static int method2159(long var0) {
-		return (int)(var0 >>> 0 & 127L);
-	}
+	} // L: 11895
 }

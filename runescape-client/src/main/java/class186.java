@@ -1,68 +1,77 @@
 import net.runelite.mapping.Export;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gm")
+@ObfuscatedName("gd")
 public class class186 {
-	@ObfuscatedName("p")
+	@ObfuscatedName("s")
 	@Export("directions")
 	public static int[][] directions;
-	@ObfuscatedName("m")
+	@ObfuscatedName("e")
 	@Export("distances")
 	public static int[][] distances;
-	@ObfuscatedName("t")
-	@ObfuscatedGetter(
-		intValue = 2119093831
-	)
-	public static int field2129;
-	@ObfuscatedName("s")
-	@ObfuscatedGetter(
-		intValue = -479037751
-	)
-	public static int field2130;
 	@ObfuscatedName("w")
 	@Export("bufferX")
 	public static int[] bufferX;
-	@ObfuscatedName("n")
+	@ObfuscatedName("v")
 	@Export("bufferY")
 	public static int[] bufferY;
-	@ObfuscatedName("r")
-	@ObfuscatedGetter(
-		intValue = -1673283901
+	@ObfuscatedName("cq")
+	@ObfuscatedSignature(
+		descriptor = "Lpg;"
 	)
-	static int field2135;
-	@ObfuscatedName("q")
-	@ObfuscatedGetter(
-		intValue = 1374404947
-	)
-	@Export("canvasWidth")
-	public static int canvasWidth;
+	@Export("worldSelectLeftSprite")
+	static IndexedSprite worldSelectLeftSprite;
 
 	static {
-		directions = new int[128][128];
-		distances = new int[128][128];
+		directions = new int[128][128]; // L: 6
+		distances = new int[128][128]; // L: 7
 		bufferX = new int[4096];
 		bufferY = new int[4096];
 	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(B)[Lfc;",
-		garbageValue = "45"
+		descriptor = "(Ljava/lang/CharSequence;I)I",
+		garbageValue = "1493030738"
 	)
-	static HorizontalAlignment[] method3739() {
-		return new HorizontalAlignment[]{HorizontalAlignment.field1829, HorizontalAlignment.field1826, HorizontalAlignment.HorizontalAlignment_centered};
+	public static int method3692(CharSequence var0) {
+		int var1 = var0.length(); // L: 9
+		int var2 = 0; // L: 10
+
+		for (int var3 = 0; var3 < var1; ++var3) { // L: 11
+			char var4 = var0.charAt(var3); // L: 12
+			if (var4 <= 127) { // L: 13
+				++var2;
+			} else if (var4 <= 2047) { // L: 14
+				var2 += 2;
+			} else {
+				var2 += 3; // L: 15
+			}
+		}
+
+		return var2; // L: 17
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(Lku;Lku;ZI)V",
-		garbageValue = "19498859"
+		descriptor = "(IB)I",
+		garbageValue = "51"
 	)
-	public static void method3740(AbstractArchive var0, AbstractArchive var1, boolean var2) {
-		ObjectComposition.ObjectDefinition_archive = var0;
-		ObjectComposition.ObjectDefinition_modelsArchive = var1;
-		ObjectComposition.ObjectDefinition_isLowDetail = var2;
+	public static int method3690(int var0) {
+		return KeyHandler.method355(ViewportMouse.ViewportMouse_entityTags[var0]); // L: 64
 	}
+
+	@ObfuscatedName("fl")
+	@ObfuscatedSignature(
+		descriptor = "(III)V",
+		garbageValue = "1541497261"
+	)
+	static void method3695(int var0, int var1) {
+		if (class424.clientPreferences.musicVolume != 0 && var0 != -1) { // L: 3465
+			MenuAction.method1894(class252.archive11, var0, 0, class424.clientPreferences.musicVolume, false); // L: 3466
+			Client.field744 = true; // L: 3467
+		}
+
+	} // L: 3469
 }

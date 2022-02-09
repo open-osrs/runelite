@@ -3,73 +3,64 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("eu")
+@ObfuscatedName("er")
 public class class130 extends class126 {
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 70738287
+		intValue = -1690885745
 	)
-	int field1524;
-	@ObfuscatedName("b")
-	byte field1522;
+	int field1541;
+	@ObfuscatedName("l")
+	byte field1540;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lda;"
+		descriptor = "Ldk;"
 	)
 	final class129 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lda;)V"
+		descriptor = "(Ldk;)V"
 	)
 	class130(class129 var1) {
 		this.this$0 = var1;
-		this.field1524 = -1;
-	}
+		this.field1541 = -1; // L: 128
+	} // L: 131
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(Lpi;I)V",
-		garbageValue = "1416770155"
+		garbageValue = "703192976"
 	)
-	void vmethod3029(Buffer var1) {
-		this.field1524 = var1.readUnsignedShort();
-		this.field1522 = var1.readByte();
-	}
+	void vmethod3019(Buffer var1) {
+		this.field1541 = var1.readUnsignedShort(); // L: 134
+		this.field1540 = var1.readByte(); // L: 135
+	} // L: 136
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Lej;I)V",
-		garbageValue = "-1531735008"
+		descriptor = "(Ley;I)V",
+		garbageValue = "750335300"
 	)
-	void vmethod3028(ClanSettings var1) {
-		var1.method2887(this.field1524, this.field1522);
-	}
+	void vmethod3020(ClanSettings var1) {
+		var1.method2857(this.field1541, this.field1540); // L: 139
+	} // L: 140
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "([Lll;IB)Lll;",
-		garbageValue = "5"
+		descriptor = "(IB)Ljz;",
+		garbageValue = "1"
 	)
-	@Export("findEnumerated")
-	public static MouseWheel findEnumerated(MouseWheel[] var0, int var1) {
-		MouseWheel[] var2 = var0;
-
-		for (int var3 = 0; var3 < var2.length; ++var3) {
-			MouseWheel var4 = var2[var3];
-			if (var1 == var4.rsOrdinal()) {
-				return var4;
+	@Export("getWidget")
+	public static Widget getWidget(int var0) {
+		int var1 = var0 >> 16; // L: 190
+		int var2 = var0 & 65535; // L: 191
+		if (Widget.Widget_interfaceComponents[var1] == null || Widget.Widget_interfaceComponents[var1][var2] == null) { // L: 192
+			boolean var3 = class13.loadInterface(var1); // L: 193
+			if (!var3) { // L: 194
+				return null;
 			}
 		}
 
-		return null;
-	}
-
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		descriptor = "(Law;I)V",
-		garbageValue = "1459785075"
-	)
-	public static final void method2795(class47 var0) {
-		class11.pcmPlayerProvider = var0;
+		return Widget.Widget_interfaceComponents[var1][var2]; // L: 196
 	}
 }
