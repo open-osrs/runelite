@@ -94,7 +94,7 @@ public class GraphicsObject extends Renderable {
 	final void advance(int var1) {
 		if (!this.isFinished) { // L: 36
 			this.frameCycle += var1; // L: 37
-			if (!this.sequenceDefinition.method3600()) {
+			if (!this.sequenceDefinition.isCachedModelIdSet()) {
 				while (this.frameCycle > this.sequenceDefinition.frameLengths[this.frame]) {
 					this.frameCycle -= this.sequenceDefinition.frameLengths[this.frame];
 					++this.frame;

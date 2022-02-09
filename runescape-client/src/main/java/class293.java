@@ -81,7 +81,7 @@ public class class293 {
 		if (var0.movementSequence != -1) { // L: 3999
 			var1 = class78.SequenceDefinition_get(var0.movementSequence); // L: 4000
 			if (var1 != null) { // L: 4001
-				if (!var1.method3600() && var1.frameIds != null) { // L: 4002
+				if (!var1.isCachedModelIdSet() && var1.frameIds != null) { // L: 4002
 					++var0.movementFrameCycle; // L: 4003
 					if (var0.movementFrame < var1.frameIds.length && var0.movementFrameCycle > var1.frameLengths[var0.movementFrame]) { // L: 4004
 						var0.movementFrameCycle = 1; // L: 4005
@@ -94,7 +94,7 @@ public class class293 {
 						var0.movementFrame = 0; // L: 4011
 						Projectile.method1958(var1, var0.movementFrame, var0.x, var0.y); // L: 4012
 					}
-				} else if (var1.method3600()) { // L: 4015
+				} else if (var1.isCachedModelIdSet()) { // L: 4015
 					++var0.movementFrame; // L: 4016
 					var2 = var1.method3637(); // L: 4017
 					if (var0.movementFrame < var2) { // L: 4018
@@ -131,7 +131,7 @@ public class class293 {
 					if (var0.spotAnimationFrame >= var5.frameIds.length && (var0.spotAnimationFrame < 0 || var0.spotAnimationFrame >= var5.frameIds.length)) { // L: 4043 4044
 						var0.spotAnimation = -1;
 					}
-				} else if (var5.method3600()) { // L: 4047
+				} else if (var5.isCachedModelIdSet()) { // L: 4047
 					++var0.spotAnimationFrame; // L: 4048
 					int var3 = var5.method3637(); // L: 4049
 					if (var0.spotAnimationFrame < var3) { // L: 4050
@@ -158,7 +158,7 @@ public class class293 {
 		if (var0.sequence != -1 && var0.sequenceDelay == 0) { // L: 4070
 			var1 = class78.SequenceDefinition_get(var0.sequence); // L: 4071
 			if (var1 != null) { // L: 4072
-				if (!var1.method3600() && var1.frameIds != null) { // L: 4073
+				if (!var1.isCachedModelIdSet() && var1.frameIds != null) { // L: 4073
 					++var0.sequenceFrameCycle; // L: 4074
 					if (var0.sequenceFrame < var1.frameIds.length && var0.sequenceFrameCycle > var1.frameLengths[var0.sequenceFrame]) { // L: 4075
 						var0.sequenceFrameCycle = 1; // L: 4076
@@ -179,7 +179,7 @@ public class class293 {
 					}
 
 					var0.isWalking = var1.field2102; // L: 4087
-				} else if (var1.method3600()) { // L: 4089
+				} else if (var1.isCachedModelIdSet()) { // L: 4089
 					++var0.sequenceFrame; // L: 4090
 					var2 = var1.method3602().method2693(); // L: 4091
 					if (var0.sequenceFrame < var2) { // L: 4092
