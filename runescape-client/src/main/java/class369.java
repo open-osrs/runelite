@@ -1,57 +1,40 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("nt")
-public enum class369 implements MouseWheel {
+@ObfuscatedName("nn")
+public class class369 {
 	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		descriptor = "Lnt;"
-	)
-	field4220(1, 1),
-	@ObfuscatedName("b")
-	@ObfuscatedSignature(
-		descriptor = "Lnt;"
-	)
-	field4215(2, 2),
-	@ObfuscatedName("p")
-	@ObfuscatedSignature(
-		descriptor = "Lnt;"
-	)
-	field4216(0, 3),
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		descriptor = "Lnt;"
-	)
-	field4214(3, 10);
-
-	@ObfuscatedName("n")
-	@Export("SpriteBuffer_pixels")
-	public static byte[][] SpriteBuffer_pixels;
-	@ObfuscatedName("t")
-	@ObfuscatedGetter(
-		intValue = 705420457
-	)
-	final int field4218;
+	float field4226;
+	@ObfuscatedName("l")
+	float field4225;
 	@ObfuscatedName("s")
-	@ObfuscatedGetter(
-		intValue = -1652306035
-	)
-	final int field4219;
+	float field4227;
 
-	class369(int var3, int var4) {
-		this.field4218 = var3;
-		this.field4219 = var4;
+	static {
+		new class369(0.0F, 0.0F, 0.0F); // L: 5
+		new class369(1.0F, 1.0F, 1.0F); // L: 9
+		new class369(1.0F, 0.0F, 0.0F); // L: 13
+		new class369(0.0F, 1.0F, 0.0F); // L: 17
+		new class369(0.0F, 0.0F, 1.0F); // L: 21
+		DefaultsGroup.method6589(100); // L: 25
+	} // L: 26
+
+	class369(float var1, float var2, float var3) {
+		this.field4226 = var1; // L: 35
+		this.field4225 = var2; // L: 36
+		this.field4227 = var3; // L: 37
+	} // L: 38
+
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		descriptor = "(B)F",
+		garbageValue = "86"
+	)
+	final float method6638() {
+		return (float)Math.sqrt((double)(this.field4227 * this.field4227 + this.field4226 * this.field4226 + this.field4225 * this.field4225)); // L: 41
 	}
 
-	@ObfuscatedName("b")
-	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "48"
-	)
-	@Export("rsOrdinal")
-	public int rsOrdinal() {
-		return this.field4219;
+	public String toString() {
+		return this.field4226 + ", " + this.field4225 + ", " + this.field4227; // L: 46
 	}
 }

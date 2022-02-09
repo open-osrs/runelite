@@ -1,267 +1,124 @@
-import java.util.Date;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("ko")
+@ObfuscatedName("kr")
 @Implements("StudioGame")
 public enum StudioGame implements MouseWheel {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lko;"
+		descriptor = "Lkr;"
 	)
 	@Export("runescape")
 	runescape("runescape", "RuneScape", 0),
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lko;"
+		descriptor = "Lkr;"
 	)
 	@Export("stellardawn")
 	stellardawn("stellardawn", "Stellar Dawn", 1),
-	@ObfuscatedName("p")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Lko;"
+		descriptor = "Lkr;"
 	)
 	@Export("game3")
 	game3("game3", "Game 3", 2),
-	@ObfuscatedName("m")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "Lko;"
+		descriptor = "Lkr;"
 	)
 	@Export("game4")
 	game4("game4", "Game 4", 3),
-	@ObfuscatedName("t")
+	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		descriptor = "Lko;"
+		descriptor = "Lkr;"
 	)
 	@Export("game5")
 	game5("game5", "Game 5", 4),
-	@ObfuscatedName("s")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Lko;"
+		descriptor = "Lkr;"
 	)
 	@Export("oldscape")
 	oldscape("oldscape", "RuneScape 2007", 5);
 
-	@ObfuscatedName("ba")
-	@ObfuscatedSignature(
-		descriptor = "Lkd;"
-	)
-	static GameBuild field3456;
-	@ObfuscatedName("j")
+	@ObfuscatedName("i")
 	@Export("name")
 	public final String name;
 	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 2093064869
+		intValue = 1751135383
 	)
 	@Export("id")
 	final int id;
 
 	StudioGame(String var3, String var4, int var5) {
-		this.name = var3;
-		this.id = var5;
-	}
+		this.name = var3; // L: 21
+		this.id = var5; // L: 22
+	} // L: 23
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "48"
+		descriptor = "(I)I",
+		garbageValue = "-303340189"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.id;
+		return this.id; // L: 26
 	}
 
-	@ObfuscatedName("am")
+	@ObfuscatedName("hf")
 	@ObfuscatedSignature(
-		descriptor = "(ILbn;ZI)I",
-		garbageValue = "1621243431"
+		descriptor = "(IIB)V",
+		garbageValue = "0"
 	)
-	static int method5500(int var0, Script var1, boolean var2) {
-		String var3;
-		int var9;
-		if (var0 == ScriptOpcodes.APPEND_NUM) {
-			var3 = Interpreter.Interpreter_stringStack[--class13.Interpreter_stringStackSize];
-			var9 = Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize];
-			Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var3 + var9;
-			return 1;
+	@Export("updateItemPile")
+	static final void updateItemPile(int var0, int var1) {
+		NodeDeque var2 = Client.groundItems[SoundSystem.Client_plane][var0][var1]; // L: 7523
+		if (var2 == null) { // L: 7524
+			Decimator.scene.removeGroundItemPile(SoundSystem.Client_plane, var0, var1); // L: 7525
 		} else {
-			String var4;
-			if (var0 == ScriptOpcodes.APPEND) {
-				class13.Interpreter_stringStackSize -= 2;
-				var3 = Interpreter.Interpreter_stringStack[class13.Interpreter_stringStackSize];
-				var4 = Interpreter.Interpreter_stringStack[class13.Interpreter_stringStackSize + 1];
-				Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var3 + var4;
-				return 1;
-			} else if (var0 == ScriptOpcodes.APPEND_SIGNNUM) {
-				var3 = Interpreter.Interpreter_stringStack[--class13.Interpreter_stringStackSize];
-				var9 = Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize];
-				Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var3 + ByteArrayPool.intToString(var9, true);
-				return 1;
-			} else if (var0 == ScriptOpcodes.LOWERCASE) {
-				var3 = Interpreter.Interpreter_stringStack[--class13.Interpreter_stringStackSize];
-				Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var3.toLowerCase();
-				return 1;
-			} else {
-				int var6;
-				int var10;
-				if (var0 == ScriptOpcodes.FROMDATE) {
-					var10 = Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize];
-					long var13 = 86400000L * (11745L + (long)var10);
-					Interpreter.Interpreter_calendar.setTime(new Date(var13));
-					var6 = Interpreter.Interpreter_calendar.get(5);
-					int var17 = Interpreter.Interpreter_calendar.get(2);
-					int var8 = Interpreter.Interpreter_calendar.get(1);
-					Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var6 + "-" + Interpreter.Interpreter_MONTHS[var17] + "-" + var8;
-					return 1;
-				} else if (var0 != ScriptOpcodes.TEXT_GENDER) {
-					if (var0 == ScriptOpcodes.TOSTRING) {
-						var10 = Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize];
-						Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = Integer.toString(var10);
-						return 1;
-					} else if (var0 == ScriptOpcodes.COMPARE) {
-						class13.Interpreter_stringStackSize -= 2;
-						Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = class194.method3926(class144.compareStrings(Interpreter.Interpreter_stringStack[class13.Interpreter_stringStackSize], Interpreter.Interpreter_stringStack[class13.Interpreter_stringStackSize + 1], ScriptFrame.clientLanguage));
-						return 1;
-					} else {
-						int var5;
-						byte[] var11;
-						Font var12;
-						if (var0 == ScriptOpcodes.PARAHEIGHT) {
-							var3 = Interpreter.Interpreter_stringStack[--class13.Interpreter_stringStackSize];
-							IsaacCipher.Interpreter_intStackSize -= 2;
-							var9 = Interpreter.Interpreter_intStack[IsaacCipher.Interpreter_intStackSize];
-							var5 = Interpreter.Interpreter_intStack[IsaacCipher.Interpreter_intStackSize + 1];
-							var11 = class1.archive13.takeFile(var5, 0);
-							var12 = new Font(var11);
-							Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = var12.lineCount(var3, var9);
-							return 1;
-						} else if (var0 == ScriptOpcodes.PARAWIDTH) {
-							var3 = Interpreter.Interpreter_stringStack[--class13.Interpreter_stringStackSize];
-							IsaacCipher.Interpreter_intStackSize -= 2;
-							var9 = Interpreter.Interpreter_intStack[IsaacCipher.Interpreter_intStackSize];
-							var5 = Interpreter.Interpreter_intStack[IsaacCipher.Interpreter_intStackSize + 1];
-							var11 = class1.archive13.takeFile(var5, 0);
-							var12 = new Font(var11);
-							Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = var12.lineWidth(var3, var9);
-							return 1;
-						} else if (var0 == ScriptOpcodes.TEXT_SWITCH) {
-							class13.Interpreter_stringStackSize -= 2;
-							var3 = Interpreter.Interpreter_stringStack[class13.Interpreter_stringStackSize];
-							var4 = Interpreter.Interpreter_stringStack[class13.Interpreter_stringStackSize + 1];
-							if (Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize] == 1) {
-								Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var3;
-							} else {
-								Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var4;
-							}
+			long var3 = -99999999L; // L: 7528
+			TileItem var5 = null; // L: 7529
 
-							return 1;
-						} else if (var0 == ScriptOpcodes.ESCAPE) {
-							var3 = Interpreter.Interpreter_stringStack[--class13.Interpreter_stringStackSize];
-							Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = AbstractFont.escapeBrackets(var3);
-							return 1;
-						} else if (var0 == ScriptOpcodes.APPEND_CHAR) {
-							var3 = Interpreter.Interpreter_stringStack[--class13.Interpreter_stringStackSize];
-							var9 = Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize];
-							Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var3 + (char)var9;
-							return 1;
-						} else if (var0 == ScriptOpcodes.CHAR_ISPRINTABLE) {
-							var10 = Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize];
-							Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = AbstractWorldMapData.isCharPrintable((char)var10) ? 1 : 0;
-							return 1;
-						} else if (var0 == ScriptOpcodes.CHAR_ISALPHANUMERIC) {
-							var10 = Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize];
-							Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = WorldMapIcon_0.isAlphaNumeric((char)var10) ? 1 : 0;
-							return 1;
-						} else if (var0 == ScriptOpcodes.CHAR_ISALPHA) {
-							var10 = Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize];
-							Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = HealthBarDefinition.isCharAlphabetic((char)var10) ? 1 : 0;
-							return 1;
-						} else if (var0 == ScriptOpcodes.CHAR_ISNUMERIC) {
-							var10 = Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize];
-							Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = class277.isDigit((char)var10) ? 1 : 0;
-							return 1;
-						} else if (var0 == ScriptOpcodes.STRING_LENGTH) {
-							var3 = Interpreter.Interpreter_stringStack[--class13.Interpreter_stringStackSize];
-							if (var3 != null) {
-								Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = var3.length();
-							} else {
-								Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = 0;
-							}
+			TileItem var6;
+			for (var6 = (TileItem)var2.last(); var6 != null; var6 = (TileItem)var2.previous()) { // L: 7530 7531 7539
+				ItemComposition var7 = Client.ItemDefinition_get(var6.id); // L: 7532
+				long var11 = (long)var7.price; // L: 7533
+				if (var7.isStackable == 1) { // L: 7534
+					var11 *= (long)(var6.quantity + 1);
+				}
 
-							return 1;
-						} else if (var0 == ScriptOpcodes.SUBSTRING) {
-							var3 = Interpreter.Interpreter_stringStack[--class13.Interpreter_stringStackSize];
-							IsaacCipher.Interpreter_intStackSize -= 2;
-							var9 = Interpreter.Interpreter_intStack[IsaacCipher.Interpreter_intStackSize];
-							var5 = Interpreter.Interpreter_intStack[IsaacCipher.Interpreter_intStackSize + 1];
-							Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var3.substring(var9, var5);
-							return 1;
-						} else if (var0 == ScriptOpcodes.REMOVETAGS) {
-							var3 = Interpreter.Interpreter_stringStack[--class13.Interpreter_stringStackSize];
-							StringBuilder var15 = new StringBuilder(var3.length());
-							boolean var16 = false;
-
-							for (var6 = 0; var6 < var3.length(); ++var6) {
-								char var7 = var3.charAt(var6);
-								if (var7 == '<') {
-									var16 = true;
-								} else if (var7 == '>') {
-									var16 = false;
-								} else if (!var16) {
-									var15.append(var7);
-								}
-							}
-
-							Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var15.toString();
-							return 1;
-						} else if (var0 == ScriptOpcodes.STRING_INDEXOF_CHAR) {
-							var3 = Interpreter.Interpreter_stringStack[--class13.Interpreter_stringStackSize];
-							var9 = Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize];
-							Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = var3.indexOf(var9);
-							return 1;
-						} else if (var0 == ScriptOpcodes.STRING_INDEXOF_STRING) {
-							class13.Interpreter_stringStackSize -= 2;
-							var3 = Interpreter.Interpreter_stringStack[class13.Interpreter_stringStackSize];
-							var4 = Interpreter.Interpreter_stringStack[class13.Interpreter_stringStackSize + 1];
-							var5 = Interpreter.Interpreter_intStack[--IsaacCipher.Interpreter_intStackSize];
-							Interpreter.Interpreter_intStack[++IsaacCipher.Interpreter_intStackSize - 1] = var3.indexOf(var4, var5);
-							return 1;
-						} else if (var0 == 4122) {
-							var3 = Interpreter.Interpreter_stringStack[--class13.Interpreter_stringStackSize];
-							Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var3.toUpperCase();
-							return 1;
-						} else {
-							return 2;
-						}
-					}
-				} else {
-					class13.Interpreter_stringStackSize -= 2;
-					var3 = Interpreter.Interpreter_stringStack[class13.Interpreter_stringStackSize];
-					var4 = Interpreter.Interpreter_stringStack[class13.Interpreter_stringStackSize + 1];
-					if (class340.localPlayer.appearance != null && class340.localPlayer.appearance.isFemale) {
-						Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var4;
-					} else {
-						Interpreter.Interpreter_stringStack[++class13.Interpreter_stringStackSize - 1] = var3;
-					}
-
-					return 1;
+				if (var11 > var3) { // L: 7535
+					var3 = var11; // L: 7536
+					var5 = var6; // L: 7537
 				}
 			}
-		}
-	}
 
-	@ObfuscatedName("lo")
-	@ObfuscatedSignature(
-		descriptor = "(Ljm;I)Z",
-		garbageValue = "1540402679"
-	)
-	@Export("isComponentHidden")
-	static boolean isComponentHidden(Widget var0) {
-		return var0.isHidden;
-	}
+			if (var5 == null) { // L: 7541
+				Decimator.scene.removeGroundItemPile(SoundSystem.Client_plane, var0, var1); // L: 7542
+			} else {
+				var2.addLast(var5); // L: 7545
+				TileItem var13 = null; // L: 7546
+				TileItem var8 = null; // L: 7547
+
+				for (var6 = (TileItem)var2.last(); var6 != null; var6 = (TileItem)var2.previous()) { // L: 7548 7549 7554
+					if (var5.id != var6.id) { // L: 7550
+						if (var13 == null) { // L: 7551
+							var13 = var6;
+						}
+
+						if (var6.id != var13.id && var8 == null) { // L: 7552
+							var8 = var6;
+						}
+					}
+				}
+
+				long var9 = ScriptEvent.calculateTag(var0, var1, 3, false, 0); // L: 7556
+				Decimator.scene.newGroundItemPile(SoundSystem.Client_plane, var0, var1, class92.getTileHeight(var0 * 128 + 64, var1 * 128 + 64, SoundSystem.Client_plane), var5, var9, var13, var8); // L: 7557
+			}
+		}
+	} // L: 7526 7543 7558
 }

@@ -3,43 +3,63 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bc")
+@ObfuscatedName("bf")
 public class class67 {
+	@ObfuscatedName("rh")
+	@ObfuscatedSignature(
+		descriptor = "Lma;"
+	)
+	@Export("friendsChat")
+	static FriendsChat friendsChat;
 	@ObfuscatedName("c")
-	static final BigInteger field856;
-	@ObfuscatedName("b")
-	static final BigInteger field857;
+	static final BigInteger field886;
+	@ObfuscatedName("l")
+	static final BigInteger field885;
+	@ObfuscatedName("h")
+	@ObfuscatedSignature(
+		descriptor = "Llv;"
+	)
+	@Export("ItemDefinition_fontPlain11")
+	public static Font ItemDefinition_fontPlain11;
 
 	static {
-		field856 = new BigInteger("10001", 16);
-		field857 = new BigInteger("959194ea8a966b960e862427e497e246718ecc7e76f242845673d52b62df19f52fa6fb93c8d9c5129b95747f8ca61fb059fa44297c08c6f5cc6cca99e8d39fc8f0faa58e58d1ca99e861439d01158c14880260b09ace07d25862f6d14e2db785c3016567101e927e4b2513e0b8a0f275ccf60c6a689af387a64b2b82a313d8dd", 16);
+		field886 = new BigInteger("10001", 16); // L: 6
+		field885 = new BigInteger("d70d8858c0edfd07dd486b5cf46434768c8e05703b9d1cd7d8770887d68fceecdb9416659533f955d92058203258da4176760842e480b77c0c1c5897d21ad23d731d0142f81304fd2e17ae7d8eb9c6ce0e8c4c9abd84d68bb528bd7051f7e12a3450dd0e0d2accf2b26ba24b1275f5e381d6335514b589efd6b9610c9d15e6b9", 16); // L: 7
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "(ZI)V",
-		garbageValue = "1654088160"
+		descriptor = "(B)V",
+		garbageValue = "92"
 	)
-	@Export("Login_promptCredentials")
-	static void Login_promptCredentials(boolean var0) {
-		Login.Login_response1 = "";
-		Login.Login_response2 = "Enter your username/email & password.";
-		Login.Login_response3 = "";
-		PlayerType.method5521(2);
-		if (var0) {
-			Login.Login_password = "";
+	public static void method1897() {
+		HitSplatDefinition.HitSplatDefinition_cached.clear(); // L: 182
+		HitSplatDefinition.HitSplatDefinition_cachedSprites.clear(); // L: 183
+		HitSplatDefinition.HitSplatDefinition_cachedFonts.clear(); // L: 184
+	} // L: 185
+
+	@ObfuscatedName("h")
+	@ObfuscatedSignature(
+		descriptor = "(IIIIIIII)Z",
+		garbageValue = "2138083585"
+	)
+	static final boolean method1896(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {
+		int var7 = ViewportMouse.ViewportMouse_y + var6; // L: 103
+		if (var7 < var0 && var7 < var1 && var7 < var2) { // L: 104
+			return false;
+		} else {
+			var7 = ViewportMouse.ViewportMouse_y - var6; // L: 105
+			if (var7 > var0 && var7 > var1 && var7 > var2) {
+				return false; // L: 106
+			} else {
+				var7 = ViewportMouse.ViewportMouse_x + var6; // L: 107
+				if (var7 < var3 && var7 < var4 && var7 < var5) { // L: 108
+					return false;
+				} else {
+					var7 = ViewportMouse.ViewportMouse_x - var6; // L: 109
+					return var7 <= var3 || var7 <= var4 || var7 <= var5; // L: 110
+				}
+			}
 		}
-
-		HealthBar.method2311();
-		WorldMapID.method4805();
-	}
-
-	@ObfuscatedName("af")
-	@ObfuscatedSignature(
-		descriptor = "(IB)I",
-		garbageValue = "-67"
-	)
-	static int method1962(int var0) {
-		return (int)((Math.log((double)var0) / Interpreter.field814 - 7.0D) * 256.0D);
 	}
 }

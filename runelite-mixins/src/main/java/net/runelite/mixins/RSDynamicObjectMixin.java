@@ -100,7 +100,7 @@ public abstract class RSDynamicObjectMixin implements RSDynamicObject
 	@Override
 	public int getAnimationID()
 	{
-		return (int) (getSequenceDefinition() == null ? -1 : getSequenceDefinition().getHash());
+		return (int) (getAnimation() == null ? -1 : getAnimation().getHash());
 	}
 
 	@Inject

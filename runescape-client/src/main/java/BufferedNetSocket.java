@@ -2,133 +2,113 @@ import java.io.IOException;
 import java.net.Socket;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mg")
+@ObfuscatedName("mr")
 @Implements("BufferedNetSocket")
 public class BufferedNetSocket extends AbstractSocket {
+	@ObfuscatedName("h")
+	@ObfuscatedGetter(
+		intValue = 1443215399
+	)
+	@Export("Interpreter_stringStackSize")
+	static int Interpreter_stringStackSize;
 	@ObfuscatedName("c")
 	@Export("socket")
 	Socket socket;
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lmr;"
+		descriptor = "Lmv;"
 	)
 	@Export("source")
 	BufferedSource source;
-	@ObfuscatedName("p")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Lmb;"
+		descriptor = "Lmj;"
 	)
 	@Export("sink")
 	BufferedSink sink;
 
-	BufferedNetSocket(Socket var1, int var2, int var3) throws IOException {
-		this.socket = var1;
-		this.socket.setSoTimeout(30000);
-		this.socket.setTcpNoDelay(true);
-		this.socket.setReceiveBufferSize(65536);
-		this.socket.setSendBufferSize(65536);
-		this.source = new BufferedSource(this.socket.getInputStream(), var2);
-		this.sink = new BufferedSink(this.socket.getOutputStream(), var3);
-	}
+	public BufferedNetSocket(Socket var1, int var2, int var3) throws IOException {
+		this.socket = var1; // L: 12
+		this.socket.setSoTimeout(30000); // L: 13
+		this.socket.setTcpNoDelay(true); // L: 14
+		this.socket.setReceiveBufferSize(65536); // L: 15
+		this.socket.setSendBufferSize(65536); // L: 16
+		this.source = new BufferedSource(this.socket.getInputStream(), var2); // L: 17
+		this.sink = new BufferedSink(this.socket.getOutputStream(), var3); // L: 18
+	} // L: 19
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-2099219864"
+		garbageValue = "-499949391"
 	)
 	@Export("close")
 	public void close() {
-		this.sink.close();
+		this.sink.close(); // L: 48
 
 		try {
-			this.socket.close();
-		} catch (IOException var2) {
+			this.socket.close(); // L: 50
+		} catch (IOException var2) { // L: 52
 		}
 
-		this.source.close();
-	}
+		this.source.close(); // L: 53
+	} // L: 54
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "(B)I",
-		garbageValue = "-44"
+		garbageValue = "-86"
 	)
 	@Export("readUnsignedByte")
 	public int readUnsignedByte() throws IOException {
-		return this.source.readUnsignedByte();
+		return this.source.readUnsignedByte(); // L: 33
 	}
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1579083707"
+		garbageValue = "2115909346"
 	)
 	@Export("available")
 	public int available() throws IOException {
-		return this.source.available();
+		return this.source.available(); // L: 28
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(II)Z",
-		garbageValue = "1654551476"
+		descriptor = "(IB)Z",
+		garbageValue = "67"
 	)
 	@Export("isAvailable")
 	public boolean isAvailable(int var1) throws IOException {
-		return this.source.isAvailable(var1);
+		return this.source.isAvailable(var1); // L: 23
 	}
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		descriptor = "([BIIS)I",
-		garbageValue = "909"
+		descriptor = "([BIII)I",
+		garbageValue = "-781316249"
 	)
 	@Export("read")
 	public int read(byte[] var1, int var2, int var3) throws IOException {
-		return this.source.read(var1, var2, var3);
+		return this.source.read(var1, var2, var3); // L: 38
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
 		descriptor = "([BIII)V",
-		garbageValue = "-1320460000"
+		garbageValue = "300460862"
 	)
 	@Export("write")
 	public void write(byte[] var1, int var2, int var3) throws IOException {
-		this.sink.write(var1, var2, var3);
-	}
+		this.sink.write(var1, var2, var3); // L: 43
+	} // L: 44
 
 	protected void finalize() {
-		this.close();
-	}
-
-	@ObfuscatedName("b")
-	public static String method6496(long var0) {
-		if (var0 > 0L && var0 < 6582952005840035281L) {
-			if (0L == var0 % 37L) {
-				return null;
-			} else {
-				int var2 = 0;
-
-				for (long var3 = var0; var3 != 0L; var3 /= 37L) {
-					++var2;
-				}
-
-				StringBuilder var5 = new StringBuilder(var2);
-
-				while (var0 != 0L) {
-					long var6 = var0;
-					var0 /= 37L;
-					var5.append(class332.base37Table[(int)(var6 - var0 * 37L)]);
-				}
-
-				return var5.reverse().toString();
-			}
-		} else {
-			return null;
-		}
-	}
+		this.close(); // L: 58
+	} // L: 59
 }

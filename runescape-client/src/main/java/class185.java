@@ -1,72 +1,84 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("gj")
+@ObfuscatedName("gl")
 public enum class185 implements MouseWheel {
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lgj;"
+		descriptor = "Lgl;"
 	)
-	field2119((byte)-1),
-	@ObfuscatedName("b")
+	field2137((byte)-1),
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lgj;"
+		descriptor = "Lgl;"
 	)
-	field2120((byte)0),
-	@ObfuscatedName("p")
+	field2133((byte)0),
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Lgj;"
+		descriptor = "Lgl;"
 	)
-	field2123((byte)1),
-	@ObfuscatedName("m")
+	field2135((byte)1),
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "Lgj;"
+		descriptor = "Lgl;"
 	)
-	field2122((byte)2);
+	field2132((byte)2);
 
-	@ObfuscatedName("ft")
-	@Export("worldHost")
-	static String worldHost;
-	@ObfuscatedName("t")
-	public byte field2121;
+	@ObfuscatedName("r")
+	public byte field2136;
 
 	class185(byte var3) {
-		this.field2121 = var3;
-	}
+		this.field2136 = var3; // L: 18
+	} // L: 19
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "48"
+		descriptor = "(I)I",
+		garbageValue = "-303340189"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field2121;
+		return this.field2136; // L: 23
 	}
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("ay")
 	@ObfuscatedSignature(
-		descriptor = "(ZI)V",
-		garbageValue = "964558054"
+		descriptor = "(ILbl;ZB)I",
+		garbageValue = "0"
 	)
-	static void method3731(boolean var0) {
-		byte var1 = 0;
-		if (!AttackOption.method2356()) {
-			var1 = 12;
-		} else if (class295.client.method1154()) {
-			var1 = 10;
-		}
+	static int method3686(int var0, Script var1, boolean var2) {
+		int var3;
+		if (var0 == ScriptOpcodes.CAM_FORCEANGLE) { // L: 3586
+			Interpreter.Interpreter_intStackSize -= 2; // L: 3587
+			var3 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize]; // L: 3588
+			int var4 = Interpreter.Interpreter_intStack[Interpreter.Interpreter_intStackSize + 1]; // L: 3589
+			if (!Client.isCameraLocked) { // L: 3590
+				Client.camAngleX = var3; // L: 3591
+				Client.camAngleY = var4; // L: 3592
+			}
 
-		PlayerType.method5521(var1);
-		if (var0) {
-			Login.Login_username = "";
-			Login.Login_password = "";
-			class148.field1651 = 0;
-			BufferedSource.otp = "";
-		}
+			return 1; // L: 3594
+		} else if (var0 == ScriptOpcodes.CAM_GETANGLE_XA) { // L: 3596
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Client.camAngleX; // L: 3597
+			return 1; // L: 3598
+		} else if (var0 == ScriptOpcodes.CAM_GETANGLE_YA) { // L: 3600
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Client.camAngleY; // L: 3601
+			return 1; // L: 3602
+		} else if (var0 == ScriptOpcodes.CAM_SETFOLLOWHEIGHT) { // L: 3604
+			var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 3605
+			if (var3 < 0) { // L: 3606
+				var3 = 0;
+			}
 
-		HealthBar.method2311();
-		WorldMapID.method4805();
+			Client.camFollowHeight = var3; // L: 3607
+			return 1; // L: 3608
+		} else if (var0 == ScriptOpcodes.CAM_GETFOLLOWHEIGHT) { // L: 3610
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = Client.camFollowHeight; // L: 3611
+			return 1; // L: 3612
+		} else {
+			return 2; // L: 3614
+		}
 	}
 }

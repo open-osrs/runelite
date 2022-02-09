@@ -36,6 +36,18 @@ public abstract class Plugin implements Module, ExtensionPoint
 	protected Injector injector;
 
 	@Override
+	public final int hashCode()
+	{
+		return super.hashCode();
+	}
+
+	@Override
+	public final boolean equals(Object obj)
+	{
+		return super.equals(obj);
+	}
+
+	@Override
 	public void configure(Binder binder)
 	{
 	}

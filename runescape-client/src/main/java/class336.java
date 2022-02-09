@@ -1,37 +1,27 @@
 import net.runelite.mapping.Export;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ln")
+@ObfuscatedName("lz")
 public class class336 {
-	@ObfuscatedName("ud")
-	@ObfuscatedGetter(
-		intValue = 1525311123
-	)
-	@Export("foundItemIndex")
-	static int foundItemIndex;
-
-	@ObfuscatedName("hh")
+	@ObfuscatedName("kh")
 	@ObfuscatedSignature(
-		descriptor = "(IIIII)V",
-		garbageValue = "80446087"
+		descriptor = "(IS)V",
+		garbageValue = "19073"
 	)
-	static final void method6228(int var0, int var1, int var2, int var3) {
-		Client.field590 = 0;
-		int var4 = (class340.localPlayer.x >> 7) + class131.baseX;
-		int var5 = (class340.localPlayer.y >> 7) + TileItem.baseY;
-		if (var4 >= 3053 && var4 <= 3156 && var5 >= 3056 && var5 <= 3136) {
-			Client.field590 = 1;
-		}
+	@Export("Widget_resetModelFrames")
+	static final void Widget_resetModelFrames(int var0) {
+		if (class13.loadInterface(var0)) { // L: 11465
+			Widget[] var1 = Widget.Widget_interfaceComponents[var0]; // L: 11466
 
-		if (var4 >= 3072 && var4 <= 3118 && var5 >= 9492 && var5 <= 9535) {
-			Client.field590 = 1;
-		}
+			for (int var2 = 0; var2 < var1.length; ++var2) { // L: 11467
+				Widget var3 = var1[var2]; // L: 11468
+				if (var3 != null) { // L: 11469
+					var3.modelFrame = 0; // L: 11470
+					var3.modelFrameCycle = 0; // L: 11471
+				}
+			}
 
-		if (Client.field590 == 1 && var4 >= 3139 && var4 <= 3199 && var5 >= 3008 && var5 <= 3062) {
-			Client.field590 = 0;
 		}
-
-	}
+	} // L: 11473
 }

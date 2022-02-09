@@ -4,70 +4,51 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("pn")
+@ObfuscatedName("pq")
 @Implements("AbstractRasterProvider")
 public abstract class AbstractRasterProvider {
-	@ObfuscatedName("p")
+	@ObfuscatedName("s")
 	@Export("pixels")
 	public int[] pixels;
-	@ObfuscatedName("m")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 1468450979
+		intValue = -549800961
 	)
 	@Export("width")
 	public int width;
-	@ObfuscatedName("t")
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = 191788269
+		intValue = 2009792371
 	)
 	@Export("height")
 	public int height;
 
 	protected AbstractRasterProvider() {
-	}
+	} // L: 8
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "(IIB)V",
-		garbageValue = "0"
+		garbageValue = "-78"
 	)
 	@Export("drawFull")
 	public abstract void drawFull(int var1, int var2);
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "(IIIII)V",
-		garbageValue = "1782361529"
+		garbageValue = "805431680"
 	)
 	@Export("draw")
 	public abstract void draw(int var1, int var2, int var3, int var4);
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-1651135554"
+		garbageValue = "700319772"
 	)
 	@Export("apply")
 	public final void apply() {
-		Rasterizer2D.Rasterizer2D_replace(this.pixels, this.width, this.height);
-	}
-
-	@ObfuscatedName("fe")
-	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-685860336"
-	)
-	static int method7714() {
-		if (Client.archiveLoaders != null && Client.archiveLoadersDone < Client.archiveLoaders.size()) {
-			int var0 = 0;
-
-			for (int var1 = 0; var1 <= Client.archiveLoadersDone; ++var1) {
-				var0 += ((ArchiveLoader)Client.archiveLoaders.get(var1)).loadedCount;
-			}
-
-			return var0 * 10000 / Client.field753;
-		} else {
-			return 10000;
-		}
-	}
+		Rasterizer2D.Rasterizer2D_replace(this.pixels, this.width, this.height); // L: 11
+	} // L: 12
 }

@@ -4,61 +4,67 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mi")
+@ObfuscatedName("mo")
 @Implements("Ignored")
 public class Ignored extends User {
-	@ObfuscatedName("pz")
-	@ObfuscatedSignature(
-		descriptor = "Loo;"
-	)
-	@Export("HitSplatDefinition_cached")
-	static class404 HitSplatDefinition_cached;
 	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 1285120553
+		intValue = 1341966107
 	)
 	@Export("id")
 	int id;
 
 	Ignored() {
-	}
+	} // L: 6
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lmi;B)I",
-		garbageValue = "109"
+		descriptor = "(Lmo;B)I",
+		garbageValue = "-68"
 	)
 	@Export("compareTo_ignored")
 	int compareTo_ignored(Ignored var1) {
-		return this.id - var1.id;
+		return this.id - var1.id; // L: 9
 	}
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Lmv;I)I",
-		garbageValue = "-1921032172"
+		descriptor = "(Lmy;I)I",
+		garbageValue = "-1446218206"
 	)
 	@Export("compareTo_user")
 	public int compareTo_user(User var1) {
-		return this.compareTo_ignored((Ignored)var1);
+		return this.compareTo_ignored((Ignored)var1); // L: 13
 	}
 
 	public int compareTo(Object var1) {
-		return this.compareTo_ignored((Ignored)var1);
+		return this.compareTo_ignored((Ignored)var1); // L: 17
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		descriptor = "(I)J",
-		garbageValue = "-376840192"
+		descriptor = "(II)V",
+		garbageValue = "-164861656"
 	)
-	public static final synchronized long method6459() {
-		long var0 = System.currentTimeMillis();
-		if (var0 < class415.field4466) {
-			class415.field4467 += class415.field4466 - var0;
-		}
+	@Export("clearItemContainer")
+	static void clearItemContainer(int var0) {
+		ItemContainer var1 = (ItemContainer)ItemContainer.itemContainers.get((long)var0); // L: 63
+		if (var1 != null) { // L: 64
+			for (int var2 = 0; var2 < var1.ids.length; ++var2) { // L: 65
+				var1.ids[var2] = -1; // L: 66
+				var1.quantities[var2] = 0; // L: 67
+			}
 
-		class415.field4466 = var0;
-		return var0 + class415.field4467;
+		}
+	} // L: 69
+
+	@ObfuscatedName("i")
+	@ObfuscatedSignature(
+		descriptor = "(CI)Z",
+		garbageValue = "-300276479"
+	)
+	@Export("isCharAlphabetic")
+	public static boolean isCharAlphabetic(char var0) {
+		return var0 >= 'A' && var0 <= 'Z' || var0 >= 'a' && var0 <= 'z'; // L: 148
 	}
 }
