@@ -68,7 +68,7 @@ public class class145 extends class126 {
 						}
 
 						if (var5 >= 0) { // L: 601
-							var1[var5].method3650(var3, var4);
+							var1[var5].setBlockedByFloor(var3, var4);
 						}
 					}
 				}
@@ -259,7 +259,7 @@ public class class145 extends class126 {
 									var32 = var12 * 256 / var15; // L: 742
 									var33 = var13 / var16; // L: 743
 									var34 = var14 / var16; // L: 744
-									var30 = KitDefinition.method3224(var32, var33, var34); // L: 745
+									var30 = KitDefinition.hslToRgb(var32, var33, var34); // L: 745
 									var32 = var32 + Tiles.rndHue & 255; // L: 746
 									var34 += Tiles.rndLightness; // L: 747
 									if (var34 < 0) { // L: 748
@@ -268,7 +268,7 @@ public class class145 extends class126 {
 										var34 = 255;
 									}
 
-									var31 = KitDefinition.method3224(var32, var33, var34); // L: 750
+									var31 = KitDefinition.hslToRgb(var32, var33, var34); // L: 750
 								}
 
 								FloorOverlayDefinition var35;
@@ -346,7 +346,7 @@ public class class145 extends class126 {
 										var47 = -1; // L: 811
 										var40 = -2; // L: 812
 									} else {
-										var39 = KitDefinition.method3224(var35.hue, var35.saturation, var35.lightness); // L: 815
+										var39 = KitDefinition.hslToRgb(var35.hue, var35.saturation, var35.lightness); // L: 815
 										var41 = var35.hue + Tiles.rndHue & 255; // L: 816
 										var42 = var35.lightness + Tiles.rndLightness; // L: 817
 										if (var42 < 0) { // L: 818
@@ -355,7 +355,7 @@ public class class145 extends class126 {
 											var42 = 255;
 										}
 
-										var40 = KitDefinition.method3224(var41, var35.saturation, var42); // L: 820
+										var40 = KitDefinition.hslToRgb(var41, var35.saturation, var42); // L: 820
 									}
 
 									var41 = 0; // L: 823
@@ -372,7 +372,7 @@ public class class145 extends class126 {
 											var43 = 255;
 										}
 
-										var40 = KitDefinition.method3224(var42, var35.secondarySaturation, var43); // L: 830
+										var40 = KitDefinition.hslToRgb(var42, var35.secondarySaturation, var43); // L: 830
 										var41 = Rasterizer3D.Rasterizer3D_colorPalette[IgnoreList.method6264(var40, 96)]; // L: 831
 									}
 

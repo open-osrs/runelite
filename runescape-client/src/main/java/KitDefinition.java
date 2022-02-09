@@ -249,7 +249,8 @@ public class KitDefinition extends DualNode {
 		descriptor = "(IIIB)I",
 		garbageValue = "78"
 	)
-	static final int method3224(int var0, int var1, int var2) {
+	@Export("hslToRgb")
+	static final int hslToRgb(int var0, int var1, int var2) {
 		if (var2 > 179) { // L: 1019
 			var1 /= 2;
 		}
