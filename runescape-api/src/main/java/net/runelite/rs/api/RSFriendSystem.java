@@ -22,4 +22,10 @@ public interface RSFriendSystem
 
 	@Import("removeFriend")
 	void removeFriend(String username);
+
+	@Import("addIgnore")
+	void addIgnore(String username);
+
+	@Import("removeIgnore")
+	void removeIgnore(String username);
 }
