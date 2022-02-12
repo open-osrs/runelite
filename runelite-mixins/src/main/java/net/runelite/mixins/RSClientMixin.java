@@ -2166,6 +2166,22 @@ public abstract class RSClientMixin implements RSClient
 	}
 
 	@Inject
+	@Override
+	public void addIgnore(String friend)
+	{
+		RSFriendSystem friendSystem = getFriendManager();
+		friendSystem.addIgnore(friend);
+	}
+
+	@Inject
+	@Override
+	public void removeIgnore(String friend)
+	{
+		RSFriendSystem friendSystem = getFriendManager();
+		friendSystem.removeIgnore(friend);
+	}
+
+	@Inject
 	private static BigInteger modulus;
 
 	@Inject
