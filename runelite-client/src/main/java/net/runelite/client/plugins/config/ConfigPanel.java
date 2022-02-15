@@ -1019,7 +1019,7 @@ class ConfigPanel extends PluginPanel
 
 			ToggleButton checkbox = new ToggleButton(option);
 			checkbox.setBackground(ColorScheme.DARK_GRAY_COLOR);
-			checkbox.setSelected(enumSet.toString().contains(String.valueOf(obj)));
+			checkbox.setSelected(enumSet.contains(obj));
 			jcheckboxes.add(checkbox);
 
 			enumsetLayout.add(checkbox);
