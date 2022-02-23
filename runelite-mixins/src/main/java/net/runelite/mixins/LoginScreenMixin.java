@@ -77,6 +77,26 @@ public abstract class LoginScreenMixin implements RSClient
 	}
 
 	@Inject
+	public void setLoginScreenBackground(SpritePixels background)
+	{
+		assert client.isClientThread() : "setLoginScreen must be called on client thread";
+		loginScreenBackground = background;
+		client.clearLoginScreen(false);
+	}
+
+	@Inject
+	public void setLoginScreenLeftTitleSprite()
+	{
+		setLeftTitleSprite(0);
+	}
+
+	@Inject
+	public void setLoginScreenRightTitleSprite()
+	{
+		setRightTitleSprite(0);
+	}
+
+	@Inject
 	@FieldHook("leftTitleSprite")
 	static void setLeftTitleSprite(int idx)
 	{
