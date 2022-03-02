@@ -454,6 +454,50 @@ public abstract class RSWidgetMixin implements RSWidget
 		return bounds != null && bounds.contains(new java.awt.Point(point.getX(), point.getY()));
 	}
 
+	@Inject
+	@Override
+	public Widget setPos(int x, int y)
+	{
+		setOriginalX(x);
+		setOriginalY(y);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setPos(int x, int y, int xMode, int yMode)
+	{
+		setOriginalX(x);
+		setOriginalY(y);
+		setXPositionMode(xMode);
+		setYPositionMode(yMode);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setSize(int width, int height)
+	{
+		setOriginalWidth(width);
+		setOriginalHeight(height);
+
+		return this;
+	}
+
+	@Inject
+	@Override
+	public Widget setSize(int width, int height, int widthMode, int heightMode)
+	{
+		setOriginalWidth(width);
+		setOriginalHeight(height);
+		setWidthMode(widthMode);
+		setHeightMode(heightMode);
+
+		return this;
+	}
+
 	@FieldHook("y")
 	@Inject
 	public void onPositionChanged(int idx)
