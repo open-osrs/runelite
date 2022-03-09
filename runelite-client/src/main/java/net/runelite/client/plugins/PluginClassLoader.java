@@ -22,60 +22,36 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.cache.definitions.loaders;
+package net.runelite.client.plugins;
 
-import net.runelite.cache.definitions.TextureDefinition;
-import net.runelite.cache.io.InputStream;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 
-public class TextureLoader
+class PluginClassLoader extends URLClassLoader
 {
-	public TextureDefinition load(int id, byte[] b)
+	private final ClassLoader parent;
+
+	PluginClassLoader(File plugin, ClassLoader parent) throws MalformedURLException
 	{
-		TextureDefinition def = new TextureDefinition();
-		InputStream is = new InputStream(b);
+		// null parent classloader, or else class path scanning includes everything from the main class loader
+		super(new URL[]{plugin.toURI().toURL()}, null);
 
-		def.field1777 = is.readUnsignedShort();
-		def.field1778 = is.readByte() != 0;
-		def.setId(id);
+		this.parent = parent;
+	}
 
-		int count = is.readUnsignedByte();
-		int[] files = new int[count];
-
-		for (int i = 0; i < count; ++i)
-			files[i] = is.readUnsignedShort();
-
-		def.setFileIds(files);
-
-		if (count > 1)
+	@Override
+	public Class<?> loadClass(String name) throws ClassNotFoundException
+	{
+		try
 		{
-			def.field1780 = new int[count - 1];
-
-			for (int var3 = 0; var3 < count - 1; ++var3)
-			{
-				def.field1780[var3] = is.readUnsignedByte();
-			}
+			return super.loadClass(name);
 		}
-
-		if (count > 1)
+		catch (ClassNotFoundException ex)
 		{
-			def.field1781 = new int[count - 1];
-
-			for (int var3 = 0; var3 < count - 1; ++var3)
-			{
-				def.field1781[var3] = is.readUnsignedByte();
-			}
+			// fall back to main class loader
+			return parent.loadClass(name);
 		}
-
-		def.field1786 = new int[count];
-
-		for (int var3 = 0; var3 < count; ++var3)
-		{
-			def.field1786[var3] = is.readInt();
-		}
-
-		def.animationDirection = is.readUnsignedByte();
-		def.animationSpeed = is.readUnsignedByte();
-
-		return def;
 	}
 }
