@@ -597,7 +597,22 @@ public abstract class RSClientMixin implements RSClient
 	public MessageNode addChatMessage(ChatMessageType type, String name, String message, String sender, boolean postEvent)
 	{
 		assert this.isClientThread() : "addChatMessage must be called on client thread";
-		copy$addChatMessage(type.getType(), name, message, sender);
+
+		ChatMessageType tmpType = type;
+		String tmpMessage = message;
+
+		if (type == ChatMessageType.CLAN_GIM_CHAT)
+		{
+			tmpType = ChatMessageType.CLAN_CHAT;
+			tmpMessage = "|" + message;
+		}
+		else if (type == ChatMessageType.CLAN_GIM_MESSAGE)
+		{
+			tmpType = ChatMessageType.CLAN_MESSAGE;
+			tmpMessage = "|" + message;
+		}
+
+		copy$addChatMessage(tmpType.getType(), name, tmpMessage, sender);
 
 		Logger logger = client.getLogger();
 		if (logger.isDebugEnabled())
@@ -1776,20 +1791,33 @@ public abstract class RSClientMixin implements RSClient
 	{
 		copy$addChatMessage(type, name, message, sender);
 
-		Logger logger = client.getLogger();
-		if (logger.isDebugEnabled())
-		{
-			ChatMessageType msgType = ChatMessageType.of(type);
-			logger.debug("Chat message type {}: {}", msgType == ChatMessageType.UNKNOWN ? String.valueOf(type) : msgType.name(), message);
-		}
-
 		// Get the message node which was added
 		@SuppressWarnings("unchecked") Map<Integer, RSChatChannel> chatLineMap = client.getChatLineMap();
 		RSChatChannel chatLineBuffer = chatLineMap.get(type);
 		MessageNode messageNode = chatLineBuffer.getLines()[0];
 
-		final ChatMessageType chatMessageType = ChatMessageType.of(type);
-		final ChatMessage chatMessage = new ChatMessage(messageNode, chatMessageType, name, message, sender, messageNode.getTimestamp());
+		ChatMessageType tmpType = ChatMessageType.of(type);
+
+		if (tmpType == ChatMessageType.CLAN_CHAT && message != null && message.startsWith("|"))
+		{
+			tmpType = ChatMessageType.CLAN_GIM_CHAT;
+			message = message.substring(1);
+		}
+
+		if (tmpType == ChatMessageType.CLAN_MESSAGE && message != null && message.startsWith("|"))
+		{
+			tmpType = ChatMessageType.CLAN_GIM_MESSAGE;
+			message = message.substring(1);
+		}
+
+		Logger logger = client.getLogger();
+		if (logger.isDebugEnabled())
+		{
+			ChatMessageType msgType = ChatMessageType.of(type);
+			logger.debug("Chat message type {}: {}", msgType == ChatMessageType.UNKNOWN ? String.valueOf(type) : tmpType.name(), message);
+		}
+
+		final ChatMessage chatMessage = new ChatMessage(messageNode, tmpType, name, message, sender, messageNode.getTimestamp());
 		client.getCallbacks().post(chatMessage);
 	}
 
