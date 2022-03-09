@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2016-2017, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,15 +22,36 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.plugins;
 
-object ProjectVersions {
-    const val launcherVersion = "2.2.0"
-    const val rlVersion = "1.8.13"
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 
-    const val openosrsVersion = "4.20.3"
+class PluginClassLoader extends URLClassLoader
+{
+	private final ClassLoader parent;
 
-    const val rsversion = 203
-    const val cacheversion = 165
+	PluginClassLoader(File plugin, ClassLoader parent) throws MalformedURLException
+	{
+		// null parent classloader, or else class path scanning includes everything from the main class loader
+		super(new URL[]{plugin.toURI().toURL()}, null);
 
-    const val lombokVersion = "1.18.20"
+		this.parent = parent;
+	}
+
+	@Override
+	public Class<?> loadClass(String name) throws ClassNotFoundException
+	{
+		try
+		{
+			return super.loadClass(name);
+		}
+		catch (ClassNotFoundException ex)
+		{
+			// fall back to main class loader
+			return parent.loadClass(name);
+		}
+	}
 }

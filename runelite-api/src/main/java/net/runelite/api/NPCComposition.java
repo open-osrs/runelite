@@ -48,8 +48,6 @@ public interface NPCComposition extends ParamHolder
 
 	boolean isClickable();
 
-	boolean isFollower();
-
 	/**
 	 * NPC can be interacting with via menu options
 	 * @return
@@ -98,4 +96,11 @@ public interface NPCComposition extends ParamHolder
 	 * Gets the displayed overhead icon of the NPC.
 	 */
 	HeadIcon getOverheadIcon();
+
+	/**
+	 * If the npc is a follower, such as a pet. Is affected by the
+	 * "Move follower options lower down" setting.
+	 * @return
+	 */
+	boolean isFollower();
 }

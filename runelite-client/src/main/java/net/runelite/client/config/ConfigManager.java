@@ -374,7 +374,27 @@ public class ConfigManager
 
 	public List<String> getConfigurationKeys(String prefix)
 	{
-		return properties.keySet().stream().filter(v -> ((String) v).startsWith(prefix)).map(String.class::cast).collect(Collectors.toList());
+		return properties.keySet().stream()
+			.map(String.class::cast)
+			.filter(k -> k.startsWith(prefix))
+			.collect(Collectors.toList());
+	}
+
+	public List<String> getRSProfileConfigurationKeys(String group, String profile, String keyPrefix)
+	{
+		if (profile == null)
+		{
+			return Collections.emptyList();
+		}
+
+		assert profile.startsWith(RSPROFILE_GROUP);
+
+		String prefix = group + "." + profile + "." + keyPrefix;
+		return properties.keySet().stream()
+			.map(String.class::cast)
+			.filter(k -> k.startsWith(prefix))
+			.map(k -> splitKey(k)[KEY_SPLITTER_KEY])
+			.collect(Collectors.toList());
 	}
 
 	public static String getWholeKey(String groupName, String profile, String key)
@@ -534,6 +554,8 @@ public class ConfigManager
 			RuneScapeProfile prof = findRSProfile(getRSProfiles(), username, RuneScapeProfileType.getCurrent(client), displayName, true);
 			rsProfileKey = prof.getKey();
 			this.rsProfileKey = rsProfileKey;
+
+			eventBus.post(new RuneScapeProfileChanged());
 		}
 		setConfiguration(groupName, rsProfileKey, key, value);
 	}
@@ -982,7 +1004,10 @@ public class ConfigManager
 		return methods;
 	}
 
-	@Subscribe(priority = 100)
+	@Subscribe(
+		// run after plugins, in the event they save config on shutdown
+		priority = -100
+	)
 	private void onClientShutdown(ClientShutdown e)
 	{
 		Future<Void> f = sendConfig();

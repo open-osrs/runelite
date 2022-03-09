@@ -173,7 +173,7 @@ public class RuneLite
 	{
 		Locale.setDefault(Locale.ENGLISH);
 
-		final OptionParser parser = new OptionParser();
+		final OptionParser parser = new OptionParser(false);
 		parser.accepts("developer-mode", "Enable developer tools");
 		parser.accepts("debug", "Show extra debugging output");
 		parser.accepts("safe-mode", "Disables external plugins and the GPU plugin");
@@ -389,6 +389,7 @@ public class RuneLite
 		// Load the plugins, but does not start them yet.
 		// This will initialize configuration
 		pluginManager.loadCorePlugins();
+		pluginManager.loadSideLoadPlugins();
 
 		oprsExternalPluginManager.loadPlugins();
 

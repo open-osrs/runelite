@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2022, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,15 +22,52 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.plugins.loottracker;
 
-object ProjectVersions {
-    const val launcherVersion = "2.2.0"
-    const val rlVersion = "1.8.13"
+import java.time.Instant;
+import java.util.Arrays;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import net.runelite.http.api.loottracker.LootRecordType;
 
-    const val openosrsVersion = "4.20.3"
+@Data
+@NoArgsConstructor
+@EqualsAndHashCode(of = {"type", "name"})
+class ConfigLoot
+{
+	LootRecordType type;
+	String name;
+	int kills;
+	Instant first = Instant.now();
+	Instant last;
+	int[] drops;
 
-    const val rsversion = 203
-    const val cacheversion = 165
+	ConfigLoot(LootRecordType type, String name)
+	{
+		this.type = type;
+		this.name = name;
+		this.drops = new int[0];
+	}
 
-    const val lombokVersion = "1.18.20"
+	void add(int id, int qty)
+	{
+		for (int i = 0; i < drops.length; i += 2)
+		{
+			if (drops[i] == id)
+			{
+				drops[i + 1] += qty;
+				return;
+			}
+		}
+
+		drops = Arrays.copyOf(drops, drops.length + 2);
+		drops[drops.length - 2] = id;
+		drops[drops.length - 1] = qty;
+	}
+
+	int numDrops()
+	{
+		return drops.length / 2;
+	}
 }

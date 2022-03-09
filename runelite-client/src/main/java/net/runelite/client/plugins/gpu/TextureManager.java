@@ -35,9 +35,6 @@ import net.runelite.api.TextureProvider;
 @Slf4j
 class TextureManager
 {
-	private static final float PERC_64 = 1f / 64f;
-	private static final float PERC_128 = 1f / 128f;
-
 	private static final int TEXTURE_SIZE = 128;
 
 	int initTextureArray(TextureProvider textureProvider, GL4 gl)
@@ -207,64 +204,42 @@ class TextureManager
 		return pixels;
 	}
 
-	/**
-	 * Animate the given texture
-	 *
-	 * @param texture
-	 * @param diff    Number of elapsed client ticks since last animation
-	 */
-	void animate(Texture texture, int diff)
+	float[] computeTextureAnimations(TextureProvider textureProvider)
 	{
-		final int[] pixels = texture.getPixels();
-		if (pixels == null)
+		Texture[] textures = textureProvider.getTextures();
+		float[] anims = new float[TEXTURE_SIZE * 2];
+		for (int i = 0; i < textures.length; ++i)
 		{
-			return;
+			Texture texture = textures[i];
+			if (texture == null)
+			{
+				continue;
+			}
+
+			float u = 0f, v = 0f;
+			switch (texture.getAnimationDirection())
+			{
+				case 1:
+					v = -1f;
+					break;
+				case 3:
+					v = 1f;
+					break;
+				case 2:
+					u = -1f;
+					break;
+				case 4:
+					u = 1f;
+					break;
+			}
+
+			int speed = texture.getAnimationSpeed();
+			u *= speed;
+			v *= speed;
+
+			anims[i * 2] = u;
+			anims[i * 2 + 1] = v;
 		}
-
-		final int animationSpeed = texture.getAnimationSpeed();
-		final float uvdiff = pixels.length == 4096 ? PERC_64 : PERC_128;
-
-		float u = texture.getU();
-		float v = texture.getV();
-
-		int offset = animationSpeed * diff;
-		float d = (float) offset * uvdiff;
-
-		switch (texture.getAnimationDirection())
-		{
-			case 1:
-				v -= d;
-				if (v < 0f)
-				{
-					v += 1f;
-				}
-				break;
-			case 3:
-				v += d;
-				if (v > 1f)
-				{
-					v -= 1f;
-				}
-				break;
-			case 2:
-				u -= d;
-				if (u < 0f)
-				{
-					u += 1f;
-				}
-				break;
-			case 4:
-				u += d;
-				if (u > 1f)
-				{
-					u -= 1f;
-				}
-				break;
-			default:
-				return;
-		}
-
-		texture.setU(u);
-		texture.setV(v);
+		return anims;
 	}
 }
