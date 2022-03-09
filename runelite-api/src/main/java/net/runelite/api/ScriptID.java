@@ -434,4 +434,6 @@ public final class ScriptID
 	 */
 	@ScriptArguments(integer = 1)
 	public static final int NOTIFICATION_DELAY = 3347;
+
+	public static final int GROUP_STORAGE_ITEM_CONTAINER = 5269;
 }

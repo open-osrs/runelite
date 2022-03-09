@@ -264,32 +264,14 @@ public class BankPlugin extends Plugin
 	{
 		if (event.getScriptId() == ScriptID.BANKMAIN_BUILD)
 		{
-			// Compute bank prices using only the shown items so that we can show bank value during searches
-			final Widget bankItemContainer = client.getWidget(WidgetInfo.BANK_ITEM_CONTAINER);
-			final ItemContainer bankContainer = client.getItemContainer(InventoryID.BANK);
-			final Widget[] children = bankItemContainer.getChildren();
-			long geTotal = 0, haTotal = 0;
-
-			if (bankContainer != null && children != null)
+			ContainerPrices prices = getContainerGEandAlchPrice(WidgetInfo.BANK_ITEM_CONTAINER, InventoryID.BANK);
+			if (prices == null)
 			{
-				log.debug("Computing bank price of {} items", bankContainer.size());
-
-				// The first components are the bank items, followed by tabs etc. There are always 816 components regardless
-				// of bank size, but we only need to check up to the bank size.
-				for (int i = 0; i < bankContainer.size(); ++i)
-				{
-					Widget child = children[i];
-					if (child != null && !child.isSelfHidden() && child.getItemId() > -1)
-					{
-						final int alchPrice = getHaPrice(child.getItemId());
-						geTotal += (long) itemManager.getItemPrice(child.getItemId()) * child.getItemQuantity();
-						haTotal += (long) alchPrice * child.getItemQuantity();
-					}
-				}
-
-				Widget bankTitle = client.getWidget(WidgetInfo.BANK_TITLE_BAR);
-				bankTitle.setText(bankTitle.getText() + createValueText(geTotal, haTotal));
+				return;
 			}
+
+			Widget bankTitle = client.getWidget(WidgetInfo.BANK_TITLE_BAR);
+			bankTitle.setText(bankTitle.getText() + createValueText(prices.getGePrice(), prices.getHighAlchPrice()));
 		}
 		else if (event.getScriptId() == ScriptID.BANKMAIN_SEARCH_REFRESH)
 		{
@@ -301,6 +283,17 @@ public class BankPlugin extends Plugin
 				clientThread.invokeLater(bankSearch::layoutBank);
 				searchString = inputText;
 			}
+		}
+		else if (event.getScriptId() == ScriptID.GROUP_STORAGE_ITEM_CONTAINER)
+		{
+			ContainerPrices prices = getContainerGEandAlchPrice(WidgetInfo.GROUP_STORAGE_ITEM_CONTAINER, InventoryID.GROUP_STORAGE);
+			if (prices == null)
+			{
+				return;
+			}
+
+			Widget bankTitle = client.getWidget(WidgetInfo.GROUP_STORAGE_TITLE_BAR).getChild(1);
+			bankTitle.setText(bankTitle.getText() + createValueText(prices.getGePrice(), prices.getHighAlchPrice()));
 		}
 	}
 
@@ -536,5 +529,36 @@ public class BankPlugin extends Plugin
 			default:
 				return itemManager.getItemComposition(itemId).getHaPrice();
 		}
+	}
+
+	private ContainerPrices getContainerGEandAlchPrice(WidgetInfo widgetInfo, InventoryID inventoryID)
+	{
+		final Widget bankItemContainer = client.getWidget(widgetInfo);
+		final ItemContainer bankContainer = client.getItemContainer(inventoryID);
+		final Widget[] children = bankItemContainer.getChildren();
+		ContainerPrices price = null;
+
+		if (bankContainer != null && children != null)
+		{
+			long geTotal = 0, haTotal = 0;
+			log.debug("Computing bank price of {} items", bankContainer.size());
+
+			// The first components are the bank items, followed by tabs etc. There are always 816 components regardless
+			// of bank size, but we only need to check up to the bank size.
+			for (int i = 0; i < bankContainer.size(); ++i)
+			{
+				Widget child = children[i];
+				if (child != null && !child.isSelfHidden() && child.getItemId() > -1)
+				{
+					final int alchPrice = getHaPrice(child.getItemId());
+					geTotal += (long) itemManager.getItemPrice(child.getItemId()) * child.getItemQuantity();
+					haTotal += (long) alchPrice * child.getItemQuantity();
+				}
+			}
+
+			price = new ContainerPrices(geTotal, haTotal);
+		}
+
+		return price;
 	}
 }
