@@ -984,7 +984,10 @@ public class ConfigManager
 		return methods;
 	}
 
-	@Subscribe(priority = 100)
+	@Subscribe(
+		// run after plugins, in the event they save config on shutdown
+		priority = -100
+	)
 	private void onClientShutdown(ClientShutdown e)
 	{
 		Future<Void> f = sendConfig();

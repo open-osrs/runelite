@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2018, Abex
+ * Copyright (c) 2022, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,25 +22,52 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.eventbus;
+package net.runelite.client.plugins.loottracker;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.time.Instant;
+import java.util.Arrays;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+import net.runelite.http.api.loottracker.LootRecordType;
 
-/**
- * Marks a method as an event subscriber.
- */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-@Documented
-public @interface Subscribe
+@Data
+@NoArgsConstructor
+@EqualsAndHashCode(of = {"type", "name"})
+class ConfigLoot
 {
-	/**
-	 * Priority relative to other event subscribers. Higher priorities run first.
-	 * @return
-	 */
-	float priority() default 0;
+	LootRecordType type;
+	String name;
+	int kills;
+	Instant first = Instant.now();
+	Instant last;
+	int[] drops;
+
+	ConfigLoot(LootRecordType type, String name)
+	{
+		this.type = type;
+		this.name = name;
+		this.drops = new int[0];
+	}
+
+	void add(int id, int qty)
+	{
+		for (int i = 0; i < drops.length; i += 2)
+		{
+			if (drops[i] == id)
+			{
+				drops[i + 1] += qty;
+				return;
+			}
+		}
+
+		drops = Arrays.copyOf(drops, drops.length + 2);
+		drops[drops.length - 2] = id;
+		drops[drops.length - 1] = qty;
+	}
+
+	int numDrops()
+	{
+		return drops.length / 2;
+	}
 }
