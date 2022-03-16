@@ -323,7 +323,7 @@ class LootTrackerPanel extends PluginPanel
 			boxes.removeIf(b -> b.matches(currentView, currentType));
 			updateOverall();
 			logsContainer.removeAll();
-			logsContainer.repaint();
+			logsContainer.revalidate();
 
 			// Delete all loot, or loot matching the current view
 			if (currentView != null)
@@ -368,7 +368,7 @@ class LootTrackerPanel extends PluginPanel
 	 * Creates a subtitle, adds a new entry and then passes off to the render methods, that will decide
 	 * how to display this new data.
 	 */
-	void add(final String eventName, final LootRecordType type, final int actorLevel, LootTrackerItem[] items)
+	void add(final String eventName, final LootRecordType type, final int actorLevel, LootTrackerItem[] items, int kills)
 	{
 		final String subTitle;
 		if (type == LootRecordType.PICKPOCKET)
@@ -379,7 +379,7 @@ class LootTrackerPanel extends PluginPanel
 		{
 			subTitle = actorLevel > -1 ? "(lvl-" + actorLevel + ")" : "";
 		}
-		final LootTrackerRecord record = new LootTrackerRecord(eventName, subTitle, type, items, 1);
+		final LootTrackerRecord record = new LootTrackerRecord(eventName, subTitle, type, items, kills);
 		sessionRecords.add(record);
 
 		if (hideIgnoredItems && plugin.isEventIgnored(eventName))
@@ -505,7 +505,6 @@ class LootTrackerPanel extends PluginPanel
 		boxes.forEach(LootTrackerBox::rebuild);
 		updateOverall();
 		logsContainer.revalidate();
-		logsContainer.repaint();
 	}
 
 	/**
@@ -606,7 +605,7 @@ class LootTrackerPanel extends PluginPanel
 			boxes.remove(box);
 			updateOverall();
 			logsContainer.remove(box);
-			logsContainer.repaint();
+			logsContainer.revalidate();
 
 			// Without loot being grouped we have no way to identify single kills to be deleted
 			if (groupLoot)
