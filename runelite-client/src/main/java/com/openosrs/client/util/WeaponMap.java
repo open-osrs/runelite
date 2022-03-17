@@ -19,7 +19,9 @@ public class WeaponMap
 		StyleMap.put(ItemID.ABYSSAL_DAGGER_P_13269, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.ABYSSAL_DAGGER_P_13271, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.ABYSSAL_TENTACLE, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.ABYSSAL_TENTACLE_OR, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.ABYSSAL_WHIP, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.ABYSSAL_WHIP_OR, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.ABYSSAL_WHIP_20405, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.ADAMANT_2H_SWORD, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.ADAMANT_AXE, WeaponStyle.MELEE);
@@ -432,6 +434,11 @@ public class WeaponMap
 		StyleMap.put(ItemID.SCYTHE_OF_VITUR, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SCYTHE_OF_VITUR_22664, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SCYTHE_OF_VITUR_UNCHARGED, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.SECRET_SANTA_PRESENT_RED, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.SECRET_SANTA_PRESENT_BLUE, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.SECRET_SANTA_PRESENT_GREEN, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.SECRET_SANTA_PRESENT_BLACK, WeaponStyle.MELEE);
+		StyleMap.put(ItemID.SECRET_SANTA_PRESENT_GOLD, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SEVERED_LEG_24792, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SHADOW_SWORD, WeaponStyle.MELEE);
 		StyleMap.put(ItemID.SHAYZIEN_BANNER, WeaponStyle.MELEE);
@@ -705,6 +712,7 @@ public class WeaponMap
 		StyleMap.put(ItemID.RED_CHINCHOMPA, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.RED_CHINCHOMPA_10034, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.RUNE_CROSSBOW, WeaponStyle.RANGE);
+		StyleMap.put(ItemID.RUNE_CROSSBOW_OR, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.RUNE_CROSSBOW_23601, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.RUNE_DART, WeaponStyle.RANGE);
 		StyleMap.put(ItemID.RUNE_DARTP, WeaponStyle.RANGE);
