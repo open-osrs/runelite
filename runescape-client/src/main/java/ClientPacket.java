@@ -755,7 +755,7 @@ public class ClientPacket implements class253 {
 					if (var0.isFinished) {
 						var0.remove(); // L: 4711
 					} else {
-						Decimator.scene.drawEntity(var0.plane, var0.x, var0.y, var0.height, 60, var0, 0, -1L, false); // L: 4712
+						Decimator.scene.drawEntity(var0.plane, var0.x, var0.y, var0.z, 60, var0, 0, -1L, false); // L: 4712
 					}
 				}
 			} else {

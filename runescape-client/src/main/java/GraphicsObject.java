@@ -41,8 +41,8 @@ public class GraphicsObject extends Renderable {
 	@ObfuscatedGetter(
 		intValue = 1971033417
 	)
-	@Export("height")
-	int height;
+	@Export("z")
+	int z;
 	@ObfuscatedName("i")
 	@ObfuscatedSignature(
 		descriptor = "Lgm;"
@@ -73,7 +73,7 @@ public class GraphicsObject extends Renderable {
 		this.plane = var2; // L: 22
 		this.x = var3;
 		this.y = var4;
-		this.height = var5;
+		this.z = var5;
 		this.cycleStart = var7 + var6;
 		int var8 = Widget.SpotAnimationDefinition_get(this.id).sequence; // L: 27
 		if (var8 != -1) {

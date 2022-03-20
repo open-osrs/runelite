@@ -22,8 +22,8 @@ public final class GameObject {
 	@ObfuscatedGetter(
 		intValue = 746777845
 	)
-	@Export("height")
-	int height;
+	@Export("z")
+	int z;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
 		intValue = 1435489625
