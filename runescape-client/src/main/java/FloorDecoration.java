@@ -23,8 +23,8 @@ public final class FloorDecoration {
 	@ObfuscatedGetter(
 		intValue = 1811324103
 	)
-	@Export("tileHeight")
-	int tileHeight;
+	@Export("z")
+	int z;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
 		intValue = -601207927

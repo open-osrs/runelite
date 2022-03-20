@@ -97,7 +97,7 @@ public abstract class RSGameObjectMixin implements RSGameObject
 	@Override
 	public Shape getClickbox()
 	{
-		return Perspective.getClickbox(client, getModel(), getModelOrientation(), getLocalLocation());
+		return Perspective.getClickbox(client, getModel(), getModelOrientation(), getX(), getY(), getZ());
 	}
 
 	@Inject

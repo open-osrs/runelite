@@ -51,7 +51,7 @@ public abstract class RuneLiteObjectMixin implements RSRuneLiteObject
 		setX(localPoint.getX());
 		setY(localPoint.getY());
 		setLevel(plane);
-		setHeight(Perspective.getTileHeight(client, localPoint, plane));
+		setZ(Perspective.getTileHeight(client, localPoint, plane));
 	}
 
 	@Inject

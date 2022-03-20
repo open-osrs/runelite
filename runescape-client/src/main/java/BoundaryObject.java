@@ -13,8 +13,8 @@ public final class BoundaryObject {
 	@ObfuscatedGetter(
 		intValue = -695987835
 	)
-	@Export("tileHeight")
-	int tileHeight;
+	@Export("z")
+	int z;
 	@ObfuscatedName("l")
 	@ObfuscatedGetter(
 		intValue = -1300612235

@@ -61,6 +61,8 @@ public final class GraphicID
 	public static final int XERIC_TELEPORT = 1612;
 	public static final int GRAPHICS_OBJECT_ROCKFALL = 1727;
 	public static final int ZALCANO_PROJECTILE_FIREBALL = 1728;
+	public static final int CANNONBALL_OR = 2018;
+	public static final int GRANITE_CANNONBALL_OR = 2019;
 
 	public static final int LIZARDMAN_SHAMAN_AOE = 1293;
 	public static final int CRAZY_ARCHAEOLOGIST_AOE = 1260;

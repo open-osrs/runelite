@@ -26,9 +26,9 @@ public interface RSGraphicsObject extends GraphicsObject, RSRenderable
 	@Override
 	int getLevel();
 
-	@Import("height")
+	@Import("z")
 	@Override
-	int getHeight();
+	int getZ();
 
 	@Import("isFinished")
 	@Override
@@ -58,8 +58,8 @@ public interface RSGraphicsObject extends GraphicsObject, RSRenderable
 	@Import("y")
 	void setY(int y);
 
-	@Import("height")
-	void setHeight(int height);
+	@Import("z")
+	void setZ(int height);
 
 	@Import("sequenceDefinition")
 	RSSequenceDefinition getSequenceDefinition();
