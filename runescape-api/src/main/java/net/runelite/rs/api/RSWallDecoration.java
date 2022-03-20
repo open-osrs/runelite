@@ -15,6 +15,9 @@ public interface RSWallDecoration extends DecorativeObject
 	@Import("y")
 	int getY();
 
+	@Import("z")
+	int getZ();
+
 	@Import("xOffset")
 	int getXOffset();
 
