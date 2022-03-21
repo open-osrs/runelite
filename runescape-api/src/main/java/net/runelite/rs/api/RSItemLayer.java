@@ -11,6 +11,9 @@ public interface RSItemLayer extends ItemLayer
 	@Import("y")
 	int getY();
 
+	@Import("z")
+	int getZ();
+
 	@Import("tag")
 	@Override
 	long getHash();

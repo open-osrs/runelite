@@ -387,7 +387,7 @@ public class Scene {
 		var10.first = var5; // L: 208
 		var10.x = var2 * 128 + 64; // L: 209
 		var10.y = var3 * 128 + 64; // L: 210
-		var10.tileHeight = var4; // L: 211
+		var10.z = var4; // L: 211
 		var10.tag = var6; // L: 212
 		var10.second = var8; // L: 213
 		var10.third = var9; // L: 214
@@ -1479,15 +1479,15 @@ public class Scene {
 												ItemLayer var23 = var3.itemLayer; // L: 1014
 												if (var23 != null && var23.height == 0) { // L: 1015
 													if (var23.second != null) { // L: 1016
-														var23.second.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var23.x - Scene_cameraX, var23.tileHeight - Scene_cameraY, var23.y - Scene_cameraZ, var23.tag);
+														var23.second.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var23.x - Scene_cameraX, var23.z - Scene_cameraY, var23.y - Scene_cameraZ, var23.tag);
 													}
 
 													if (var23.third != null) { // L: 1017
-														var23.third.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var23.x - Scene_cameraX, var23.tileHeight - Scene_cameraY, var23.y - Scene_cameraZ, var23.tag);
+														var23.third.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var23.x - Scene_cameraX, var23.z - Scene_cameraY, var23.y - Scene_cameraZ, var23.tag);
 													}
 
 													if (var23.first != null) { // L: 1018
-														var23.first.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var23.x - Scene_cameraX, var23.tileHeight - Scene_cameraY, var23.y - Scene_cameraZ, var23.tag);
+														var23.first.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var23.x - Scene_cameraX, var23.z - Scene_cameraY, var23.y - Scene_cameraZ, var23.tag);
 													}
 												}
 											}
@@ -1697,15 +1697,15 @@ public class Scene {
 			ItemLayer var32 = var3.itemLayer; // L: 1152
 			if (var32 != null && var32.height != 0) { // L: 1153
 				if (var32.second != null) { // L: 1154
-					var32.second.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var32.x - Scene_cameraX, var32.tileHeight - Scene_cameraY - var32.height, var32.y - Scene_cameraZ, var32.tag);
+					var32.second.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var32.x - Scene_cameraX, var32.z - Scene_cameraY - var32.height, var32.y - Scene_cameraZ, var32.tag);
 				}
 
 				if (var32.third != null) { // L: 1155
-					var32.third.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var32.x - Scene_cameraX, var32.tileHeight - Scene_cameraY - var32.height, var32.y - Scene_cameraZ, var32.tag);
+					var32.third.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var32.x - Scene_cameraX, var32.z - Scene_cameraY - var32.height, var32.y - Scene_cameraZ, var32.tag);
 				}
 
 				if (var32.first != null) { // L: 1156
-					var32.first.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var32.x - Scene_cameraX, var32.tileHeight - Scene_cameraY - var32.height, var32.y - Scene_cameraZ, var32.tag);
+					var32.first.draw(0, Scene_cameraPitchSine, Scene_cameraPitchCosine, Scene_cameraYawSine, Scene_cameraYawCosine, var32.x - Scene_cameraX, var32.z - Scene_cameraY - var32.height, var32.y - Scene_cameraZ, var32.tag);
 				}
 			}
 
