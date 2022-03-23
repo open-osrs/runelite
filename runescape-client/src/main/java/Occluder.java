@@ -2,149 +2,115 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
-import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gg")
+@ObfuscatedName("hd")
 @Implements("Occluder")
 public final class Occluder {
-	@ObfuscatedName("bx")
+	@ObfuscatedName("hc")
+	@Export("regionMapArchives")
+	static byte[][] regionMapArchives;
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 261158265
-	)
-	static int field2399;
-	@ObfuscatedName("cg")
-	@ObfuscatedSignature(
-		descriptor = "[Lpg;"
-	)
-	@Export("worldSelectFlagSprites")
-	static IndexedSprite[] worldSelectFlagSprites;
-	@ObfuscatedName("c")
-	@ObfuscatedGetter(
-		intValue = 222141243
+		intValue = 2118219045
 	)
 	@Export("minTileX")
 	int minTileX;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -333305953
+		intValue = -1278987595
 	)
 	@Export("maxTileX")
 	int maxTileX;
-	@ObfuscatedName("s")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = 1714135331
+		intValue = -1725451551
 	)
 	@Export("minTileY")
 	int minTileY;
-	@ObfuscatedName("e")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -1745150299
+		intValue = 1053658137
 	)
 	@Export("maxTileY")
 	int maxTileY;
-	@ObfuscatedName("r")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 259570443
+		intValue = -552645515
 	)
 	@Export("type")
 	int type;
-	@ObfuscatedName("o")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 2092502509
+		intValue = 1118377853
 	)
 	@Export("minX")
 	int minX;
-	@ObfuscatedName("i")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = 358389717
+		intValue = 1442245953
 	)
 	@Export("maxX")
 	int maxX;
-	@ObfuscatedName("w")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 275212217
+		intValue = -1253210515
 	)
 	@Export("minZ")
 	int minZ;
-	@ObfuscatedName("v")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = -2070764377
+		intValue = 141469663
 	)
 	@Export("maxZ")
 	int maxZ;
-	@ObfuscatedName("a")
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = 217573279
+		intValue = 928393647
 	)
 	@Export("minY")
 	int minY;
-	@ObfuscatedName("y")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 909727583
+		intValue = -1686310297
 	)
 	@Export("maxY")
 	int maxY;
-	@ObfuscatedName("u")
-	@ObfuscatedGetter(
-		intValue = 1217030825
-	)
-	int field2392;
-	@ObfuscatedName("h")
-	@ObfuscatedGetter(
-		intValue = 2016997771
-	)
-	int field2393;
-	@ObfuscatedName("q")
-	@ObfuscatedGetter(
-		intValue = -1246762073
-	)
-	int field2391;
 	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = 1389189999
+		intValue = -1392704329
 	)
-	int field2398;
+	int field2453;
+	@ObfuscatedName("c")
+	@ObfuscatedGetter(
+		intValue = 163437119
+	)
+	int field2454;
+	@ObfuscatedName("j")
+	@ObfuscatedGetter(
+		intValue = -465176021
+	)
+	int field2455;
 	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 495561345
+		intValue = -821512955
 	)
-	int field2396;
-	@ObfuscatedName("n")
+	int field2456;
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = -1551835523
+		intValue = -1125361357
 	)
-	int field2397;
-	@ObfuscatedName("m")
+	int field2460;
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -1555042003
+		intValue = 1349803663
 	)
-	int field2381;
+	int field2458;
+	@ObfuscatedName("w")
+	@ObfuscatedGetter(
+		intValue = -1964398833
+	)
+	int field2459;
 
 	Occluder() {
 	} // L: 23
-
-	@ObfuscatedName("ah")
-	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "1806127120"
-	)
-	@Export("runWidgetOnLoadListener")
-	static void runWidgetOnLoadListener(int var0) {
-		if (var0 != -1) { // L: 4519
-			if (class13.loadInterface(var0)) { // L: 4520
-				Widget[] var1 = Widget.Widget_interfaceComponents[var0]; // L: 4521
-
-				for (int var2 = 0; var2 < var1.length; ++var2) { // L: 4522
-					Widget var3 = var1[var2]; // L: 4523
-					if (var3.onLoad != null) { // L: 4524
-						ScriptEvent var4 = new ScriptEvent(); // L: 4525
-						var4.widget = var3; // L: 4526
-						var4.args = var3.onLoad; // L: 4527
-						class1.runScript(var4, 5000000, 0); // L: 4528
-					}
-				}
-
-			}
-		}
-	} // L: 4531
 }

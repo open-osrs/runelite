@@ -3,212 +3,212 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gf")
+@ObfuscatedName("hx")
 @Implements("Model")
 public class Model extends Renderable {
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lgf;"
+		descriptor = "Lhx;"
 	)
 	@Export("Model_sharedSequenceModel")
 	static Model Model_sharedSequenceModel;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@Export("Model_sharedSequenceModelFaceAlphas")
 	static byte[] Model_sharedSequenceModelFaceAlphas;
-	@ObfuscatedName("s")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Lgf;"
+		descriptor = "Lhx;"
 	)
 	@Export("Model_sharedSpotAnimationModel")
 	static Model Model_sharedSpotAnimationModel;
-	@ObfuscatedName("e")
+	@ObfuscatedName("g")
 	@Export("Model_sharedSpotAnimationModelFaceAlphas")
 	static byte[] Model_sharedSpotAnimationModelFaceAlphas;
-	@ObfuscatedName("r")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lni;"
+		descriptor = "Lnu;"
 	)
-	static class371 field2437;
-	@ObfuscatedName("o")
+	static class387 field2498;
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lni;"
+		descriptor = "Lnu;"
 	)
-	static class371 field2477;
-	@ObfuscatedName("i")
+	static class387 field2499;
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "Lni;"
+		descriptor = "Lnu;"
 	)
-	static class371 field2439;
-	@ObfuscatedName("ae")
-	static boolean[] field2495;
-	@ObfuscatedName("an")
-	static boolean[] field2478;
-	@ObfuscatedName("aw")
+	static class387 field2505;
+	@ObfuscatedName("am")
+	static boolean[] field2538;
+	@ObfuscatedName("al")
+	static boolean[] field2539;
+	@ObfuscatedName("ak")
 	@Export("modelViewportXs")
 	static int[] modelViewportXs;
-	@ObfuscatedName("aj")
+	@ObfuscatedName("az")
 	@Export("modelViewportYs")
 	static int[] modelViewportYs;
-	@ObfuscatedName("ax")
-	static int[] field2481;
-	@ObfuscatedName("ah")
-	static int[] field2482;
+	@ObfuscatedName("ag")
+	static int[] field2542;
+	@ObfuscatedName("af")
+	static int[] field2543;
+	@ObfuscatedName("ap")
+	static int[] field2547;
 	@ObfuscatedName("ai")
-	static int[] field2483;
-	@ObfuscatedName("am")
-	static int[] field2484;
-	@ObfuscatedName("bt")
-	static int[] field2486;
-	@ObfuscatedName("bn")
-	static int[][] field2487;
+	static int[] field2545;
 	@ObfuscatedName("bz")
-	static int[] field2454;
-	@ObfuscatedName("bx")
-	static int[][] field2489;
-	@ObfuscatedName("bd")
-	static int[] field2492;
+	static int[] field2555;
+	@ObfuscatedName("bl")
+	static int[][] field2548;
+	@ObfuscatedName("be")
+	static int[] field2521;
+	@ObfuscatedName("bt")
+	static int[][] field2525;
+	@ObfuscatedName("ba")
+	static int[] field2526;
 	@ObfuscatedName("bg")
-	static int[] field2468;
-	@ObfuscatedName("bm")
-	static int[] field2470;
-	@ObfuscatedName("bi")
-	static int[] field2511;
-	@ObfuscatedName("bw")
-	static int[] field2494;
-	@ObfuscatedName("bu")
-	static int[] field2467;
-	@ObfuscatedName("bs")
+	static int[] field2552;
+	@ObfuscatedName("bq")
+	static int[] field2567;
+	@ObfuscatedName("br")
+	static int[] field2509;
+	@ObfuscatedName("bc")
+	static int[] field2529;
+	@ObfuscatedName("bd")
+	static int[] field2556;
+	@ObfuscatedName("bf")
 	@Export("Model_transformTempX")
 	static int Model_transformTempX;
-	@ObfuscatedName("bb")
+	@ObfuscatedName("by")
 	@Export("Model_transformTempY")
 	static int Model_transformTempY;
-	@ObfuscatedName("br")
+	@ObfuscatedName("bu")
 	@Export("Model_transformTempZ")
 	static int Model_transformTempZ;
-	@ObfuscatedName("bh")
-	static boolean field2488;
-	@ObfuscatedName("ba")
+	@ObfuscatedName("bp")
+	static boolean field2560;
+	@ObfuscatedName("bs")
 	@Export("Model_sine")
 	static int[] Model_sine;
-	@ObfuscatedName("bv")
+	@ObfuscatedName("bx")
 	@Export("Model_cosine")
 	static int[] Model_cosine;
-	@ObfuscatedName("bl")
+	@ObfuscatedName("bo")
 	@Export("Model_colorPalette")
 	static int[] Model_colorPalette;
-	@ObfuscatedName("bc")
-	static int[] field2491;
-	@ObfuscatedName("w")
+	@ObfuscatedName("bi")
+	static int[] field2553;
+	@ObfuscatedName("f")
 	@Export("verticesCount")
 	int verticesCount;
-	@ObfuscatedName("v")
+	@ObfuscatedName("u")
 	@Export("verticesX")
 	int[] verticesX;
-	@ObfuscatedName("a")
+	@ObfuscatedName("r")
 	@Export("verticesY")
 	int[] verticesY;
-	@ObfuscatedName("y")
+	@ObfuscatedName("k")
 	@Export("verticesZ")
 	int[] verticesZ;
-	@ObfuscatedName("u")
+	@ObfuscatedName("x")
 	@Export("indicesCount")
 	int indicesCount;
-	@ObfuscatedName("h")
+	@ObfuscatedName("c")
 	@Export("indices1")
 	int[] indices1;
-	@ObfuscatedName("q")
+	@ObfuscatedName("j")
 	@Export("indices2")
 	int[] indices2;
-	@ObfuscatedName("x")
+	@ObfuscatedName("p")
 	@Export("indices3")
 	int[] indices3;
-	@ObfuscatedName("p")
+	@ObfuscatedName("s")
 	@Export("faceColors1")
 	int[] faceColors1;
-	@ObfuscatedName("n")
+	@ObfuscatedName("b")
 	@Export("faceColors2")
 	int[] faceColors2;
-	@ObfuscatedName("m")
+	@ObfuscatedName("w")
 	@Export("faceColors3")
 	int[] faceColors3;
-	@ObfuscatedName("d")
+	@ObfuscatedName("a")
 	@Export("faceRenderPriorities")
 	byte[] faceRenderPriorities;
-	@ObfuscatedName("j")
+	@ObfuscatedName("m")
 	@Export("faceAlphas")
 	byte[] faceAlphas;
-	@ObfuscatedName("f")
-	byte[] field2453;
-	@ObfuscatedName("g")
+	@ObfuscatedName("q")
+	byte[] field2514;
+	@ObfuscatedName("y")
 	@Export("faceTextures")
 	short[] faceTextures;
-	@ObfuscatedName("t")
-	byte field2455;
-	@ObfuscatedName("k")
-	int field2451;
-	@ObfuscatedName("b")
-	int[] field2457;
 	@ObfuscatedName("z")
-	int[] field2458;
-	@ObfuscatedName("ap")
-	int[] field2459;
-	@ObfuscatedName("af")
+	byte field2546;
+	@ObfuscatedName("e")
+	int field2517;
+	@ObfuscatedName("t")
+	int[] field2541;
+	@ObfuscatedName("i")
+	int[] field2519;
+	@ObfuscatedName("ac")
+	int[] field2520;
+	@ObfuscatedName("ax")
 	@Export("vertexLabels")
 	int[][] vertexLabels;
-	@ObfuscatedName("ak")
+	@ObfuscatedName("ay")
 	@Export("faceLabelsAlpha")
 	int[][] faceLabelsAlpha;
-	@ObfuscatedName("av")
-	int[][] field2462;
-	@ObfuscatedName("ar")
-	int[][] field2463;
-	@ObfuscatedName("al")
+	@ObfuscatedName("au")
+	int[][] field2523;
+	@ObfuscatedName("at")
+	int[][] field2524;
+	@ObfuscatedName("aw")
 	@Export("isSingleTile")
 	public boolean isSingleTile;
-	@ObfuscatedName("aa")
+	@ObfuscatedName("ar")
 	@Export("boundsType")
 	int boundsType;
-	@ObfuscatedName("ao")
+	@ObfuscatedName("ae")
 	@Export("bottomY")
 	int bottomY;
-	@ObfuscatedName("aq")
+	@ObfuscatedName("ab")
 	@Export("xzRadius")
 	int xzRadius;
-	@ObfuscatedName("ay")
+	@ObfuscatedName("aa")
 	@Export("diameter")
 	int diameter;
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ad")
 	@Export("radius")
 	int radius;
-	@ObfuscatedName("ab")
+	@ObfuscatedName("aj")
 	@Export("xMid")
 	int xMid;
 	@ObfuscatedName("as")
 	@Export("yMid")
 	int yMid;
-	@ObfuscatedName("ag")
+	@ObfuscatedName("ao")
 	@Export("zMid")
 	int zMid;
-	@ObfuscatedName("az")
+	@ObfuscatedName("av")
 	@Export("xMidOffset")
 	int xMidOffset;
-	@ObfuscatedName("ad")
+	@ObfuscatedName("aq")
 	@Export("yMidOffset")
 	int yMidOffset;
-	@ObfuscatedName("au")
+	@ObfuscatedName("an")
 	@Export("zMidOffset")
 	int zMidOffset;
-	@ObfuscatedName("by")
+	@ObfuscatedName("bn")
 	@Export("overrideHue")
 	public byte overrideHue;
-	@ObfuscatedName("bk")
+	@ObfuscatedName("bw")
 	@Export("overrideSaturation")
 	public byte overrideSaturation;
-	@ObfuscatedName("bp")
+	@ObfuscatedName("bh")
 	@Export("overrideLuminance")
 	public byte overrideLuminance;
-	@ObfuscatedName("ch")
+	@ObfuscatedName("cd")
 	@Export("overrideAmount")
 	public byte overrideAmount;
 
@@ -217,39 +217,39 @@ public class Model extends Renderable {
 		Model_sharedSequenceModelFaceAlphas = new byte[1]; // L: 12
 		Model_sharedSpotAnimationModel = new Model(); // L: 13
 		Model_sharedSpotAnimationModelFaceAlphas = new byte[1]; // L: 14
-		field2437 = new class371(); // L: 15
-		field2477 = new class371(); // L: 16
-		field2439 = new class371(); // L: 17
-		field2495 = new boolean[6500]; // L: 55
-		field2478 = new boolean[6500]; // L: 56
+		field2498 = new class387(); // L: 15
+		field2499 = new class387(); // L: 16
+		field2505 = new class387(); // L: 17
+		field2538 = new boolean[6500]; // L: 55
+		field2539 = new boolean[6500]; // L: 56
 		modelViewportXs = new int[6500]; // L: 57
 		modelViewportYs = new int[6500]; // L: 58
-		field2481 = new int[6500]; // L: 59
-		field2482 = new int[6500]; // L: 60
-		field2483 = new int[6500]; // L: 61
-		field2484 = new int[6500]; // L: 62
-		field2486 = new int[1600]; // L: 64
-		field2487 = new int[1600][512]; // L: 65
-		field2454 = new int[12]; // L: 66
-		field2489 = new int[12][2000]; // L: 67
-		field2492 = new int[2000]; // L: 68
-		field2468 = new int[2000]; // L: 69
-		field2470 = new int[12]; // L: 70
-		field2511 = new int[10]; // L: 71
-		field2494 = new int[10]; // L: 72
-		field2467 = new int[10]; // L: 73
-		field2488 = true; // L: 77
+		field2542 = new int[6500]; // L: 59
+		field2543 = new int[6500]; // L: 60
+		field2547 = new int[6500]; // L: 61
+		field2545 = new int[6500]; // L: 62
+		field2555 = new int[1600]; // L: 64
+		field2548 = new int[1600][512]; // L: 65
+		field2521 = new int[12]; // L: 66
+		field2525 = new int[12][2000]; // L: 67
+		field2526 = new int[2000]; // L: 68
+		field2552 = new int[2000]; // L: 69
+		field2567 = new int[12]; // L: 70
+		field2509 = new int[10]; // L: 71
+		field2529 = new int[10]; // L: 72
+		field2556 = new int[10]; // L: 73
+		field2560 = true; // L: 77
 		Model_sine = Rasterizer3D.Rasterizer3D_sine; // L: 80
 		Model_cosine = Rasterizer3D.Rasterizer3D_cosine; // L: 81
 		Model_colorPalette = Rasterizer3D.Rasterizer3D_colorPalette; // L: 82
-		field2491 = Rasterizer3D.field2264; // L: 83
+		field2553 = Rasterizer3D.field2346; // L: 83
 	}
 
 	Model() {
 		this.verticesCount = 0;
 		this.indicesCount = 0;
-		this.field2455 = 0;
-		this.field2451 = 0;
+		this.field2546 = 0;
+		this.field2517 = 0;
 		this.isSingleTile = false;
 		this.xMidOffset = -1;
 		this.yMidOffset = -1;
@@ -257,13 +257,13 @@ public class Model extends Renderable {
 	} // L: 91
 
 	@ObfuscatedSignature(
-		descriptor = "([Lgf;I)V"
+		descriptor = "([Lhx;I)V"
 	)
 	public Model(Model[] var1, int var2) {
 		this.verticesCount = 0; // L: 18
 		this.indicesCount = 0; // L: 22
-		this.field2455 = 0; // L: 33
-		this.field2451 = 0; // L: 34
+		this.field2546 = 0; // L: 33
+		this.field2517 = 0; // L: 34
 		this.isSingleTile = false; // L: 42
 		this.xMidOffset = -1; // L: 51
 		this.yMidOffset = -1; // L: 52
@@ -274,8 +274,8 @@ public class Model extends Renderable {
 		boolean var6 = false; // L: 97
 		this.verticesCount = 0; // L: 98
 		this.indicesCount = 0; // L: 99
-		this.field2451 = 0; // L: 100
-		this.field2455 = -1; // L: 101
+		this.field2517 = 0; // L: 100
+		this.field2546 = -1; // L: 101
 
 		int var7;
 		Model var8;
@@ -284,22 +284,22 @@ public class Model extends Renderable {
 			if (var8 != null) { // L: 104
 				this.verticesCount += var8.verticesCount; // L: 105
 				this.indicesCount += var8.indicesCount; // L: 106
-				this.field2451 += var8.field2451; // L: 107
+				this.field2517 += var8.field2517; // L: 107
 				if (var8.faceRenderPriorities != null) { // L: 108
 					var3 = true;
 				} else {
-					if (this.field2455 == -1) { // L: 110
-						this.field2455 = var8.field2455;
+					if (this.field2546 == -1) { // L: 110
+						this.field2546 = var8.field2546;
 					}
 
-					if (this.field2455 != var8.field2455) { // L: 111
+					if (this.field2546 != var8.field2546) { // L: 111
 						var3 = true;
 					}
 				}
 
 				var4 |= var8.faceAlphas != null; // L: 113
 				var5 |= var8.faceTextures != null; // L: 114
-				var6 |= var8.field2453 != null; // L: 115
+				var6 |= var8.field2514 != null; // L: 115
 			}
 		}
 
@@ -325,18 +325,18 @@ public class Model extends Renderable {
 		}
 
 		if (var6) { // L: 130
-			this.field2453 = new byte[this.indicesCount];
+			this.field2514 = new byte[this.indicesCount];
 		}
 
-		if (this.field2451 > 0) { // L: 131
-			this.field2457 = new int[this.field2451]; // L: 132
-			this.field2458 = new int[this.field2451]; // L: 133
-			this.field2459 = new int[this.field2451]; // L: 134
+		if (this.field2517 > 0) { // L: 131
+			this.field2541 = new int[this.field2517]; // L: 132
+			this.field2519 = new int[this.field2517]; // L: 133
+			this.field2520 = new int[this.field2517]; // L: 134
 		}
 
 		this.verticesCount = 0; // L: 136
 		this.indicesCount = 0; // L: 137
-		this.field2451 = 0; // L: 138
+		this.field2517 = 0; // L: 138
 
 		for (var7 = 0; var7 < var2; ++var7) { // L: 139
 			var8 = var1[var7]; // L: 140
@@ -353,7 +353,7 @@ public class Model extends Renderable {
 						if (var8.faceRenderPriorities != null) { // L: 150
 							this.faceRenderPriorities[this.indicesCount] = var8.faceRenderPriorities[var9];
 						} else {
-							this.faceRenderPriorities[this.indicesCount] = var8.field2455; // L: 151
+							this.faceRenderPriorities[this.indicesCount] = var8.field2546; // L: 151
 						}
 					}
 
@@ -370,21 +370,21 @@ public class Model extends Renderable {
 					}
 
 					if (var6) { // L: 160
-						if (var8.field2453 != null && var8.field2453[var9] != -1) { // L: 161
-							this.field2453[this.indicesCount] = (byte)(this.field2451 + var8.field2453[var9]);
+						if (var8.field2514 != null && var8.field2514[var9] != -1) { // L: 161
+							this.field2514[this.indicesCount] = (byte)(this.field2517 + var8.field2514[var9]);
 						} else {
-							this.field2453[this.indicesCount] = -1; // L: 162
+							this.field2514[this.indicesCount] = -1; // L: 162
 						}
 					}
 
 					++this.indicesCount; // L: 164
 				}
 
-				for (var9 = 0; var9 < var8.field2451; ++var9) { // L: 166
-					this.field2457[this.field2451] = this.verticesCount + var8.field2457[var9]; // L: 167
-					this.field2458[this.field2451] = this.verticesCount + var8.field2458[var9]; // L: 168
-					this.field2459[this.field2451] = this.verticesCount + var8.field2459[var9]; // L: 169
-					++this.field2451; // L: 170
+				for (var9 = 0; var9 < var8.field2517; ++var9) { // L: 166
+					this.field2541[this.field2517] = this.verticesCount + var8.field2541[var9]; // L: 167
+					this.field2519[this.field2517] = this.verticesCount + var8.field2519[var9]; // L: 168
+					this.field2520[this.field2517] = this.verticesCount + var8.field2520[var9]; // L: 169
+					++this.field2517; // L: 170
 				}
 
 				for (var9 = 0; var9 < var8.verticesCount; ++var9) { // L: 172
@@ -398,9 +398,9 @@ public class Model extends Renderable {
 
 	} // L: 180
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "([[IIIIZI)Lgf;"
+		descriptor = "([[IIIIZI)Lhx;"
 	)
 	@Export("contourGround")
 	public Model contourGround(int[][] var1, int var2, int var3, int var4, boolean var5, int var6) {
@@ -422,7 +422,7 @@ public class Model extends Renderable {
 					var11 = new Model(); // L: 196
 					var11.verticesCount = this.verticesCount; // L: 197
 					var11.indicesCount = this.indicesCount; // L: 198
-					var11.field2451 = this.field2451; // L: 199
+					var11.field2517 = this.field2517; // L: 199
 					var11.verticesX = this.verticesX; // L: 200
 					var11.verticesZ = this.verticesZ; // L: 201
 					var11.indices1 = this.indices1; // L: 202
@@ -433,12 +433,12 @@ public class Model extends Renderable {
 					var11.faceColors3 = this.faceColors3; // L: 207
 					var11.faceRenderPriorities = this.faceRenderPriorities; // L: 208
 					var11.faceAlphas = this.faceAlphas; // L: 209
-					var11.field2453 = this.field2453; // L: 210
+					var11.field2514 = this.field2514; // L: 210
 					var11.faceTextures = this.faceTextures; // L: 211
-					var11.field2455 = this.field2455; // L: 212
-					var11.field2457 = this.field2457; // L: 213
-					var11.field2458 = this.field2458; // L: 214
-					var11.field2459 = this.field2459; // L: 215
+					var11.field2546 = this.field2546; // L: 212
+					var11.field2541 = this.field2541; // L: 213
+					var11.field2519 = this.field2519; // L: 214
+					var11.field2520 = this.field2520; // L: 215
 					var11.vertexLabels = this.vertexLabels; // L: 216
 					var11.faceLabelsAlpha = this.faceLabelsAlpha; // L: 217
 					var11.isSingleTile = this.isSingleTile; // L: 218
@@ -496,9 +496,9 @@ public class Model extends Renderable {
 		}
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(Z)Lgf;"
+		descriptor = "(Z)Lhx;"
 	)
 	@Export("toSharedSequenceModel")
 	public Model toSharedSequenceModel(boolean var1) {
@@ -509,9 +509,9 @@ public class Model extends Renderable {
 		return this.buildSharedModel(var1, Model_sharedSequenceModel, Model_sharedSequenceModelFaceAlphas); // L: 261
 	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Z)Lgf;"
+		descriptor = "(Z)Lhx;"
 	)
 	@Export("toSharedSpotAnimationModel")
 	public Model toSharedSpotAnimationModel(boolean var1) {
@@ -522,15 +522,15 @@ public class Model extends Renderable {
 		return this.buildSharedModel(var1, Model_sharedSpotAnimationModel, Model_sharedSpotAnimationModelFaceAlphas); // L: 266
 	}
 
-	@ObfuscatedName("r")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "(ZLgf;[B)Lgf;"
+		descriptor = "(ZLhx;[B)Lhx;"
 	)
 	@Export("buildSharedModel")
 	Model buildSharedModel(boolean var1, Model var2, byte[] var3) {
 		var2.verticesCount = this.verticesCount; // L: 270
 		var2.indicesCount = this.indicesCount; // L: 271
-		var2.field2451 = this.field2451; // L: 272
+		var2.field2517 = this.field2517; // L: 272
 		if (var2.verticesX == null || var2.verticesX.length < this.verticesCount) { // L: 273
 			var2.verticesX = new int[this.verticesCount + 100]; // L: 274
 			var2.verticesY = new int[this.verticesCount + 100]; // L: 275
@@ -566,23 +566,23 @@ public class Model extends Renderable {
 		var2.faceColors2 = this.faceColors2; // L: 297
 		var2.faceColors3 = this.faceColors3; // L: 298
 		var2.faceRenderPriorities = this.faceRenderPriorities; // L: 299
-		var2.field2453 = this.field2453; // L: 300
+		var2.field2514 = this.field2514; // L: 300
 		var2.faceTextures = this.faceTextures; // L: 301
-		var2.field2455 = this.field2455; // L: 302
-		var2.field2457 = this.field2457; // L: 303
-		var2.field2458 = this.field2458; // L: 304
-		var2.field2459 = this.field2459; // L: 305
+		var2.field2546 = this.field2546; // L: 302
+		var2.field2541 = this.field2541; // L: 303
+		var2.field2519 = this.field2519; // L: 304
+		var2.field2520 = this.field2520; // L: 305
 		var2.vertexLabels = this.vertexLabels; // L: 306
 		var2.faceLabelsAlpha = this.faceLabelsAlpha; // L: 307
-		var2.field2462 = this.field2462; // L: 308
-		var2.field2463 = this.field2463; // L: 309
+		var2.field2523 = this.field2523; // L: 308
+		var2.field2524 = this.field2524; // L: 309
 		var2.isSingleTile = this.isSingleTile; // L: 310
 		var2.resetBounds(); // L: 311
 		var2.overrideAmount = 0; // L: 312
 		return var2; // L: 313
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("f")
 	@Export("calculateBoundingBox")
 	void calculateBoundingBox(int var1) {
 		if (this.xMidOffset == -1) { // L: 317
@@ -596,9 +596,9 @@ public class Model extends Renderable {
 			int var9 = Model_sine[var1]; // L: 325
 
 			for (int var10 = 0; var10 < this.verticesCount; ++var10) { // L: 326
-				int var11 = Rasterizer3D.method3805(this.verticesX[var10], this.verticesZ[var10], var8, var9); // L: 327
+				int var11 = Rasterizer3D.method4080(this.verticesX[var10], this.verticesZ[var10], var8, var9); // L: 327
 				int var12 = this.verticesY[var10]; // L: 328
-				int var13 = Rasterizer3D.method3806(this.verticesX[var10], this.verticesZ[var10], var8, var9); // L: 329
+				int var13 = Rasterizer3D.method3993(this.verticesX[var10], this.verticesZ[var10], var8, var9); // L: 329
 				if (var11 < var2) { // L: 330
 					var2 = var11;
 				}
@@ -648,7 +648,7 @@ public class Model extends Renderable {
 		}
 	} // L: 351
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("u")
 	@Export("calculateBoundsCylinder")
 	public void calculateBoundsCylinder() {
 		if (this.boundsType != 1) { // L: 354
@@ -681,8 +681,8 @@ public class Model extends Renderable {
 		}
 	} // L: 371
 
-	@ObfuscatedName("y")
-	void method4190() {
+	@ObfuscatedName("r")
+	void method4359() {
 		if (this.boundsType != 2) { // L: 374
 			this.boundsType = 2; // L: 375
 			this.xzRadius = 0; // L: 376
@@ -703,22 +703,22 @@ public class Model extends Renderable {
 		}
 	} // L: 387
 
-	@ObfuscatedName("u")
-	public int method4137() {
+	@ObfuscatedName("k")
+	public int method4360() {
 		this.calculateBoundsCylinder(); // L: 390
 		return this.xzRadius; // L: 391
 	}
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("x")
 	@Export("resetBounds")
 	public void resetBounds() {
 		this.boundsType = 0; // L: 395
 		this.xMidOffset = -1; // L: 396
 	} // L: 397
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lgu;I)V"
+		descriptor = "(Lgo;I)V"
 	)
 	@Export("animate")
 	public void animate(Frames var1, int var2) {
@@ -740,20 +740,20 @@ public class Model extends Renderable {
 		}
 	} // L: 412
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "(Ldw;I)V"
+		descriptor = "(Ldu;I)V"
 	)
-	public void method4140(class120 var1, int var2) {
-		Skeleton var3 = var1.field1478; // L: 415
-		class194 var4 = var3.method3887(); // L: 416
+	public void method4363(class122 var1, int var2) {
+		Skeleton var3 = var1.field1485; // L: 415
+		class202 var4 = var3.method4120(); // L: 416
 		if (var4 != null) { // L: 417
-			var3.method3887().method3874(var1, var2); // L: 418
-			this.method4142(var3.method3887(), var1.method2666()); // L: 419
+			var3.method4120().method4106(var1, var2); // L: 418
+			this.method4365(var3.method4120(), var1.method2783()); // L: 419
 		}
 
-		if (var1.method2697()) { // L: 421
-			this.method4156(var1, var2); // L: 422
+		if (var1.method2784()) { // L: 421
+			this.method4364(var1, var2); // L: 422
 		}
 
 		this.resetBounds(); // L: 424
@@ -761,15 +761,15 @@ public class Model extends Renderable {
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "(Ldw;I)V"
+		descriptor = "(Ldu;I)V"
 	)
-	void method4156(class120 var1, int var2) {
-		Skeleton var3 = var1.field1478; // L: 428
+	void method4364(class122 var1, int var2) {
+		Skeleton var3 = var1.field1485; // L: 428
 
 		for (int var4 = 0; var4 < var3.count; ++var4) { // L: 429
 			int var5 = var3.transformTypes[var4]; // L: 430
-			if (var5 == 5 && var1.field1470 != null && var1.field1470[var4] != null && var1.field1470[var4][0] != null && this.faceLabelsAlpha != null && this.faceAlphas != null) { // L: 431 432
-				class115 var6 = var1.field1470[var4][0]; // L: 433
+			if (var5 == 5 && var1.field1480 != null && var1.field1480[var4] != null && var1.field1480[var4][0] != null && this.faceLabelsAlpha != null && this.faceAlphas != null) { // L: 431 432
+				class117 var6 = var1.field1480[var4][0]; // L: 433
 				int[] var7 = var3.labels[var4]; // L: 434
 				int var8 = var7.length; // L: 435
 
@@ -780,7 +780,7 @@ public class Model extends Renderable {
 
 						for (int var12 = 0; var12 < var11.length; ++var12) { // L: 440
 							int var13 = var11[var12]; // L: 441
-							int var14 = (int)((float)(this.faceAlphas[var13] & 255) + var6.method2611(var2) * 255.0F); // L: 442
+							int var14 = (int)((float)(this.faceAlphas[var13] & 255) + var6.method2700(var2) * 255.0F); // L: 442
 							if (var14 < 0) { // L: 443
 								var14 = 0;
 							} else if (var14 > 255) { // L: 444
@@ -796,17 +796,17 @@ public class Model extends Renderable {
 
 	} // L: 452
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "(Lga;I)V"
+		descriptor = "(Lgl;I)V"
 	)
-	void method4142(class194 var1, int var2) {
-		this.method4237(var1, var2); // L: 456
+	void method4365(class202 var1, int var2) {
+		this.method4381(var1, var2); // L: 456
 	} // L: 458
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(Lgu;ILgu;I[I)V"
+		descriptor = "(Lgo;ILgo;I[I)V"
 	)
 	@Export("animate2")
 	public void animate2(Frames var1, int var2, Frames var3, int var4, int[] var5) {
@@ -856,29 +856,29 @@ public class Model extends Renderable {
 		}
 	} // L: 464 490
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "(Ldw;I[ZZ)V"
+		descriptor = "(Ldu;I[ZZ)V"
 	)
-	public void method4139(class120 var1, int var2, boolean[] var3, boolean var4) {
-		Skeleton var5 = var1.field1478; // L: 493
-		class194 var6 = var5.method3887(); // L: 494
+	public void method4367(class122 var1, int var2, boolean[] var3, boolean var4) {
+		Skeleton var5 = var1.field1485; // L: 493
+		class202 var6 = var5.method4120(); // L: 494
 		if (var6 != null) { // L: 495
-			var6.method3873(var1, var2, var3, var4); // L: 496
-			this.method4142(var6, var1.method2666()); // L: 497
+			var6.method4116(var1, var2, var3, var4); // L: 496
+			this.method4365(var6, var1.method2783()); // L: 497
 		}
 
-		if (var1.method2697()) { // L: 499
-			this.method4156(var1, var2); // L: 500
+		if (var1.method2784()) { // L: 499
+			this.method4364(var1, var2); // L: 500
 		}
 
 	} // L: 502
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "(Lgu;I[IZ)V"
+		descriptor = "(Lgo;I[IZ)V"
 	)
-	public void method4145(Frames var1, int var2, int[] var3, boolean var4) {
+	public void method4368(Frames var1, int var2, int[] var3, boolean var4) {
 		if (var3 == null) { // L: 505
 			this.animate(var1, var2); // L: 506
 		} else {
@@ -908,7 +908,7 @@ public class Model extends Renderable {
 		}
 	} // L: 507 526
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("m")
 	@Export("transform")
 	void transform(int var1, int[] var2, int var3, int var4, int var5) {
 		int var6 = var2.length; // L: 529
@@ -1076,7 +1076,7 @@ public class Model extends Renderable {
 		}
 	} // L: 558 573 615 636 654 656
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("q")
 	@Export("rotateY90Ccw")
 	public void rotateY90Ccw() {
 		for (int var1 = 0; var1 < this.verticesCount; ++var1) { // L: 659
@@ -1088,7 +1088,7 @@ public class Model extends Renderable {
 		this.resetBounds(); // L: 664
 	} // L: 665
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("y")
 	@Export("rotateY180")
 	public void rotateY180() {
 		for (int var1 = 0; var1 < this.verticesCount; ++var1) { // L: 668
@@ -1099,7 +1099,7 @@ public class Model extends Renderable {
 		this.resetBounds(); // L: 672
 	} // L: 673
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("z")
 	@Export("rotateY270Ccw")
 	public void rotateY270Ccw() {
 		for (int var1 = 0; var1 < this.verticesCount; ++var1) { // L: 676
@@ -1111,7 +1111,7 @@ public class Model extends Renderable {
 		this.resetBounds(); // L: 681
 	} // L: 682
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("e")
 	@Export("rotateZ")
 	public void rotateZ(int var1) {
 		int var2 = Model_sine[var1]; // L: 685
@@ -1126,7 +1126,7 @@ public class Model extends Renderable {
 		this.resetBounds(); // L: 692
 	} // L: 693
 
-	@ObfuscatedName("z")
+	@ObfuscatedName("t")
 	@Export("offsetBy")
 	public void offsetBy(int var1, int var2, int var3) {
 		for (int var4 = 0; var4 < this.verticesCount; ++var4) { // L: 696
@@ -1141,7 +1141,7 @@ public class Model extends Renderable {
 		this.resetBounds(); // L: 701
 	} // L: 702
 
-	@ObfuscatedName("ap")
+	@ObfuscatedName("i")
 	@Export("scale")
 	public void scale(int var1, int var2, int var3) {
 		for (int var4 = 0; var4 < this.verticesCount; ++var4) { // L: 705
@@ -1153,11 +1153,11 @@ public class Model extends Renderable {
 		this.resetBounds(); // L: 710
 	} // L: 711
 
-	@ObfuscatedName("af")
-	public final void method4215(int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
-		field2486[0] = -1; // L: 714
+	@ObfuscatedName("ac")
+	public final void method4376(int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
+		field2555[0] = -1; // L: 714
 		if (this.boundsType != 2 && this.boundsType != 1) { // L: 715
-			this.method4190();
+			this.method4359();
 		}
 
 		int var8 = Rasterizer3D.Rasterizer3D_clipMidX; // L: 716
@@ -1200,13 +1200,13 @@ public class Model extends Renderable {
 			var22 += var7; // L: 748
 			var23 = var21 * var17 - var22 * var16 >> 16; // L: 749
 			var22 = var21 * var16 + var22 * var17 >> 16; // L: 750
-			field2481[var19] = var22 - var18; // L: 752
+			field2542[var19] = var22 - var18; // L: 752
 			modelViewportXs[var19] = var20 * Rasterizer3D.Rasterizer3D_zoom / var22 + var8; // L: 753
 			modelViewportYs[var19] = var23 * Rasterizer3D.Rasterizer3D_zoom / var22 + var9; // L: 754
-			if (this.field2451 > 0) { // L: 755
-				field2482[var19] = var20; // L: 756
-				field2483[var19] = var23; // L: 757
-				field2484[var19] = var22; // L: 758
+			if (this.field2517 > 0) { // L: 755
+				field2543[var19] = var20; // L: 756
+				field2547[var19] = var23; // L: 757
+				field2545[var19] = var22; // L: 758
 			}
 		}
 
@@ -1217,11 +1217,11 @@ public class Model extends Renderable {
 
 	} // L: 765
 
-	@ObfuscatedName("ak")
-	public final void method4154(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
-		field2486[0] = -1; // L: 768
+	@ObfuscatedName("ax")
+	public final void method4366(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8) {
+		field2555[0] = -1; // L: 768
 		if (this.boundsType != 2 && this.boundsType != 1) { // L: 769
-			this.method4190();
+			this.method4359();
 		}
 
 		int var9 = Rasterizer3D.Rasterizer3D_clipMidX; // L: 770
@@ -1264,13 +1264,13 @@ public class Model extends Renderable {
 			var23 += var7; // L: 802
 			var24 = var22 * var18 - var23 * var17 >> 16; // L: 803
 			var23 = var22 * var17 + var23 * var18 >> 16; // L: 804
-			field2481[var20] = var23 - var19; // L: 806
+			field2542[var20] = var23 - var19; // L: 806
 			modelViewportXs[var20] = var9 + var21 * Rasterizer3D.Rasterizer3D_zoom / var8; // L: 807
 			modelViewportYs[var20] = var10 + var24 * Rasterizer3D.Rasterizer3D_zoom / var8; // L: 808
-			if (this.field2451 > 0) { // L: 809
-				field2482[var20] = var21; // L: 810
-				field2483[var20] = var24; // L: 811
-				field2484[var20] = var23; // L: 812
+			if (this.field2517 > 0) { // L: 809
+				field2543[var20] = var21; // L: 810
+				field2547[var20] = var24; // L: 811
+				field2545[var20] = var23; // L: 812
 			}
 		}
 
@@ -1281,16 +1281,16 @@ public class Model extends Renderable {
 
 	} // L: 819
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("ay")
 	@Export("draw0")
 	final void draw0(boolean var1, boolean var2, boolean var3, long var4) {
-		if (this.diameter < 1600) { // L: 1022
+		if (this.diameter < 1600) { // L: 945
 			int var6;
-			for (var6 = 0; var6 < this.diameter; ++var6) { // L: 1023
-				field2486[var6] = 0;
+			for (var6 = 0; var6 < this.diameter; ++var6) { // L: 946
+				field2555[var6] = 0;
 			}
 
-			var6 = var3 ? 20 : 5; // L: 1024
+			var6 = var3 ? 20 : 5; // L: 947
 
 			int var7;
 			int var8;
@@ -1302,464 +1302,493 @@ public class Model extends Renderable {
 			int var16;
 			int var18;
 			int var28;
-			for (var7 = 0; var7 < this.indicesCount; ++var7) { // L: 1025
-				if (this.faceColors3[var7] != -2) { // L: 1026
-					var8 = this.indices1[var7]; // L: 1027
-					var9 = this.indices2[var7]; // L: 1028
-					var10 = this.indices3[var7]; // L: 1029
-					var11 = modelViewportXs[var8]; // L: 1030
-					var12 = modelViewportXs[var9]; // L: 1031
-					var28 = modelViewportXs[var10]; // L: 1032
-					int var31;
-					if (!var1 || var11 != -5000 && var12 != -5000 && var28 != -5000) { // L: 1033
-						if (var2 && class67.method1896(modelViewportYs[var8], modelViewportYs[var9], modelViewportYs[var10], var11, var12, var28, var6)) { // L: 1059
-							ViewportMouse.ViewportMouse_entityTags[++ViewportMouse.ViewportMouse_entityCount - 1] = var4; // L: 1062
-							var2 = false; // L: 1064
-						}
-
-						if ((var11 - var12) * (modelViewportYs[var10] - modelViewportYs[var9]) - (var28 - var12) * (modelViewportYs[var8] - modelViewportYs[var9]) > 0) { // L: 1066
-							field2478[var7] = false; // L: 1067
-							if (var11 >= 0 && var12 >= 0 && var28 >= 0 && var11 <= Rasterizer3D.Rasterizer3D_clipWidth && var12 <= Rasterizer3D.Rasterizer3D_clipWidth && var28 <= Rasterizer3D.Rasterizer3D_clipWidth) { // L: 1068
-								field2495[var7] = false; // L: 1069
+			for (var7 = 0; var7 < this.indicesCount; ++var7) { // L: 948
+				if (this.faceColors3[var7] != -2) { // L: 949
+					var8 = this.indices1[var7]; // L: 950
+					var9 = this.indices2[var7]; // L: 951
+					var10 = this.indices3[var7]; // L: 952
+					var11 = modelViewportXs[var8]; // L: 953
+					var12 = modelViewportXs[var9]; // L: 954
+					var28 = modelViewportXs[var10]; // L: 955
+					int var29;
+					int var30;
+					if (!var1 || var11 != -5000 && var12 != -5000 && var28 != -5000) { // L: 956
+						if (var2) { // L: 982
+							var15 = modelViewportYs[var8]; // L: 984
+							var16 = modelViewportYs[var9]; // L: 985
+							var30 = modelViewportYs[var10]; // L: 986
+							var18 = var6 + ViewportMouse.ViewportMouse_y; // L: 988
+							boolean var34;
+							if (var18 < var15 && var18 < var16 && var18 < var30) { // L: 989
+								var34 = false; // L: 990
 							} else {
-								field2495[var7] = true;
+								var18 = ViewportMouse.ViewportMouse_y - var6; // L: 993
+								if (var18 > var15 && var18 > var16 && var18 > var30) { // L: 994
+									var34 = false; // L: 995
+								} else {
+									var18 = var6 + ViewportMouse.ViewportMouse_x; // L: 998
+									if (var18 < var11 && var18 < var12 && var18 < var28) { // L: 999
+										var34 = false; // L: 1000
+									} else {
+										var18 = ViewportMouse.ViewportMouse_x - var6; // L: 1003
+										if (var18 > var11 && var18 > var12 && var18 > var28) { // L: 1004
+											var34 = false; // L: 1005
+										} else {
+											var34 = true; // L: 1008
+										}
+									}
+								}
 							}
 
-							var31 = (field2481[var8] + field2481[var9] + field2481[var10]) / 3 + this.radius; // L: 1070
-							field2487[var31][field2486[var31]++] = var7; // L: 1071
+							if (var34) { // L: 1010
+								ViewportMouse.ViewportMouse_entityTags[++ViewportMouse.ViewportMouse_entityCount - 1] = var4; // L: 1013
+								var2 = false; // L: 1015
+							}
+						}
+
+						if ((var11 - var12) * (modelViewportYs[var10] - modelViewportYs[var9]) - (var28 - var12) * (modelViewportYs[var8] - modelViewportYs[var9]) > 0) { // L: 1018
+							field2539[var7] = false; // L: 1019
+							if (var11 >= 0 && var12 >= 0 && var28 >= 0 && var11 <= Rasterizer3D.Rasterizer3D_clipWidth && var12 <= Rasterizer3D.Rasterizer3D_clipWidth && var28 <= Rasterizer3D.Rasterizer3D_clipWidth) { // L: 1020
+								field2538[var7] = false; // L: 1021
+							} else {
+								field2538[var7] = true;
+							}
+
+							var29 = (field2542[var8] + field2542[var9] + field2542[var10]) / 3 + this.radius; // L: 1022
+							field2548[var29][field2555[var29]++] = var7; // L: 1023
 						}
 					} else {
-						var31 = field2482[var8]; // L: 1034
-						var15 = field2482[var9]; // L: 1035
-						var16 = field2482[var10]; // L: 1036
-						int var32 = field2483[var8]; // L: 1037
-						var18 = field2483[var9]; // L: 1038
-						int var19 = field2483[var10]; // L: 1039
-						int var20 = field2484[var8]; // L: 1040
-						int var21 = field2484[var9]; // L: 1041
-						int var22 = field2484[var10]; // L: 1042
-						var31 -= var15; // L: 1043
-						var16 -= var15; // L: 1044
-						var32 -= var18; // L: 1045
-						var19 -= var18; // L: 1046
-						var20 -= var21; // L: 1047
-						var22 -= var21; // L: 1048
-						int var23 = var32 * var22 - var20 * var19; // L: 1049
-						int var24 = var20 * var16 - var31 * var22; // L: 1050
-						int var25 = var31 * var19 - var32 * var16; // L: 1051
-						if (var15 * var23 + var18 * var24 + var21 * var25 > 0) { // L: 1052
-							field2478[var7] = true; // L: 1053
-							int var26 = (field2481[var8] + field2481[var9] + field2481[var10]) / 3 + this.radius; // L: 1054
-							field2487[var26][field2486[var26]++] = var7; // L: 1055
+						var29 = field2543[var8]; // L: 957
+						var15 = field2543[var9]; // L: 958
+						var16 = field2543[var10]; // L: 959
+						var30 = field2547[var8]; // L: 960
+						var18 = field2547[var9]; // L: 961
+						int var19 = field2547[var10]; // L: 962
+						int var20 = field2545[var8]; // L: 963
+						int var21 = field2545[var9]; // L: 964
+						int var22 = field2545[var10]; // L: 965
+						var29 -= var15; // L: 966
+						var16 -= var15; // L: 967
+						var30 -= var18; // L: 968
+						var19 -= var18; // L: 969
+						var20 -= var21; // L: 970
+						var22 -= var21; // L: 971
+						int var23 = var30 * var22 - var20 * var19; // L: 972
+						int var24 = var20 * var16 - var29 * var22; // L: 973
+						int var25 = var29 * var19 - var30 * var16; // L: 974
+						if (var15 * var23 + var18 * var24 + var21 * var25 > 0) { // L: 975
+							field2539[var7] = true; // L: 976
+							int var26 = (field2542[var8] + field2542[var9] + field2542[var10]) / 3 + this.radius; // L: 977
+							field2548[var26][field2555[var26]++] = var7; // L: 978
 						}
 					}
 				}
 			}
 
 			int[] var27;
-			if (this.faceRenderPriorities == null) { // L: 1075
-				for (var7 = this.diameter - 1; var7 >= 0; --var7) { // L: 1076
-					var8 = field2486[var7]; // L: 1077
-					if (var8 > 0) { // L: 1078
-						var27 = field2487[var7]; // L: 1079
+			if (this.faceRenderPriorities == null) { // L: 1027
+				for (var7 = this.diameter - 1; var7 >= 0; --var7) { // L: 1028
+					var8 = field2555[var7]; // L: 1029
+					if (var8 > 0) { // L: 1030
+						var27 = field2548[var7]; // L: 1031
 
-						for (var10 = 0; var10 < var8; ++var10) { // L: 1080
+						for (var10 = 0; var10 < var8; ++var10) { // L: 1032
 							this.drawFace(var27[var10]);
 						}
 					}
 				}
 
 			} else {
-				for (var7 = 0; var7 < 12; ++var7) { // L: 1085
-					field2454[var7] = 0; // L: 1086
-					field2470[var7] = 0; // L: 1087
+				for (var7 = 0; var7 < 12; ++var7) { // L: 1037
+					field2521[var7] = 0; // L: 1038
+					field2567[var7] = 0; // L: 1039
 				}
 
-				for (var7 = this.diameter - 1; var7 >= 0; --var7) { // L: 1089
-					var8 = field2486[var7]; // L: 1090
-					if (var8 > 0) { // L: 1091
-						var27 = field2487[var7]; // L: 1092
+				for (var7 = this.diameter - 1; var7 >= 0; --var7) { // L: 1041
+					var8 = field2555[var7]; // L: 1042
+					if (var8 > 0) { // L: 1043
+						var27 = field2548[var7]; // L: 1044
 
-						for (var10 = 0; var10 < var8; ++var10) { // L: 1093
-							var11 = var27[var10]; // L: 1094
-							byte var33 = this.faceRenderPriorities[var11]; // L: 1095
-							var28 = field2454[var33]++; // L: 1096
-							field2489[var33][var28] = var11; // L: 1097
-							if (var33 < 10) { // L: 1098
-								int[] var10000 = field2470;
+						for (var10 = 0; var10 < var8; ++var10) { // L: 1045
+							var11 = var27[var10]; // L: 1046
+							byte var33 = this.faceRenderPriorities[var11]; // L: 1047
+							var28 = field2521[var33]++; // L: 1048
+							field2525[var33][var28] = var11; // L: 1049
+							if (var33 < 10) { // L: 1050
+								int[] var10000 = field2567;
 								var10000[var33] += var7;
-							} else if (var33 == 10) { // L: 1099
-								field2492[var28] = var7;
+							} else if (var33 == 10) { // L: 1051
+								field2526[var28] = var7;
 							} else {
-								field2468[var28] = var7; // L: 1100
+								field2552[var28] = var7; // L: 1052
 							}
 						}
 					}
 				}
 
-				var7 = 0; // L: 1104
-				if (field2454[1] > 0 || field2454[2] > 0) { // L: 1105
-					var7 = (field2470[1] + field2470[2]) / (field2454[1] + field2454[2]);
+				var7 = 0; // L: 1056
+				if (field2521[1] > 0 || field2521[2] > 0) { // L: 1057
+					var7 = (field2567[1] + field2567[2]) / (field2521[1] + field2521[2]);
 				}
 
-				var8 = 0; // L: 1106
-				if (field2454[3] > 0 || field2454[4] > 0) { // L: 1107
-					var8 = (field2470[3] + field2470[4]) / (field2454[3] + field2454[4]);
+				var8 = 0; // L: 1058
+				if (field2521[3] > 0 || field2521[4] > 0) { // L: 1059
+					var8 = (field2567[3] + field2567[4]) / (field2521[3] + field2521[4]);
 				}
 
-				var9 = 0; // L: 1108
-				if (field2454[6] > 0 || field2454[8] > 0) { // L: 1109
-					var9 = (field2470[8] + field2470[6]) / (field2454[8] + field2454[6]);
+				var9 = 0; // L: 1060
+				if (field2521[6] > 0 || field2521[8] > 0) { // L: 1061
+					var9 = (field2567[8] + field2567[6]) / (field2521[8] + field2521[6]);
 				}
 
-				var11 = 0; // L: 1111
-				var12 = field2454[10]; // L: 1112
-				int[] var13 = field2489[10]; // L: 1113
-				int[] var14 = field2492; // L: 1114
-				if (var11 == var12) { // L: 1115
-					var11 = 0; // L: 1116
-					var12 = field2454[11]; // L: 1117
-					var13 = field2489[11]; // L: 1118
-					var14 = field2468; // L: 1119
+				var11 = 0; // L: 1063
+				var12 = field2521[10]; // L: 1064
+				int[] var13 = field2525[10]; // L: 1065
+				int[] var14 = field2526; // L: 1066
+				if (var11 == var12) { // L: 1067
+					var11 = 0; // L: 1068
+					var12 = field2521[11]; // L: 1069
+					var13 = field2525[11]; // L: 1070
+					var14 = field2552; // L: 1071
 				}
 
-				if (var11 < var12) { // L: 1121
+				if (var11 < var12) { // L: 1073
 					var10 = var14[var11];
 				} else {
-					var10 = -1000; // L: 1122
+					var10 = -1000; // L: 1074
 				}
 
-				for (var15 = 0; var15 < 10; ++var15) { // L: 1123
-					while (var15 == 0 && var10 > var7) { // L: 1124
-						this.drawFace(var13[var11++]); // L: 1125
-						if (var11 == var12 && var13 != field2489[11]) { // L: 1126
-							var11 = 0; // L: 1127
-							var12 = field2454[11]; // L: 1128
-							var13 = field2489[11]; // L: 1129
-							var14 = field2468; // L: 1130
+				for (var15 = 0; var15 < 10; ++var15) { // L: 1075
+					while (var15 == 0 && var10 > var7) { // L: 1076
+						this.drawFace(var13[var11++]); // L: 1077
+						if (var11 == var12 && var13 != field2525[11]) { // L: 1078
+							var11 = 0; // L: 1079
+							var12 = field2521[11]; // L: 1080
+							var13 = field2525[11]; // L: 1081
+							var14 = field2552; // L: 1082
 						}
 
-						if (var11 < var12) { // L: 1132
+						if (var11 < var12) { // L: 1084
 							var10 = var14[var11];
 						} else {
-							var10 = -1000; // L: 1133
+							var10 = -1000; // L: 1085
 						}
 					}
 
-					while (var15 == 3 && var10 > var8) { // L: 1135
-						this.drawFace(var13[var11++]); // L: 1136
-						if (var11 == var12 && var13 != field2489[11]) { // L: 1137
-							var11 = 0; // L: 1138
-							var12 = field2454[11]; // L: 1139
-							var13 = field2489[11]; // L: 1140
-							var14 = field2468; // L: 1141
+					while (var15 == 3 && var10 > var8) { // L: 1087
+						this.drawFace(var13[var11++]); // L: 1088
+						if (var11 == var12 && var13 != field2525[11]) { // L: 1089
+							var11 = 0; // L: 1090
+							var12 = field2521[11]; // L: 1091
+							var13 = field2525[11]; // L: 1092
+							var14 = field2552; // L: 1093
 						}
 
-						if (var11 < var12) { // L: 1143
+						if (var11 < var12) { // L: 1095
 							var10 = var14[var11];
 						} else {
-							var10 = -1000; // L: 1144
+							var10 = -1000; // L: 1096
 						}
 					}
 
-					while (var15 == 5 && var10 > var9) { // L: 1146
-						this.drawFace(var13[var11++]); // L: 1147
-						if (var11 == var12 && var13 != field2489[11]) { // L: 1148
-							var11 = 0; // L: 1149
-							var12 = field2454[11]; // L: 1150
-							var13 = field2489[11]; // L: 1151
-							var14 = field2468; // L: 1152
+					while (var15 == 5 && var10 > var9) { // L: 1098
+						this.drawFace(var13[var11++]); // L: 1099
+						if (var11 == var12 && var13 != field2525[11]) { // L: 1100
+							var11 = 0; // L: 1101
+							var12 = field2521[11]; // L: 1102
+							var13 = field2525[11]; // L: 1103
+							var14 = field2552; // L: 1104
 						}
 
-						if (var11 < var12) { // L: 1154
+						if (var11 < var12) { // L: 1106
 							var10 = var14[var11];
 						} else {
-							var10 = -1000; // L: 1155
+							var10 = -1000; // L: 1107
 						}
 					}
 
-					var16 = field2454[var15]; // L: 1157
-					int[] var17 = field2489[var15]; // L: 1158
+					var16 = field2521[var15]; // L: 1109
+					int[] var17 = field2525[var15]; // L: 1110
 
-					for (var18 = 0; var18 < var16; ++var18) { // L: 1159
-						this.drawFace(var17[var18]); // L: 1160
+					for (var18 = 0; var18 < var16; ++var18) { // L: 1111
+						this.drawFace(var17[var18]); // L: 1112
 					}
 				}
 
-				while (var10 != -1000) { // L: 1163
-					this.drawFace(var13[var11++]); // L: 1164
-					if (var11 == var12 && var13 != field2489[11]) { // L: 1165
-						var11 = 0; // L: 1166
-						var13 = field2489[11]; // L: 1167
-						var12 = field2454[11]; // L: 1168
-						var14 = field2468; // L: 1169
+				while (var10 != -1000) { // L: 1115
+					this.drawFace(var13[var11++]); // L: 1116
+					if (var11 == var12 && var13 != field2525[11]) { // L: 1117
+						var11 = 0; // L: 1118
+						var13 = field2525[11]; // L: 1119
+						var12 = field2521[11]; // L: 1120
+						var14 = field2552; // L: 1121
 					}
 
-					if (var11 < var12) { // L: 1171
+					if (var11 < var12) { // L: 1123
 						var10 = var14[var11];
 					} else {
-						var10 = -1000; // L: 1172
+						var10 = -1000; // L: 1124
 					}
 				}
 
 			}
 		}
-	} // L: 1083 1174
+	} // L: 1035 1126
 
-	@ObfuscatedName("ar")
+	@ObfuscatedName("au")
 	@Export("drawFace")
 	final void drawFace(int var1) {
-		if (field2478[var1]) { // L: 1177
-			this.method4238(var1); // L: 1178
+		if (field2539[var1]) { // L: 1129
+			this.method4412(var1); // L: 1130
 		} else {
-			int var2 = this.indices1[var1]; // L: 1181
-			int var3 = this.indices2[var1]; // L: 1182
-			int var4 = this.indices3[var1]; // L: 1183
-			Rasterizer3D.field2262 = field2495[var1]; // L: 1184
-			if (this.faceAlphas == null) { // L: 1185
-				Rasterizer3D.Rasterizer3D_alpha = 0; // L: 1186
+			int var2 = this.indices1[var1]; // L: 1133
+			int var3 = this.indices2[var1]; // L: 1134
+			int var4 = this.indices3[var1]; // L: 1135
+			Rasterizer3D.field2334 = field2538[var1]; // L: 1136
+			if (this.faceAlphas == null) { // L: 1137
+				Rasterizer3D.Rasterizer3D_alpha = 0; // L: 1138
 			} else {
-				Rasterizer3D.Rasterizer3D_alpha = this.faceAlphas[var1] & 255; // L: 1189
+				Rasterizer3D.Rasterizer3D_alpha = this.faceAlphas[var1] & 255; // L: 1141
 			}
 
-			this.method4158(var1, modelViewportYs[var2], modelViewportYs[var3], modelViewportYs[var4], modelViewportXs[var2], modelViewportXs[var3], modelViewportXs[var4], this.faceColors1[var1], this.faceColors2[var1], this.faceColors3[var1]); // L: 1191
+			this.method4413(var1, modelViewportYs[var2], modelViewportYs[var3], modelViewportYs[var4], modelViewportXs[var2], modelViewportXs[var3], modelViewportXs[var4], this.faceColors1[var1], this.faceColors2[var1], this.faceColors3[var1]); // L: 1143
 		}
-	} // L: 1179 1192
+	} // L: 1131 1144
 
-	@ObfuscatedName("al")
-	final void method4158(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10) {
-		if (this.faceTextures != null && this.faceTextures[var1] != -1) { // L: 1195
+	@ObfuscatedName("at")
+	final void method4413(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, int var9, int var10) {
+		if (this.faceTextures != null && this.faceTextures[var1] != -1) { // L: 1147
 			int var11;
 			int var12;
 			int var13;
-			if (this.field2453 != null && this.field2453[var1] != -1) { // L: 1213
-				int var14 = this.field2453[var1] & 255; // L: 1214
-				var11 = this.field2457[var14]; // L: 1215
-				var12 = this.field2458[var14]; // L: 1216
-				var13 = this.field2459[var14]; // L: 1217
+			if (this.field2514 != null && this.field2514[var1] != -1) { // L: 1165
+				int var14 = this.field2514[var1] & 255; // L: 1166
+				var11 = this.field2541[var14]; // L: 1167
+				var12 = this.field2519[var14]; // L: 1168
+				var13 = this.field2520[var14]; // L: 1169
 			} else {
-				var11 = this.indices1[var1]; // L: 1220
-				var12 = this.indices2[var1]; // L: 1221
-				var13 = this.indices3[var1]; // L: 1222
+				var11 = this.indices1[var1]; // L: 1172
+				var12 = this.indices2[var1]; // L: 1173
+				var13 = this.indices3[var1]; // L: 1174
 			}
 
-			if (this.faceColors3[var1] == -1) { // L: 1224
-				Rasterizer3D.method3800(var2, var3, var4, var5, var6, var7, var8, var8, var8, field2482[var11], field2482[var12], field2482[var13], field2483[var11], field2483[var12], field2483[var13], field2484[var11], field2484[var12], field2484[var13], this.faceTextures[var1]); // L: 1225
+			if (this.faceColors3[var1] == -1) { // L: 1176
+				Rasterizer3D.method4010(var2, var3, var4, var5, var6, var7, var8, var8, var8, field2543[var11], field2543[var12], field2543[var13], field2547[var11], field2547[var12], field2547[var13], field2545[var11], field2545[var12], field2545[var13], this.faceTextures[var1]); // L: 1177
 			} else {
-				Rasterizer3D.method3800(var2, var3, var4, var5, var6, var7, var8, var9, var10, field2482[var11], field2482[var12], field2482[var13], field2483[var11], field2483[var12], field2483[var13], field2484[var11], field2484[var12], field2484[var13], this.faceTextures[var1]); // L: 1228
+				Rasterizer3D.method4010(var2, var3, var4, var5, var6, var7, var8, var9, var10, field2543[var11], field2543[var12], field2543[var13], field2547[var11], field2547[var12], field2547[var13], field2545[var11], field2545[var12], field2545[var13], this.faceTextures[var1]); // L: 1180
 			}
-		} else if (this.faceColors3[var1] == -1 && this.overrideAmount > 0) { // L: 1196
-			Rasterizer3D.method3842(var2, var3, var4, var5, var6, var7, Model_colorPalette[this.faceColors1[var1]], this.overrideHue, this.overrideSaturation, this.overrideLuminance, this.overrideAmount); // L: 1197
-		} else if (this.faceColors3[var1] == -1) { // L: 1199
-			Rasterizer3D.method3797(var2, var3, var4, var5, var6, var7, Model_colorPalette[this.faceColors1[var1]]); // L: 1200
-		} else if (this.overrideAmount > 0) { // L: 1202
-			Rasterizer3D.method3810(var2, var3, var4, var5, var6, var7, var8, var9, var10, this.overrideHue, this.overrideSaturation, this.overrideLuminance, this.overrideAmount); // L: 1203
+		} else if (this.faceColors3[var1] == -1 && this.overrideAmount > 0) { // L: 1148
+			Rasterizer3D.method4008(var2, var3, var4, var5, var6, var7, Model_colorPalette[this.faceColors1[var1]], this.overrideHue, this.overrideSaturation, this.overrideLuminance, this.overrideAmount); // L: 1149
+		} else if (this.faceColors3[var1] == -1) { // L: 1151
+			Rasterizer3D.method4007(var2, var3, var4, var5, var6, var7, Model_colorPalette[this.faceColors1[var1]]); // L: 1152
+		} else if (this.overrideAmount > 0) { // L: 1154
+			Rasterizer3D.method4084(var2, var3, var4, var5, var6, var7, var8, var9, var10, this.overrideHue, this.overrideSaturation, this.overrideLuminance, this.overrideAmount); // L: 1155
 		} else {
-			Rasterizer3D.method3843(var2, var3, var4, var5, var6, var7, var8, var9, var10); // L: 1206
+			Rasterizer3D.method4003(var2, var3, var4, var5, var6, var7, var8, var9, var10); // L: 1158
 		}
 
-	} // L: 1231
+	} // L: 1183
 
-	@ObfuscatedName("aa")
-	final void method4238(int var1) {
-		int var2 = Rasterizer3D.Rasterizer3D_clipMidX; // L: 1234
-		int var3 = Rasterizer3D.Rasterizer3D_clipMidY; // L: 1235
-		int var4 = 0; // L: 1236
-		int var5 = this.indices1[var1]; // L: 1237
-		int var6 = this.indices2[var1]; // L: 1238
-		int var7 = this.indices3[var1]; // L: 1239
-		int var8 = field2484[var5]; // L: 1240
-		int var9 = field2484[var6]; // L: 1241
-		int var10 = field2484[var7]; // L: 1242
-		if (this.faceAlphas == null) { // L: 1243
+	@ObfuscatedName("aw")
+	final void method4412(int var1) {
+		int var2 = Rasterizer3D.Rasterizer3D_clipMidX; // L: 1186
+		int var3 = Rasterizer3D.Rasterizer3D_clipMidY; // L: 1187
+		int var4 = 0; // L: 1188
+		int var5 = this.indices1[var1]; // L: 1189
+		int var6 = this.indices2[var1]; // L: 1190
+		int var7 = this.indices3[var1]; // L: 1191
+		int var8 = field2545[var5]; // L: 1192
+		int var9 = field2545[var6]; // L: 1193
+		int var10 = field2545[var7]; // L: 1194
+		if (this.faceAlphas == null) { // L: 1195
 			Rasterizer3D.Rasterizer3D_alpha = 0;
 		} else {
-			Rasterizer3D.Rasterizer3D_alpha = this.faceAlphas[var1] & 255; // L: 1244
+			Rasterizer3D.Rasterizer3D_alpha = this.faceAlphas[var1] & 255; // L: 1196
 		}
 
 		int var11;
 		int var12;
 		int var13;
 		int var14;
-		if (var8 >= 50) { // L: 1245
-			field2511[var4] = modelViewportXs[var5]; // L: 1246
-			field2494[var4] = modelViewportYs[var5]; // L: 1247
-			field2467[var4++] = this.faceColors1[var1]; // L: 1248
+		if (var8 >= 50) { // L: 1197
+			field2509[var4] = modelViewportXs[var5]; // L: 1198
+			field2529[var4] = modelViewportYs[var5]; // L: 1199
+			field2556[var4++] = this.faceColors1[var1]; // L: 1200
 		} else {
-			var11 = field2482[var5]; // L: 1251
-			var12 = field2483[var5]; // L: 1252
-			var13 = this.faceColors1[var1]; // L: 1253
-			if (var10 >= 50) { // L: 1254
-				var14 = field2491[var10 - var8] * (50 - var8); // L: 1255
-				field2511[var4] = var2 + Rasterizer3D.Rasterizer3D_zoom * (var11 + ((field2482[var7] - var11) * var14 >> 16)) / 50; // L: 1256
-				field2494[var4] = var3 + Rasterizer3D.Rasterizer3D_zoom * (var12 + ((field2483[var7] - var12) * var14 >> 16)) / 50; // L: 1257
-				field2467[var4++] = var13 + ((this.faceColors3[var1] - var13) * var14 >> 16); // L: 1258
+			var11 = field2543[var5]; // L: 1203
+			var12 = field2547[var5]; // L: 1204
+			var13 = this.faceColors1[var1]; // L: 1205
+			if (var10 >= 50) { // L: 1206
+				var14 = field2553[var10 - var8] * (50 - var8); // L: 1207
+				field2509[var4] = var2 + Rasterizer3D.Rasterizer3D_zoom * (var11 + ((field2543[var7] - var11) * var14 >> 16)) / 50; // L: 1208
+				field2529[var4] = var3 + Rasterizer3D.Rasterizer3D_zoom * (var12 + ((field2547[var7] - var12) * var14 >> 16)) / 50; // L: 1209
+				field2556[var4++] = var13 + ((this.faceColors3[var1] - var13) * var14 >> 16); // L: 1210
 			}
 
-			if (var9 >= 50) { // L: 1260
-				var14 = field2491[var9 - var8] * (50 - var8); // L: 1261
-				field2511[var4] = var2 + Rasterizer3D.Rasterizer3D_zoom * (var11 + ((field2482[var6] - var11) * var14 >> 16)) / 50; // L: 1262
-				field2494[var4] = var3 + Rasterizer3D.Rasterizer3D_zoom * (var12 + ((field2483[var6] - var12) * var14 >> 16)) / 50; // L: 1263
-				field2467[var4++] = var13 + ((this.faceColors2[var1] - var13) * var14 >> 16); // L: 1264
+			if (var9 >= 50) { // L: 1212
+				var14 = field2553[var9 - var8] * (50 - var8); // L: 1213
+				field2509[var4] = var2 + Rasterizer3D.Rasterizer3D_zoom * (var11 + ((field2543[var6] - var11) * var14 >> 16)) / 50; // L: 1214
+				field2529[var4] = var3 + Rasterizer3D.Rasterizer3D_zoom * (var12 + ((field2547[var6] - var12) * var14 >> 16)) / 50; // L: 1215
+				field2556[var4++] = var13 + ((this.faceColors2[var1] - var13) * var14 >> 16); // L: 1216
 			}
 		}
 
-		if (var9 >= 50) { // L: 1267
-			field2511[var4] = modelViewportXs[var6]; // L: 1268
-			field2494[var4] = modelViewportYs[var6]; // L: 1269
-			field2467[var4++] = this.faceColors2[var1]; // L: 1270
+		if (var9 >= 50) { // L: 1219
+			field2509[var4] = modelViewportXs[var6]; // L: 1220
+			field2529[var4] = modelViewportYs[var6]; // L: 1221
+			field2556[var4++] = this.faceColors2[var1]; // L: 1222
 		} else {
-			var11 = field2482[var6]; // L: 1273
-			var12 = field2483[var6]; // L: 1274
-			var13 = this.faceColors2[var1]; // L: 1275
-			if (var8 >= 50) { // L: 1276
-				var14 = field2491[var8 - var9] * (50 - var9); // L: 1277
-				field2511[var4] = var2 + Rasterizer3D.Rasterizer3D_zoom * (var11 + ((field2482[var5] - var11) * var14 >> 16)) / 50; // L: 1278
-				field2494[var4] = var3 + Rasterizer3D.Rasterizer3D_zoom * (var12 + ((field2483[var5] - var12) * var14 >> 16)) / 50; // L: 1279
-				field2467[var4++] = var13 + ((this.faceColors1[var1] - var13) * var14 >> 16); // L: 1280
+			var11 = field2543[var6]; // L: 1225
+			var12 = field2547[var6]; // L: 1226
+			var13 = this.faceColors2[var1]; // L: 1227
+			if (var8 >= 50) { // L: 1228
+				var14 = field2553[var8 - var9] * (50 - var9); // L: 1229
+				field2509[var4] = var2 + Rasterizer3D.Rasterizer3D_zoom * (var11 + ((field2543[var5] - var11) * var14 >> 16)) / 50; // L: 1230
+				field2529[var4] = var3 + Rasterizer3D.Rasterizer3D_zoom * (var12 + ((field2547[var5] - var12) * var14 >> 16)) / 50; // L: 1231
+				field2556[var4++] = var13 + ((this.faceColors1[var1] - var13) * var14 >> 16); // L: 1232
 			}
 
-			if (var10 >= 50) { // L: 1282
-				var14 = field2491[var10 - var9] * (50 - var9); // L: 1283
-				field2511[var4] = var2 + Rasterizer3D.Rasterizer3D_zoom * (var11 + ((field2482[var7] - var11) * var14 >> 16)) / 50; // L: 1284
-				field2494[var4] = var3 + Rasterizer3D.Rasterizer3D_zoom * (var12 + ((field2483[var7] - var12) * var14 >> 16)) / 50; // L: 1285
-				field2467[var4++] = var13 + ((this.faceColors3[var1] - var13) * var14 >> 16); // L: 1286
+			if (var10 >= 50) { // L: 1234
+				var14 = field2553[var10 - var9] * (50 - var9); // L: 1235
+				field2509[var4] = var2 + Rasterizer3D.Rasterizer3D_zoom * (var11 + ((field2543[var7] - var11) * var14 >> 16)) / 50; // L: 1236
+				field2529[var4] = var3 + Rasterizer3D.Rasterizer3D_zoom * (var12 + ((field2547[var7] - var12) * var14 >> 16)) / 50; // L: 1237
+				field2556[var4++] = var13 + ((this.faceColors3[var1] - var13) * var14 >> 16); // L: 1238
 			}
 		}
 
-		if (var10 >= 50) { // L: 1289
-			field2511[var4] = modelViewportXs[var7]; // L: 1290
-			field2494[var4] = modelViewportYs[var7]; // L: 1291
-			field2467[var4++] = this.faceColors3[var1]; // L: 1292
+		if (var10 >= 50) { // L: 1241
+			field2509[var4] = modelViewportXs[var7]; // L: 1242
+			field2529[var4] = modelViewportYs[var7]; // L: 1243
+			field2556[var4++] = this.faceColors3[var1]; // L: 1244
 		} else {
-			var11 = field2482[var7]; // L: 1295
-			var12 = field2483[var7]; // L: 1296
-			var13 = this.faceColors3[var1]; // L: 1297
-			if (var9 >= 50) { // L: 1298
-				var14 = field2491[var9 - var10] * (50 - var10); // L: 1299
-				field2511[var4] = var2 + Rasterizer3D.Rasterizer3D_zoom * (var11 + ((field2482[var6] - var11) * var14 >> 16)) / 50; // L: 1300
-				field2494[var4] = var3 + Rasterizer3D.Rasterizer3D_zoom * (var12 + ((field2483[var6] - var12) * var14 >> 16)) / 50; // L: 1301
-				field2467[var4++] = var13 + ((this.faceColors2[var1] - var13) * var14 >> 16); // L: 1302
+			var11 = field2543[var7]; // L: 1247
+			var12 = field2547[var7]; // L: 1248
+			var13 = this.faceColors3[var1]; // L: 1249
+			if (var9 >= 50) { // L: 1250
+				var14 = field2553[var9 - var10] * (50 - var10); // L: 1251
+				field2509[var4] = var2 + Rasterizer3D.Rasterizer3D_zoom * (var11 + ((field2543[var6] - var11) * var14 >> 16)) / 50; // L: 1252
+				field2529[var4] = var3 + Rasterizer3D.Rasterizer3D_zoom * (var12 + ((field2547[var6] - var12) * var14 >> 16)) / 50; // L: 1253
+				field2556[var4++] = var13 + ((this.faceColors2[var1] - var13) * var14 >> 16); // L: 1254
 			}
 
-			if (var8 >= 50) { // L: 1304
-				var14 = field2491[var8 - var10] * (50 - var10); // L: 1305
-				field2511[var4] = var2 + Rasterizer3D.Rasterizer3D_zoom * (var11 + ((field2482[var5] - var11) * var14 >> 16)) / 50; // L: 1306
-				field2494[var4] = var3 + Rasterizer3D.Rasterizer3D_zoom * (var12 + ((field2483[var5] - var12) * var14 >> 16)) / 50; // L: 1307
-				field2467[var4++] = var13 + ((this.faceColors1[var1] - var13) * var14 >> 16); // L: 1308
+			if (var8 >= 50) { // L: 1256
+				var14 = field2553[var8 - var10] * (50 - var10); // L: 1257
+				field2509[var4] = var2 + Rasterizer3D.Rasterizer3D_zoom * (var11 + ((field2543[var5] - var11) * var14 >> 16)) / 50; // L: 1258
+				field2529[var4] = var3 + Rasterizer3D.Rasterizer3D_zoom * (var12 + ((field2547[var5] - var12) * var14 >> 16)) / 50; // L: 1259
+				field2556[var4++] = var13 + ((this.faceColors1[var1] - var13) * var14 >> 16); // L: 1260
 			}
 		}
 
-		var11 = field2511[0]; // L: 1311
-		var12 = field2511[1]; // L: 1312
-		var13 = field2511[2]; // L: 1313
-		var14 = field2494[0]; // L: 1314
-		int var15 = field2494[1]; // L: 1315
-		int var16 = field2494[2]; // L: 1316
-		Rasterizer3D.field2262 = false; // L: 1317
-		if (var4 == 3) { // L: 1318
-			if (var11 < 0 || var12 < 0 || var13 < 0 || var11 > Rasterizer3D.Rasterizer3D_clipWidth || var12 > Rasterizer3D.Rasterizer3D_clipWidth || var13 > Rasterizer3D.Rasterizer3D_clipWidth) { // L: 1319
-				Rasterizer3D.field2262 = true;
+		var11 = field2509[0]; // L: 1263
+		var12 = field2509[1]; // L: 1264
+		var13 = field2509[2]; // L: 1265
+		var14 = field2529[0]; // L: 1266
+		int var15 = field2529[1]; // L: 1267
+		int var16 = field2529[2]; // L: 1268
+		Rasterizer3D.field2334 = false; // L: 1269
+		if (var4 == 3) { // L: 1270
+			if (var11 < 0 || var12 < 0 || var13 < 0 || var11 > Rasterizer3D.Rasterizer3D_clipWidth || var12 > Rasterizer3D.Rasterizer3D_clipWidth || var13 > Rasterizer3D.Rasterizer3D_clipWidth) { // L: 1271
+				Rasterizer3D.field2334 = true;
 			}
 
-			this.method4158(var1, var14, var15, var16, var11, var12, var13, field2467[0], field2467[1], field2467[2]); // L: 1320
+			this.method4413(var1, var14, var15, var16, var11, var12, var13, field2556[0], field2556[1], field2556[2]); // L: 1272
 		}
 
-		if (var4 == 4) { // L: 1322
-			if (var11 < 0 || var12 < 0 || var13 < 0 || var11 > Rasterizer3D.Rasterizer3D_clipWidth || var12 > Rasterizer3D.Rasterizer3D_clipWidth || var13 > Rasterizer3D.Rasterizer3D_clipWidth || field2511[3] < 0 || field2511[3] > Rasterizer3D.Rasterizer3D_clipWidth) { // L: 1323
-				Rasterizer3D.field2262 = true;
+		if (var4 == 4) { // L: 1274
+			if (var11 < 0 || var12 < 0 || var13 < 0 || var11 > Rasterizer3D.Rasterizer3D_clipWidth || var12 > Rasterizer3D.Rasterizer3D_clipWidth || var13 > Rasterizer3D.Rasterizer3D_clipWidth || field2509[3] < 0 || field2509[3] > Rasterizer3D.Rasterizer3D_clipWidth) { // L: 1275
+				Rasterizer3D.field2334 = true;
 			}
 
 			int var17;
-			if (this.faceTextures != null && this.faceTextures[var1] != -1) { // L: 1324
+			if (this.faceTextures != null && this.faceTextures[var1] != -1) { // L: 1276
 				int var18;
 				int var19;
-				if (this.field2453 != null && this.field2453[var1] != -1) { // L: 1348
-					int var20 = this.field2453[var1] & 255; // L: 1349
-					var17 = this.field2457[var20]; // L: 1350
-					var18 = this.field2458[var20]; // L: 1351
-					var19 = this.field2459[var20]; // L: 1352
+				if (this.field2514 != null && this.field2514[var1] != -1) { // L: 1300
+					int var20 = this.field2514[var1] & 255; // L: 1301
+					var17 = this.field2541[var20]; // L: 1302
+					var18 = this.field2519[var20]; // L: 1303
+					var19 = this.field2520[var20]; // L: 1304
 				} else {
-					var17 = var5; // L: 1355
-					var18 = var6; // L: 1356
-					var19 = var7; // L: 1357
+					var17 = var5; // L: 1307
+					var18 = var6; // L: 1308
+					var19 = var7; // L: 1309
 				}
 
-				short var21 = this.faceTextures[var1]; // L: 1359
-				if (this.faceColors3[var1] == -1) { // L: 1360
-					Rasterizer3D.method3800(var14, var15, var16, var11, var12, var13, this.faceColors1[var1], this.faceColors1[var1], this.faceColors1[var1], field2482[var17], field2482[var18], field2482[var19], field2483[var17], field2483[var18], field2483[var19], field2484[var17], field2484[var18], field2484[var19], var21); // L: 1361
-					Rasterizer3D.method3800(var14, var16, field2494[3], var11, var13, field2511[3], this.faceColors1[var1], this.faceColors1[var1], this.faceColors1[var1], field2482[var17], field2482[var18], field2482[var19], field2483[var17], field2483[var18], field2483[var19], field2484[var17], field2484[var18], field2484[var19], var21); // L: 1362
+				short var21 = this.faceTextures[var1]; // L: 1311
+				if (this.faceColors3[var1] == -1) { // L: 1312
+					Rasterizer3D.method4010(var14, var15, var16, var11, var12, var13, this.faceColors1[var1], this.faceColors1[var1], this.faceColors1[var1], field2543[var17], field2543[var18], field2543[var19], field2547[var17], field2547[var18], field2547[var19], field2545[var17], field2545[var18], field2545[var19], var21); // L: 1313
+					Rasterizer3D.method4010(var14, var16, field2529[3], var11, var13, field2509[3], this.faceColors1[var1], this.faceColors1[var1], this.faceColors1[var1], field2543[var17], field2543[var18], field2543[var19], field2547[var17], field2547[var18], field2547[var19], field2545[var17], field2545[var18], field2545[var19], var21); // L: 1314
 				} else {
-					Rasterizer3D.method3800(var14, var15, var16, var11, var12, var13, field2467[0], field2467[1], field2467[2], field2482[var17], field2482[var18], field2482[var19], field2483[var17], field2483[var18], field2483[var19], field2484[var17], field2484[var18], field2484[var19], var21); // L: 1365
-					Rasterizer3D.method3800(var14, var16, field2494[3], var11, var13, field2511[3], field2467[0], field2467[2], field2467[3], field2482[var17], field2482[var18], field2482[var19], field2483[var17], field2483[var18], field2483[var19], field2484[var17], field2484[var18], field2484[var19], var21); // L: 1366
+					Rasterizer3D.method4010(var14, var15, var16, var11, var12, var13, field2556[0], field2556[1], field2556[2], field2543[var17], field2543[var18], field2543[var19], field2547[var17], field2547[var18], field2547[var19], field2545[var17], field2545[var18], field2545[var19], var21); // L: 1317
+					Rasterizer3D.method4010(var14, var16, field2529[3], var11, var13, field2509[3], field2556[0], field2556[2], field2556[3], field2543[var17], field2543[var18], field2543[var19], field2547[var17], field2547[var18], field2547[var19], field2545[var17], field2545[var18], field2545[var19], var21); // L: 1318
 				}
-			} else if (this.faceColors3[var1] == -1 && this.overrideAmount > 0) { // L: 1325
-				var17 = Model_colorPalette[this.faceColors1[var1]]; // L: 1326
-				Rasterizer3D.method3842(var14, var15, var16, var11, var12, var13, var17, this.overrideHue, this.overrideSaturation, this.overrideLuminance, this.overrideAmount); // L: 1327
-				Rasterizer3D.method3842(var14, var16, field2494[3], var11, var13, field2511[3], var17, this.overrideHue, this.overrideSaturation, this.overrideLuminance, this.overrideAmount); // L: 1328
-			} else if (this.faceColors3[var1] == -1) { // L: 1330
-				var17 = Model_colorPalette[this.faceColors1[var1]]; // L: 1331
-				Rasterizer3D.method3797(var14, var15, var16, var11, var12, var13, var17); // L: 1332
-				Rasterizer3D.method3797(var14, var16, field2494[3], var11, var13, field2511[3], var17); // L: 1333
-			} else if (this.overrideAmount > 0) { // L: 1335
-				Rasterizer3D.method3810(var14, var15, var16, var11, var12, var13, field2467[0], field2467[1], field2467[2], this.overrideHue, this.overrideLuminance, this.overrideSaturation, this.overrideAmount); // L: 1336
-				Rasterizer3D.method3810(var14, var16, field2494[3], var11, var13, field2511[3], field2467[0], field2467[2], field2467[3], this.overrideHue, this.overrideLuminance, this.overrideSaturation, this.overrideAmount); // L: 1337
+			} else if (this.faceColors3[var1] == -1 && this.overrideAmount > 0) { // L: 1277
+				var17 = Model_colorPalette[this.faceColors1[var1]]; // L: 1278
+				Rasterizer3D.method4008(var14, var15, var16, var11, var12, var13, var17, this.overrideHue, this.overrideSaturation, this.overrideLuminance, this.overrideAmount); // L: 1279
+				Rasterizer3D.method4008(var14, var16, field2529[3], var11, var13, field2509[3], var17, this.overrideHue, this.overrideSaturation, this.overrideLuminance, this.overrideAmount); // L: 1280
+			} else if (this.faceColors3[var1] == -1) { // L: 1282
+				var17 = Model_colorPalette[this.faceColors1[var1]]; // L: 1283
+				Rasterizer3D.method4007(var14, var15, var16, var11, var12, var13, var17); // L: 1284
+				Rasterizer3D.method4007(var14, var16, field2529[3], var11, var13, field2509[3], var17); // L: 1285
+			} else if (this.overrideAmount > 0) { // L: 1287
+				Rasterizer3D.method4084(var14, var15, var16, var11, var12, var13, field2556[0], field2556[1], field2556[2], this.overrideHue, this.overrideLuminance, this.overrideSaturation, this.overrideAmount); // L: 1288
+				Rasterizer3D.method4084(var14, var16, field2529[3], var11, var13, field2509[3], field2556[0], field2556[2], field2556[3], this.overrideHue, this.overrideLuminance, this.overrideSaturation, this.overrideAmount); // L: 1289
 			} else {
-				Rasterizer3D.method3843(var14, var15, var16, var11, var12, var13, field2467[0], field2467[1], field2467[2]); // L: 1340
-				Rasterizer3D.method3843(var14, var16, field2494[3], var11, var13, field2511[3], field2467[0], field2467[2], field2467[3]); // L: 1341
+				Rasterizer3D.method4003(var14, var15, var16, var11, var12, var13, field2556[0], field2556[1], field2556[2]); // L: 1292
+				Rasterizer3D.method4003(var14, var16, field2529[3], var11, var13, field2509[3], field2556[0], field2556[2], field2556[3]); // L: 1293
 			}
 		}
 
-	} // L: 1370
+	} // L: 1322
 
-	@ObfuscatedName("ao")
+	@ObfuscatedName("ar")
 	@ObfuscatedSignature(
-		descriptor = "(ILni;)V"
+		descriptor = "(ILnu;)V"
 	)
-	void method4151(int var1, class371 var2) {
-		float var3 = (float)this.verticesX[var1]; // L: 1373
-		float var4 = (float)(-this.verticesY[var1]); // L: 1374
-		float var5 = (float)(-this.verticesZ[var1]); // L: 1375
-		float var6 = 1.0F; // L: 1376
-		this.verticesX[var1] = (int)(var2.field4241[0] * var3 + var2.field4241[4] * var4 + var2.field4241[8] * var5 + var2.field4241[12] * var6); // L: 1377
-		this.verticesY[var1] = -((int)(var2.field4241[1] * var3 + var2.field4241[5] * var4 + var2.field4241[9] * var5 + var2.field4241[13] * var6)); // L: 1378
-		this.verticesZ[var1] = -((int)(var2.field4241[2] * var3 + var2.field4241[6] * var4 + var2.field4241[10] * var5 + var2.field4241[14] * var6)); // L: 1379
-	} // L: 1380
+	void method4383(int var1, class387 var2) {
+		float var3 = (float)this.verticesX[var1]; // L: 1325
+		float var4 = (float)(-this.verticesY[var1]); // L: 1326
+		float var5 = (float)(-this.verticesZ[var1]); // L: 1327
+		float var6 = 1.0F; // L: 1328
+		this.verticesX[var1] = (int)(var2.field4347[0] * var3 + var2.field4347[4] * var4 + var2.field4347[8] * var5 + var2.field4347[12] * var6); // L: 1329
+		this.verticesY[var1] = -((int)(var2.field4347[1] * var3 + var2.field4347[5] * var4 + var2.field4347[9] * var5 + var2.field4347[13] * var6)); // L: 1330
+		this.verticesZ[var1] = -((int)(var2.field4347[2] * var3 + var2.field4347[6] * var4 + var2.field4347[10] * var5 + var2.field4347[14] * var6)); // L: 1331
+	} // L: 1332
 
-	@ObfuscatedName("aq")
+	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
-		descriptor = "(Lga;I)V"
+		descriptor = "(Lgl;I)V"
 	)
-	void method4237(class194 var1, int var2) {
-		if (this.field2462 != null) { // L: 1383
-			for (int var3 = 0; var3 < this.verticesCount; ++var3) { // L: 1384
-				int[] var4 = this.field2462[var3]; // L: 1385
-				if (var4 != null && var4.length != 0) { // L: 1386
-					int[] var5 = this.field2463[var3]; // L: 1387
-					field2437.method6702(); // L: 1388
+	void method4381(class202 var1, int var2) {
+		if (this.field2523 != null) { // L: 1335
+			for (int var3 = 0; var3 < this.verticesCount; ++var3) { // L: 1336
+				int[] var4 = this.field2523[var3]; // L: 1337
+				if (var4 != null && var4.length != 0) { // L: 1338
+					int[] var5 = this.field2524[var3]; // L: 1339
+					field2498.method7063(); // L: 1340
 
-					for (int var6 = 0; var6 < var4.length; ++var6) { // L: 1389
-						int var7 = var4[var6]; // L: 1390
-						class113 var8 = var1.method3872(var7); // L: 1391
-						if (var8 != null) { // L: 1392
-							field2477.method6680((float)var5[var6] / 255.0F); // L: 1393
-							field2439.method6699(var8.method2593(var2)); // L: 1394
-							field2439.method6682(field2477); // L: 1395
-							field2437.method6704(field2439); // L: 1396
+					for (int var6 = 0; var6 < var4.length; ++var6) { // L: 1341
+						int var7 = var4[var6]; // L: 1342
+						class115 var8 = var1.method4099(var7); // L: 1343
+						if (var8 != null) { // L: 1344
+							field2499.method7065((float)var5[var6] / 255.0F); // L: 1345
+							field2505.method7064(var8.method2657(var2)); // L: 1346
+							field2505.method7109(field2499); // L: 1347
+							field2498.method7067(field2505); // L: 1348
 						}
 					}
 
-					this.method4151(var3, field2437); // L: 1398
+					this.method4383(var3, field2498); // L: 1350
 				}
 			}
 
 		}
-	} // L: 1400
+	} // L: 1352
 
-	@ObfuscatedName("cb")
+	@ObfuscatedName("cv")
 	@Export("draw")
 	void draw(int var1, int var2, int var3, int var4, int var5, int var6, int var7, int var8, long var9) {
-		field2486[0] = -1; // L: 822
+		field2555[0] = -1; // L: 822
 		if (this.boundsType != 1) { // L: 823
 			this.calculateBoundsCylinder();
 		}
@@ -1790,174 +1819,104 @@ public class Model extends Renderable {
 								var26 = true;
 							}
 
-							boolean var27 = var26 || this.field2451 > 0; // L: 847
-							int var28 = FaceNormal.method4095(); // L: 848
+							boolean var27 = var26 || this.field2517 > 0; // L: 847
+							int var28 = SpotAnimationDefinition.method3517(); // L: 848
 							int var29 = ViewportMouse.ViewportMouse_y; // L: 851
-							boolean var31 = class139.method2923(); // L: 854
-							boolean var32 = LoginScreenAnimation.method2219(var9); // L: 855
+							boolean var31 = Client.method1198(); // L: 854
+							boolean var32 = class162.method3274(var9); // L: 855
 							boolean var33 = false; // L: 856
+							int var35;
+							int var36;
 							int var37;
-							int var38;
-							int var39;
-							int var40;
-							int var48;
-							int var54;
-							int var55;
-							int var56;
 							if (var32 && var31) { // L: 857
 								boolean var34 = false; // L: 858
-								if (field2488) { // L: 859
-									boolean var35;
-									if (!class139.method2923()) { // L: 863
-										var35 = false; // L: 864
-									} else {
-										int var43;
-										int var44;
-										int var45;
-										if (!ViewportMouse.ViewportMouse_false0) { // L: 868
-											var37 = Scene.Scene_cameraPitchSine; // L: 869
-											var38 = Scene.Scene_cameraPitchCosine; // L: 870
-											var39 = Scene.Scene_cameraYawSine; // L: 871
-											var40 = Scene.Scene_cameraYawCosine; // L: 872
-											byte var41 = 50; // L: 873
-											short var42 = 3500; // L: 874
-											var43 = (ViewportMouse.ViewportMouse_x - Rasterizer3D.Rasterizer3D_clipMidX) * var41 / Rasterizer3D.Rasterizer3D_zoom; // L: 875
-											var44 = (ViewportMouse.ViewportMouse_y - Rasterizer3D.Rasterizer3D_clipMidY) * var41 / Rasterizer3D.Rasterizer3D_zoom; // L: 876
-											var45 = (ViewportMouse.ViewportMouse_x - Rasterizer3D.Rasterizer3D_clipMidX) * var42 / Rasterizer3D.Rasterizer3D_zoom; // L: 877
-											int var46 = (ViewportMouse.ViewportMouse_y - Rasterizer3D.Rasterizer3D_clipMidY) * var42 / Rasterizer3D.Rasterizer3D_zoom; // L: 878
-											int var47 = Rasterizer3D.method3808(var44, var41, var38, var37); // L: 880
-											var55 = Rasterizer3D.method3809(var44, var41, var38, var37); // L: 881
-											var44 = var47; // L: 882
-											var47 = Rasterizer3D.method3808(var46, var42, var38, var37); // L: 883
-											var56 = Rasterizer3D.method3809(var46, var42, var38, var37); // L: 884
-											var46 = var47; // L: 885
-											var47 = Rasterizer3D.method3807(var43, var55, var40, var39); // L: 886
-											var55 = Rasterizer3D.method3799(var43, var55, var40, var39); // L: 887
-											var43 = var47; // L: 888
-											var47 = Rasterizer3D.method3807(var45, var56, var40, var39); // L: 889
-											var56 = Rasterizer3D.method3799(var45, var56, var40, var39); // L: 890
-											ViewportMouse.field2513 = (var47 + var43) / 2; // L: 892
-											ViewportMouse.field2517 = (var46 + var44) / 2; // L: 893
-											UserComparator10.field1368 = (var56 + var55) / 2; // L: 894
-											GrandExchangeOfferWorldComparator.field3948 = (var47 - var43) / 2; // L: 895
-											ViewportMouse.field2516 = (var46 - var44) / 2; // L: 896
-											JagexCache.field1695 = (var56 - var55) / 2; // L: 897
-											Frames.field2377 = Math.abs(GrandExchangeOfferWorldComparator.field3948); // L: 898
-											class140.field1630 = Math.abs(ViewportMouse.field2516); // L: 899
-											WorldMapLabel.field2761 = Math.abs(JagexCache.field1695); // L: 900
-										}
-
-										var37 = this.xMid + var6; // L: 902
-										var38 = var7 + this.yMid; // L: 903
-										var39 = var8 + this.zMid; // L: 904
-										var40 = this.xMidOffset; // L: 905
-										var55 = this.yMidOffset; // L: 906
-										var56 = this.zMidOffset; // L: 907
-										var43 = ViewportMouse.field2513 - var37; // L: 908
-										var44 = ViewportMouse.field2517 - var38; // L: 909
-										var45 = UserComparator10.field1368 - var39; // L: 910
-										if (Math.abs(var43) > var40 + Frames.field2377) { // L: 911
-											var35 = false; // L: 912
-										} else if (Math.abs(var44) > var55 + class140.field1630) { // L: 915
-											var35 = false; // L: 916
-										} else if (Math.abs(var45) > var56 + WorldMapLabel.field2761) { // L: 919
-											var35 = false; // L: 920
-										} else if (Math.abs(var45 * ViewportMouse.field2516 - var44 * JagexCache.field1695) > var56 * class140.field1630 + var55 * WorldMapLabel.field2761) { // L: 923
-											var35 = false; // L: 924
-										} else if (Math.abs(var43 * JagexCache.field1695 - var45 * GrandExchangeOfferWorldComparator.field3948) > var56 * Frames.field2377 + var40 * WorldMapLabel.field2761) { // L: 927
-											var35 = false; // L: 928
-										} else if (Math.abs(var44 * GrandExchangeOfferWorldComparator.field3948 - var43 * ViewportMouse.field2516) > var55 * Frames.field2377 + var40 * class140.field1630) { // L: 931
-											var35 = false; // L: 932
-										} else {
-											var35 = true; // L: 935
-										}
-									}
-
-									var34 = var35; // L: 937
+								if (field2560) { // L: 859
+									var34 = FloorDecoration.method3980(this, var6, var7, var8); // L: 860
 								} else {
-									var54 = var12 - var13; // L: 940
-									if (var54 <= 50) { // L: 941
-										var54 = 50;
+									var35 = var12 - var13; // L: 863
+									if (var35 <= 50) { // L: 864
+										var35 = 50;
 									}
 
-									if (var15 > 0) { // L: 942
-										var16 /= var14; // L: 943
-										var17 /= var54; // L: 944
+									if (var15 > 0) { // L: 865
+										var16 /= var14; // L: 866
+										var17 /= var35; // L: 867
 									} else {
-										var17 /= var14; // L: 947
-										var16 /= var54; // L: 948
+										var17 /= var14; // L: 870
+										var16 /= var35; // L: 871
 									}
 
-									if (var18 > 0) { // L: 950
-										var23 /= var14; // L: 951
-										var21 /= var54; // L: 952
+									if (var18 > 0) { // L: 873
+										var23 /= var14; // L: 874
+										var21 /= var35; // L: 875
 									} else {
-										var21 /= var14; // L: 955
-										var23 /= var54; // L: 956
+										var21 /= var14; // L: 878
+										var23 /= var35; // L: 879
 									}
 
-									var48 = var28 - Rasterizer3D.Rasterizer3D_clipMidX; // L: 958
-									var37 = var29 - Rasterizer3D.Rasterizer3D_clipMidY; // L: 959
-									if (var48 > var16 && var48 < var17 && var37 > var23 && var37 < var21) { // L: 960
-										var34 = true; // L: 961
+									var36 = var28 - Rasterizer3D.Rasterizer3D_clipMidX; // L: 881
+									var37 = var29 - Rasterizer3D.Rasterizer3D_clipMidY; // L: 882
+									if (var36 > var16 && var36 < var17 && var37 > var23 && var37 < var21) { // L: 883
+										var34 = true; // L: 884
 									}
 								}
 
-								if (var34) { // L: 964
-									if (this.isSingleTile) { // L: 965
-										ViewportMouse.ViewportMouse_entityTags[++ViewportMouse.ViewportMouse_entityCount - 1] = var9; // L: 968
+								if (var34) { // L: 887
+									if (this.isSingleTile) { // L: 888
+										ViewportMouse.ViewportMouse_entityTags[++ViewportMouse.ViewportMouse_entityCount - 1] = var9; // L: 891
 									} else {
-										var33 = true; // L: 971
+										var33 = true; // L: 894
 									}
 								}
 							}
 
-							int var53 = Rasterizer3D.Rasterizer3D_clipMidX; // L: 974
-							var54 = Rasterizer3D.Rasterizer3D_clipMidY; // L: 975
-							var48 = 0; // L: 976
-							var37 = 0; // L: 977
-							if (var1 != 0) { // L: 978
-								var48 = Model_sine[var1]; // L: 979
-								var37 = Model_cosine[var1]; // L: 980
+							int var47 = Rasterizer3D.Rasterizer3D_clipMidX; // L: 897
+							var35 = Rasterizer3D.Rasterizer3D_clipMidY; // L: 898
+							var36 = 0; // L: 899
+							var37 = 0; // L: 900
+							if (var1 != 0) { // L: 901
+								var36 = Model_sine[var1]; // L: 902
+								var37 = Model_cosine[var1]; // L: 903
 							}
 
-							for (var38 = 0; var38 < this.verticesCount; ++var38) { // L: 982
-								var39 = this.verticesX[var38]; // L: 983
-								var40 = this.verticesY[var38]; // L: 984
-								var55 = this.verticesZ[var38]; // L: 985
-								if (var1 != 0) { // L: 986
-									var56 = var55 * var48 + var39 * var37 >> 16; // L: 987
-									var55 = var55 * var37 - var39 * var48 >> 16; // L: 988
-									var39 = var56; // L: 989
+							for (int var38 = 0; var38 < this.verticesCount; ++var38) { // L: 905
+								int var39 = this.verticesX[var38]; // L: 906
+								int var40 = this.verticesY[var38]; // L: 907
+								int var41 = this.verticesZ[var38]; // L: 908
+								int var42;
+								if (var1 != 0) { // L: 909
+									var42 = var41 * var36 + var39 * var37 >> 16; // L: 910
+									var41 = var41 * var37 - var39 * var36 >> 16; // L: 911
+									var39 = var42; // L: 912
 								}
 
-								var39 += var6; // L: 991
-								var40 += var7; // L: 992
-								var55 += var8; // L: 993
-								var56 = var55 * var4 + var5 * var39 >> 16; // L: 994
-								var55 = var5 * var55 - var39 * var4 >> 16; // L: 995
-								var39 = var56; // L: 996
-								var56 = var3 * var40 - var55 * var2 >> 16; // L: 997
-								var55 = var40 * var2 + var3 * var55 >> 16; // L: 998
-								field2481[var38] = var55 - var12; // L: 1000
-								if (var55 >= 50) { // L: 1001
-									modelViewportXs[var38] = var39 * Rasterizer3D.Rasterizer3D_zoom / var55 + var53; // L: 1002
-									modelViewportYs[var38] = var56 * Rasterizer3D.Rasterizer3D_zoom / var55 + var54; // L: 1003
+								var39 += var6; // L: 914
+								var40 += var7; // L: 915
+								var41 += var8; // L: 916
+								var42 = var41 * var4 + var5 * var39 >> 16; // L: 917
+								var41 = var5 * var41 - var39 * var4 >> 16; // L: 918
+								var39 = var42; // L: 919
+								var42 = var3 * var40 - var41 * var2 >> 16; // L: 920
+								var41 = var40 * var2 + var3 * var41 >> 16; // L: 921
+								field2542[var38] = var41 - var12; // L: 923
+								if (var41 >= 50) { // L: 924
+									modelViewportXs[var38] = var39 * Rasterizer3D.Rasterizer3D_zoom / var41 + var47; // L: 925
+									modelViewportYs[var38] = var42 * Rasterizer3D.Rasterizer3D_zoom / var41 + var35; // L: 926
 								} else {
-									modelViewportXs[var38] = -5000; // L: 1006
-									var25 = true; // L: 1007
+									modelViewportXs[var38] = -5000; // L: 929
+									var25 = true; // L: 930
 								}
 
-								if (var27) { // L: 1009
-									field2482[var38] = var39; // L: 1010
-									field2483[var38] = var56; // L: 1011
-									field2484[var38] = var55; // L: 1012
+								if (var27) { // L: 932
+									field2543[var38] = var39; // L: 933
+									field2547[var38] = var42; // L: 934
+									field2545[var38] = var41; // L: 935
 								}
 							}
 
 							try {
-								this.draw0(var25, var33, this.isSingleTile, var9); // L: 1016
-							} catch (Exception var52) { // L: 1018
+								this.draw0(var25, var33, this.isSingleTile, var9); // L: 939
+							} catch (Exception var46) { // L: 941
 							}
 
 						}
@@ -1965,5 +1924,5 @@ public class Model extends Renderable {
 				}
 			}
 		}
-	} // L: 1019
+	} // L: 942
 }

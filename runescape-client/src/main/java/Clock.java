@@ -1,63 +1,68 @@
-import java.awt.Image;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fk")
+@ObfuscatedName("fq")
 @Implements("Clock")
 public abstract class Clock {
-	@ObfuscatedName("aq")
-	static Image field1740;
-	@ObfuscatedName("ef")
-	@ObfuscatedSignature(
-		descriptor = "Lkz;"
-	)
-	@Export("archive17")
-	static Archive archive17;
-
 	Clock() {
 	} // L: 4
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-2049179835"
+		garbageValue = "947451014"
 	)
 	@Export("mark")
 	public abstract void mark();
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(IIB)I",
-		garbageValue = "-113"
+		descriptor = "(III)I",
+		garbageValue = "-932830121"
 	)
 	@Export("wait")
 	public abstract int wait(int var1, int var2);
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "([BI)Llv;",
-		garbageValue = "-136888407"
+		descriptor = "(IIIIIIB)I",
+		garbageValue = "-102"
 	)
-	public static Font method3125(byte[] var0) {
-		if (var0 == null) { // L: 138
-			return null;
+	public static int method3322(int var0, int var1, int var2, int var3, int var4, int var5) {
+		if ((var5 & 1) == 1) { // L: 22
+			int var6 = var3; // L: 23
+			var3 = var4; // L: 24
+			var4 = var6; // L: 25
+		}
+
+		var2 &= 3; // L: 27
+		if (var2 == 0) { // L: 28
+			return var1;
+		} else if (var2 == 1) { // L: 29
+			return 7 - var0 - (var3 - 1);
 		} else {
-			Font var1 = new Font(var0, class434.SpriteBuffer_xOffsets, class434.SpriteBuffer_yOffsets, class434.SpriteBuffer_spriteWidths, Fonts.SpriteBuffer_spriteHeights, HealthBarUpdate.SpriteBuffer_spritePalette, WorldMapLabelSize.SpriteBuffer_pixels); // L: 139
-			Canvas.method365(); // L: 140
-			return var1; // L: 141
+			return var2 == 2 ? 7 - var1 - (var4 - 1) : var0; // L: 30
 		}
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "91"
+		descriptor = "(I)Lqx;",
+		garbageValue = "-183389771"
 	)
-	public static void method3121() {
-		SequenceDefinition.SequenceDefinition_cached.clear(); // L: 403
-		SequenceDefinition.SequenceDefinition_cachedFrames.clear(); // L: 404
-		SequenceDefinition.SequenceDefinition_cachedModel.clear(); // L: 405
-	} // L: 406
+	static IndexedSprite method3323() {
+		IndexedSprite var0 = new IndexedSprite(); // L: 105
+		var0.width = class451.SpriteBuffer_spriteWidth; // L: 106
+		var0.height = class451.SpriteBuffer_spriteHeight; // L: 107
+		var0.xOffset = class451.SpriteBuffer_xOffsets[0]; // L: 108
+		var0.yOffset = class451.SpriteBuffer_yOffsets[0]; // L: 109
+		var0.subWidth = class451.SpriteBuffer_spriteWidths[0]; // L: 110
+		var0.subHeight = class451.SpriteBuffer_spriteHeights[0]; // L: 111
+		var0.palette = GrandExchangeOfferUnitPriceComparator.SpriteBuffer_spritePalette; // L: 112
+		var0.pixels = class460.SpriteBuffer_pixels[0]; // L: 113
+		RouteStrategy.method3872(); // L: 114
+		return var0; // L: 115
+	}
 }

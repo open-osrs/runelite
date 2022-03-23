@@ -1,21 +1,14 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ad")
+@ObfuscatedName("aq")
 @Implements("SoundSystem")
 public class SoundSystem implements Runnable {
-	@ObfuscatedName("lm")
-	@ObfuscatedGetter(
-		intValue = 750290801
-	)
-	@Export("Client_plane")
-	static int Client_plane;
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "[Lag;"
+		descriptor = "[Lao;"
 	)
 	@Export("players")
 	volatile PcmPlayer[] players;
@@ -33,17 +26,17 @@ public class SoundSystem implements Runnable {
 				}
 			}
 		} catch (Exception var4) { // L: 17
-			FloorDecoration.RunException_sendStackTrace((String)null, var4); // L: 18
+			class301.RunException_sendStackTrace((String)null, var4); // L: 18
 		}
 
 	} // L: 20
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lkq;B)V",
-		garbageValue = "0"
+		descriptor = "(I)[Lcb;",
+		garbageValue = "2120193226"
 	)
-	public static void method782(AbstractArchive var0) {
-		EnumComposition.EnumDefinition_archive = var0; // L: 25
-	} // L: 26
+	static AttackOption[] method789() {
+		return new AttackOption[]{AttackOption.AttackOption_hidden, AttackOption.field1279, AttackOption.field1273, AttackOption.AttackOption_dependsOnCombatLevels, AttackOption.AttackOption_alwaysRightClick}; // L: 11975
+	}
 }

@@ -1,24 +1,19 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("db")
+@ObfuscatedName("dk")
 @Implements("UserComparator10")
 public class UserComparator10 extends AbstractUserComparator {
-	@ObfuscatedName("s")
-	@ObfuscatedGetter(
-		intValue = 11996977
+	@ObfuscatedName("ap")
+	@Export("client")
+	@ObfuscatedSignature(
+		descriptor = "Lclient;"
 	)
-	@Export("KitDefinition_fileCount")
-	public static int KitDefinition_fileCount;
-	@ObfuscatedName("i")
-	@ObfuscatedGetter(
-		intValue = 204231041
-	)
-	static int field1368;
-	@ObfuscatedName("c")
+	static Client client;
+	@ObfuscatedName("v")
 	@Export("reversed")
 	final boolean reversed;
 
@@ -26,10 +21,10 @@ public class UserComparator10 extends AbstractUserComparator {
 		this.reversed = var1; // L: 11
 	} // L: 12
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lmd;Lmd;B)I",
-		garbageValue = "118"
+		descriptor = "(Lnl;Lnl;I)I",
+		garbageValue = "-86339846"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -41,52 +36,45 @@ public class UserComparator10 extends AbstractUserComparator {
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.compareBuddy((Buddy)var1, (Buddy)var2);
+		return this.compareBuddy((Buddy)var1, (Buddy)var2); // L: 22
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(II)Lfj;",
-		garbageValue = "-1231821516"
+		descriptor = "(II)I",
+		garbageValue = "311319485"
 	)
-	@Export("getNpcDefinition")
-	public static NPCComposition getNpcDefinition(int var0) {
-		NPCComposition var1 = (NPCComposition)NPCComposition.NpcDefinition_cached.get((long)var0); // L: 62
-		if (var1 != null) { // L: 63
-			return var1;
-		} else {
-			byte[] var2 = NPCComposition.NpcDefinition_archive.takeFile(9, var0); // L: 64
-			var1 = new NPCComposition(); // L: 65
-			var1.id = var0; // L: 66
-			if (var2 != null) { // L: 67
-				var1.decode(new Buffer(var2));
-			}
-
-			var1.postDecode(); // L: 68
-			NPCComposition.NpcDefinition_cached.put(var1, (long)var0); // L: 69
-			return var1; // L: 70
-		}
+	public static int method2615(int var0) {
+		return class121.Entity_unpackID(ViewportMouse.ViewportMouse_entityTags[var0]); // L: 77
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(II)Lfu;",
-		garbageValue = "-720151457"
+		descriptor = "(ILbo;ZB)I",
+		garbageValue = "64"
 	)
-	@Export("getInvDefinition")
-	public static InvDefinition getInvDefinition(int var0) {
-		InvDefinition var1 = (InvDefinition)InvDefinition.InvDefinition_cached.get((long)var0); // L: 21
-		if (var1 != null) { // L: 22
-			return var1;
+	static int method2614(int var0, Script var1, boolean var2) {
+		Widget var3 = var2 ? class432.scriptDotWidget : class341.scriptActiveWidget; // L: 1101
+		if (var0 == ScriptOpcodes.CC_GETX) { // L: 1102
+			Interpreter.Interpreter_intStack[++class295.Interpreter_intStackSize - 1] = var3.x; // L: 1103
+			return 1; // L: 1104
+		} else if (var0 == ScriptOpcodes.CC_GETY) { // L: 1106
+			Interpreter.Interpreter_intStack[++class295.Interpreter_intStackSize - 1] = var3.y; // L: 1107
+			return 1; // L: 1108
+		} else if (var0 == ScriptOpcodes.CC_GETWIDTH) { // L: 1110
+			Interpreter.Interpreter_intStack[++class295.Interpreter_intStackSize - 1] = var3.width; // L: 1111
+			return 1; // L: 1112
+		} else if (var0 == ScriptOpcodes.CC_GETHEIGHT) { // L: 1114
+			Interpreter.Interpreter_intStack[++class295.Interpreter_intStackSize - 1] = var3.height; // L: 1115
+			return 1; // L: 1116
+		} else if (var0 == ScriptOpcodes.CC_GETHIDE) { // L: 1118
+			Interpreter.Interpreter_intStack[++class295.Interpreter_intStackSize - 1] = var3.isHidden ? 1 : 0; // L: 1119
+			return 1; // L: 1120
+		} else if (var0 == ScriptOpcodes.CC_GETLAYER) { // L: 1122
+			Interpreter.Interpreter_intStack[++class295.Interpreter_intStackSize - 1] = var3.parentId; // L: 1123
+			return 1; // L: 1124
 		} else {
-			byte[] var2 = InvDefinition.InvDefinition_archive.takeFile(5, var0); // L: 23
-			var1 = new InvDefinition(); // L: 24
-			if (var2 != null) { // L: 25
-				var1.decode(new Buffer(var2));
-			}
-
-			InvDefinition.InvDefinition_cached.put(var1, (long)var0); // L: 26
-			return var1; // L: 27
+			return 2; // L: 1126
 		}
 	}
 }

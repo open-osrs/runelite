@@ -4,24 +4,24 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gk")
+@ObfuscatedName("gc")
 @Implements("FaceNormal")
 public class FaceNormal {
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -1096643173
+		intValue = -1581281175
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 142997221
+		intValue = -1155482083
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("s")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = 1816531673
+		intValue = 990620569
 	)
 	@Export("z")
 	int z;
@@ -29,12 +29,12 @@ public class FaceNormal {
 	FaceNormal() {
 	} // L: 8
 
-	@ObfuscatedName("u")
+	@ObfuscatedName("ao")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-430184319"
+		descriptor = "(IB)I",
+		garbageValue = "12"
 	)
-	static final int method4095() {
-		return ViewportMouse.ViewportMouse_x; // L: 99
+	static int method4313(int var0) {
+		return (int)Math.pow(2.0D, (double)((float)var0 / 256.0F + 7.0F)); // L: 3837
 	}
 }

@@ -2,31 +2,26 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
+import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hj")
+@ObfuscatedName("ij")
 @Implements("WorldMapDecoration")
 public class WorldMapDecoration {
-	@ObfuscatedName("ie")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 1763303349
-	)
-	@Export("cameraY")
-	static int cameraY;
-	@ObfuscatedName("c")
-	@ObfuscatedGetter(
-		intValue = -1640877419
+		intValue = -536072233
 	)
 	@Export("objectDefinitionId")
 	final int objectDefinitionId;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 387612235
+		intValue = 1607146609
 	)
 	@Export("decoration")
 	final int decoration;
-	@ObfuscatedName("s")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = -1048320277
+		intValue = -179610333
 	)
 	@Export("rotation")
 	final int rotation;
@@ -36,4 +31,14 @@ public class WorldMapDecoration {
 		this.decoration = var2; // L: 10
 		this.rotation = var3; // L: 11
 	} // L: 12
+
+	@ObfuscatedName("x")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-323833461"
+	)
+	public static void method4988() {
+		NPCComposition.NpcDefinition_cached.clear(); // L: 260
+		NPCComposition.NpcDefinition_cachedModels.clear(); // L: 261
+	} // L: 262
 }

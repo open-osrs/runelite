@@ -4,30 +4,42 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ih")
+@ObfuscatedName("it")
 @Implements("WorldMapEvent")
 public class WorldMapEvent {
-	@ObfuscatedName("c")
+	@ObfuscatedName("g")
+	@ObfuscatedSignature(
+		descriptor = "Lje;"
+	)
+	@Export("midiPcmStream")
+	public static MidiPcmStream midiPcmStream;
+	@ObfuscatedName("gt")
+	@ObfuscatedSignature(
+		descriptor = "Lfn;"
+	)
+	@Export("socketTask")
+	static Task socketTask;
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 273660235
+		intValue = 814110167
 	)
 	@Export("mapElement")
 	public int mapElement;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Ljd;"
+		descriptor = "Lko;"
 	)
 	@Export("coord1")
 	public Coord coord1;
-	@ObfuscatedName("s")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Ljd;"
+		descriptor = "Lko;"
 	)
 	@Export("coord2")
 	public Coord coord2;
 
 	@ObfuscatedSignature(
-		descriptor = "(ILjd;Ljd;)V"
+		descriptor = "(ILko;Lko;)V"
 	)
 	public WorldMapEvent(int var1, Coord var2, Coord var3) {
 		this.mapElement = var1; // L: 11
@@ -35,27 +47,34 @@ public class WorldMapEvent {
 		this.coord2 = var3; // L: 13
 	} // L: 14
 
-	@ObfuscatedName("eg")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lor;",
-		garbageValue = "1601480741"
+		descriptor = "(IIIIS)V",
+		garbageValue = "1302"
 	)
-	@Export("getWorldMap")
-	static WorldMap getWorldMap() {
-		return Huffman.worldMap; // L: 659
-	}
+	static final void method5136(int var0, int var1, int var2, int var3) {
+		for (int var4 = var1; var4 <= var3 + var1; ++var4) { // L: 79
+			for (int var5 = var0; var5 <= var0 + var2; ++var5) { // L: 80
+				if (var5 >= 0 && var5 < 104 && var4 >= 0 && var4 < 104) { // L: 81
+					GrandExchangeOfferNameComparator.field4010[0][var5][var4] = 127; // L: 82
+					if (var0 == var5 && var5 > 0) { // L: 83
+						Tiles.Tiles_heights[0][var5][var4] = Tiles.Tiles_heights[0][var5 - 1][var4];
+					}
 
-	@ObfuscatedName("lk")
-	@ObfuscatedSignature(
-		descriptor = "(Ljz;I)Ljava/lang/String;",
-		garbageValue = "935072366"
-	)
-	@Export("Widget_getSpellActionName")
-	static String Widget_getSpellActionName(Widget var0) {
-		if (class135.Widget_unpackTargetMask(Language.getWidgetFlags(var0)) == 0) { // L: 11993
-			return null;
-		} else {
-			return var0.spellActionName != null && var0.spellActionName.trim().length() != 0 ? var0.spellActionName : null; // L: 11994 11995 11997
+					if (var5 == var0 + var2 && var5 < 103) { // L: 84
+						Tiles.Tiles_heights[0][var5][var4] = Tiles.Tiles_heights[0][var5 + 1][var4];
+					}
+
+					if (var4 == var1 && var4 > 0) { // L: 85
+						Tiles.Tiles_heights[0][var5][var4] = Tiles.Tiles_heights[0][var5][var4 - 1];
+					}
+
+					if (var3 + var1 == var4 && var4 < 103) { // L: 86
+						Tiles.Tiles_heights[0][var5][var4] = Tiles.Tiles_heights[0][var5][var4 + 1];
+					}
+				}
+			}
 		}
-	}
+
+	} // L: 90
 }

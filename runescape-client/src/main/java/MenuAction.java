@@ -4,62 +4,56 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bh")
+@ObfuscatedName("bp")
 @Implements("MenuAction")
 public class MenuAction {
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 683087729
+		intValue = -1395213587
 	)
 	@Export("param0")
 	int param0;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1027855045
+		intValue = 1235070557
 	)
 	@Export("param1")
 	int param1;
-	@ObfuscatedName("s")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = 791610257
+		intValue = -1780359583
 	)
 	@Export("opcode")
 	int opcode;
-	@ObfuscatedName("e")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 1555115433
+		intValue = -538792745
 	)
 	@Export("identifier")
 	int identifier;
-	@ObfuscatedName("r")
+	@ObfuscatedName("l")
 	@Export("action")
 	String action;
 
 	MenuAction() {
-	} // L: 12200
+	} // L: 11995
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(Lkq;IIIZB)V",
-		garbageValue = "-93"
+		descriptor = "(CS)C",
+		garbageValue = "1843"
 	)
-	public static void method1894(AbstractArchive var0, int var1, int var2, int var3, boolean var4) {
-		class265.musicPlayerStatus = 1; // L: 34
-		class265.musicTrackArchive = var0; // L: 35
-		class265.musicTrackGroupId = var1; // L: 36
-		class140.musicTrackFileId = var2; // L: 37
-		class167.musicTrackVolume = var3; // L: 38
-		MusicPatch.musicTrackBoolean = var4; // L: 39
-		GrandExchangeOfferNameComparator.pcmSampleLength = 10000; // L: 40
-	} // L: 41
-
-	@ObfuscatedName("lv")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1125693830"
-	)
-	static void method1895() {
-		class424.clientPreferences.field1231 = Client.field699; // L: 12164
-		GameEngine.savePreferences(); // L: 12165
-	} // L: 12166
+	static char method1877(char var0) {
+		if (var0 == 198) { // L: 119
+			return 'E';
+		} else if (var0 == 230) { // L: 120
+			return 'e';
+		} else if (var0 == 223) {
+			return 's'; // L: 121
+		} else if (var0 == 338) { // L: 122
+			return 'E';
+		} else {
+			return (char)(var0 == 339 ? 'e' : '\u0000'); // L: 123 124
+		}
+	}
 }

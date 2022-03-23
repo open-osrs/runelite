@@ -1,23 +1,29 @@
 import java.util.Comparator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mz")
+@ObfuscatedName("nq")
 @Implements("AbstractUserComparator")
 public abstract class AbstractUserComparator implements Comparator {
-	@ObfuscatedName("l")
+	@ObfuscatedName("x")
+	@ObfuscatedGetter(
+		intValue = 1477105489
+	)
+	static int field4268;
+	@ObfuscatedName("o")
 	@Export("nextComparator")
 	Comparator nextComparator;
 
 	protected AbstractUserComparator() {
 	} // L: 8
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
 		descriptor = "(Ljava/util/Comparator;I)V",
-		garbageValue = "905237521"
+		garbageValue = "-1235523353"
 	)
 	@Export("addComparator")
 	final void addComparator(Comparator var1) {
@@ -29,10 +35,10 @@ public abstract class AbstractUserComparator implements Comparator {
 
 	} // L: 17
 
-	@ObfuscatedName("y")
+	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		descriptor = "(Lmy;Lmy;S)I",
-		garbageValue = "6806"
+		descriptor = "(Lnc;Lnc;I)I",
+		garbageValue = "1354743050"
 	)
 	@Export("compareUser")
 	protected final int compareUser(User var1, User var2) {
@@ -41,5 +47,20 @@ public abstract class AbstractUserComparator implements Comparator {
 
 	public boolean equals(Object var1) {
 		return super.equals(var1); // L: 25
+	}
+
+	@ObfuscatedName("p")
+	@ObfuscatedSignature(
+		descriptor = "(Llq;IB)Z",
+		garbageValue = "-20"
+	)
+	static boolean method6771(AbstractArchive var0, int var1) {
+		byte[] var2 = var0.takeFileFlat(var1); // L: 161
+		if (var2 == null) { // L: 162
+			return false;
+		} else {
+			ClientPreferences.SpriteBuffer_decode(var2); // L: 163
+			return true; // L: 164
+		}
 	}
 }

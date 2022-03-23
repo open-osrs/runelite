@@ -4,24 +4,29 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fu")
+@ObfuscatedName("fd")
 @Implements("InvDefinition")
 public class InvDefinition extends DualNode {
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lkq;"
+		descriptor = "Llq;"
 	)
 	@Export("InvDefinition_archive")
 	static AbstractArchive InvDefinition_archive;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Lic;"
+		descriptor = "Liq;"
 	)
 	@Export("InvDefinition_cached")
 	static EvictingDualNodeHashTable InvDefinition_cached;
-	@ObfuscatedName("s")
+	@ObfuscatedName("j")
+	@ObfuscatedSignature(
+		descriptor = "Lqx;"
+	)
+	static IndexedSprite field1814;
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = -1694978241
+		intValue = 502676217
 	)
 	@Export("size")
 	public int size;
@@ -34,10 +39,10 @@ public class InvDefinition extends DualNode {
 		this.size = 0; // L: 12
 	} // L: 14
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(Lpi;S)V",
-		garbageValue = "14661"
+		descriptor = "(Lpd;B)V",
+		garbageValue = "-119"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
@@ -51,10 +56,10 @@ public class InvDefinition extends DualNode {
 		}
 	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "(Lpi;II)V",
-		garbageValue = "310801205"
+		descriptor = "(Lpd;IB)V",
+		garbageValue = "3"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
@@ -63,4 +68,46 @@ public class InvDefinition extends DualNode {
 		}
 
 	} // L: 41
+
+	@ObfuscatedName("b")
+	@ObfuscatedSignature(
+		descriptor = "(III)I",
+		garbageValue = "302508640"
+	)
+	static final int method3334(int var0, int var1) {
+		if (var0 == -2) { // L: 1021
+			return 12345678;
+		} else if (var0 == -1) { // L: 1022
+			if (var1 < 2) { // L: 1023
+				var1 = 2;
+			} else if (var1 > 126) { // L: 1024
+				var1 = 126;
+			}
+
+			return var1; // L: 1025
+		} else {
+			var1 = (var0 & 127) * var1 / 128; // L: 1027
+			if (var1 < 2) { // L: 1028
+				var1 = 2;
+			} else if (var1 > 126) { // L: 1029
+				var1 = 126;
+			}
+
+			return (var0 & 65408) + var1; // L: 1030
+		}
+	}
+
+	@ObfuscatedName("lm")
+	@ObfuscatedSignature(
+		descriptor = "(Lkn;S)Ljava/lang/String;",
+		garbageValue = "13721"
+	)
+	@Export("Widget_getSpellActionName")
+	static String Widget_getSpellActionName(Widget var0) {
+		if (WorldMapSection2.Widget_unpackTargetMask(WorldMapSection2.getWidgetFlags(var0)) == 0) { // L: 11807
+			return null;
+		} else {
+			return var0.spellActionName != null && var0.spellActionName.trim().length() != 0 ? var0.spellActionName : null; // L: 11808 11809 11811
+		}
+	}
 }

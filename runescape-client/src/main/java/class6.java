@@ -1,97 +1,81 @@
-import java.net.URL;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("i")
+@ObfuscatedName("d")
 public enum class6 implements MouseWheel {
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Li;"
+		descriptor = "Ld;"
 	)
-	field27(0, 0);
+	field22(0, 0);
 
-	@ObfuscatedName("i")
-	@ObfuscatedSignature(
-		descriptor = "Lkq;"
-	)
-	@Export("ItemDefinition_modelArchive")
-	public static AbstractArchive ItemDefinition_modelArchive;
-	@ObfuscatedName("aj")
-	@ObfuscatedSignature(
-		descriptor = "Lna;"
-	)
-	static Bounds field25;
-	@ObfuscatedName("gw")
-	@ObfuscatedSignature(
-		descriptor = "Lcz;"
-	)
-	@Export("urlRequester")
-	static UrlRequester urlRequester;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1479015629
+		intValue = -7519613
 	)
-	final int field22;
-	@ObfuscatedName("s")
+	final int field17;
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = 538107041
+		intValue = 151046051
 	)
-	final int field20;
+	final int field18;
 
 	class6(int var3, int var4) {
-		this.field22 = var3; // L: 12
-		this.field20 = var4; // L: 13
-	} // L: 14
+		this.field17 = var3; // L: 16
+		this.field18 = var4; // L: 17
+	} // L: 18
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-303340189"
+		descriptor = "(B)I",
+		garbageValue = "15"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field20; // L: 18
+		return this.field18; // L: 22
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(B)Z",
-		garbageValue = "-72"
+		descriptor = "(II)Lfp;",
+		garbageValue = "758685102"
 	)
-	@Export("loadWorlds")
-	static boolean loadWorlds() {
-		try {
-			if (WorldMapID.World_request == null) { // L: 31
-				WorldMapID.World_request = urlRequester.request(new URL(ModelData0.field2546));
-			} else if (WorldMapID.World_request.isDone()) { // L: 33
-				byte[] var0 = WorldMapID.World_request.getResponse(); // L: 34
-				Buffer var1 = new Buffer(var0); // L: 35
-				var1.readInt(); // L: 36
-				World.World_count = var1.readUnsignedShort(); // L: 37
-				class33.World_worlds = new World[World.World_count]; // L: 38
-
-				World var3;
-				for (int var2 = 0; var2 < World.World_count; var3.index = var2++) { // L: 39 47
-					var3 = class33.World_worlds[var2] = new World(); // L: 40
-					var3.id = var1.readUnsignedShort(); // L: 41
-					var3.properties = var1.readInt(); // L: 42
-					var3.host = var1.readStringCp1252NullTerminated(); // L: 43
-					var3.activity = var1.readStringCp1252NullTerminated(); // L: 44
-					var3.location = var1.readUnsignedByte(); // L: 45
-					var3.population = var1.readShort(); // L: 46
-				}
-
-				Players.sortWorlds(class33.World_worlds, 0, class33.World_worlds.length - 1, World.World_sortOption1, World.World_sortOption2); // L: 49
-				WorldMapID.World_request = null; // L: 50
-				return true; // L: 51
+	@Export("SpotAnimationDefinition_get")
+	public static SpotAnimationDefinition SpotAnimationDefinition_get(int var0) {
+		SpotAnimationDefinition var1 = (SpotAnimationDefinition)SpotAnimationDefinition.SpotAnimationDefinition_cached.get((long)var0);
+		if (var1 != null) { // L: 33
+			return var1;
+		} else {
+			byte[] var2 = SpotAnimationDefinition.SpotAnimationDefinition_archive.takeFile(13, var0); // L: 34
+			var1 = new SpotAnimationDefinition(); // L: 35
+			var1.id = var0; // L: 36
+			if (var2 != null) { // L: 37
+				var1.decode(new Buffer(var2));
 			}
-		} catch (Exception var4) { // L: 55
-			var4.printStackTrace(); // L: 56
-			WorldMapID.World_request = null; // L: 57
+
+			SpotAnimationDefinition.SpotAnimationDefinition_cached.put(var1, (long)var0); // L: 38
+			return var1; // L: 39
+		}
+	}
+
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		descriptor = "(ILjava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
+		garbageValue = "1259408823"
+	)
+	@Export("addChatMessage")
+	static void addChatMessage(int var0, String var1, String var2, String var3) {
+		ChatChannel var4 = (ChatChannel)Messages.Messages_channels.get(var0); // L: 23
+		if (var4 == null) { // L: 24
+			var4 = new ChatChannel(); // L: 25
+			Messages.Messages_channels.put(var0, var4); // L: 26
 		}
 
-		return false; // L: 59
-	}
+		Message var5 = var4.addMessage(var0, var1, var2, var3); // L: 28
+		Messages.Messages_hashTable.put(var5, (long)var5.count); // L: 29
+		Messages.Messages_queue.add(var5); // L: 30
+		Client.chatCycle = Client.cycleCntr; // L: 31
+	} // L: 32
 }

@@ -1,185 +1,210 @@
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ef")
-public class class150 extends class126 {
-	@ObfuscatedName("c")
+@ObfuscatedName("ej")
+public class class150 extends class128 {
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -714152859
+		longValue = -7750632583538685477L
 	)
-	int field1680;
-	@ObfuscatedName("l")
-	@ObfuscatedGetter(
-		longValue = -3879933819233761611L
-	)
-	long field1681;
+	long field1680;
+	@ObfuscatedName("o")
+	String field1679;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Ldk;"
+		descriptor = "Lee;"
 	)
-	final class129 this$0;
+	final class131 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ldk;)V"
+		descriptor = "(Lee;)V"
 	)
-	class150(class129 var1) {
-		this.this$0 = var1; // L: 307
-	}
+	class150(class131 var1) {
+		this.this$0 = var1;
+		this.field1680 = -1L; // L: 194
+		this.field1679 = null; // L: 195
+	} // L: 197
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lpi;I)V",
-		garbageValue = "703192976"
+		descriptor = "(Lpd;B)V",
+		garbageValue = "-73"
 	)
-	void vmethod3019(Buffer var1) {
-		this.field1680 = var1.readInt(); // L: 310
-		this.field1681 = var1.readLong(); // L: 311
-	} // L: 312
+	void vmethod3107(Buffer var1) {
+		if (var1.readUnsignedByte() != 255) { // L: 200
+			--var1.offset; // L: 201
+			this.field1680 = var1.readLong(); // L: 202
+		}
+
+		this.field1679 = var1.readStringCp1252NullTerminatedOrNull(); // L: 204
+	} // L: 205
+
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		descriptor = "(Leh;I)V",
+		garbageValue = "-1228032820"
+	)
+	void vmethod3104(ClanSettings var1) {
+		var1.method2912(this.field1680, this.field1679); // L: 208
+	} // L: 209
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Ley;I)V",
-		garbageValue = "750335300"
+		descriptor = "(II)I",
+		garbageValue = "1682779053"
 	)
-	void vmethod3020(ClanSettings var1) {
-		var1.method2869(this.field1680, this.field1681); // L: 315
-	} // L: 316
+	public static int method3091(int var0) {
+		return PcmPlayer.method771(ViewportMouse.ViewportMouse_entityTags[var0]); // L: 65
+	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		descriptor = "(Lpc;I)V",
-		garbageValue = "214617962"
+		descriptor = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
+		garbageValue = "1443556885"
 	)
-	static final void method3025(PacketBuffer var0) {
-		int var1 = 0; // L: 81
-		var0.importIndex(); // L: 82
+	static void method3092(String var0, String var1, String var2) {
+		method3089(7); // L: 1259
+		GrandExchangeEvent.setLoginResponseString(var0, var1, var2); // L: 1260
+	} // L: 1261
 
-		byte[] var10000;
-		int var2;
-		int var4;
-		int var5;
-		for (var2 = 0; var2 < Players.Players_count; ++var2) { // L: 83
-			var5 = Players.Players_indices[var2]; // L: 84
-			if ((Players.field1276[var5] & 1) == 0) { // L: 85
-				if (var1 > 0) { // L: 86
-					--var1; // L: 87
-					var10000 = Players.field1276; // L: 88
-					var10000[var5] = (byte)(var10000[var5] | 2);
-				} else {
-					var4 = var0.readBits(1); // L: 91
-					if (var4 == 0) { // L: 92
-						var1 = class4.method15(var0); // L: 93
-						var10000 = Players.field1276; // L: 94
-						var10000[var5] = (byte)(var10000[var5] | 2);
-					} else {
-						ApproximateRouteStrategy.readPlayerUpdate(var0, var5); // L: 97
-					}
-				}
-			}
+	@ObfuscatedName("q")
+	@ObfuscatedSignature(
+		descriptor = "(IS)V",
+		garbageValue = "16213"
+	)
+	static void method3089(int var0) {
+		if (var0 != Login.loginIndex) { // L: 2091
+			Login.loginIndex = var0; // L: 2092
 		}
+	} // L: 2093
 
-		var0.exportIndex(); // L: 100
-		if (var1 != 0) { // L: 101
-			throw new RuntimeException(); // L: 102
-		} else {
-			var0.importIndex(); // L: 104
-
-			for (var2 = 0; var2 < Players.Players_count; ++var2) { // L: 105
-				var5 = Players.Players_indices[var2]; // L: 106
-				if ((Players.field1276[var5] & 1) != 0) { // L: 107
-					if (var1 > 0) { // L: 108
-						--var1; // L: 109
-						var10000 = Players.field1276; // L: 110
-						var10000[var5] = (byte)(var10000[var5] | 2);
-					} else {
-						var4 = var0.readBits(1); // L: 113
-						if (var4 == 0) { // L: 114
-							var1 = class4.method15(var0); // L: 115
-							var10000 = Players.field1276; // L: 116
-							var10000[var5] = (byte)(var10000[var5] | 2);
-						} else {
-							ApproximateRouteStrategy.readPlayerUpdate(var0, var5); // L: 119
-						}
-					}
-				}
-			}
-
-			var0.exportIndex(); // L: 122
-			if (var1 != 0) { // L: 123
-				throw new RuntimeException(); // L: 124
+	@ObfuscatedName("fo")
+	@ObfuscatedSignature(
+		descriptor = "(IB)V",
+		garbageValue = "-101"
+	)
+	@Export("getLoginError")
+	static void getLoginError(int var0) {
+		if (var0 == -3) { // L: 2448
+			GrandExchangeEvent.setLoginResponseString("Connection timed out.", "Please try using a different world.", "");
+		} else if (var0 == -2) { // L: 2449
+			GrandExchangeEvent.setLoginResponseString("Error connecting to server.", "Please try using a different world.", "");
+		} else if (var0 == -1) { // L: 2450
+			GrandExchangeEvent.setLoginResponseString("No response from server.", "Please try using a different world.", "");
+		} else if (var0 == 3) { // L: 2451
+			method3089(3); // L: 2452
+			Login.field897 = 1; // L: 2453
+		} else if (var0 == 4) { // L: 2455
+			class128.method2841(0); // L: 2456
+		} else if (var0 == 5) { // L: 2458
+			Login.field897 = 2; // L: 2459
+			GrandExchangeEvent.setLoginResponseString("Your account has not logged out from its last", "session or the server is too busy right now.", "Please try again in a few minutes."); // L: 2460
+		} else if (var0 != 68 && (Client.onMobile || var0 != 6)) { // L: 2462
+			if (var0 == 7) { // L: 2465
+				GrandExchangeEvent.setLoginResponseString("This world is full.", "Please use a different world.", "");
+			} else if (var0 == 8) { // L: 2466
+				GrandExchangeEvent.setLoginResponseString("Unable to connect.", "Login server offline.", "");
+			} else if (var0 == 9) { // L: 2467
+				GrandExchangeEvent.setLoginResponseString("Login limit exceeded.", "Too many connections from your address.", "");
+			} else if (var0 == 10) { // L: 2468
+				GrandExchangeEvent.setLoginResponseString("Unable to connect.", "Bad session id.", "");
+			} else if (var0 == 11) { // L: 2469
+				GrandExchangeEvent.setLoginResponseString("We suspect someone knows your password.", "Press 'change your password' on front page.", "");
+			} else if (var0 == 12) { // L: 2470
+				GrandExchangeEvent.setLoginResponseString("You need a members account to login to this world.", "Please subscribe, or use a different world.", "");
+			} else if (var0 == 13) { // L: 2471
+				GrandExchangeEvent.setLoginResponseString("Could not complete login.", "Please try using a different world.", "");
+			} else if (var0 == 14) { // L: 2472
+				GrandExchangeEvent.setLoginResponseString("The server is being updated.", "Please wait 1 minute and try again.", "");
+			} else if (var0 == 16) { // L: 2473
+				GrandExchangeEvent.setLoginResponseString("Too many login attempts.", "Please wait a few minutes before trying again.", "");
+			} else if (var0 == 17) { // L: 2474
+				GrandExchangeEvent.setLoginResponseString("You are standing in a members-only area.", "To play on this world move to a free area first", "");
+			} else if (var0 == 18) { // L: 2475
+				class128.method2841(1); // L: 2476
+			} else if (var0 == 19) { // L: 2478
+				GrandExchangeEvent.setLoginResponseString("This world is running a closed Beta.", "Sorry invited players only.", "Please use a different world.");
+			} else if (var0 == 20) { // L: 2479
+				GrandExchangeEvent.setLoginResponseString("Invalid loginserver requested.", "Please try using a different world.", "");
+			} else if (var0 == 22) { // L: 2480
+				GrandExchangeEvent.setLoginResponseString("Malformed login packet.", "Please try again.", "");
+			} else if (var0 == 23) { // L: 2481
+				GrandExchangeEvent.setLoginResponseString("No reply from loginserver.", "Please wait 1 minute and try again.", "");
+			} else if (var0 == 24) { // L: 2482
+				GrandExchangeEvent.setLoginResponseString("Error loading your profile.", "Please contact customer support.", "");
+			} else if (var0 == 25) { // L: 2483
+				GrandExchangeEvent.setLoginResponseString("Unexpected loginserver response.", "Please try using a different world.", "");
+			} else if (var0 == 26) { // L: 2484
+				GrandExchangeEvent.setLoginResponseString("This computers address has been blocked", "as it was used to break our rules.", "");
+			} else if (var0 == 27) { // L: 2485
+				GrandExchangeEvent.setLoginResponseString("", "Service unavailable.", "");
+			} else if (var0 == 31) { // L: 2486
+				GrandExchangeEvent.setLoginResponseString("Your account must have a displayname set", "in order to play the game.  Please set it", "via the website, or the main game.");
+			} else if (var0 == 32) { // L: 2487
+				GrandExchangeEvent.setLoginResponseString("Your attempt to log into your account was", "unsuccessful.  Don't worry, you can sort", "this out by visiting the billing system.");
+			} else if (var0 == 37) { // L: 2488
+				GrandExchangeEvent.setLoginResponseString("Your account is currently inaccessible.", "Please try again in a few minutes.", "");
+			} else if (var0 == 38) { // L: 2489
+				GrandExchangeEvent.setLoginResponseString("You need to vote to play!", "Visit runescape.com and vote,", "and then come back here!");
+			} else if (var0 == 55) { // L: 2490
+				method3089(8); // L: 2491
 			} else {
-				var0.importIndex(); // L: 126
-
-				for (var2 = 0; var2 < Players.Players_emptyIdxCount; ++var2) { // L: 127
-					var5 = Players.Players_emptyIndices[var2]; // L: 128
-					if ((Players.field1276[var5] & 1) != 0) { // L: 129
-						if (var1 > 0) { // L: 130
-							--var1; // L: 131
-							var10000 = Players.field1276; // L: 132
-							var10000[var5] = (byte)(var10000[var5] | 2);
-						} else {
-							var4 = var0.readBits(1); // L: 135
-							if (var4 == 0) { // L: 136
-								var1 = class4.method15(var0); // L: 137
-								var10000 = Players.field1276; // L: 138
-								var10000[var5] = (byte)(var10000[var5] | 2);
-							} else if (class16.updateExternalPlayer(var0, var5)) { // L: 141
-								var10000 = Players.field1276;
-								var10000[var5] = (byte)(var10000[var5] | 2);
-							}
-						}
-					}
+				if (var0 == 56) { // L: 2493
+					GrandExchangeEvent.setLoginResponseString("Enter the 6-digit code generated by your", "authenticator app.", ""); // L: 2494
+					InterfaceParent.updateGameState(11); // L: 2495
+					return; // L: 2496
 				}
 
-				var0.exportIndex(); // L: 144
-				if (var1 != 0) { // L: 145
-					throw new RuntimeException(); // L: 146
-				} else {
-					var0.importIndex(); // L: 148
+				if (var0 == 57) { // L: 2498
+					GrandExchangeEvent.setLoginResponseString("The code you entered was incorrect.", "Please try again.", ""); // L: 2499
+					InterfaceParent.updateGameState(11); // L: 2500
+					return; // L: 2501
+				}
 
-					for (var2 = 0; var2 < Players.Players_emptyIdxCount; ++var2) { // L: 149
-						var5 = Players.Players_emptyIndices[var2]; // L: 150
-						if ((Players.field1276[var5] & 1) == 0) { // L: 151
-							if (var1 > 0) { // L: 152
-								--var1; // L: 153
-								var10000 = Players.field1276; // L: 154
-								var10000[var5] = (byte)(var10000[var5] | 2);
-							} else {
-								var4 = var0.readBits(1); // L: 157
-								if (var4 == 0) { // L: 158
-									var1 = class4.method15(var0); // L: 159
-									var10000 = Players.field1276; // L: 160
-									var10000[var5] = (byte)(var10000[var5] | 2);
-								} else if (class16.updateExternalPlayer(var0, var5)) { // L: 163
-									var10000 = Players.field1276;
-									var10000[var5] = (byte)(var10000[var5] | 2);
-								}
-							}
-						}
+				if (var0 == 61) { // L: 2503
+					GrandExchangeEvent.setLoginResponseString("", "Please enter your date of birth (DD/MM/YYYY)", ""); // L: 2504
+					method3089(7); // L: 2505
+				} else {
+					if (var0 == 62) { // L: 2507
+						InterfaceParent.updateGameState(10); // L: 2508
+						method3089(9); // L: 2509
+						GrandExchangeEvent.setLoginResponseString("Login attempt timed out.", "Please try again.", ""); // L: 2510
+						return; // L: 2511
 					}
 
-					var0.exportIndex(); // L: 166
-					if (var1 != 0) { // L: 167
-						throw new RuntimeException(); // L: 168
+					if (var0 == 63) { // L: 2513
+						InterfaceParent.updateGameState(10); // L: 2514
+						method3089(9); // L: 2515
+						GrandExchangeEvent.setLoginResponseString("You were signed out.", "Please sign in again.", ""); // L: 2516
+						return; // L: 2517
+					}
+
+					if (var0 == 65 || var0 == 67) { // L: 2519
+						InterfaceParent.updateGameState(10); // L: 2520
+						method3089(9); // L: 2521
+						GrandExchangeEvent.setLoginResponseString("Failed to login.", "Please try again.", ""); // L: 2522
+						return; // L: 2523
+					}
+
+					if (var0 == 71) { // L: 2525
+						InterfaceParent.updateGameState(10); // L: 2526
+						method3089(7); // L: 2527
+						GrandExchangeEvent.setLoginResponseString("There was a problem updating your DOB.", "Please try again later. If the problem ", "persists, please contact Jagex Support."); // L: 2528
 					} else {
-						Players.Players_count = 0; // L: 170
-						Players.Players_emptyIdxCount = 0; // L: 171
-
-						for (var2 = 1; var2 < 2048; ++var2) { // L: 172
-							var10000 = Players.field1276; // L: 173
-							var10000[var2] = (byte)(var10000[var2] >> 1);
-							Player var3 = Client.players[var2]; // L: 174
-							if (var3 != null) { // L: 175
-								Players.Players_indices[++Players.Players_count - 1] = var2;
-							} else {
-								Players.Players_emptyIndices[++Players.Players_emptyIdxCount - 1] = var2; // L: 176
-							}
-						}
-
+						GrandExchangeEvent.setLoginResponseString("Unexpected server response", "Please try using a different world.", ""); // L: 2530
 					}
 				}
 			}
+		} else {
+			GrandExchangeEvent.setLoginResponseString("RuneScape has been updated!", "Please reload this page.", ""); // L: 2463
 		}
-	} // L: 178
+
+		InterfaceParent.updateGameState(10); // L: 2531
+		if (Client.field517.method8013()) { // L: 2532
+			method3089(9); // L: 2533
+		}
+
+	} // L: 2535
 }

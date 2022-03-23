@@ -4,94 +4,92 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hq")
+@ObfuscatedName("hg")
 @Implements("GameObject")
 public final class GameObject {
-	@ObfuscatedName("bl")
+	@ObfuscatedName("w")
+	@Export("ByteArrayPool_altSizeArrayCounts")
+	public static int[] ByteArrayPool_altSizeArrayCounts;
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 1902581057
-	)
-	static int field2588;
-	@ObfuscatedName("c")
-	@ObfuscatedGetter(
-		intValue = 1178433619
+		intValue = -847164107
 	)
 	@Export("plane")
 	int plane;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 746777845
+		intValue = -940265289
 	)
 	@Export("z")
 	int z;
-	@ObfuscatedName("s")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = 1435489625
+		intValue = -198288323
 	)
 	@Export("centerX")
 	int centerX;
-	@ObfuscatedName("e")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 1681858831
+		intValue = 240672507
 	)
 	@Export("centerY")
 	int centerY;
-	@ObfuscatedName("r")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lgp;"
+		descriptor = "Lgh;"
 	)
 	@Export("renderable")
 	public Renderable renderable;
-	@ObfuscatedName("o")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -1594054171
+		intValue = -1154324973
 	)
 	@Export("orientation")
 	int orientation;
-	@ObfuscatedName("i")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -1228904531
+		intValue = -2061335069
 	)
 	@Export("startX")
 	int startX;
-	@ObfuscatedName("w")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -2069560973
+		intValue = -1084984155
 	)
 	@Export("endX")
 	int endX;
-	@ObfuscatedName("v")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = -1306078651
+		intValue = -1316603005
 	)
 	@Export("startY")
 	int startY;
-	@ObfuscatedName("a")
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = -1508007581
+		intValue = -609115179
 	)
 	@Export("endY")
 	int endY;
-	@ObfuscatedName("y")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = -1775800277
+		intValue = 1379225673
 	)
-	int field2584;
-	@ObfuscatedName("u")
+	int field2639;
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = 1693805361
+		intValue = 508066469
 	)
 	@Export("lastDrawn")
 	int lastDrawn;
-	@ObfuscatedName("h")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		longValue = -8019980132139941379L
+		longValue = -5816453776814421193L
 	)
 	@Export("tag")
 	public long tag;
-	@ObfuscatedName("q")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 1925968547
+		intValue = -1479412759
 	)
 	@Export("flags")
 	int flags;
@@ -101,18 +99,32 @@ public final class GameObject {
 		this.flags = 0; // L: 17
 	} // L: 19
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("fv")
 	@ObfuscatedSignature(
-		descriptor = "(I)[I",
-		garbageValue = "-1679068447"
+		descriptor = "(I)V",
+		garbageValue = "1885717447"
 	)
-	public static int[] method4297() {
-		int[] var0 = new int[KeyHandler.field141]; // L: 279
+	@Export("logOut")
+	static final void logOut() {
+		Client.packetWriter.close(); // L: 2538
+		MouseHandler.method593(); // L: 2539
+		FriendSystem.scene.clear(); // L: 2540
 
-		for (int var1 = 0; var1 < KeyHandler.field141; ++var1) { // L: 280
-			var0[var1] = KeyHandler.field125[var1]; // L: 281
+		for (int var0 = 0; var0 < 4; ++var0) { // L: 2541
+			Client.collisionMaps[var0].clear();
 		}
 
-		return var0; // L: 283
-	}
+		System.gc(); // L: 2542
+		class273.musicPlayerStatus = 1; // L: 2544
+		class147.musicTrackArchive = null; // L: 2545
+		ArchiveLoader.musicTrackGroupId = -1; // L: 2546
+		class273.musicTrackFileId = -1; // L: 2547
+		DevicePcmPlayerProvider.musicTrackVolume = 0; // L: 2548
+		class260.musicTrackBoolean = false; // L: 2549
+		class273.pcmSampleLength = 2; // L: 2550
+		Client.currentTrackGroupId = -1; // L: 2552
+		Client.field731 = false; // L: 2553
+		Players.method2419(); // L: 2554
+		InterfaceParent.updateGameState(10); // L: 2555
+	} // L: 2556
 }

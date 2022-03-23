@@ -4,48 +4,42 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ii")
+@ObfuscatedName("jt")
 @Implements("PacketBufferNode")
 public class PacketBufferNode extends Node {
-	@ObfuscatedName("sc")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lag;"
-	)
-	@Export("pcmPlayer0")
-	static PcmPlayer pcmPlayer0;
-	@ObfuscatedName("r")
-	@ObfuscatedSignature(
-		descriptor = "[Lii;"
+		descriptor = "[Ljt;"
 	)
 	@Export("PacketBufferNode_packetBufferNodes")
-	public static PacketBufferNode[] PacketBufferNode_packetBufferNodes;
-	@ObfuscatedName("o")
+	static PacketBufferNode[] PacketBufferNode_packetBufferNodes;
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 2107144477
+		intValue = -482567323
 	)
 	@Export("PacketBufferNode_packetBufferNodeCount")
-	public static int PacketBufferNode_packetBufferNodeCount;
-	@ObfuscatedName("c")
+	static int PacketBufferNode_packetBufferNodeCount;
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lie;"
+		descriptor = "Ljn;"
 	)
 	@Export("clientPacket")
-	public ClientPacket clientPacket;
-	@ObfuscatedName("l")
+	ClientPacket clientPacket;
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 159088945
+		intValue = 408247845
 	)
 	@Export("clientPacketLength")
-	public int clientPacketLength;
-	@ObfuscatedName("s")
+	int clientPacketLength;
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Lpc;"
+		descriptor = "Lpy;"
 	)
 	@Export("packetBuffer")
 	public PacketBuffer packetBuffer;
-	@ObfuscatedName("e")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -15994369
+		intValue = 997234155
 	)
 	@Export("index")
 	public int index;
@@ -55,45 +49,18 @@ public class PacketBufferNode extends Node {
 		PacketBufferNode_packetBufferNodeCount = 0; // L: 14
 	}
 
-	@ObfuscatedName("l")
+	PacketBufferNode() {
+	} // L: 19
+
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-801745913"
+		garbageValue = "-1164727717"
 	)
 	@Export("release")
 	public void release() {
-		if (PacketBufferNode_packetBufferNodeCount < PacketBufferNode_packetBufferNodes.length) { // L: 45
-			PacketBufferNode_packetBufferNodes[++PacketBufferNode_packetBufferNodeCount - 1] = this; // L: 46
+		if (PacketBufferNode_packetBufferNodeCount < PacketBufferNode_packetBufferNodes.length) { // L: 58
+			PacketBufferNode_packetBufferNodes[++PacketBufferNode_packetBufferNodeCount - 1] = this; // L: 59
 		}
-	} // L: 47
-
-	@ObfuscatedName("gg")
-	@ObfuscatedSignature(
-		descriptor = "(ZI)V",
-		garbageValue = "585881106"
-	)
-	@Export("addNpcsToScene")
-	static final void addNpcsToScene(boolean var0) {
-		for (int var1 = 0; var1 < Client.npcCount; ++var1) { // L: 4687
-			NPC var2 = Client.npcs[Client.npcIndices[var1]]; // L: 4688
-			if (var2 != null && var2.isVisible() && var2.definition.isVisible == var0 && var2.definition.transformIsVisible()) { // L: 4689
-				int var3 = var2.x >> 7; // L: 4690
-				int var4 = var2.y >> 7; // L: 4691
-				if (var3 >= 0 && var3 < 104 && var4 >= 0 && var4 < 104) { // L: 4692
-					if (var2.field1113 == 1 && (var2.x & 127) == 64 && (var2.y & 127) == 64) { // L: 4693
-						if (Client.tileLastDrawnActor[var3][var4] == Client.viewportDrawCount) { // L: 4694
-							continue;
-						}
-
-						Client.tileLastDrawnActor[var3][var4] = Client.viewportDrawCount; // L: 4695
-					}
-
-					long var5 = ScriptEvent.calculateTag(0, 0, 1, !var2.definition.isInteractable, Client.npcIndices[var1]); // L: 4697
-					var2.playerCycle = Client.cycle; // L: 4698
-					Decimator.scene.drawEntity(SoundSystem.Client_plane, var2.x, var2.y, class92.getTileHeight(var2.field1113 * 64 - 64 + var2.x, var2.field1113 * 64 - 64 + var2.y, SoundSystem.Client_plane), var2.field1113 * 64 - 64 + 60, var2, var2.rotation, var5, var2.isWalking); // L: 4699
-				}
-			}
-		}
-
-	} // L: 4703
+	} // L: 60
 }

@@ -2,68 +2,91 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("ee")
-public class class136 extends class126 {
-	@ObfuscatedName("c")
+@ObfuscatedName("ei")
+public class class136 extends class144 {
+	@ObfuscatedName("ow")
 	@ObfuscatedGetter(
-		intValue = -35384725
+		intValue = -1282904603
 	)
-	int field1578;
-	@ObfuscatedName("l")
-	String field1579;
+	@Export("widgetDragDuration")
+	static int widgetDragDuration;
+	@ObfuscatedName("v")
+	@ObfuscatedGetter(
+		intValue = 1060413805
+	)
+	int field1581;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Ldk;"
+		descriptor = "Lez;"
 	)
-	final class129 this$0;
+	final class145 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ldk;)V"
+		descriptor = "(Lez;)V"
 	)
-	class136(class129 var1) {
-		this.this$0 = var1; // L: 323
-	}
+	class136(class145 var1) {
+		this.this$0 = var1;
+		this.field1581 = -1; // L: 82
+	} // L: 84
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lpi;I)V",
-		garbageValue = "703192976"
+		descriptor = "(Lpd;S)V",
+		garbageValue = "3239"
 	)
-	void vmethod3019(Buffer var1) {
-		this.field1578 = var1.readInt(); // L: 326
-		this.field1579 = var1.readStringCp1252NullTerminated(); // L: 327
-	} // L: 328
+	void vmethod3096(Buffer var1) {
+		this.field1581 = var1.readUnsignedShort(); // L: 87
+		var1.readUnsignedByte(); // L: 88
+		if (var1.readUnsignedByte() != 255) { // L: 89
+			--var1.offset; // L: 90
+			var1.readLong(); // L: 91
+		}
 
-	@ObfuscatedName("l")
-	@ObfuscatedSignature(
-		descriptor = "(Ley;I)V",
-		garbageValue = "750335300"
-	)
-	void vmethod3020(ClanSettings var1) {
-		var1.method2864(this.field1578, this.field1579); // L: 331
-	} // L: 332
+	} // L: 93
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(II)Lfe;",
-		garbageValue = "2041648826"
+		descriptor = "(Ley;B)V",
+		garbageValue = "26"
 	)
-	@Export("StructDefinition_getStructDefinition")
-	public static StructComposition StructDefinition_getStructDefinition(int var0) {
-		StructComposition var1 = (StructComposition)StructComposition.StructDefinition_cached.get((long)var0); // L: 23
-		if (var1 != null) { // L: 24
-			return var1;
+	void vmethod3093(ClanChannel var1) {
+		var1.removeMember(this.field1581); // L: 96
+	} // L: 97
+
+	@ObfuscatedName("w")
+	@ObfuscatedSignature(
+		descriptor = "(ILbo;ZI)I",
+		garbageValue = "-2073039041"
+	)
+	static int method2896(int var0, Script var1, boolean var2) {
+		Widget var3 = var2 ? class432.scriptDotWidget : class341.scriptActiveWidget; // L: 1248
+		if (var0 == ScriptOpcodes.CC_GETTARGETMASK) { // L: 1249
+			Interpreter.Interpreter_intStack[++class295.Interpreter_intStackSize - 1] = WorldMapSection2.Widget_unpackTargetMask(WorldMapSection2.getWidgetFlags(var3)); // L: 1250
+			return 1; // L: 1251
+		} else if (var0 != ScriptOpcodes.CC_GETOP) { // L: 1253
+			if (var0 == ScriptOpcodes.CC_GETOPBASE) { // L: 1260
+				if (var3.dataText == null) { // L: 1261
+					Interpreter.Interpreter_stringStack[++ChatChannel.Interpreter_stringStackSize - 1] = "";
+				} else {
+					Interpreter.Interpreter_stringStack[++ChatChannel.Interpreter_stringStackSize - 1] = var3.dataText; // L: 1262
+				}
+
+				return 1; // L: 1263
+			} else {
+				return 2; // L: 1265
+			}
 		} else {
-			byte[] var2 = StructComposition.StructDefinition_archive.takeFile(34, var0); // L: 25
-			var1 = new StructComposition(); // L: 26
-			if (var2 != null) { // L: 27
-				var1.decode(new Buffer(var2));
+			int var4 = Interpreter.Interpreter_intStack[--class295.Interpreter_intStackSize]; // L: 1254
+			--var4; // L: 1255
+			if (var3.actions != null && var4 < var3.actions.length && var3.actions[var4] != null) { // L: 1256
+				Interpreter.Interpreter_stringStack[++ChatChannel.Interpreter_stringStackSize - 1] = var3.actions[var4]; // L: 1257
+			} else {
+				Interpreter.Interpreter_stringStack[++ChatChannel.Interpreter_stringStackSize - 1] = "";
 			}
 
-			var1.postDecode(); // L: 28
-			StructComposition.StructDefinition_cached.put(var1, (long)var0); // L: 29
-			return var1; // L: 30
+			return 1; // L: 1258
 		}
 	}
 }

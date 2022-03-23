@@ -1,28 +1,79 @@
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import net.runelite.mapping.Export;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mf")
-public class class341 {
-	@ObfuscatedName("c")
+@ObfuscatedName("md")
+public class class341 implements Iterator {
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "(IIB)I",
-		garbageValue = "-7"
+		descriptor = "Lkn;"
 	)
-	static int method6228(int var0, int var1) {
-		ItemContainer var2 = (ItemContainer)ItemContainer.itemContainers.get((long)var0); // L: 14
-		if (var2 == null) { // L: 15
-			return -1;
+	@Export("scriptActiveWidget")
+	static Widget scriptActiveWidget;
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "Lmj;"
+	)
+	class342 field4112;
+	@ObfuscatedName("o")
+	@ObfuscatedGetter(
+		intValue = 203290691
+	)
+	int field4114;
+	@ObfuscatedName("h")
+	@ObfuscatedGetter(
+		intValue = 1571350147
+	)
+	int field4113;
+
+	@ObfuscatedSignature(
+		descriptor = "(Lmj;)V"
+	)
+	class341(class342 var1) {
+		this.field4114 = 0; // L: 177
+		this.field4113 = this.field4112.field4115; // L: 178
+		this.field4112 = var1; // L: 181
+	} // L: 182
+
+	public boolean hasNext() {
+		return this.field4114 < this.field4112.field4117; // L: 186
+	}
+
+	public void remove() {
+		throw new UnsupportedOperationException(); // L: 203
+	}
+
+	public Object next() {
+		if (this.field4112.field4115 != this.field4113) { // L: 192
+			throw new ConcurrentModificationException();
+		} else if (this.field4114 < this.field4112.field4117) { // L: 193
+			Object var1 = this.field4112.field4121[this.field4114].field4107; // L: 194
+			++this.field4114; // L: 195
+			return var1; // L: 196
 		} else {
-			return var1 >= 0 && var1 < var2.ids.length ? var2.ids[var1] : -1; // L: 16 17
+			throw new NoSuchElementException(); // L: 198
 		}
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("ay")
 	@ObfuscatedSignature(
-		descriptor = "(IIB)I",
-		garbageValue = "16"
+		descriptor = "(Lal;B)V",
+		garbageValue = "81"
 	)
-	public static int method6227(int var0, int var1) {
-		return (int)Math.round(Math.atan2((double)var0, (double)var1) * 2607.5945876176133D) & 16383; // L: 29
-	}
+	@Export("PcmStream_disable")
+	static final void PcmStream_disable(PcmStream var0) {
+		var0.active = false; // L: 270
+		if (var0.sound != null) { // L: 271
+			var0.sound.position = 0;
+		}
+
+		for (PcmStream var1 = var0.firstSubStream(); var1 != null; var1 = var0.nextSubStream()) {
+			PcmStream_disable(var1); // L: 272
+		}
+
+	} // L: 273
 }

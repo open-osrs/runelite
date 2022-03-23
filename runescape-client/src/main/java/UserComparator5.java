@@ -3,21 +3,24 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ds")
+@ObfuscatedName("dn")
 @Implements("UserComparator5")
 public class UserComparator5 extends AbstractUserComparator {
-	@ObfuscatedName("c")
+	@ObfuscatedName("do")
+	@Export("mouseCam")
+	static boolean mouseCam;
+	@ObfuscatedName("v")
 	@Export("reversed")
 	final boolean reversed;
 
 	public UserComparator5(boolean var1) {
-		this.reversed = var1; // L: 10
-	} // L: 11
+		this.reversed = var1;
+	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lmd;Lmd;I)I",
-		garbageValue = "71966662"
+		descriptor = "(Lnl;Lnl;I)I",
+		garbageValue = "-1157970116"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -36,51 +39,72 @@ public class UserComparator5 extends AbstractUserComparator {
 		return this.compareBuddy((Buddy)var1, (Buddy)var2); // L: 24
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "0"
+		descriptor = "(I)Lfq;",
+		garbageValue = "-2066827638"
 	)
-	static void method2475() {
-		Tiles.Tiles_minPlane = 99; // L: 48
-		Tiles.Tiles_underlays = new byte[4][104][104]; // L: 49
-		Tiles.Tiles_overlays = new byte[4][104][104]; // L: 50
-		Tiles.Tiles_shapes = new byte[4][104][104]; // L: 51
-		Tiles.field998 = new byte[4][104][104]; // L: 52
-		class78.field1033 = new int[4][105][105]; // L: 53
-		class260.field3078 = new byte[4][105][105]; // L: 54
-		class19.field106 = new int[105][105]; // L: 55
-		class7.Tiles_hue = new int[104]; // L: 56
-		RouteStrategy.Tiles_saturation = new int[104]; // L: 57
-		AbstractByteArrayCopier.Tiles_lightness = new int[104]; // L: 58
-		class1.Tiles_hueMultiplier = new int[104]; // L: 59
-		VarcInt.field1789 = new int[104]; // L: 60
-	} // L: 61
-
-	@ObfuscatedName("ij")
-	@ObfuscatedSignature(
-		descriptor = "(IIIIIIIII)V",
-		garbageValue = "2012601559"
-	)
-	@Export("drawWidgets")
-	static final void drawWidgets(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
-		if (class13.loadInterface(var0)) { // L: 9741
-			WorldMapElement.field1784 = null; // L: 9748
-			Skills.drawInterface(Widget.Widget_interfaceComponents[var0], -1, var1, var2, var3, var4, var5, var6, var7); // L: 9749
-			if (WorldMapElement.field1784 != null) { // L: 9750
-				Skills.drawInterface(WorldMapElement.field1784, -1412584499, var1, var2, var3, var4, WorldMapData_1.field2676, ParamComposition.field1938, var7); // L: 9751
-				WorldMapElement.field1784 = null; // L: 9752
-			}
-
-		} else {
-			if (var7 != -1) { // L: 9742
-				Client.field713[var7] = true;
-			} else {
-				for (int var8 = 0; var8 < 100; ++var8) { // L: 9744
-					Client.field713[var8] = true;
-				}
-			}
-
+	public static Clock method2592() {
+		try {
+			return new NanoClock(); // L: 8
+		} catch (Throwable var1) { // L: 10
+			return new MilliClock(); // L: 11
 		}
-	} // L: 9746 9754
+	}
+
+	@ObfuscatedName("az")
+	@ObfuscatedSignature(
+		descriptor = "(ILbo;ZI)I",
+		garbageValue = "-966652469"
+	)
+	static int method2595(int var0, Script var1, boolean var2) {
+		if (var0 != 7000 && var0 != 7005 && var0 != 7010 && var0 != 7015 && var0 != 7020 && var0 != 7025 && var0 != 7030 && var0 != 7035) { // L: 4547
+			if (var0 != 7001 && var0 != 7002 && var0 != 7011 && var0 != 7012 && var0 != 7021 && var0 != 7022) { // L: 4551
+				if (var0 != 7003 && var0 != 7013 && var0 != 7023) { // L: 4555
+					if (var0 != 7006 && var0 != 7007 && var0 != 7016 && var0 != 7017 && var0 != 7026 && var0 != 7027) { // L: 4559
+						if (var0 != 7008 && var0 != 7018 && var0 != 7028) { // L: 4563
+							if (var0 != 7031 && var0 != 7032) { // L: 4567
+								if (var0 == 7033) { // L: 4572
+									--ChatChannel.Interpreter_stringStackSize; // L: 4573
+									return 1; // L: 4574
+								} else if (var0 != 7036 && var0 != 7037) { // L: 4576
+									if (var0 == 7038) { // L: 4580
+										--class295.Interpreter_intStackSize; // L: 4581
+										return 1; // L: 4582
+									} else if (var0 != 7004 && var0 != 7009 && var0 != 7014 && var0 != 7019 && var0 != 7024 && var0 != 7029 && var0 != 7034 && var0 != 7039) { // L: 4584
+										return 2; // L: 4588
+									} else {
+										--class295.Interpreter_intStackSize; // L: 4585
+										return 1; // L: 4586
+									}
+								} else {
+									class295.Interpreter_intStackSize -= 2; // L: 4577
+									return 1; // L: 4578
+								}
+							} else {
+								--ChatChannel.Interpreter_stringStackSize; // L: 4568
+								--class295.Interpreter_intStackSize; // L: 4569
+								return 1; // L: 4570
+							}
+						} else {
+							--class295.Interpreter_intStackSize; // L: 4564
+							return 1; // L: 4565
+						}
+					} else {
+						class295.Interpreter_intStackSize -= 2; // L: 4560
+						return 1; // L: 4561
+					}
+				} else {
+					class295.Interpreter_intStackSize -= 2; // L: 4556
+					return 1; // L: 4557
+				}
+			} else {
+				class295.Interpreter_intStackSize -= 3; // L: 4552
+				return 1; // L: 4553
+			}
+		} else {
+			class295.Interpreter_intStackSize -= 5; // L: 4548
+			return 1; // L: 4549
+		}
+	}
 }
