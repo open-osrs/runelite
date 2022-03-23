@@ -68,7 +68,7 @@ public class App
 
 	private static Store cacheStore() throws IOException
 	{
-		Path path = Paths.get(System.getProperty("user.home"), "jagexcache" + File.separator + "oldschool" + File.separator + "LIVE");
+		Path path = Paths.get(System.getProperty("user.home"), ".openosrs" + File.separator + "jagexcache" + File.separator + "oldschool" + File.separator + "LIVE");
 		final File jagexcache = new File(String.valueOf(path));
 
 		if (!Files.exists(path))
@@ -79,9 +79,6 @@ public class App
 		final Store cacheStore = new Store(jagexcache);
 
 		cacheStore.load();
-
-		// Try to make this go faster (probably not very smart)
-		System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "100");
 
 		return cacheStore;
 	}

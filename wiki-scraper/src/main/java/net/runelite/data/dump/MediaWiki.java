@@ -27,6 +27,9 @@ import java.io.UnsupportedEncodingException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.data.App;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -35,6 +38,7 @@ import okhttp3.Response;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
 
+@Slf4j
 public class MediaWiki
 {
 	private static final class WikiInnerResponse
@@ -53,6 +57,7 @@ public class MediaWiki
 		.followSslRedirects(false)
 		.build();
 
+	@Getter
 	private final HttpUrl base;
 
 	public MediaWiki(final String base)
@@ -75,15 +80,28 @@ public class MediaWiki
 
 		try (final Response response = clientNoRedirect.newCall(request).execute())
 		{
+			log.info("original url: {}", url);
 			if (response.isRedirect())
 			{
 				final String page = response.header("Location")
 					.replace(base.newBuilder().addPathSegment("w").build().toString() + "/", "");
+				log.info("redirect url: {}", page);
 				return getPageData(page, section);
+			}
+			else
+			{
+				log.info("unsuccessful: {}", response.code());
+
+				if (response.code() == 429)
+				{
+					Thread.sleep(2500);
+					return getSpecialLookupData(type, id, section);
+				}
 			}
 		}
 		catch (Exception e)
 		{
+			log.info("exception: {}", e.getMessage());
 			return "";
 		}
 
@@ -109,7 +127,7 @@ public class MediaWiki
 			.addQueryParameter("format", "json")
 			.addQueryParameter("prop", "wikitext")
 			.addQueryParameter("redirects", "true")
-			.addQueryParameter("page", page.replaceAll(" ", "_"));
+			.addQueryParameter("page", page.replaceAll(" ", "_"))
 
 		if (section != -1)
 		{
@@ -129,9 +147,20 @@ public class MediaWiki
 				final InputStream in = response.body().byteStream();
 				return App.GSON.fromJson(new InputStreamReader(in), WikiResponse.class).parse.wikitext.get("*");
 			}
+			else
+			{
+				log.info("page data unsuccessful: {}", response.code());
+
+				if (response.code() == 429)
+				{
+					Thread.sleep(2500);
+					return getPageData(page, section);
+				}
+			}
 		}
 		catch (Exception e)
 		{
+			log.info("exception page data: {}", e.getMessage());
 			return "";
 		}
 

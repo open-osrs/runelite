@@ -56,6 +56,7 @@ public class NpcStatsDumper
 	private static final class NpcStats
 	{
 		private String name;
+		private String wiki;
 		private final Integer hitpoints;
 		private final Integer hitpoints1;
 		private final Integer combatLevel;
@@ -133,7 +134,10 @@ public class NpcStatsDumper
 
 		final Map<Integer, NpcStats> npcStats = new HashMap<>();
 		final Collection<NpcDefinition> definitions = npcManager.getNpcs();
-		final Stream<NpcDefinition> npcDefinitionStream = definitions.parallelStream();
+
+		log.info("{}", definitions.size());
+
+		final Stream<NpcDefinition> npcDefinitionStream = definitions.stream();
 
 		// Ensure variant names match cache as wiki isn't always correct
 		final Map<Integer, String> nameMap = new HashMap<>();
@@ -232,6 +236,12 @@ public class NpcStatsDumper
 							// Update variant name or fall back to current name
 							final String curName = nameMap.get(curID);
 							stats.setName(curName == null ? stats.getName() : curName);
+							stats.setWiki(wiki.getBase().newBuilder()
+								.addPathSegment("w")
+								.addPathSegment("Special:Lookup")
+								.addQueryParameter("type", "npc")
+								.addQueryParameter("id", String.valueOf(n.getId()))
+								.build().toString());
 
 							npcStats.put(curID, stats);
 							log.debug("Dumped npc stats for npc id: {}", curID);
