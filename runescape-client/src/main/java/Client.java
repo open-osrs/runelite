@@ -1,5 +1,6 @@
 import com.jagex.oldscape.pub.OAuthApi;
 import com.jagex.oldscape.pub.OtlTokenRequester;
+import com.jagex.oldscape.pub.OtlTokenResponse;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
