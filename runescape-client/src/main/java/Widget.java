@@ -670,7 +670,7 @@ public class Widget extends Node {
 	@Export("containsMouse")
 	public boolean containsMouse;
 	@ObfuscatedName("fp")
-	@Export("containsMouse")
+	@Export("isClicked")
 	public boolean isClicked;
 	@ObfuscatedName("fx")
 	@ObfuscatedGetter(

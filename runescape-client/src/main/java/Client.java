@@ -2494,14 +2494,14 @@ public final class Client extends GameEngine implements Usernamed, OAuthApi {
 				var5.packetBuffer.writeInt(0); // L: 2030
 				var5.packetBuffer.writeInt(class268.archive11.hash); // L: 2031
 				var5.packetBuffer.method7806(ReflectionCheck.archive20.hash); // L: 2032
-				var5.packetBuffer.method7807(DevicePcmPlayerProvider.archive14.hash); // L: 2033
+				var5.packetBuffer.writeIntME(DevicePcmPlayerProvider.archive14.hash); // L: 2033
 				var5.packetBuffer.writeInt(WorldMapData_1.archive8.hash); // L: 2034
-				var5.packetBuffer.method7807(FloorOverlayDefinition.archive2.hash); // L: 2035
-				var5.packetBuffer.method7807(class202.archive19.hash); // L: 2036
+				var5.packetBuffer.writeIntME(FloorOverlayDefinition.archive2.hash); // L: 2035
+				var5.packetBuffer.writeIntME(class202.archive19.hash); // L: 2036
 				var5.packetBuffer.method7806(0); // L: 2037
 				var5.packetBuffer.method7746(MouseHandler.archive4.hash); // L: 2038
 				var5.packetBuffer.writeInt(class132.archive9.hash); // L: 2039
-				var5.packetBuffer.method7807(World.archive10.hash); // L: 2040
+				var5.packetBuffer.writeIntME(World.archive10.hash); // L: 2040
 				var5.packetBuffer.writeInt(class4.archive13.hash); // L: 2041
 				var5.packetBuffer.method7806(JagexCache.archive18.hash); // L: 2042
 				var5.packetBuffer.method7806(ViewportMouse.archive15.hash); // L: 2043
@@ -2511,7 +2511,7 @@ public final class Client extends GameEngine implements Usernamed, OAuthApi {
 				var5.packetBuffer.method7806(class121.archive3.hash); // L: 2047
 				var5.packetBuffer.method7746(class321.archive1.hash); // L: 2048
 				var5.packetBuffer.method7806(ArchiveLoader.archive17.hash); // L: 2049
-				var5.packetBuffer.method7807(TileItem.archive0.hash); // L: 2050
+				var5.packetBuffer.writeIntME(TileItem.archive0.hash); // L: 2050
 				var5.packetBuffer.writeInt(class135.archive12.hash); // L: 2051
 				var5.packetBuffer.xteaEncrypt(var29, var7, var5.packetBuffer.offset); // L: 2052
 				var5.packetBuffer.writeLengthShort(var5.packetBuffer.offset - var14); // L: 2053
