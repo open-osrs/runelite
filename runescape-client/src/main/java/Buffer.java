@@ -1049,7 +1049,8 @@ public class Buffer extends Node {
 		descriptor = "(II)V",
 		garbageValue = "-646414330"
 	)
-	public void method7807(int var1) {
+	@Export("writeIntME")
+	public void writeIntME(int var1) {
 		this.array[++this.offset - 1] = (byte)(var1 >> 8); // L: 624
 		this.array[++this.offset - 1] = (byte)var1; // L: 625
 		this.array[++this.offset - 1] = (byte)(var1 >> 24); // L: 626

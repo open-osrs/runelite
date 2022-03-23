@@ -52,7 +52,7 @@ public class Messages {
 	@Export("resumePauseWidget")
 	static void resumePauseWidget(int var0, int var1) {
 		PacketBufferNode var2 = ItemContainer.getPacketBufferNode(ClientPacket.field2943, Client.packetWriter.isaacCipher); // L: 9075
-		var2.packetBuffer.method7807(var0); // L: 9076
+		var2.packetBuffer.writeIntME(var0); // L: 9076
 		var2.packetBuffer.method7795(var1); // L: 9077
 		Client.packetWriter.addNode(var2); // L: 9078
 	} // L: 9079

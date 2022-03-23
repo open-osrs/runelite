@@ -725,7 +725,7 @@ public class Varcs {
 											var22 = var9.method5686(); // L: 10790
 											if (var22 != null) { // L: 10791
 												PacketBufferNode var23 = ItemContainer.getPacketBufferNode(ClientPacket.field2999, Client.packetWriter.isaacCipher); // L: 10792
-												var23.packetBuffer.method7807(var22[0]); // L: 10793
+												var23.packetBuffer.writeIntME(var22[0]); // L: 10793
 												var23.packetBuffer.method7795(var9.childIndex); // L: 10794
 												var23.packetBuffer.method7806(var22[1]); // L: 10795
 												var23.packetBuffer.method7746(var9.method5699()); // L: 10796

@@ -41,7 +41,8 @@ public class LoginPacket implements class261 {
 	@ObfuscatedSignature(
 		descriptor = "[Ljx;"
 	)
-	static final LoginPacket[] field3138;
+	@Export("LoginPacket_indexedValues")
+	static final LoginPacket[] LoginPacket_indexedValues;
 	@ObfuscatedName("d")
 	@ObfuscatedGetter(
 		intValue = -441279243
@@ -56,11 +57,11 @@ public class LoginPacket implements class261 {
 		field3134 = new LoginPacket(18, -2); // L: 8
 		field3137 = new LoginPacket(19, -2); // L: 9
 		field3136 = new LoginPacket(27, 0); // L: 10
-		field3138 = new LoginPacket[32]; // L: 12
+		LoginPacket_indexedValues = new LoginPacket[32]; // L: 12
 		LoginPacket[] var0 = VertexNormal.method4495(); // L: 15
 
 		for (int var1 = 0; var1 < var0.length; ++var1) { // L: 16
-			field3138[var0[var1].id] = var0[var1]; // L: 17
+			LoginPacket_indexedValues[var0[var1].id] = var0[var1]; // L: 17
 		}
 
 	} // L: 19
