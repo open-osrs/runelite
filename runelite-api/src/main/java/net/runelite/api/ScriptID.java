@@ -276,12 +276,6 @@ public final class ScriptID
 	public static final int GE_ITEM_SEARCH = 752;
 
 	/**
-	 * Builds the quest list inside the quest tab that shows each quest's progress
-	 */
-	@ScriptArguments(integer = 3)
-	public static final int QUESTLIST_PROGRESS_LIST_SHOW = 1354;
-
-	/**
 	 * Called when the friends list is updated
 	 * <ul>
 	 * <li> int (WidgetID) Friends list "full container" </li>
