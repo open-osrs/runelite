@@ -1,86 +1,99 @@
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ed")
-public class class143 {
-	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		descriptor = "Lpg;"
-	)
-	static IndexedSprite field1638;
-	@ObfuscatedName("c")
-	@ObfuscatedGetter(
-		longValue = -5735003153287195111L
-	)
-	long field1640;
-	@ObfuscatedName("l")
-	@ObfuscatedGetter(
-		longValue = 4673579608958775799L
-	)
-	long field1639;
+@ObfuscatedName("ev")
+public class class143 extends class128 {
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Llt;"
+		descriptor = "Lqx;"
 	)
-	IterableNodeDeque field1642;
+	static IndexedSprite field1639;
+	@ObfuscatedName("v")
+	@ObfuscatedGetter(
+		longValue = 7651930284509588633L
+	)
+	long field1636;
+	@ObfuscatedName("o")
+	String field1637;
+	@ObfuscatedName("h")
+	@ObfuscatedGetter(
+		intValue = -1748652711
+	)
+	int field1638;
+	// $FF: synthetic field
+	@ObfuscatedSignature(
+		descriptor = "Lee;"
+	)
+	final class131 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lpi;)V"
+		descriptor = "(Lee;)V"
 	)
-	public class143(Buffer var1) {
-		this.field1639 = -1L; // L: 10
-		this.field1642 = new IterableNodeDeque(); // L: 11
-		this.method2956(var1); // L: 19
-	} // L: 20
+	class143(class131 var1) {
+		this.this$0 = var1;
+		this.field1636 = -1L; // L: 93
+		this.field1637 = null; // L: 94
+		this.field1638 = 0; // L: 95
+	} // L: 97
+
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "(Lpd;B)V",
+		garbageValue = "-73"
+	)
+	void vmethod3107(Buffer var1) {
+		if (var1.readUnsignedByte() != 255) { // L: 100
+			--var1.offset; // L: 101
+			this.field1636 = var1.readLong(); // L: 102
+		}
+
+		this.field1637 = var1.readStringCp1252NullTerminatedOrNull(); // L: 104
+		this.field1638 = var1.readUnsignedShort(); // L: 105
+	} // L: 106
+
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		descriptor = "(Leh;I)V",
+		garbageValue = "-1228032820"
+	)
+	void vmethod3104(ClanSettings var1) {
+		var1.method2918(this.field1636, this.field1637, this.field1638); // L: 109
+	} // L: 110
+
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		descriptor = "(III)Lkn;",
+		garbageValue = "1044730683"
+	)
+	@Export("getWidgetChild")
+	public static Widget getWidgetChild(int var0, int var1) {
+		Widget var2 = HorizontalAlignment.getWidget(var0); // L: 230
+		if (var1 == -1) { // L: 231
+			return var2;
+		} else {
+			return var2 != null && var2.children != null && var1 < var2.children.length ? var2.children[var1] : null; // L: 232 233
+		}
+	}
 
 	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lpi;I)V",
-		garbageValue = "-1523562517"
+		descriptor = "(II)Lgo;",
+		garbageValue = "1616770151"
 	)
-	void method2956(Buffer var1) {
-		this.field1640 = var1.readLong(); // L: 23
-		this.field1639 = var1.readLong(); // L: 24
-
-		for (int var2 = var1.readUnsignedByte(); var2 != 0; var2 = var1.readUnsignedByte()) { // L: 25 26 36
-			Object var3;
-			if (var2 == 1) { // L: 28
-				var3 = new class138(this);
-			} else if (var2 == 4) { // L: 29
-				var3 = new class149(this);
-			} else if (var2 == 3) { // L: 30
-				var3 = new class134(this);
-			} else if (var2 == 2) { // L: 31
-				var3 = new class132(this);
-			} else {
-				if (var2 != 5) { // L: 32
-					throw new RuntimeException(""); // L: 33
-				}
-
-				var3 = new class139(this);
-			}
-
-			((class142)var3).vmethod3014(var1); // L: 34
-			this.field1642.addFirst((Node)var3); // L: 35
-		}
-
-	} // L: 38
-
-	@ObfuscatedName("l")
-	@ObfuscatedSignature(
-		descriptor = "(Leg;B)V",
-		garbageValue = "1"
-	)
-	public void method2957(ClanChannel var1) {
-		if (var1.key == this.field1640 && this.field1639 == var1.field1660) { // L: 41
-			for (class142 var2 = (class142)this.field1642.last(); var2 != null; var2 = (class142)this.field1642.previous()) { // L: 42
-				var2.vmethod3015(var1); // L: 43
-			}
-
-			++var1.field1660; // L: 45
+	@Export("getFrames")
+	static Frames getFrames(int var0) {
+		Frames var1 = (Frames)SequenceDefinition.SequenceDefinition_cachedFrames.get((long)var0); // L: 316
+		if (var1 != null) { // L: 317
+			return var1;
 		} else {
-			throw new RuntimeException("");
+			var1 = class346.method6480(SequenceDefinition.SequenceDefinition_animationsArchive, DevicePcmPlayerProvider.SequenceDefinition_skeletonsArchive, var0, false); // L: 318
+			if (var1 != null) { // L: 319
+				SequenceDefinition.SequenceDefinition_cachedFrames.put(var1, (long)var0);
+			}
+
+			return var1; // L: 320
 		}
-	} // L: 46
+	}
 }

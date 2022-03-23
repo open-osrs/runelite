@@ -1,151 +1,109 @@
+import java.lang.management.GarbageCollectorMXBean;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cb")
+@ObfuscatedName("ck")
 @Implements("PendingSpawn")
 public final class PendingSpawn extends Node {
-	@ObfuscatedName("ax")
-	@ObfuscatedSignature(
-		descriptor = "Lna;"
-	)
-	static Bounds field1107;
-	@ObfuscatedName("c")
+	@ObfuscatedName("uz")
 	@ObfuscatedGetter(
-		intValue = 475992133
+		intValue = -19855095
+	)
+	@Export("foundItemIdCount")
+	static int foundItemIdCount;
+	@ObfuscatedName("b")
+	@Export("cacheParentPaths")
+	public static String[] cacheParentPaths;
+	@ObfuscatedName("ak")
+	@Export("garbageCollector")
+	static GarbageCollectorMXBean garbageCollector;
+	@ObfuscatedName("ew")
+	@ObfuscatedSignature(
+		descriptor = "Lne;"
+	)
+	@Export("spriteIds")
+	static GraphicsDefaults spriteIds;
+	@ObfuscatedName("ix")
+	@ObfuscatedGetter(
+		intValue = -28260951
+	)
+	@Export("selectedItemWidget")
+	static int selectedItemWidget;
+	@ObfuscatedName("v")
+	@ObfuscatedGetter(
+		intValue = -395030049
 	)
 	@Export("plane")
 	int plane;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1877756307
+		intValue = 1083883841
 	)
 	@Export("type")
 	int type;
-	@ObfuscatedName("s")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = 376673497
+		intValue = 664401913
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("e")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 2136154367
+		intValue = 2084106709
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("r")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 111814825
+		intValue = 469927407
 	)
 	@Export("objectId")
 	int objectId;
-	@ObfuscatedName("o")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -1791810711
+		intValue = 456466373
 	)
-	int field1106;
-	@ObfuscatedName("i")
+	int field1117;
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = 1470559275
+		intValue = -875007293
 	)
-	int field1100;
-	@ObfuscatedName("w")
+	int field1119;
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 1174026637
+		intValue = 503773945
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("v")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = -1690874167
+		intValue = 1610620631
 	)
 	@Export("orientation")
 	int orientation;
-	@ObfuscatedName("a")
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = 1276938079
+		intValue = -917284009
 	)
-	int field1103;
-	@ObfuscatedName("y")
+	int field1122;
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = -1583628925
+		intValue = 270987311
 	)
 	@Export("delay")
 	int delay;
-	@ObfuscatedName("u")
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = 1760851717
+		intValue = 1980741835
 	)
 	@Export("hitpoints")
 	int hitpoints;
 
 	PendingSpawn() {
-		this.delay = 0;
+		this.delay = 0; // L: 16
 		this.hitpoints = -1; // L: 17
-	}
-
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		descriptor = "([Ljava/lang/CharSequence;III)Ljava/lang/String;",
-		garbageValue = "-880833024"
-	)
-	public static String method2161(CharSequence[] var0, int var1, int var2) {
-		if (var2 == 0) { // L: 12
-			return "";
-		} else if (var2 == 1) { // L: 13
-			CharSequence var10 = var0[var1]; // L: 14
-			return var10 == null ? "null" : var10.toString(); // L: 15 16
-		} else {
-			int var3 = var2 + var1; // L: 18
-			int var4 = 0; // L: 19
-
-			for (int var5 = var1; var5 < var3; ++var5) { // L: 20
-				CharSequence var9 = var0[var5]; // L: 21
-				if (var9 == null) { // L: 22
-					var4 += 4;
-				} else {
-					var4 += var9.length(); // L: 23
-				}
-			}
-
-			StringBuilder var8 = new StringBuilder(var4); // L: 25
-
-			for (int var6 = var1; var6 < var3; ++var6) { // L: 26
-				CharSequence var7 = var0[var6]; // L: 27
-				if (var7 == null) { // L: 28
-					var8.append("null");
-				} else {
-					var8.append(var7); // L: 29
-				}
-			}
-
-			return var8.toString(); // L: 31
-		}
-	}
-
-	@ObfuscatedName("in")
-	@ObfuscatedSignature(
-		descriptor = "(IIIIB)V",
-		garbageValue = "0"
-	)
-	@Export("selectSpell")
-	static void selectSpell(int var0, int var1, int var2, int var3) {
-		Widget var4 = ModeWhere.getWidgetChild(var0, var1); // L: 9167
-		if (var4 != null && var4.onTargetEnter != null) { // L: 9168
-			ScriptEvent var5 = new ScriptEvent(); // L: 9169
-			var5.widget = var4; // L: 9170
-			var5.args = var4.onTargetEnter; // L: 9171
-			class92.runScriptEvent(var5); // L: 9172
-		}
-
-		Client.field536 = var3; // L: 9174
-		Client.isSpellSelected = true; // L: 9175
-		WorldMapLabelSize.selectedSpellWidget = var0; // L: 9176
-		Client.selectedSpellChildIndex = var1; // L: 9177
-		RouteStrategy.selectedSpellFlags = var2; // L: 9178
-		class112.invalidateWidget(var4); // L: 9179
-	} // L: 9180
+	} // L: 19
 }

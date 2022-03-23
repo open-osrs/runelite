@@ -6,40 +6,40 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mj")
+@ObfuscatedName("nh")
 @Implements("BufferedSink")
 public class BufferedSink implements Runnable {
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@Export("thread")
 	Thread thread;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@Export("outputStream")
 	OutputStream outputStream;
-	@ObfuscatedName("s")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = -1231606927
+		intValue = 561615081
 	)
 	@Export("capacity")
 	int capacity;
-	@ObfuscatedName("e")
+	@ObfuscatedName("g")
 	@Export("buffer")
 	byte[] buffer;
-	@ObfuscatedName("r")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -1144762949
+		intValue = 431862587
 	)
 	@Export("position")
 	int position;
-	@ObfuscatedName("o")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -515609021
+		intValue = -2015629473
 	)
 	@Export("limit")
 	int limit;
-	@ObfuscatedName("i")
+	@ObfuscatedName("d")
 	@Export("exception")
 	IOException exception;
-	@ObfuscatedName("w")
+	@ObfuscatedName("f")
 	@Export("closed")
 	boolean closed;
 
@@ -54,10 +54,10 @@ public class BufferedSink implements Runnable {
 		this.thread.start(); // L: 204
 	} // L: 205
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "-1120914050"
+		descriptor = "(B)Z",
+		garbageValue = "-74"
 	)
 	@Export("isClosed")
 	boolean isClosed() {
@@ -68,8 +68,8 @@ public class BufferedSink implements Runnable {
 					this.exception = new IOException(""); // L: 211
 				}
 			} catch (IOException var2) { // L: 213
-				if (this.exception == null) { // L: 214
-					this.exception = new IOException(var2);
+				if (this.exception == null) {
+					this.exception = new IOException(var2); // L: 214
 				}
 			}
 
@@ -79,10 +79,10 @@ public class BufferedSink implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "([BIII)V",
-		garbageValue = "-1714956737"
+		garbageValue = "102061231"
 	)
 	@Export("write")
 	void write(byte[] var1, int var2, int var3) throws IOException {
@@ -119,10 +119,10 @@ public class BufferedSink implements Runnable {
 		}
 	} // L: 286
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-775633703"
+		descriptor = "(B)V",
+		garbageValue = "-7"
 	)
 	@Export("close")
 	void close() {

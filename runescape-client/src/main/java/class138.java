@@ -2,63 +2,44 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("eu")
-public class class138 extends class142 {
-	@ObfuscatedName("w")
-	@ObfuscatedSignature(
-		descriptor = "Lpg;"
-	)
-	static IndexedSprite field1613;
-	@ObfuscatedName("c")
-	String field1617;
-	@ObfuscatedName("l")
+@ObfuscatedName("ed")
+public class class138 extends class128 {
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 1865380487
+		intValue = 1629578279
 	)
-	int field1616;
-	@ObfuscatedName("s")
-	byte field1615;
+	int field1590;
+	@ObfuscatedName("o")
+	String field1587;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Led;"
+		descriptor = "Lee;"
 	)
-	final class143 this$0;
+	final class131 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Led;)V"
+		descriptor = "(Lee;)V"
 	)
-	class138(class143 var1) {
-		this.this$0 = var1;
-		this.field1617 = null; // L: 55
-	} // L: 59
+	class138(class131 var1) {
+		this.this$0 = var1; // L: 323
+	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lpi;B)V",
-		garbageValue = "-103"
+		descriptor = "(Lpd;B)V",
+		garbageValue = "-73"
 	)
-	void vmethod3014(Buffer var1) {
-		if (var1.readUnsignedByte() != 255) { // L: 62
-			--var1.offset; // L: 63
-			var1.readLong(); // L: 64
-		}
+	void vmethod3107(Buffer var1) {
+		this.field1590 = var1.readInt(); // L: 326
+		this.field1587 = var1.readStringCp1252NullTerminated(); // L: 327
+	} // L: 328
 
-		this.field1617 = var1.readStringCp1252NullTerminatedOrNull(); // L: 66
-		this.field1616 = var1.readUnsignedShort(); // L: 67
-		this.field1615 = var1.readByte(); // L: 68
-		var1.readLong(); // L: 69
-	} // L: 70
-
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(Leg;B)V",
-		garbageValue = "48"
+		descriptor = "(Leh;I)V",
+		garbageValue = "-1228032820"
 	)
-	void vmethod3015(ClanChannel var1) {
-		ClanChannelMember var2 = new ClanChannelMember(); // L: 73
-		var2.username = new Username(this.field1617); // L: 74
-		var2.world = this.field1616; // L: 75
-		var2.rank = this.field1615; // L: 76
-		var1.addMember(var2); // L: 77
-	} // L: 78
+	void vmethod3104(ClanSettings var1) {
+		var1.method2956(this.field1590, this.field1587); // L: 331
+	} // L: 332
 }

@@ -4,36 +4,42 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ld")
+@ObfuscatedName("lm")
 @Implements("GrandExchangeEvent")
 public class GrandExchangeEvent {
-	@ObfuscatedName("c")
+	@ObfuscatedName("kk")
+	@ObfuscatedSignature(
+		descriptor = "Lkn;"
+	)
+	@Export("hoveredItemContainer")
+	static Widget hoveredItemContainer;
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -1765018995
+		intValue = -1523225447
 	)
 	@Export("world")
 	public final int world;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		longValue = 5745888229985927283L
+		longValue = 9015686361858837737L
 	)
 	@Export("age")
 	public final long age;
-	@ObfuscatedName("s")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Llm;"
+		descriptor = "Lly;"
 	)
 	@Export("grandExchangeOffer")
 	public final GrandExchangeOffer grandExchangeOffer;
-	@ObfuscatedName("e")
+	@ObfuscatedName("g")
 	@Export("offerName")
 	String offerName;
-	@ObfuscatedName("r")
+	@ObfuscatedName("l")
 	@Export("previousOfferName")
 	String previousOfferName;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lpi;BI)V"
+		descriptor = "(Lpd;BI)V"
 	)
 	GrandExchangeEvent(Buffer var1, byte var2, int var3) {
 		this.offerName = var1.readStringCp1252NullTerminated(); // L: 111
@@ -43,8 +49,8 @@ public class GrandExchangeEvent {
 		int var4 = var1.readInt(); // L: 115
 		int var5 = var1.readInt(); // L: 116
 		this.grandExchangeOffer = new GrandExchangeOffer(); // L: 117
-		this.grandExchangeOffer.method5735(2); // L: 118
-		this.grandExchangeOffer.method5731(var2); // L: 119
+		this.grandExchangeOffer.method6050(2); // L: 118
+		this.grandExchangeOffer.method6053(var2); // L: 119
 		this.grandExchangeOffer.unitPrice = var4; // L: 120
 		this.grandExchangeOffer.totalQuantity = var5; // L: 121
 		this.grandExchangeOffer.currentQuantity = 0; // L: 122
@@ -52,34 +58,65 @@ public class GrandExchangeEvent {
 		this.grandExchangeOffer.id = var3; // L: 124
 	} // L: 125
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(I)Ljava/lang/String;",
-		garbageValue = "714500304"
+		descriptor = "(B)Ljava/lang/String;",
+		garbageValue = "38"
 	)
 	@Export("getOfferName")
 	public String getOfferName() {
 		return this.offerName; // L: 128
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(I)Ljava/lang/String;",
-		garbageValue = "-1208399136"
+		descriptor = "(B)Ljava/lang/String;",
+		garbageValue = "118"
 	)
 	@Export("getPreviousOfferName")
 	public String getPreviousOfferName() {
 		return this.previousOfferName; // L: 132
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "(Lkq;Lkq;B)V",
-		garbageValue = "-116"
+		descriptor = "(Llq;IIB)Z",
+		garbageValue = "8"
 	)
-	public static void method5726(AbstractArchive var0, AbstractArchive var1) {
-		KitDefinition.KitDefinition_archive = var0; // L: 27
-		KitDefinition.KitDefinition_modelsArchive = var1; // L: 28
-		UserComparator10.KitDefinition_fileCount = KitDefinition.KitDefinition_archive.getGroupFileCount(3); // L: 29
-	} // L: 30
+	static boolean method6045(AbstractArchive var0, int var1, int var2) {
+		byte[] var3 = var0.takeFile(var1, var2); // L: 154
+		if (var3 == null) { // L: 155
+			return false;
+		} else {
+			ClientPreferences.SpriteBuffer_decode(var3); // L: 156
+			return true; // L: 157
+		}
+	}
+
+	@ObfuscatedName("j")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;I)V",
+		garbageValue = "-1578334518"
+	)
+	@Export("setLoginResponseString")
+	static void setLoginResponseString(String var0, String var1, String var2) {
+		Login.Login_response1 = var0; // L: 1802
+		Login.Login_response2 = var1; // L: 1803
+		Login.Login_response3 = var2; // L: 1804
+	} // L: 1805
+
+	@ObfuscatedName("fu")
+	@ObfuscatedSignature(
+		descriptor = "(IZZZB)Llu;",
+		garbageValue = "80"
+	)
+	@Export("newArchive")
+	static Archive newArchive(int var0, boolean var1, boolean var2, boolean var3) {
+		ArchiveDisk var4 = null; // L: 1764
+		if (JagexCache.JagexCache_dat2File != null) { // L: 1765
+			var4 = new ArchiveDisk(var0, JagexCache.JagexCache_dat2File, class194.JagexCache_idxFiles[var0], 1000000);
+		}
+
+		return new Archive(var4, PcmPlayer.masterDisk, var0, var1, var2, var3); // L: 1766
+	}
 }

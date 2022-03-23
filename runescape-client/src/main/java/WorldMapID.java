@@ -4,73 +4,70 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hb")
+@ObfuscatedName("id")
 @Implements("WorldMapID")
 public class WorldMapID {
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lhb;"
+		descriptor = "Lid;"
 	)
-	static final WorldMapID field2773;
-	@ObfuscatedName("l")
+	static final WorldMapID field2829;
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Lhb;"
+		descriptor = "Lid;"
 	)
-	static final WorldMapID field2771;
-	@ObfuscatedName("a")
+	static final WorldMapID field2826;
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lcm;"
+		descriptor = "Llq;"
 	)
-	@Export("World_request")
-	static UrlRequest World_request;
-	@ObfuscatedName("s")
+	@Export("ItemDefinition_archive")
+	static AbstractArchive ItemDefinition_archive;
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = -1457945663
+		intValue = -1857886715
 	)
 	@Export("value")
 	final int value;
 
 	static {
-		field2773 = new WorldMapID(0); // L: 4
-		field2771 = new WorldMapID(1); // L: 5
+		field2829 = new WorldMapID(0); // L: 4
+		field2826 = new WorldMapID(1); // L: 5
 	}
 
 	WorldMapID(int var1) {
 		this.value = var1; // L: 9
 	} // L: 10
 
-	@ObfuscatedName("au")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "(ILbl;ZB)I",
-		garbageValue = "-101"
+		descriptor = "(IB)V",
+		garbageValue = "91"
 	)
-	static int method4767(int var0, Script var1, boolean var2) {
-		if (var0 != 6700 && var0 != 6702 && var0 != 6704 && var0 != 6706 && var0 != 6708) { // L: 4281
-			if (var0 != 6701 && var0 != 6703 && var0 != 6705 && var0 != 6707 && var0 != 6709) { // L: 4286
-				if (var0 == 6750) { // L: 4290
-					Interpreter.Interpreter_stringStack[++BufferedNetSocket.Interpreter_stringStackSize - 1] = ""; // L: 4291
-					return 1; // L: 4292
-				} else if (var0 != 6751 && var0 != 6752 && var0 != 6753) { // L: 4294
-					if (var0 == 6754) { // L: 4298
-						int var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 4299
-						NPCComposition var4 = UserComparator10.getNpcDefinition(var3); // L: 4300
-						Interpreter.Interpreter_stringStack[++BufferedNetSocket.Interpreter_stringStackSize - 1] = var4 != null ? var4.name : ""; // L: 4301
-						return 1; // L: 4302
-					} else {
-						return 2; // L: 4304
+	public static void method5000(int var0) {
+		if (var0 != -1) { // L: 261
+			if (Frames.Widget_loadedInterfaces[var0]) { // L: 262
+				class122.Widget_archive.clearFilesGroup(var0); // L: 263
+				if (EnumComposition.Widget_interfaceComponents[var0] != null) { // L: 264
+					boolean var1 = true; // L: 265
+
+					for (int var2 = 0; var2 < EnumComposition.Widget_interfaceComponents[var0].length; ++var2) { // L: 266
+						if (EnumComposition.Widget_interfaceComponents[var0][var2] != null) { // L: 267
+							if (EnumComposition.Widget_interfaceComponents[var0][var2].type != 2) { // L: 268
+								EnumComposition.Widget_interfaceComponents[var0][var2] = null;
+							} else {
+								var1 = false; // L: 269
+							}
+						}
 					}
-				} else {
-					Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = -1; // L: 4295
-					return 1; // L: 4296
+
+					if (var1) {
+						EnumComposition.Widget_interfaceComponents[var0] = null; // L: 272
+					}
+
+					Frames.Widget_loadedInterfaces[var0] = false; // L: 273
 				}
-			} else {
-				--Interpreter.Interpreter_intStackSize; // L: 4287
-				return 1; // L: 4288
 			}
-		} else {
-			Interpreter.Interpreter_intStackSize -= 2; // L: 4282
-			--BufferedNetSocket.Interpreter_stringStackSize; // L: 4283
-			return 1; // L: 4284
 		}
-	}
+	} // L: 274
 }

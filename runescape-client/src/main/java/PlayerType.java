@@ -4,77 +4,77 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("km")
+@ObfuscatedName("kj")
 @Implements("PlayerType")
 public enum PlayerType implements MouseWheel {
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lkm;"
+		descriptor = "Lkj;"
 	)
 	@Export("PlayerType_normal")
 	PlayerType_normal(0, -1, true, false, true),
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Lkm;"
+		descriptor = "Lkj;"
 	)
 	@Export("PlayerType_playerModerator")
 	PlayerType_playerModerator(1, 0, true, true, true),
-	@ObfuscatedName("s")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Lkm;"
+		descriptor = "Lkj;"
 	)
 	@Export("PlayerType_jagexModerator")
 	PlayerType_jagexModerator(2, 1, true, true, false),
-	@ObfuscatedName("e")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "Lkm;"
+		descriptor = "Lkj;"
 	)
 	@Export("PlayerType_ironman")
 	PlayerType_ironman(3, 2, false, false, true),
-	@ObfuscatedName("r")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lkm;"
+		descriptor = "Lkj;"
 	)
 	@Export("PlayerType_ultimateIronman")
 	PlayerType_ultimateIronman(4, 3, false, false, true),
-	@ObfuscatedName("o")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lkm;"
+		descriptor = "Lkj;"
 	)
 	@Export("PlayerType_hardcoreIronman")
 	PlayerType_hardcoreIronman(5, 10, false, false, true),
-	@ObfuscatedName("i")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "Lkm;"
+		descriptor = "Lkj;"
 	)
-	field3858(6, 22, false, false, true),
-	@ObfuscatedName("w")
+	field3919(6, 22, false, false, true),
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lkm;"
+		descriptor = "Lkj;"
 	)
-	field3856(7, 41, false, false, true),
-	@ObfuscatedName("v")
+	field3926(7, 41, false, false, true),
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		descriptor = "Lkm;"
+		descriptor = "Lkj;"
 	)
-	field3857(8, 42, false, false, true);
+	field3931(8, 42, false, false, true);
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = -963004919
+		intValue = 1546749787
 	)
 	@Export("id")
 	final int id;
-	@ObfuscatedName("y")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 714318491
+		intValue = 1126517569
 	)
 	@Export("modIcon")
 	public final int modIcon;
-	@ObfuscatedName("u")
+	@ObfuscatedName("x")
 	@Export("isPrivileged")
 	public final boolean isPrivileged;
-	@ObfuscatedName("h")
+	@ObfuscatedName("c")
 	@Export("isUser")
 	public final boolean isUser;
 
@@ -85,13 +85,23 @@ public enum PlayerType implements MouseWheel {
 		this.isUser = var7; // L: 29
 	} // L: 30
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-303340189"
+		descriptor = "(B)I",
+		garbageValue = "15"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
 		return this.id; // L: 34
+	}
+
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "(I)[Lqs;",
+		garbageValue = "-1527934024"
+	)
+	@Export("FillMode_values")
+	public static FillMode[] FillMode_values() {
+		return new FillMode[]{FillMode.field4695, FillMode.field4698, FillMode.SOLID}; // L: 15
 	}
 }

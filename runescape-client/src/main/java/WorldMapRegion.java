@@ -10,159 +10,169 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hw")
+@ObfuscatedName("hc")
 @Implements("WorldMapRegion")
 public class WorldMapRegion {
-	@ObfuscatedName("r")
+	@ObfuscatedName("ti")
+	@ObfuscatedGetter(
+		intValue = 1321531033
+	)
+	static int field2706;
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Liy;"
+		descriptor = "Lii;"
 	)
 	@Export("WorldMapRegion_cachedSprites")
 	static DemotingHashTable WorldMapRegion_cachedSprites;
-	@ObfuscatedName("ez")
-	@ObfuscatedSignature(
-		descriptor = "Lkz;"
-	)
-	@Export("archive19")
-	static Archive archive19;
-	@ObfuscatedName("gt")
-	@ObfuscatedSignature(
-		descriptor = "Lov;"
-	)
-	@Export("WorldMapElement_fonts")
-	static Fonts WorldMapElement_fonts;
-	@ObfuscatedName("o")
+	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -1680571103
+		intValue = 1652001983
 	)
 	@Export("regionX")
 	int regionX;
-	@ObfuscatedName("i")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = -562965229
+		intValue = 175632235
 	)
 	@Export("regionY")
 	int regionY;
-	@ObfuscatedName("w")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lhu;"
+		descriptor = "Lhn;"
 	)
 	@Export("worldMapData_0")
 	WorldMapData_0 worldMapData_0;
-	@ObfuscatedName("v")
+	@ObfuscatedName("u")
 	@Export("worldMapData1List")
 	LinkedList worldMapData1List;
-	@ObfuscatedName("a")
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = -1182979997
+		intValue = -862418989
 	)
 	@Export("backgroundColor")
 	int backgroundColor;
-	@ObfuscatedName("y")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 852240481
+		intValue = -1514122443
 	)
 	@Export("pixelsPerTile")
 	int pixelsPerTile;
-	@ObfuscatedName("u")
+	@ObfuscatedName("x")
 	@Export("icon0List")
 	List icon0List;
-	@ObfuscatedName("h")
+	@ObfuscatedName("c")
 	@Export("iconMap")
 	HashMap iconMap;
-	@ObfuscatedName("q")
+	@ObfuscatedName("j")
 	@Export("fonts")
 	final HashMap fonts;
 
 	static {
-		WorldMapRegion_cachedSprites = new DemotingHashTable(37748736, 256); // L: 26
+		WorldMapRegion_cachedSprites = new DemotingHashTable(37748736, 256);
 	}
 
 	WorldMapRegion(int var1, int var2, int var3, HashMap var4) {
-		this.regionX = var1; // L: 46
-		this.regionY = var2; // L: 47
-		this.worldMapData1List = new LinkedList(); // L: 48
-		this.icon0List = new LinkedList(); // L: 49
-		this.iconMap = new HashMap(); // L: 50
-		this.backgroundColor = var3 | -16777216; // L: 51
-		this.fonts = var4; // L: 52
-	} // L: 53
+		this.regionX = var1; // L: 50
+		this.regionY = var2; // L: 51
+		this.worldMapData1List = new LinkedList(); // L: 52
+		this.icon0List = new LinkedList(); // L: 53
+		this.iconMap = new HashMap(); // L: 54
+		this.backgroundColor = var3 | -16777216; // L: 55
+		this.fonts = var4; // L: 56
+	} // L: 57
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "(IIIB)V",
-		garbageValue = "-13"
+		descriptor = "(IIII)V",
+		garbageValue = "1350544983"
 	)
-	void method4529(int var1, int var2, int var3) {
-		int var5 = this.regionX; // L: 57
-		int var6 = this.regionY; // L: 58
-		int var7 = this.pixelsPerTile; // L: 59
-		DemotingHashTable var8 = WorldMapRegion_cachedSprites; // L: 61
-		long var9 = (long)(var7 << 16 | var5 << 8 | var6); // L: 64
-		SpritePixels var4 = (SpritePixels)var8.get(var9); // L: 66
-		if (var4 != null) {
-			if (var3 == this.pixelsPerTile * 64) { // L: 70
-				var4.drawAt(var1, var2); // L: 71
+	void method4677(int var1, int var2, int var3) {
+		SpritePixels var4 = class28.method423(this.regionX, this.regionY, this.pixelsPerTile); // L: 60
+		if (var4 != null) { // L: 61
+			if (var3 == this.pixelsPerTile * 64) { // L: 62
+				var4.drawAt(var1, var2); // L: 63
 			} else {
-				var4.drawScaledWorldmap(var1, var2, var3, var3); // L: 74
+				var4.drawScaledWorldmap(var1, var2, var3, var3); // L: 66
 			}
 
 		}
-	} // L: 69 76
+	} // L: 68
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Lhu;Ljava/util/List;I)V",
-		garbageValue = "605061873"
+		descriptor = "(Lhn;Ljava/util/List;B)V",
+		garbageValue = "0"
 	)
 	@Export("initWorldMapData0")
 	void initWorldMapData0(WorldMapData_0 var1, List var2) {
-		this.iconMap.clear(); // L: 79
-		this.worldMapData_0 = var1; // L: 80
-		this.addAllToIconList(var2); // L: 81
-	} // L: 82
+		this.iconMap.clear(); // L: 71
+		this.worldMapData_0 = var1; // L: 72
+		this.addAllToIconList(var2); // L: 73
+	} // L: 74
 
-	@ObfuscatedName("r")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/util/HashSet;Ljava/util/List;S)V",
-		garbageValue = "-2249"
+		descriptor = "(Ljava/util/HashSet;Ljava/util/List;I)V",
+		garbageValue = "-691680416"
 	)
 	@Export("initWorldMapData1")
 	void initWorldMapData1(HashSet var1, List var2) {
-		this.iconMap.clear(); // L: 85
-		Iterator var3 = var1.iterator(); // L: 86
+		this.iconMap.clear(); // L: 77
+		Iterator var3 = var1.iterator(); // L: 78
 
 		while (var3.hasNext()) {
-			WorldMapData_1 var4 = (WorldMapData_1)var3.next(); // L: 87
-			if (var4.getRegionX() == this.regionX && var4.getRegionY() == this.regionY) { // L: 89
-				this.worldMapData1List.add(var4); // L: 90
+			WorldMapData_1 var4 = (WorldMapData_1)var3.next(); // L: 79
+			if (var4.getRegionX() == this.regionX && var4.getRegionY() == this.regionY) { // L: 81
+				this.worldMapData1List.add(var4); // L: 82
 			}
 		}
 
-		this.addAllToIconList(var2); // L: 94
-	} // L: 95
+		this.addAllToIconList(var2); // L: 86
+	} // L: 87
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "(IIIILhx;B)V",
-		garbageValue = "-58"
+		descriptor = "(IIIILiu;I)V",
+		garbageValue = "554525387"
 	)
 	@Export("getIconsForTiles")
 	void getIconsForTiles(int var1, int var2, int var3, int var4, AbstractWorldMapData var5) {
-		for (int var6 = var1; var6 < var3 + var1; ++var6) { // L: 98
-			label51:
-			for (int var7 = var2; var7 < var2 + var4; ++var7) { // L: 99
-				for (int var8 = 0; var8 < var5.planes; ++var8) { // L: 100
-					WorldMapDecoration[] var9 = var5.decorations[var8][var6][var7]; // L: 101
-					if (var9 != null && var9.length != 0) { // L: 102
-						WorldMapDecoration[] var10 = var9; // L: 106
+		for (int var6 = var1; var6 < var3 + var1; ++var6) { // L: 90
+			label75:
+			for (int var7 = var2; var7 < var2 + var4; ++var7) { // L: 91
+				for (int var8 = 0; var8 < var5.planes; ++var8) { // L: 92
+					WorldMapDecoration[] var9 = var5.decorations[var8][var6][var7]; // L: 93
+					if (var9 != null && var9.length != 0) { // L: 94
+						WorldMapDecoration[] var10 = var9; // L: 98
 
-						for (int var11 = 0; var11 < var10.length; ++var11) { // L: 107
-							WorldMapDecoration var12 = var10[var11]; // L: 108
-							ObjectComposition var13 = ParamComposition.getObjectDefinition(var12.objectDefinitionId); // L: 110
-							if (IgnoreList.method6265(var13)) { // L: 111
-								this.getIcon(var13, var8, var6, var7, var5); // L: 114
-								continue label51; // L: 115
+						for (int var11 = 0; var11 < var10.length; ++var11) { // L: 99
+							ObjectComposition var13;
+							boolean var14;
+							label66: {
+								WorldMapDecoration var12 = var10[var11]; // L: 100
+								var13 = class116.getObjectDefinition(var12.objectDefinitionId); // L: 102
+								if (var13.transforms != null) { // L: 105
+									int[] var15 = var13.transforms; // L: 107
+
+									for (int var16 = 0; var16 < var15.length; ++var16) { // L: 108
+										int var17 = var15[var16]; // L: 109
+										ObjectComposition var18 = class116.getObjectDefinition(var17); // L: 111
+										if (var18.mapIconId != -1) { // L: 112
+											var14 = true; // L: 113
+											break label66;
+										}
+									}
+								} else if (var13.mapIconId != -1) { // L: 120
+									var14 = true; // L: 121
+									break label66; // L: 122
+								}
+
+								var14 = false; // L: 124
+							}
+
+							if (var14) { // L: 126
+								this.getIcon(var13, var8, var6, var7, var5); // L: 129
+								continue label75; // L: 130
 							}
 						}
 					}
@@ -170,853 +180,1028 @@ public class WorldMapRegion {
 			}
 		}
 
-	} // L: 122
+	} // L: 137
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Lfg;IIILhx;B)V",
-		garbageValue = "-46"
+		descriptor = "(Lgx;IIILiu;B)V",
+		garbageValue = "3"
 	)
 	@Export("getIcon")
 	void getIcon(ObjectComposition var1, int var2, int var3, int var4, AbstractWorldMapData var5) {
-		Coord var6 = new Coord(var2, var3 + this.regionX * 64, this.regionY * 64 + var4); // L: 125
-		Coord var7 = null; // L: 126
-		if (this.worldMapData_0 != null) { // L: 127
-			var7 = new Coord(this.worldMapData_0.minPlane + var2, var3 + this.worldMapData_0.regionXLow * 64, var4 + this.worldMapData_0.regionYLow * 64); // L: 128
+		Coord var6 = new Coord(var2, var3 + this.regionX * 64, this.regionY * 64 + var4); // L: 140
+		Coord var7 = null; // L: 141
+		if (this.worldMapData_0 != null) { // L: 142
+			var7 = new Coord(this.worldMapData_0.minPlane + var2, var3 + this.worldMapData_0.regionXLow * 64, var4 + this.worldMapData_0.regionYLow * 64); // L: 143
 		} else {
-			WorldMapData_1 var8 = (WorldMapData_1)var5; // L: 131
-			var7 = new Coord(var2 + var8.minPlane, var8.regionXLow * 64 + var3 + var8.getChunkXLow() * 8, var4 + var8.regionYLow * 64 + var8.getChunkYLow() * 8); // L: 132
+			WorldMapData_1 var8 = (WorldMapData_1)var5; // L: 146
+			var7 = new Coord(var2 + var8.minPlane, var3 + var8.regionXLow * 64 + var8.getChunkXLow() * 8, var8.regionYLow * 64 + var4 + var8.getChunkYLow() * 8); // L: 147
 		}
 
 		WorldMapElement var9;
 		Object var10;
-		if (var1.transforms != null) { // L: 135
-			var10 = new WorldMapIcon_1(var7, var6, var1.id, this); // L: 136
+		if (var1.transforms != null) { // L: 150
+			var10 = new WorldMapIcon_1(var7, var6, var1.id, this); // L: 151
 		} else {
-			var9 = class126.WorldMapElement_get(var1.mapIconId); // L: 139
-			var10 = new WorldMapIcon_0(var7, var6, var9.objectId, this.createMapLabel(var9)); // L: 140
+			var9 = class19.WorldMapElement_get(var1.mapIconId); // L: 154
+			var10 = new WorldMapIcon_0(var7, var6, var9.objectId, this.createMapLabel(var9)); // L: 155
 		}
 
-		var9 = class126.WorldMapElement_get(((AbstractWorldMapIcon)var10).getElement()); // L: 142
-		if (var9.field1769) { // L: 143
-			this.iconMap.put(new Coord(0, var3, var4), var10); // L: 144
+		var9 = class19.WorldMapElement_get(((AbstractWorldMapIcon)var10).getElement()); // L: 157
+		if (var9.field1835) { // L: 158
+			this.iconMap.put(new Coord(0, var3, var4), var10); // L: 159
 		}
 
-	} // L: 146
+	} // L: 161
 
-	@ObfuscatedName("w")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-1666242277"
+		garbageValue = "1628100931"
 	)
 	@Export("initWorldMapIcon1s")
 	void initWorldMapIcon1s() {
-		Iterator var1 = this.iconMap.values().iterator(); // L: 149
+		Iterator var1 = this.iconMap.values().iterator(); // L: 164
 
 		while (var1.hasNext()) {
-			AbstractWorldMapIcon var2 = (AbstractWorldMapIcon)var1.next(); // L: 150
-			if (var2 instanceof WorldMapIcon_1) { // L: 152
-				((WorldMapIcon_1)var2).init(); // L: 153
-			}
-		}
-
-	} // L: 157
-
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/util/List;I)V",
-		garbageValue = "972259681"
-	)
-	@Export("addAllToIconList")
-	void addAllToIconList(List var1) {
-		Iterator var2 = var1.iterator(); // L: 160
-
-		while (var2.hasNext()) {
-			WorldMapIcon_0 var3 = (WorldMapIcon_0)var2.next(); // L: 161
-			if (class126.WorldMapElement_get(var3.element).field1769 && var3.coord2.x >> 6 == this.regionX && var3.coord2.y >> 6 == this.regionY) { // L: 163 166
-				WorldMapIcon_0 var4 = new WorldMapIcon_0(var3.coord2, var3.coord2, var3.element, this.method4477(var3.element)); // L: 167
-				this.icon0List.add(var4); // L: 168
+			AbstractWorldMapIcon var2 = (AbstractWorldMapIcon)var1.next(); // L: 165
+			if (var2 instanceof WorldMapIcon_1) { // L: 167
+				((WorldMapIcon_1)var2).init(); // L: 168
 			}
 		}
 
 	} // L: 172
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("r")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/util/List;I)V",
+		garbageValue = "-883306894"
+	)
+	@Export("addAllToIconList")
+	void addAllToIconList(List var1) {
+		Iterator var2 = var1.iterator(); // L: 175
+
+		while (var2.hasNext()) { // L: 186
+			WorldMapIcon_0 var3 = (WorldMapIcon_0)var2.next(); // L: 176
+			if (class19.WorldMapElement_get(var3.element).field1835 && var3.coord2.x >> 6 == this.regionX && var3.coord2.y >> 6 == this.regionY) { // L: 178 181
+				WorldMapIcon_0 var4 = new WorldMapIcon_0(var3.coord2, var3.coord2, var3.element, this.method4675(var3.element)); // L: 182
+				this.icon0List.add(var4); // L: 183
+			}
+		}
+
+	} // L: 187
+
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-1756616208"
+		garbageValue = "-2141874289"
 	)
-	void method4455() {
-		if (this.worldMapData_0 != null) { // L: 175
-			this.worldMapData_0.reset(); // L: 176
+	void method4679() {
+		if (this.worldMapData_0 != null) { // L: 190
+			this.worldMapData_0.reset(); // L: 191
 		} else {
-			Iterator var1 = this.worldMapData1List.iterator(); // L: 179
+			Iterator var1 = this.worldMapData1List.iterator(); // L: 194
 
 			while (var1.hasNext()) {
-				WorldMapData_1 var2 = (WorldMapData_1)var1.next(); // L: 180
-				var2.reset(); // L: 182
+				WorldMapData_1 var2 = (WorldMapData_1)var1.next(); // L: 195
+				var2.reset(); // L: 197
 			}
 		}
 
-	} // L: 186
-
-	@ObfuscatedName("y")
-	@ObfuscatedSignature(
-		descriptor = "(Lkq;S)Z",
-		garbageValue = "4032"
-	)
-	@Export("loadGeography")
-	boolean loadGeography(AbstractArchive var1) {
-		this.iconMap.clear(); // L: 189
-		if (this.worldMapData_0 != null) { // L: 190
-			this.worldMapData_0.loadGeography(var1); // L: 191
-			if (this.worldMapData_0.isFullyLoaded()) { // L: 192
-				this.getIconsForTiles(0, 0, 64, 64, this.worldMapData_0); // L: 193
-				return true; // L: 194
-			} else {
-				return false; // L: 196
-			}
-		} else {
-			boolean var2 = true; // L: 199
-
-			Iterator var3;
-			WorldMapData_1 var4;
-			for (var3 = this.worldMapData1List.iterator(); var3.hasNext(); var2 &= var4.isFullyLoaded()) { // L: 200 204
-				var4 = (WorldMapData_1)var3.next(); // L: 201
-				var4.loadGeography(var1); // L: 203
-			}
-
-			if (var2) { // L: 207
-				var3 = this.worldMapData1List.iterator(); // L: 208
-
-				while (var3.hasNext()) {
-					var4 = (WorldMapData_1)var3.next(); // L: 209
-					this.getIconsForTiles(var4.getChunkX() * 8, var4.getChunkY() * 8, 8, 8, var4); // L: 211
-				}
-			}
-
-			return var2; // L: 215
-		}
-	}
-
-	@ObfuscatedName("u")
-	@ObfuscatedSignature(
-		descriptor = "(ILif;[Lpg;Lkq;Lkq;I)V",
-		garbageValue = "386346219"
-	)
-	@Export("drawTile")
-	void drawTile(int var1, WorldMapScaleHandler var2, IndexedSprite[] var3, AbstractArchive var4, AbstractArchive var5) {
-		this.pixelsPerTile = var1; // L: 220
-		if (this.worldMapData_0 != null || !this.worldMapData1List.isEmpty()) { // L: 221
-			int var7 = this.regionX; // L: 225
-			int var8 = this.regionY; // L: 226
-			DemotingHashTable var9 = WorldMapRegion_cachedSprites; // L: 228
-			long var10 = (long)(var1 << 16 | var7 << 8 | var8); // L: 231
-			SpritePixels var6 = (SpritePixels)var9.get(var10); // L: 233
-			if (var6 == null) { // L: 235
-				boolean var22 = true; // L: 238
-				var22 &= this.loadGeography(var4); // L: 239
-				int var11;
-				if (this.worldMapData_0 != null) { // L: 242
-					var11 = this.worldMapData_0.groupId; // L: 243
-				} else {
-					var11 = ((AbstractWorldMapData)this.worldMapData1List.getFirst()).groupId; // L: 246
-				}
-
-				var22 &= var5.tryLoadGroup(var11); // L: 248
-				if (var22) { // L: 249
-					byte[] var23 = var5.takeFileFlat(var11); // L: 250
-					WorldMapSprite var12;
-					if (var23 == null) { // L: 253
-						var12 = new WorldMapSprite(); // L: 254
-					} else {
-						var12 = new WorldMapSprite(class125.method2743(var23).pixels); // L: 257
-					}
-
-					SpritePixels var14 = new SpritePixels(this.pixelsPerTile * 64, this.pixelsPerTile * 64); // L: 260
-					var14.setRaster(); // L: 261
-					if (this.worldMapData_0 != null) { // L: 262
-						this.method4551(var2, var3, var12); // L: 263
-					} else {
-						this.method4461(var2, var3, var12); // L: 266
-					}
-
-					int var15 = this.regionX; // L: 268
-					int var16 = this.regionY; // L: 269
-					int var17 = this.pixelsPerTile; // L: 270
-					DemotingHashTable var18 = WorldMapRegion_cachedSprites; // L: 272
-					long var20 = (long)(var17 << 16 | var15 << 8 | var16); // L: 276
-					var18.put(var14, var20, var14.pixels.length * 4); // L: 278
-					this.method4455(); // L: 280
-				}
-			}
-		}
-	} // L: 222 236 281
-
-	@ObfuscatedName("h")
-	@ObfuscatedSignature(
-		descriptor = "(IIILjava/util/HashSet;I)V",
-		garbageValue = "-1153996012"
-	)
-	void method4458(int var1, int var2, int var3, HashSet var4) {
-		if (var4 == null) { // L: 284
-			var4 = new HashSet(); // L: 285
-		}
-
-		this.drawNonLinkMapIcons(var1, var2, var4, var3); // L: 287
-		this.drawMapLinks(var1, var2, var4, var3); // L: 288
-	} // L: 289
-
-	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/util/HashSet;III)V",
-		garbageValue = "-1505477012"
-	)
-	@Export("flashElements")
-	void flashElements(HashSet var1, int var2, int var3) {
-		Iterator var4 = this.iconMap.values().iterator(); // L: 292
-
-		while (var4.hasNext()) {
-			AbstractWorldMapIcon var5 = (AbstractWorldMapIcon)var4.next(); // L: 293
-			if (var5.hasValidElement()) { // L: 295
-				int var6 = var5.getElement(); // L: 296
-				if (var1.contains(var6)) { // L: 297
-					WorldMapElement var7 = class126.WorldMapElement_get(var6); // L: 298
-					this.drawBackgroundCircle(var7, var5.screenX, var5.screenY, var2, var3); // L: 299
-				}
-			}
-		}
-
-		this.method4464(var1, var2, var3); // L: 303
-	} // L: 304
+	} // L: 201
 
 	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "(Lif;[Lpg;Lhl;I)V",
-		garbageValue = "321052771"
+		descriptor = "(Llq;I)Z",
+		garbageValue = "-1638134467"
 	)
-	void method4551(WorldMapScaleHandler var1, IndexedSprite[] var2, WorldMapSprite var3) {
-		int var4;
-		int var5;
-		for (var4 = 0; var4 < 64; ++var4) { // L: 307
-			for (var5 = 0; var5 < 64; ++var5) { // L: 308
-				this.drawTileGround(var4, var5, this.worldMapData_0, var1, var3); // L: 309
-				this.method4504(var4, var5, this.worldMapData_0, var1); // L: 310
+	@Export("loadGeography")
+	boolean loadGeography(AbstractArchive var1) {
+		this.iconMap.clear(); // L: 204
+		if (this.worldMapData_0 != null) { // L: 205
+			this.worldMapData_0.loadGeography(var1); // L: 206
+			if (this.worldMapData_0.isFullyLoaded()) { // L: 207
+				this.getIconsForTiles(0, 0, 64, 64, this.worldMapData_0); // L: 208
+				return true; // L: 209
+			} else {
+				return false; // L: 211
+			}
+		} else {
+			boolean var2 = true; // L: 214
+
+			Iterator var3;
+			WorldMapData_1 var4;
+			for (var3 = this.worldMapData1List.iterator(); var3.hasNext(); var2 &= var4.isFullyLoaded()) { // L: 215 219
+				var4 = (WorldMapData_1)var3.next(); // L: 216
+				var4.loadGeography(var1); // L: 218
+			}
+
+			if (var2) { // L: 222
+				var3 = this.worldMapData1List.iterator(); // L: 223
+
+				while (var3.hasNext()) {
+					var4 = (WorldMapData_1)var3.next(); // L: 224
+					this.getIconsForTiles(var4.getChunkX() * 8, var4.getChunkY() * 8, 8, 8, var4); // L: 226
+				}
+			}
+
+			return var2; // L: 230
+		}
+	}
+
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "(ILie;[Lqx;Llq;Llq;I)V",
+		garbageValue = "-1187149260"
+	)
+	@Export("drawTile")
+	void drawTile(int var1, WorldMapScaleHandler var2, IndexedSprite[] var3, AbstractArchive var4, AbstractArchive var5) {
+		this.pixelsPerTile = var1; // L: 235
+		if (this.worldMapData_0 != null || !this.worldMapData1List.isEmpty()) { // L: 236
+			if (class28.method423(this.regionX, this.regionY, var1) == null) { // L: 239
+				boolean var6 = true; // L: 242
+				var6 &= this.loadGeography(var4); // L: 243
+				int var8;
+				if (this.worldMapData_0 != null) { // L: 246
+					var8 = this.worldMapData_0.groupId; // L: 247
+				} else {
+					var8 = ((AbstractWorldMapData)this.worldMapData1List.getFirst()).groupId; // L: 250
+				}
+
+				var6 &= var5.tryLoadGroup(var8); // L: 252
+				if (var6) { // L: 253
+					byte[] var7 = var5.takeFileFlat(var8); // L: 254
+					WorldMapSprite var9;
+					if (var7 == null) { // L: 257
+						var9 = new WorldMapSprite(); // L: 258
+					} else {
+						var9 = new WorldMapSprite(class29.method433(var7).pixels); // L: 261
+					}
+
+					SpritePixels var11 = new SpritePixels(this.pixelsPerTile * 64, this.pixelsPerTile * 64); // L: 264
+					var11.setRaster(); // L: 265
+					if (this.worldMapData_0 != null) { // L: 266
+						this.method4684(var2, var3, var9); // L: 267
+					} else {
+						this.method4714(var2, var3, var9); // L: 270
+					}
+
+					int var12 = this.regionX; // L: 272
+					int var13 = this.regionY; // L: 273
+					int var14 = this.pixelsPerTile; // L: 274
+					WorldMapRegion_cachedSprites.put(var11, class65.method1867(var12, var13, var14), var11.pixels.length * 4); // L: 276
+					this.method4679(); // L: 278
+				}
 			}
 		}
+	} // L: 237 240 279
 
-		for (var4 = 0; var4 < 64; ++var4) { // L: 313
-			for (var5 = 0; var5 < 64; ++var5) { // L: 314
-				this.method4462(var4, var5, this.worldMapData_0, var1, var2); // L: 315
-			}
+	@ObfuscatedName("j")
+	@ObfuscatedSignature(
+		descriptor = "(IIILjava/util/HashSet;I)V",
+		garbageValue = "-268050800"
+	)
+	void method4682(int var1, int var2, int var3, HashSet var4) {
+		if (var4 == null) { // L: 282
+			var4 = new HashSet(); // L: 283
 		}
 
-	} // L: 318
+		this.drawNonLinkMapIcons(var1, var2, var4, var3); // L: 285
+		this.drawMapLinks(var1, var2, var4, var3); // L: 286
+	} // L: 287
 
 	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "(Lif;[Lpg;Lhl;I)V",
-		garbageValue = "1869935790"
+		descriptor = "(Ljava/util/HashSet;III)V",
+		garbageValue = "1089200955"
 	)
-	void method4461(WorldMapScaleHandler var1, IndexedSprite[] var2, WorldMapSprite var3) {
-		Iterator var4 = this.worldMapData1List.iterator(); // L: 321
+	@Export("flashElements")
+	void flashElements(HashSet var1, int var2, int var3) {
+		Iterator var4 = this.iconMap.values().iterator(); // L: 290
+
+		while (var4.hasNext()) {
+			AbstractWorldMapIcon var5 = (AbstractWorldMapIcon)var4.next(); // L: 291
+			if (var5.hasValidElement()) { // L: 293
+				int var6 = var5.getElement(); // L: 294
+				if (var1.contains(var6)) { // L: 295
+					WorldMapElement var7 = class19.WorldMapElement_get(var6); // L: 296
+					this.drawBackgroundCircle(var7, var5.screenX, var5.screenY, var2, var3); // L: 297
+				}
+			}
+		}
+
+		this.method4693(var1, var2, var3); // L: 301
+	} // L: 302
+
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		descriptor = "(Lie;[Lqx;Lis;I)V",
+		garbageValue = "954232927"
+	)
+	void method4684(WorldMapScaleHandler var1, IndexedSprite[] var2, WorldMapSprite var3) {
+		int var4;
+		int var5;
+		for (var4 = 0; var4 < 64; ++var4) { // L: 305
+			for (var5 = 0; var5 < 64; ++var5) { // L: 306
+				this.drawTileGround(var4, var5, this.worldMapData_0, var1, var3); // L: 307
+				this.method4688(var4, var5, this.worldMapData_0, var1); // L: 308
+			}
+		}
+
+		for (var4 = 0; var4 < 64; ++var4) { // L: 311
+			for (var5 = 0; var5 < 64; ++var5) { // L: 312
+				this.method4687(var4, var5, this.worldMapData_0, var1, var2); // L: 313
+			}
+		}
+
+	} // L: 316
+
+	@ObfuscatedName("b")
+	@ObfuscatedSignature(
+		descriptor = "(Lie;[Lqx;Lis;I)V",
+		garbageValue = "1932235022"
+	)
+	void method4714(WorldMapScaleHandler var1, IndexedSprite[] var2, WorldMapSprite var3) {
+		Iterator var4 = this.worldMapData1List.iterator(); // L: 319
 
 		WorldMapData_1 var5;
 		int var6;
 		int var7;
 		while (var4.hasNext()) {
-			var5 = (WorldMapData_1)var4.next(); // L: 322
+			var5 = (WorldMapData_1)var4.next(); // L: 320
 
-			for (var6 = var5.getChunkX() * 8; var6 < var5.getChunkX() * 8 + 8; ++var6) { // L: 324
-				for (var7 = var5.getChunkY() * 8; var7 < var5.getChunkY() * 8 + 8; ++var7) { // L: 325
-					this.drawTileGround(var6, var7, var5, var1, var3); // L: 326
-					this.method4504(var6, var7, var5, var1); // L: 327
+			for (var6 = var5.getChunkX() * 8; var6 < var5.getChunkX() * 8 + 8; ++var6) { // L: 322
+				for (var7 = var5.getChunkY() * 8; var7 < var5.getChunkY() * 8 + 8; ++var7) { // L: 323
+					this.drawTileGround(var6, var7, var5, var1, var3); // L: 324
+					this.method4688(var6, var7, var5, var1); // L: 325
 				}
 			}
 		}
 
-		var4 = this.worldMapData1List.iterator(); // L: 332
+		var4 = this.worldMapData1List.iterator(); // L: 330
 
 		while (var4.hasNext()) {
-			var5 = (WorldMapData_1)var4.next(); // L: 333
+			var5 = (WorldMapData_1)var4.next(); // L: 331
 
-			for (var6 = var5.getChunkX() * 8; var6 < var5.getChunkX() * 8 + 8; ++var6) { // L: 335
-				for (var7 = var5.getChunkY() * 8; var7 < var5.getChunkY() * 8 + 8; ++var7) { // L: 336
-					this.method4462(var6, var7, var5, var1, var2); // L: 337
+			for (var6 = var5.getChunkX() * 8; var6 < var5.getChunkX() * 8 + 8; ++var6) { // L: 333
+				for (var7 = var5.getChunkY() * 8; var7 < var5.getChunkY() * 8 + 8; ++var7) { // L: 334
+					this.method4687(var6, var7, var5, var1, var2); // L: 335
 				}
 			}
 		}
 
-	} // L: 342
+	} // L: 340
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "(IILhx;Lif;[Lpg;I)V",
-		garbageValue = "1586018783"
+		descriptor = "(IILiu;Lie;[Lqx;S)V",
+		garbageValue = "-17045"
 	)
-	void method4462(int var1, int var2, AbstractWorldMapData var3, WorldMapScaleHandler var4, IndexedSprite[] var5) {
-		this.method4471(var1, var2, var3); // L: 345
-		this.method4466(var1, var2, var3, var5); // L: 346
-	} // L: 347
+	void method4687(int var1, int var2, AbstractWorldMapData var3, WorldMapScaleHandler var4, IndexedSprite[] var5) {
+		this.method4706(var1, var2, var3); // L: 343
+		this.method4690(var1, var2, var3, var5); // L: 344
+	} // L: 345
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "(IILhx;Lif;Lhl;I)V",
-		garbageValue = "632653510"
+		descriptor = "(IILiu;Lie;Lis;I)V",
+		garbageValue = "-845219169"
 	)
 	@Export("drawTileGround")
 	void drawTileGround(int var1, int var2, AbstractWorldMapData var3, WorldMapScaleHandler var4, WorldMapSprite var5) {
-		int var6 = var3.floorUnderlayIds[0][var1][var2] - 1; // L: 350
-		int var7 = var3.floorOverlayIds[0][var1][var2] - 1; // L: 351
-		if (var6 == -1 && var7 == -1) { // L: 352
-			Rasterizer2D.Rasterizer2D_fillRectangle(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2), this.pixelsPerTile, this.pixelsPerTile, this.backgroundColor); // L: 353
+		int var6 = var3.floorUnderlayIds[0][var1][var2] - 1; // L: 348
+		int var7 = var3.floorOverlayIds[0][var1][var2] - 1; // L: 349
+		if (var6 == -1 && var7 == -1) { // L: 350
+			Rasterizer2D.Rasterizer2D_fillRectangle(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2), this.pixelsPerTile, this.pixelsPerTile, this.backgroundColor); // L: 351
 		}
 
-		int var8 = 16711935; // L: 355
+		int var8 = 16711935; // L: 353
 		int var9;
-		if (var7 != -1) { // L: 356
-			int var10 = this.backgroundColor; // L: 358
-			FloorOverlayDefinition var12 = (FloorOverlayDefinition)FloorOverlayDefinition.FloorOverlayDefinition_cached.get((long)var7); // L: 362
+		if (var7 != -1) { // L: 354
+			int var10 = this.backgroundColor; // L: 356
+			FloorOverlayDefinition var12 = (FloorOverlayDefinition)FloorOverlayDefinition.FloorOverlayDefinition_cached.get((long)var7); // L: 360
 			FloorOverlayDefinition var11;
-			if (var12 != null) { // L: 363
-				var11 = var12; // L: 364
+			if (var12 != null) { // L: 361
+				var11 = var12; // L: 362
 			} else {
-				byte[] var13 = FloorOverlayDefinition.FloorOverlayDefinition_archive.takeFile(4, var7); // L: 367
-				var12 = new FloorOverlayDefinition(); // L: 368
-				if (var13 != null) { // L: 369
+				byte[] var13 = FloorOverlayDefinition.FloorOverlayDefinition_archive.takeFile(4, var7); // L: 365
+				var12 = new FloorOverlayDefinition(); // L: 366
+				if (var13 != null) { // L: 367
 					var12.decode(new Buffer(var13), var7);
 				}
 
-				var12.postDecode(); // L: 370
-				FloorOverlayDefinition.FloorOverlayDefinition_cached.put(var12, (long)var7); // L: 371
-				var11 = var12; // L: 372
+				var12.postDecode(); // L: 368
+				FloorOverlayDefinition.FloorOverlayDefinition_cached.put(var12, (long)var7); // L: 369
+				var11 = var12; // L: 370
 			}
 
-			if (var11 == null) { // L: 375
-				var9 = var10; // L: 376
-			} else if (var11.secondaryRgb >= 0) { // L: 379
-				var9 = var11.secondaryRgb | -16777216; // L: 380
-			} else if (var11.texture >= 0) { // L: 382
-				int var19 = Canvas.method371(Rasterizer3D.Rasterizer3D_textureLoader.getAverageTextureRGB(var11.texture), 96); // L: 383
-				var9 = Rasterizer3D.Rasterizer3D_colorPalette[var19] | -16777216; // L: 384
-			} else if (var11.primaryRgb == 16711935) { // L: 386
-				var9 = var10; // L: 387
+			if (var11 == null) { // L: 373
+				var9 = var10; // L: 374
+			} else if (var11.secondaryRgb >= 0) { // L: 377
+				var9 = var11.secondaryRgb | -16777216; // L: 378
 			} else {
-				int var14 = var11.hue; // L: 391
-				int var15 = var11.saturation; // L: 392
-				int var16 = var11.lightness; // L: 393
-				if (var16 > 179) { // L: 395
-					var15 /= 2;
-				}
+				int var14;
+				int var22;
+				if (var11.texture >= 0) { // L: 380
+					var14 = Rasterizer3D.Rasterizer3D_textureLoader.getAverageTextureRGB(var11.texture); // L: 382
+					byte var15 = 96; // L: 383
+					int var21;
+					if (var14 == -2) { // L: 385
+						var21 = 12345678; // L: 386
+					} else if (var14 == -1) { // L: 389
+						if (var15 < 0) { // L: 390
+							var15 = 0; // L: 391
+						} else if (var15 > 127) { // L: 393
+							var15 = 127; // L: 394
+						}
 
-				if (var16 > 192) { // L: 396
-					var15 /= 2;
-				}
+						var22 = 127 - var15; // L: 396
+						var21 = var22; // L: 397
+					} else {
+						var22 = var15 * (var14 & 127) / 128; // L: 400
+						if (var22 < 2) { // L: 401
+							var22 = 2;
+						} else if (var22 > 126) { // L: 402
+							var22 = 126;
+						}
 
-				if (var16 > 217) { // L: 397
-					var15 /= 2;
-				}
+						var21 = var22 + (var14 & 65408); // L: 403
+					}
 
-				if (var16 > 243) { // L: 398
-					var15 /= 2;
-				}
-
-				int var17 = (var15 / 32 << 7) + var16 / 2 + (var14 / 4 << 10); // L: 399
-				int var18 = Canvas.method371(var17, 96); // L: 403
-				var9 = Rasterizer3D.Rasterizer3D_colorPalette[var18] | -16777216; // L: 404
-			}
-
-			var8 = var9; // L: 407
-		}
-
-		if (var7 > -1 && var3.field2736[0][var1][var2] == 0) { // L: 409
-			Rasterizer2D.Rasterizer2D_fillRectangle(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2), this.pixelsPerTile, this.pixelsPerTile, var8); // L: 410
-		} else {
-			var9 = this.method4465(var1, var2, var3, var5); // L: 413
-			if (var7 == -1) { // L: 414
-				Rasterizer2D.Rasterizer2D_fillRectangle(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2), this.pixelsPerTile, this.pixelsPerTile, var9); // L: 415
-			} else {
-				var4.method4890(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2), var9, var8, this.pixelsPerTile, this.pixelsPerTile, var3.field2736[0][var1][var2], var3.field2731[0][var1][var2]); // L: 418
-			}
-		}
-	} // L: 411 416 419
-
-	@ObfuscatedName("d")
-	@ObfuscatedSignature(
-		descriptor = "(IILhx;Lif;I)V",
-		garbageValue = "1515839713"
-	)
-	void method4504(int var1, int var2, AbstractWorldMapData var3, WorldMapScaleHandler var4) {
-		for (int var5 = 1; var5 < var3.planes; ++var5) { // L: 422
-			int var6 = var3.floorOverlayIds[var5][var1][var2] - 1; // L: 423
-			if (var6 > -1) { // L: 424
-				int var8 = this.backgroundColor; // L: 426
-				FloorOverlayDefinition var10 = (FloorOverlayDefinition)FloorOverlayDefinition.FloorOverlayDefinition_cached.get((long)var6); // L: 430
-				FloorOverlayDefinition var9;
-				if (var10 != null) { // L: 431
-					var9 = var10; // L: 432
+					var9 = Rasterizer3D.Rasterizer3D_colorPalette[var21] | -16777216; // L: 406
+				} else if (var11.primaryRgb == 16711935) { // L: 408
+					var9 = var10; // L: 409
 				} else {
-					byte[] var11 = FloorOverlayDefinition.FloorOverlayDefinition_archive.takeFile(4, var6); // L: 435
-					var10 = new FloorOverlayDefinition(); // L: 436
-					if (var11 != null) { // L: 437
+					var14 = var11.hue; // L: 413
+					var22 = var11.saturation; // L: 414
+					int var16 = var11.lightness; // L: 415
+					if (var16 > 179) { // L: 417
+						var22 /= 2;
+					}
+
+					if (var16 > 192) { // L: 418
+						var22 /= 2;
+					}
+
+					if (var16 > 217) { // L: 419
+						var22 /= 2;
+					}
+
+					if (var16 > 243) { // L: 420
+						var22 /= 2;
+					}
+
+					int var17 = (var22 / 32 << 7) + var16 / 2 + (var14 / 4 << 10); // L: 421
+					byte var19 = 96; // L: 426
+					int var18;
+					if (var17 == -2) { // L: 428
+						var18 = 12345678; // L: 429
+					} else {
+						int var23;
+						if (var17 == -1) { // L: 432
+							if (var19 < 0) { // L: 433
+								var19 = 0; // L: 434
+							} else if (var19 > 127) { // L: 436
+								var19 = 127; // L: 437
+							}
+
+							var23 = 127 - var19; // L: 439
+							var18 = var23; // L: 440
+						} else {
+							var23 = var19 * (var17 & 127) / 128; // L: 443
+							if (var23 < 2) { // L: 444
+								var23 = 2;
+							} else if (var23 > 126) { // L: 445
+								var23 = 126;
+							}
+
+							var18 = var23 + (var17 & 65408); // L: 446
+						}
+					}
+
+					var9 = Rasterizer3D.Rasterizer3D_colorPalette[var18] | -16777216; // L: 449
+				}
+			}
+
+			var8 = var9; // L: 452
+		}
+
+		if (var7 > -1 && var3.field2793[0][var1][var2] == 0) { // L: 454
+			Rasterizer2D.Rasterizer2D_fillRectangle(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2), this.pixelsPerTile, this.pixelsPerTile, var8); // L: 455
+		} else {
+			var9 = this.method4671(var1, var2, var3, var5); // L: 458
+			if (var7 == -1) { // L: 459
+				Rasterizer2D.Rasterizer2D_fillRectangle(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2), this.pixelsPerTile, this.pixelsPerTile, var9); // L: 460
+			} else {
+				var4.method5091(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2), var9, var8, this.pixelsPerTile, this.pixelsPerTile, var3.field2793[0][var1][var2], var3.field2792[0][var1][var2]); // L: 463
+			}
+		}
+	} // L: 456 461 464
+
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		descriptor = "(IILiu;Lie;I)V",
+		garbageValue = "1864797508"
+	)
+	void method4688(int var1, int var2, AbstractWorldMapData var3, WorldMapScaleHandler var4) {
+		for (int var5 = 1; var5 < var3.planes; ++var5) { // L: 467
+			int var6 = var3.floorOverlayIds[var5][var1][var2] - 1; // L: 468
+			if (var6 > -1) { // L: 469
+				int var8 = this.backgroundColor; // L: 471
+				FloorOverlayDefinition var10 = (FloorOverlayDefinition)FloorOverlayDefinition.FloorOverlayDefinition_cached.get((long)var6); // L: 475
+				FloorOverlayDefinition var9;
+				if (var10 != null) { // L: 476
+					var9 = var10; // L: 477
+				} else {
+					byte[] var11 = FloorOverlayDefinition.FloorOverlayDefinition_archive.takeFile(4, var6); // L: 480
+					var10 = new FloorOverlayDefinition(); // L: 481
+					if (var11 != null) { // L: 482
 						var10.decode(new Buffer(var11), var6);
 					}
 
-					var10.postDecode(); // L: 438
-					FloorOverlayDefinition.FloorOverlayDefinition_cached.put(var10, (long)var6); // L: 439
-					var9 = var10; // L: 440
+					var10.postDecode(); // L: 483
+					FloorOverlayDefinition.FloorOverlayDefinition_cached.put(var10, (long)var6); // L: 484
+					var9 = var10; // L: 485
 				}
 
 				int var7;
-				if (var9 == null) { // L: 443
-					var7 = var8; // L: 444
-				} else if (var9.secondaryRgb >= 0) { // L: 447
-					var7 = var9.secondaryRgb | -16777216; // L: 448
-				} else if (var9.texture >= 0) { // L: 450
-					int var17 = Canvas.method371(Rasterizer3D.Rasterizer3D_textureLoader.getAverageTextureRGB(var9.texture), 96); // L: 451
-					var7 = Rasterizer3D.Rasterizer3D_colorPalette[var17] | -16777216; // L: 452
-				} else if (var9.primaryRgb == 16711935) { // L: 454
-					var7 = var8; // L: 455
+				if (var9 == null) { // L: 488
+					var7 = var8; // L: 489
+				} else if (var9.secondaryRgb >= 0) { // L: 492
+					var7 = var9.secondaryRgb | -16777216; // L: 493
 				} else {
-					int var12 = var9.hue; // L: 459
-					int var13 = var9.saturation; // L: 460
-					int var14 = var9.lightness; // L: 461
-					if (var14 > 179) { // L: 463
-						var13 /= 2;
-					}
+					int var12;
+					int var21;
+					if (var9.texture >= 0) { // L: 495
+						var12 = Rasterizer3D.Rasterizer3D_textureLoader.getAverageTextureRGB(var9.texture); // L: 497
+						byte var13 = 96; // L: 498
+						int var19;
+						if (var12 == -2) { // L: 500
+							var19 = 12345678; // L: 501
+						} else if (var12 == -1) { // L: 504
+							if (var13 < 0) { // L: 505
+								var13 = 0; // L: 506
+							} else if (var13 > 127) { // L: 508
+								var13 = 127; // L: 509
+							}
 
-					if (var14 > 192) { // L: 464
-						var13 /= 2;
-					}
+							var21 = 127 - var13; // L: 511
+							var19 = var21; // L: 512
+						} else {
+							var21 = var13 * (var12 & 127) / 128; // L: 515
+							if (var21 < 2) {
+								var21 = 2; // L: 516
+							} else if (var21 > 126) { // L: 517
+								var21 = 126;
+							}
 
-					if (var14 > 217) {
-						var13 /= 2; // L: 465
-					}
+							var19 = var21 + (var12 & 65408); // L: 518
+						}
 
-					if (var14 > 243) { // L: 466
-						var13 /= 2;
-					}
+						var7 = Rasterizer3D.Rasterizer3D_colorPalette[var19] | -16777216; // L: 521
+					} else if (var9.primaryRgb == 16711935) { // L: 523
+						var7 = var8; // L: 524
+					} else {
+						var12 = var9.hue; // L: 528
+						var21 = var9.saturation; // L: 529
+						int var14 = var9.lightness; // L: 530
+						if (var14 > 179) { // L: 532
+							var21 /= 2;
+						}
 
-					int var15 = (var13 / 32 << 7) + var14 / 2 + (var12 / 4 << 10); // L: 467
-					int var16 = Canvas.method371(var15, 96); // L: 471
-					var7 = Rasterizer3D.Rasterizer3D_colorPalette[var16] | -16777216; // L: 472
+						if (var14 > 192) { // L: 533
+							var21 /= 2;
+						}
+
+						if (var14 > 217) { // L: 534
+							var21 /= 2;
+						}
+
+						if (var14 > 243) { // L: 535
+							var21 /= 2;
+						}
+
+						int var15 = (var21 / 32 << 7) + var14 / 2 + (var12 / 4 << 10); // L: 536
+						byte var17 = 96; // L: 541
+						int var16;
+						if (var15 == -2) { // L: 543
+							var16 = 12345678; // L: 544
+						} else {
+							int var22;
+							if (var15 == -1) { // L: 547
+								if (var17 < 0) { // L: 548
+									var17 = 0; // L: 549
+								} else if (var17 > 127) { // L: 551
+									var17 = 127; // L: 552
+								}
+
+								var22 = 127 - var17; // L: 554
+								var16 = var22; // L: 555
+							} else {
+								var22 = var17 * (var15 & 127) / 128; // L: 558
+								if (var22 < 2) { // L: 559
+									var22 = 2;
+								} else if (var22 > 126) { // L: 560
+									var22 = 126;
+								}
+
+								var16 = var22 + (var15 & 65408); // L: 561
+							}
+						}
+
+						var7 = Rasterizer3D.Rasterizer3D_colorPalette[var16] | -16777216; // L: 564
+					}
 				}
 
-				if (var3.field2736[var5][var1][var2] == 0) { // L: 476
-					Rasterizer2D.Rasterizer2D_fillRectangle(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2), this.pixelsPerTile, this.pixelsPerTile, var7); // L: 477
+				if (var3.field2793[var5][var1][var2] == 0) { // L: 568
+					Rasterizer2D.Rasterizer2D_fillRectangle(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2), this.pixelsPerTile, this.pixelsPerTile, var7); // L: 569
 				} else {
-					var4.method4890(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2), 0, var7, this.pixelsPerTile, this.pixelsPerTile, var3.field2736[var5][var1][var2], var3.field2731[var5][var1][var2]); // L: 480
+					var4.method5091(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2), 0, var7, this.pixelsPerTile, this.pixelsPerTile, var3.field2793[var5][var1][var2], var3.field2792[var5][var1][var2]); // L: 572
 				}
 			}
 		}
 
-	} // L: 484
+	} // L: 576
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(IILhx;Lhl;S)I",
-		garbageValue = "256"
+		descriptor = "(IILiu;Lis;I)I",
+		garbageValue = "-1949774050"
 	)
-	int method4465(int var1, int var2, AbstractWorldMapData var3, WorldMapSprite var4) {
-		return var3.floorUnderlayIds[0][var1][var2] == 0 ? this.backgroundColor : var4.getTileColor(var1, var2); // L: 487 488 490
+	int method4671(int var1, int var2, AbstractWorldMapData var3, WorldMapSprite var4) {
+		return var3.floorUnderlayIds[0][var1][var2] == 0 ? this.backgroundColor : var4.getTileColor(var1, var2); // L: 579 580 582
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "(IILhx;[Lpg;B)V",
-		garbageValue = "33"
+		descriptor = "(IILiu;[Lqx;B)V",
+		garbageValue = "94"
 	)
-	void method4466(int var1, int var2, AbstractWorldMapData var3, IndexedSprite[] var4) {
-		for (int var5 = 0; var5 < var3.planes; ++var5) { // L: 494
-			WorldMapDecoration[] var6 = var3.decorations[var5][var1][var2]; // L: 495
-			if (var6 != null && var6.length != 0) { // L: 496
-				WorldMapDecoration[] var7 = var6; // L: 500
+	void method4690(int var1, int var2, AbstractWorldMapData var3, IndexedSprite[] var4) {
+		for (int var5 = 0; var5 < var3.planes; ++var5) { // L: 586
+			WorldMapDecoration[] var6 = var3.decorations[var5][var1][var2]; // L: 587
+			if (var6 != null && var6.length != 0) { // L: 588
+				WorldMapDecoration[] var7 = var6; // L: 592
 
-				for (int var8 = 0; var8 < var7.length; ++var8) { // L: 501
-					WorldMapDecoration var9 = var7[var8]; // L: 502
-					int var11 = var9.decoration; // L: 505
-					boolean var10 = var11 >= WorldMapDecorationType.field3438.id && var11 <= WorldMapDecorationType.field3444.id; // L: 507
-					if (!var10) { // L: 510
-						int var13 = var9.decoration; // L: 512
-						boolean var12 = var13 == WorldMapDecorationType.field3437.id; // L: 514
-						if (!var12) { // L: 516
+				for (int var8 = 0; var8 < var7.length; ++var8) { // L: 593
+					WorldMapDecoration var9 = var7[var8]; // L: 594
+					int var11 = var9.decoration; // L: 597
+					boolean var10 = var11 >= WorldMapDecorationType.field3513.id && var11 <= WorldMapDecorationType.field3532.id; // L: 599
+					if (!var10) { // L: 602
+						int var13 = var9.decoration; // L: 604
+						boolean var12 = var13 == WorldMapDecorationType.field3520.id; // L: 606
+						if (!var12) { // L: 608
 							continue;
 						}
 					}
 
-					ObjectComposition var14 = ParamComposition.getObjectDefinition(var9.objectDefinitionId); // L: 518
-					if (var14.mapSceneId != -1) { // L: 519
-						if (var14.mapSceneId != 46 && var14.mapSceneId != 52) { // L: 520
-							var4[var14.mapSceneId].method7753(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2), this.pixelsPerTile * 2, this.pixelsPerTile * 2); // L: 524
+					ObjectComposition var14 = class116.getObjectDefinition(var9.objectDefinitionId); // L: 610
+					if (var14.mapSceneId != -1) { // L: 611
+						if (var14.mapSceneId != 46 && var14.mapSceneId != 52) { // L: 612
+							var4[var14.mapSceneId].method8161(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2), this.pixelsPerTile * 2, this.pixelsPerTile * 2); // L: 616
 						} else {
-							var4[var14.mapSceneId].method7753(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2), this.pixelsPerTile * 2 + 1, this.pixelsPerTile * 2 + 1); // L: 521
+							var4[var14.mapSceneId].method8161(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2), this.pixelsPerTile * 2 + 1, this.pixelsPerTile * 2 + 1); // L: 613
 						}
 					}
 				}
 			}
 		}
 
-	} // L: 532
+	} // L: 624
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("z")
 	@ObfuscatedSignature(
-		descriptor = "(IILhx;B)V",
-		garbageValue = "-114"
+		descriptor = "(IILiu;B)V",
+		garbageValue = "-88"
 	)
-	void method4471(int var1, int var2, AbstractWorldMapData var3) {
-		for (int var4 = 0; var4 < var3.planes; ++var4) { // L: 535
-			WorldMapDecoration[] var5 = var3.decorations[var4][var1][var2]; // L: 536
-			if (var5 != null && var5.length != 0) { // L: 537
-				WorldMapDecoration[] var6 = var5; // L: 541
+	void method4706(int var1, int var2, AbstractWorldMapData var3) {
+		for (int var4 = 0; var4 < var3.planes; ++var4) { // L: 627
+			WorldMapDecoration[] var5 = var3.decorations[var4][var1][var2]; // L: 628
+			if (var5 != null && var5.length != 0) { // L: 629
+				WorldMapDecoration[] var6 = var5; // L: 633
 
-				for (int var7 = 0; var7 < var6.length; ++var7) { // L: 542
-					WorldMapDecoration var8 = var6[var7]; // L: 543
-					if (class286.method5462(var8.decoration)) { // L: 545
-						ObjectComposition var9 = ParamComposition.getObjectDefinition(var8.objectDefinitionId); // L: 546
-						int var10 = var9.int1 != 0 ? -3407872 : -3355444; // L: 547
-						if (var8.decoration == WorldMapDecorationType.field3424.id) { // L: 548
-							this.method4467(var1, var2, var8.rotation, var10); // L: 549
+				for (int var7 = 0; var7 < var6.length; ++var7) { // L: 634
+					WorldMapDecoration var8 = var6[var7]; // L: 635
+					if (class14.method175(var8.decoration)) { // L: 637
+						ObjectComposition var9 = class116.getObjectDefinition(var8.objectDefinitionId); // L: 638
+						int var10 = var9.int1 != 0 ? -3407872 : -3355444; // L: 639
+						if (var8.decoration == WorldMapDecorationType.field3519.id) { // L: 640
+							this.method4739(var1, var2, var8.rotation, var10); // L: 641
 						}
 
-						if (var8.decoration == WorldMapDecorationType.field3425.id) { // L: 551
-							this.method4467(var1, var2, var8.rotation, -3355444); // L: 552
-							this.method4467(var1, var2, var8.rotation + 1, var10); // L: 553
+						if (var8.decoration == WorldMapDecorationType.field3512.id) { // L: 643
+							this.method4739(var1, var2, var8.rotation, -3355444); // L: 644
+							this.method4739(var1, var2, var8.rotation + 1, var10); // L: 645
 						}
 
-						if (var8.decoration == WorldMapDecorationType.field3426.id) { // L: 555
-							if (var8.rotation == 0) { // L: 556
+						if (var8.decoration == WorldMapDecorationType.field3511.id) { // L: 647
+							if (var8.rotation == 0) { // L: 648
 								Rasterizer2D.Rasterizer2D_drawHorizontalLine(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2), 1, var10);
 							}
 
 							if (var8.rotation == 1) {
-								Rasterizer2D.Rasterizer2D_drawHorizontalLine(this.pixelsPerTile + this.pixelsPerTile * var1 - 1, this.pixelsPerTile * (63 - var2), 1, var10); // L: 557
+								Rasterizer2D.Rasterizer2D_drawHorizontalLine(this.pixelsPerTile * var1 + this.pixelsPerTile - 1, this.pixelsPerTile * (63 - var2), 1, var10); // L: 649
 							}
 
-							if (var8.rotation == 2) { // L: 558
-								Rasterizer2D.Rasterizer2D_drawHorizontalLine(this.pixelsPerTile + this.pixelsPerTile * var1 - 1, this.pixelsPerTile * (63 - var2) + this.pixelsPerTile - 1, 1, var10);
+							if (var8.rotation == 2) { // L: 650
+								Rasterizer2D.Rasterizer2D_drawHorizontalLine(this.pixelsPerTile * var1 + this.pixelsPerTile - 1, this.pixelsPerTile * (63 - var2) + this.pixelsPerTile - 1, 1, var10);
 							}
 
-							if (var8.rotation == 3) { // L: 559
+							if (var8.rotation == 3) { // L: 651
 								Rasterizer2D.Rasterizer2D_drawHorizontalLine(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2) + this.pixelsPerTile - 1, 1, var10);
 							}
 						}
 
-						if (var8.decoration == WorldMapDecorationType.field3429.id) { // L: 561
-							int var11 = var8.rotation % 2; // L: 562
+						if (var8.decoration == WorldMapDecorationType.field3514.id) { // L: 653
+							int var11 = var8.rotation % 2; // L: 654
 							int var12;
-							if (var11 == 0) { // L: 563
-								for (var12 = 0; var12 < this.pixelsPerTile; ++var12) { // L: 564
-									Rasterizer2D.Rasterizer2D_drawHorizontalLine(var12 + this.pixelsPerTile * var1, (64 - var2) * this.pixelsPerTile - 1 - var12, 1, var10); // L: 565
+							if (var11 == 0) { // L: 655
+								for (var12 = 0; var12 < this.pixelsPerTile; ++var12) { // L: 656
+									Rasterizer2D.Rasterizer2D_drawHorizontalLine(var12 + this.pixelsPerTile * var1, (64 - var2) * this.pixelsPerTile - 1 - var12, 1, var10); // L: 657
 								}
 							} else {
-								for (var12 = 0; var12 < this.pixelsPerTile; ++var12) { // L: 569
-									Rasterizer2D.Rasterizer2D_drawHorizontalLine(var12 + this.pixelsPerTile * var1, var12 + this.pixelsPerTile * (63 - var2), 1, var10); // L: 570
+								for (var12 = 0; var12 < this.pixelsPerTile; ++var12) { // L: 661
+									Rasterizer2D.Rasterizer2D_drawHorizontalLine(var12 + this.pixelsPerTile * var1, var12 + this.pixelsPerTile * (63 - var2), 1, var10); // L: 662
 								}
 							}
 						}
 					}
-				}
-			}
-		}
-
-	} // L: 579
-
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		descriptor = "(IILjava/util/HashSet;II)V",
-		garbageValue = "2025693021"
-	)
-	@Export("drawNonLinkMapIcons")
-	void drawNonLinkMapIcons(int var1, int var2, HashSet var3, int var4) {
-		float var5 = (float)var4 / 64.0F; // L: 582
-		float var6 = var5 / 2.0F; // L: 583
-		Iterator var7 = this.iconMap.entrySet().iterator(); // L: 584
-
-		while (var7.hasNext()) {
-			Entry var8 = (Entry)var7.next(); // L: 585
-			Coord var9 = (Coord)var8.getKey(); // L: 587
-			int var10 = (int)(var5 * (float)var9.x + (float)var1 - var6); // L: 588
-			int var11 = (int)((float)(var2 + var4) - var5 * (float)var9.y - var6); // L: 589
-			AbstractWorldMapIcon var12 = (AbstractWorldMapIcon)var8.getValue(); // L: 590
-			if (var12 != null && var12.hasValidElement()) { // L: 591
-				var12.screenX = var10; // L: 592
-				var12.screenY = var11; // L: 593
-				WorldMapElement var13 = class126.WorldMapElement_get(var12.getElement()); // L: 594
-				if (!var3.contains(var13.getObjectId())) { // L: 595
-					this.method4476(var12, var10, var11, var5); // L: 596
-				}
-			}
-		}
-
-	} // L: 601
-
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/util/HashSet;IIB)V",
-		garbageValue = "5"
-	)
-	void method4464(HashSet var1, int var2, int var3) {
-		Iterator var4 = this.icon0List.iterator(); // L: 604
-
-		while (var4.hasNext()) { // L: 613
-			AbstractWorldMapIcon var5 = (AbstractWorldMapIcon)var4.next(); // L: 605
-			if (var5.hasValidElement()) { // L: 607
-				WorldMapElement var6 = class126.WorldMapElement_get(var5.getElement()); // L: 608
-				if (var6 != null && var1.contains(var6.getObjectId())) { // L: 609
-					this.drawBackgroundCircle(var6, var5.screenX, var5.screenY, var2, var3); // L: 610
-				}
-			}
-		}
-
-	} // L: 614
-
-	@ObfuscatedName("b")
-	@ObfuscatedSignature(
-		descriptor = "(Lfr;IIIII)V",
-		garbageValue = "418620224"
-	)
-	@Export("drawBackgroundCircle")
-	void drawBackgroundCircle(WorldMapElement var1, int var2, int var3, int var4, int var5) {
-		SpritePixels var6 = var1.getSpriteBool(false); // L: 617
-		if (var6 != null) { // L: 618
-			var6.drawTransBgAt(var2 - var6.subWidth / 2, var3 - var6.subHeight / 2); // L: 621
-			if (var4 % var5 < var5 / 2) { // L: 622
-				Rasterizer2D.Rasterizer2D_drawCircleAlpha(var2, var3, 15, 16776960, 128); // L: 623
-				Rasterizer2D.Rasterizer2D_drawCircleAlpha(var2, var3, 7, 16777215, 256); // L: 624
-			}
-
-		}
-	} // L: 619 626
-
-	@ObfuscatedName("z")
-	@ObfuscatedSignature(
-		descriptor = "(Lix;IIFI)V",
-		garbageValue = "-696046692"
-	)
-	void method4476(AbstractWorldMapIcon var1, int var2, int var3, float var4) {
-		WorldMapElement var5 = class126.WorldMapElement_get(var1.getElement()); // L: 629
-		this.method4503(var5, var2, var3); // L: 630
-		this.method4522(var1, var5, var2, var3, var4); // L: 631
-	} // L: 632
-
-	@ObfuscatedName("ap")
-	@ObfuscatedSignature(
-		descriptor = "(Lfr;III)V",
-		garbageValue = "1445965665"
-	)
-	void method4503(WorldMapElement var1, int var2, int var3) {
-		SpritePixels var4 = var1.getSpriteBool(false); // L: 635
-		if (var4 != null) { // L: 636
-			int var5 = this.method4475(var4, var1.horizontalAlignment); // L: 637
-			int var6 = this.method4555(var4, var1.verticalAlignment); // L: 638
-			var4.drawTransBgAt(var5 + var2, var3 + var6); // L: 639
-		}
-
-	} // L: 641
-
-	@ObfuscatedName("af")
-	@ObfuscatedSignature(
-		descriptor = "(Lix;Lfr;IIFI)V",
-		garbageValue = "1143588429"
-	)
-	void method4522(AbstractWorldMapIcon var1, WorldMapElement var2, int var3, int var4, float var5) {
-		WorldMapLabel var6 = var1.getLabel(); // L: 644
-		if (var6 != null) { // L: 645
-			if (var6.size.method4311(var5)) { // L: 648
-				Font var7 = (Font)this.fonts.get(var6.size); // L: 651
-				var7.drawLines(var6.text, var3 - var6.width / 2, var4, var6.width, var6.height, -16777216 | var2.field1767, 0, 1, 0, var7.ascent / 2); // L: 652
-			}
-		}
-	} // L: 646 649 653
-
-	@ObfuscatedName("ak")
-	@ObfuscatedSignature(
-		descriptor = "(IILjava/util/HashSet;II)V",
-		garbageValue = "-1498016817"
-	)
-	@Export("drawMapLinks")
-	void drawMapLinks(int var1, int var2, HashSet var3, int var4) {
-		float var5 = (float)var4 / 64.0F; // L: 656
-		Iterator var6 = this.icon0List.iterator(); // L: 657
-
-		while (var6.hasNext()) {
-			AbstractWorldMapIcon var7 = (AbstractWorldMapIcon)var6.next(); // L: 658
-			if (var7.hasValidElement()) { // L: 660
-				int var8 = var7.coord2.x % 64; // L: 661
-				int var9 = var7.coord2.y % 64; // L: 662
-				var7.screenX = (int)(var5 * (float)var8 + (float)var1); // L: 663
-				var7.screenY = (int)(var5 * (float)(63 - var9) + (float)var2); // L: 664
-				if (!var3.contains(var7.getElement())) { // L: 665
-					this.method4476(var7, var7.screenX, var7.screenY, var5); // L: 668
 				}
 			}
 		}
 
 	} // L: 671
 
-	@ObfuscatedName("av")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(Lpt;Lfh;I)I",
-		garbageValue = "1758248115"
+		descriptor = "(IILjava/util/HashSet;II)V",
+		garbageValue = "-162919389"
 	)
-	int method4475(SpritePixels var1, HorizontalAlignment var2) {
-		switch(var2.value) { // L: 674
+	@Export("drawNonLinkMapIcons")
+	void drawNonLinkMapIcons(int var1, int var2, HashSet var3, int var4) {
+		float var5 = (float)var4 / 64.0F; // L: 674
+		float var6 = var5 / 2.0F; // L: 675
+		Iterator var7 = this.iconMap.entrySet().iterator(); // L: 676
+
+		while (var7.hasNext()) {
+			Entry var8 = (Entry)var7.next(); // L: 677
+			Coord var9 = (Coord)var8.getKey(); // L: 679
+			int var10 = (int)((float)var1 + var5 * (float)var9.x - var6); // L: 680
+			int var11 = (int)((float)(var2 + var4) - var5 * (float)var9.y - var6); // L: 681
+			AbstractWorldMapIcon var12 = (AbstractWorldMapIcon)var8.getValue(); // L: 682
+			if (var12 != null && var12.hasValidElement()) { // L: 683
+				var12.screenX = var10; // L: 684
+				var12.screenY = var11; // L: 685
+				WorldMapElement var13 = class19.WorldMapElement_get(var12.getElement()); // L: 686
+				if (!var3.contains(var13.getObjectId())) { // L: 687
+					this.method4695(var12, var10, var11, var5); // L: 688
+				}
+			}
+		}
+
+	} // L: 693
+
+	@ObfuscatedName("t")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/util/HashSet;IIB)V",
+		garbageValue = "-127"
+	)
+	void method4693(HashSet var1, int var2, int var3) {
+		Iterator var4 = this.icon0List.iterator(); // L: 696
+
+		while (var4.hasNext()) {
+			AbstractWorldMapIcon var5 = (AbstractWorldMapIcon)var4.next(); // L: 697
+			if (var5.hasValidElement()) { // L: 699
+				WorldMapElement var6 = class19.WorldMapElement_get(var5.getElement()); // L: 700
+				if (var6 != null && var1.contains(var6.getObjectId())) { // L: 701
+					this.drawBackgroundCircle(var6, var5.screenX, var5.screenY, var2, var3); // L: 702
+				}
+			}
+		}
+
+	} // L: 706
+
+	@ObfuscatedName("i")
+	@ObfuscatedSignature(
+		descriptor = "(Lfs;IIIIB)V",
+		garbageValue = "-10"
+	)
+	@Export("drawBackgroundCircle")
+	void drawBackgroundCircle(WorldMapElement var1, int var2, int var3, int var4, int var5) {
+		SpritePixels var6 = var1.getSpriteBool(false); // L: 709
+		if (var6 != null) { // L: 710
+			var6.drawTransBgAt(var2 - var6.subWidth / 2, var3 - var6.subHeight / 2); // L: 713
+			if (var4 % var5 < var5 / 2) { // L: 714
+				Rasterizer2D.Rasterizer2D_drawCircleAlpha(var2, var3, 15, 16776960, 128); // L: 715
+				Rasterizer2D.Rasterizer2D_drawCircleAlpha(var2, var3, 7, 16777215, 256); // L: 716
+			}
+
+		}
+	} // L: 711 718
+
+	@ObfuscatedName("ac")
+	@ObfuscatedSignature(
+		descriptor = "(Lic;IIFI)V",
+		garbageValue = "1970229100"
+	)
+	void method4695(AbstractWorldMapIcon var1, int var2, int var3, float var4) {
+		WorldMapElement var5 = class19.WorldMapElement_get(var1.getElement()); // L: 721
+		this.method4696(var5, var2, var3); // L: 722
+		this.method4789(var1, var5, var2, var3, var4); // L: 723
+	} // L: 724
+
+	@ObfuscatedName("ax")
+	@ObfuscatedSignature(
+		descriptor = "(Lfs;IIB)V",
+		garbageValue = "44"
+	)
+	void method4696(WorldMapElement var1, int var2, int var3) {
+		SpritePixels var4 = var1.getSpriteBool(false); // L: 727
+		if (var4 != null) { // L: 728
+			int var5 = this.method4710(var4, var1.horizontalAlignment); // L: 729
+			int var6 = this.method4700(var4, var1.verticalAlignment); // L: 730
+			var4.drawTransBgAt(var5 + var2, var3 + var6); // L: 731
+		}
+
+	} // L: 733
+
+	@ObfuscatedName("ay")
+	@ObfuscatedSignature(
+		descriptor = "(Lic;Lfs;IIFS)V",
+		garbageValue = "-3122"
+	)
+	void method4789(AbstractWorldMapIcon var1, WorldMapElement var2, int var3, int var4, float var5) {
+		WorldMapLabel var6 = var1.getLabel(); // L: 736
+		if (var6 != null) { // L: 737
+			if (var6.size.method4532(var5)) { // L: 740
+				Font var7 = (Font)this.fonts.get(var6.size); // L: 743
+				var7.drawLines(var6.text, var3 - var6.width / 2, var4, var6.width, var6.height, -16777216 | var2.field1833, 0, 1, 0, var7.ascent / 2); // L: 744
+			}
+		}
+	} // L: 738 741 745
+
+	@ObfuscatedName("au")
+	@ObfuscatedSignature(
+		descriptor = "(IILjava/util/HashSet;IS)V",
+		garbageValue = "16351"
+	)
+	@Export("drawMapLinks")
+	void drawMapLinks(int var1, int var2, HashSet var3, int var4) {
+		float var5 = (float)var4 / 64.0F; // L: 748
+		Iterator var6 = this.icon0List.iterator(); // L: 749
+
+		while (var6.hasNext()) {
+			AbstractWorldMapIcon var7 = (AbstractWorldMapIcon)var6.next(); // L: 750
+			if (var7.hasValidElement()) { // L: 752
+				int var8 = var7.coord2.x % 64; // L: 753
+				int var9 = var7.coord2.y % 64; // L: 754
+				var7.screenX = (int)(var5 * (float)var8 + (float)var1); // L: 755
+				var7.screenY = (int)((float)(63 - var9) * var5 + (float)var2); // L: 756
+				if (!var3.contains(var7.getElement())) { // L: 757
+					this.method4695(var7, var7.screenX, var7.screenY, var5); // L: 760
+				}
+			}
+		}
+
+	} // L: 763
+
+	@ObfuscatedName("at")
+	@ObfuscatedSignature(
+		descriptor = "(Lql;Lfg;I)I",
+		garbageValue = "1542273594"
+	)
+	int method4710(SpritePixels var1, HorizontalAlignment var2) {
+		switch(var2.value) { // L: 766
 		case 0:
-			return 0; // L: 677
+			return 0; // L: 769
 		case 1:
-			return -var1.subWidth / 2; // L: 681
+			return -var1.subWidth / 2; // L: 777
 		default:
-			return -var1.subWidth; // L: 685
+			return -var1.subWidth; // L: 773
+		}
+	}
+
+	@ObfuscatedName("aw")
+	@ObfuscatedSignature(
+		descriptor = "(Lql;Lfm;I)I",
+		garbageValue = "-646566813"
+	)
+	int method4700(SpritePixels var1, VerticalAlignment var2) {
+		switch(var2.value) { // L: 783
+		case 0:
+			return -var1.subHeight / 2; // L: 794
+		case 2:
+			return 0; // L: 790
+		default:
+			return -var1.subHeight; // L: 786
 		}
 	}
 
 	@ObfuscatedName("ar")
 	@ObfuscatedSignature(
-		descriptor = "(Lpt;Lfo;B)I",
-		garbageValue = "50"
+		descriptor = "(II)Liw;",
+		garbageValue = "836188853"
 	)
-	int method4555(SpritePixels var1, VerticalAlignment var2) {
-		switch(var2.value) { // L: 691
-		case 0:
-			return -var1.subHeight / 2; // L: 694
-		case 2:
-			return 0; // L: 702
-		default:
-			return -var1.subHeight; // L: 698
-		}
+	WorldMapLabel method4675(int var1) {
+		WorldMapElement var2 = class19.WorldMapElement_get(var1); // L: 800
+		return this.createMapLabel(var2); // L: 801
 	}
 
-	@ObfuscatedName("aa")
+	@ObfuscatedName("ae")
 	@ObfuscatedSignature(
-		descriptor = "(II)Lhp;",
-		garbageValue = "-967738245"
-	)
-	WorldMapLabel method4477(int var1) {
-		WorldMapElement var2 = class126.WorldMapElement_get(var1); // L: 729
-		return this.createMapLabel(var2); // L: 730
-	}
-
-	@ObfuscatedName("ao")
-	@ObfuscatedSignature(
-		descriptor = "(Lfr;I)Lhp;",
-		garbageValue = "865645266"
+		descriptor = "(Lfs;I)Liw;",
+		garbageValue = "-2050165109"
 	)
 	@Export("createMapLabel")
 	WorldMapLabel createMapLabel(WorldMapElement var1) {
-		if (var1.name != null && this.fonts != null && this.fonts.get(WorldMapLabelSize.WorldMapLabelSize_small) != null) { // L: 734
-			WorldMapLabelSize var2 = WorldMapLabelSize.method4320(var1.textSize); // L: 737
-			if (var2 == null) { // L: 738
-				return null; // L: 739
+		if (var1.name != null && this.fonts != null && this.fonts.get(WorldMapLabelSize.WorldMapLabelSize_small) != null) { // L: 805
+			WorldMapLabelSize var2 = WorldMapLabelSize.method4536(var1.textSize); // L: 808
+			if (var2 == null) { // L: 809
+				return null; // L: 810
 			} else {
-				Font var3 = (Font)this.fonts.get(var2); // L: 741
-				if (var3 == null) { // L: 742
-					return null; // L: 743
+				Font var3 = (Font)this.fonts.get(var2); // L: 812
+				if (var3 == null) { // L: 813
+					return null; // L: 814
 				} else {
-					int var4 = var3.lineCount(var1.name, 1000000); // L: 745
-					String[] var5 = new String[var4]; // L: 746
-					var3.breakLines(var1.name, (int[])null, var5); // L: 747
-					int var6 = var5.length * var3.ascent / 2; // L: 748
-					int var7 = 0; // L: 749
-					String[] var8 = var5; // L: 751
+					int var4 = var3.lineCount(var1.name, 1000000); // L: 816
+					String[] var5 = new String[var4]; // L: 817
+					var3.breakLines(var1.name, (int[])null, var5); // L: 818
+					int var6 = var5.length * var3.ascent / 2; // L: 819
+					int var7 = 0; // L: 820
+					String[] var8 = var5; // L: 822
 
-					for (int var9 = 0; var9 < var8.length; ++var9) { // L: 752
-						String var10 = var8[var9]; // L: 753
-						int var11 = var3.stringWidth(var10); // L: 755
-						if (var11 > var7) { // L: 756
-							var7 = var11; // L: 757
+					for (int var9 = 0; var9 < var8.length; ++var9) { // L: 823
+						String var10 = var8[var9]; // L: 824
+						int var11 = var3.stringWidth(var10); // L: 826
+						if (var11 > var7) { // L: 827
+							var7 = var11; // L: 828
 						}
 					}
 
-					return new WorldMapLabel(var1.name, var7, var6, var2); // L: 762
+					return new WorldMapLabel(var1.name, var7, var6, var2); // L: 833
 				}
 			}
 		} else {
-			return null; // L: 735
+			return null; // L: 806
 		}
 	}
 
-	@ObfuscatedName("aq")
+	@ObfuscatedName("ab")
 	@ObfuscatedSignature(
-		descriptor = "(IIIIII)Ljava/util/List;",
-		garbageValue = "-1549827680"
+		descriptor = "(IIIIIB)Ljava/util/List;",
+		garbageValue = "123"
 	)
-	List method4449(int var1, int var2, int var3, int var4, int var5) {
-		LinkedList var6 = new LinkedList(); // L: 766
-		if (var4 >= var1 && var5 >= var2) { // L: 767
-			if (var4 < var3 + var1 && var5 < var3 + var2) { // L: 768
-				Iterator var7 = this.iconMap.values().iterator(); // L: 769
+	List method4703(int var1, int var2, int var3, int var4, int var5) {
+		LinkedList var6 = new LinkedList(); // L: 837
+		if (var4 >= var1 && var5 >= var2) { // L: 838
+			if (var4 < var3 + var1 && var5 < var3 + var2) { // L: 839
+				Iterator var7 = this.iconMap.values().iterator();
 
 				AbstractWorldMapIcon var8;
-				while (var7.hasNext()) {
-					var8 = (AbstractWorldMapIcon)var7.next(); // L: 770
-					if (var8.hasValidElement() && var8.fitsScreen(var4, var5)) { // L: 772
-						var6.add(var8); // L: 773
+				while (var7.hasNext()) { // L: 840
+					var8 = (AbstractWorldMapIcon)var7.next(); // L: 841
+					if (var8.hasValidElement() && var8.fitsScreen(var4, var5)) { // L: 843
+						var6.add(var8); // L: 844
 					}
 				}
 
-				var7 = this.icon0List.iterator(); // L: 777
+				var7 = this.icon0List.iterator(); // L: 848
 
 				while (var7.hasNext()) {
-					var8 = (AbstractWorldMapIcon)var7.next(); // L: 778
-					if (var8.hasValidElement() && var8.fitsScreen(var4, var5)) { // L: 780
-						var6.add(var8); // L: 781
+					var8 = (AbstractWorldMapIcon)var7.next(); // L: 849
+					if (var8.hasValidElement() && var8.fitsScreen(var4, var5)) { // L: 851
+						var6.add(var8); // L: 852
 					}
 				}
 
-				return var6; // L: 785
+				return var6; // L: 856
 			} else {
-				return var6; // L: 776
+				return var6; // L: 847
 			}
 		} else {
 			return var6;
 		}
 	}
 
-	@ObfuscatedName("ay")
+	@ObfuscatedName("aa")
 	@ObfuscatedSignature(
-		descriptor = "(I)Ljava/util/List;",
-		garbageValue = "753010260"
+		descriptor = "(B)Ljava/util/List;",
+		garbageValue = "32"
 	)
 	@Export("icons")
 	List icons() {
-		LinkedList var1 = new LinkedList(); // L: 789
-		var1.addAll(this.icon0List); // L: 790
-		var1.addAll(this.iconMap.values()); // L: 791
-		return var1; // L: 792
+		LinkedList var1 = new LinkedList(); // L: 860
+		var1.addAll(this.icon0List); // L: 861
+		var1.addAll(this.iconMap.values()); // L: 862
+		return var1; // L: 863
 	}
 
-	@ObfuscatedName("ac")
+	@ObfuscatedName("ad")
 	@ObfuscatedSignature(
-		descriptor = "(IIIIB)V",
-		garbageValue = "23"
+		descriptor = "(IIIII)V",
+		garbageValue = "-1810808163"
 	)
-	void method4467(int var1, int var2, int var3, int var4) {
-		var3 %= 4; // L: 796
-		if (var3 == 0) { // L: 797
+	void method4739(int var1, int var2, int var3, int var4) {
+		var3 %= 4; // L: 867
+		if (var3 == 0) { // L: 868
 			Rasterizer2D.Rasterizer2D_drawVerticalLine(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2), this.pixelsPerTile, var4);
 		}
 
-		if (var3 == 1) { // L: 798
+		if (var3 == 1) { // L: 869
 			Rasterizer2D.Rasterizer2D_drawHorizontalLine(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2), this.pixelsPerTile, var4);
 		}
 
-		if (var3 == 2) { // L: 799
-			Rasterizer2D.Rasterizer2D_drawVerticalLine(this.pixelsPerTile * var1 + this.pixelsPerTile - 1, this.pixelsPerTile * (63 - var2), this.pixelsPerTile, var4);
+		if (var3 == 2) { // L: 870
+			Rasterizer2D.Rasterizer2D_drawVerticalLine(this.pixelsPerTile + this.pixelsPerTile * var1 - 1, this.pixelsPerTile * (63 - var2), this.pixelsPerTile, var4);
 		}
 
 		if (var3 == 3) {
-			Rasterizer2D.Rasterizer2D_drawHorizontalLine(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2) + this.pixelsPerTile - 1, this.pixelsPerTile, var4); // L: 800
+			Rasterizer2D.Rasterizer2D_drawHorizontalLine(this.pixelsPerTile * var1, this.pixelsPerTile * (63 - var2) + this.pixelsPerTile - 1, this.pixelsPerTile, var4); // L: 871
 		}
 
-	} // L: 801
+	} // L: 872
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(IIIII)I",
-		garbageValue = "2136379260"
+		descriptor = "(II)I",
+		garbageValue = "2014559127"
 	)
-	static final int method4495(int var0, int var1, int var2, int var3) {
-		int var4 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var2 * 1024 / var3] >> 1; // L: 979
-		return ((65536 - var4) * var0 >> 16) + (var4 * var1 >> 16); // L: 980
+	@Export("getVarbit")
+	public static int getVarbit(int var0) {
+		VarbitComposition var2 = (VarbitComposition)VarbitComposition.VarbitDefinition_cached.get((long)var0); // L: 26
+		VarbitComposition var1;
+		if (var2 != null) { // L: 27
+			var1 = var2; // L: 28
+		} else {
+			byte[] var3 = VarbitComposition.VarbitDefinition_archive.takeFile(14, var0); // L: 31
+			var2 = new VarbitComposition(); // L: 32
+			if (var3 != null) { // L: 33
+				var2.decode(new Buffer(var3));
+			}
+
+			VarbitComposition.VarbitDefinition_cached.put(var2, (long)var0); // L: 34
+			var1 = var2; // L: 35
+		}
+
+		int var7 = var1.baseVar; // L: 38
+		int var4 = var1.startBit; // L: 39
+		int var5 = var1.endBit; // L: 40
+		int var6 = Varps.Varps_masks[var5 - var4]; // L: 41
+		return Varps.Varps_main[var7] >> var4 & var6; // L: 42
 	}
+
+	@ObfuscatedName("hc")
+	@ObfuscatedSignature(
+		descriptor = "(Lck;B)V",
+		garbageValue = "3"
+	)
+	static final void method4795(PendingSpawn var0) {
+		long var1 = 0L; // L: 7373
+		int var3 = -1; // L: 7374
+		int var4 = 0; // L: 7375
+		int var5 = 0; // L: 7376
+		if (var0.type == 0) { // L: 7377
+			var1 = FriendSystem.scene.getBoundaryObjectTag(var0.plane, var0.x, var0.y);
+		}
+
+		if (var0.type == 1) { // L: 7378
+			var1 = FriendSystem.scene.getWallDecorationTag(var0.plane, var0.x, var0.y);
+		}
+
+		if (var0.type == 2) { // L: 7379
+			var1 = FriendSystem.scene.getGameObjectTag(var0.plane, var0.x, var0.y);
+		}
+
+		if (var0.type == 3) { // L: 7380
+			var1 = FriendSystem.scene.getFloorDecorationTag(var0.plane, var0.x, var0.y);
+		}
+
+		if (0L != var1) { // L: 7381
+			int var6 = FriendSystem.scene.getObjectFlags(var0.plane, var0.x, var0.y, var1); // L: 7382
+			var3 = class121.Entity_unpackID(var1); // L: 7383
+			var4 = var6 & 31; // L: 7384
+			var5 = var6 >> 6 & 3; // L: 7385
+		}
+
+		var0.objectId = var3; // L: 7387
+		var0.field1119 = var4; // L: 7388
+		var0.field1117 = var5; // L: 7389
+	} // L: 7390
+
+	@ObfuscatedName("ls")
+	@ObfuscatedSignature(
+		descriptor = "(Lpd;II)V",
+		garbageValue = "56012862"
+	)
+	static void method4798(Buffer var0, int var1) {
+		FontName.method7510(var0.array, var1); // L: 11875
+		if (JagexCache.JagexCache_randomDat != null) { // L: 11877
+			try {
+				JagexCache.JagexCache_randomDat.seek(0L); // L: 11879
+				JagexCache.JagexCache_randomDat.write(var0.array, var1, 24); // L: 11880
+			} catch (Exception var3) { // L: 11882
+			}
+		}
+
+	} // L: 11885
 }

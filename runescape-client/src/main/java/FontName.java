@@ -2,59 +2,54 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("ox")
+@ObfuscatedName("oa")
 @Implements("FontName")
 public class FontName {
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lox;"
+		descriptor = "Loa;"
 	)
 	@Export("FontName_plain11")
 	public static final FontName FontName_plain11;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Lox;"
+		descriptor = "Loa;"
 	)
 	@Export("FontName_plain12")
 	public static final FontName FontName_plain12;
-	@ObfuscatedName("s")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Lox;"
+		descriptor = "Loa;"
 	)
 	@Export("FontName_bold12")
 	public static final FontName FontName_bold12;
-	@ObfuscatedName("e")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "Lox;"
+		descriptor = "Loa;"
 	)
 	@Export("FontName_verdana11")
 	public static final FontName FontName_verdana11;
-	@ObfuscatedName("r")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lox;"
+		descriptor = "Loa;"
 	)
 	@Export("FontName_verdana13")
 	public static final FontName FontName_verdana13;
-	@ObfuscatedName("o")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lox;"
+		descriptor = "Loa;"
 	)
 	@Export("FontName_verdana15")
 	public static final FontName FontName_verdana15;
-	@ObfuscatedName("dx")
+	@ObfuscatedName("pv")
 	@ObfuscatedSignature(
-		descriptor = "Lfw;"
+		descriptor = "Lps;"
 	)
-	@Export("js5SocketTask")
-	static Task js5SocketTask;
-	@ObfuscatedName("eg")
-	@ObfuscatedSignature(
-		descriptor = "Lkz;"
-	)
-	@Export("archive15")
-	static Archive archive15;
-	@ObfuscatedName("i")
+	@Export("HitSplatDefinition_cached")
+	static class426 HitSplatDefinition_cached;
+	@ObfuscatedName("d")
 	@Export("name")
 	String name;
 
@@ -68,46 +63,142 @@ public class FontName {
 	}
 
 	FontName(String var1) {
-		this.name = var1; // L: 20
-	} // L: 21
+		this.name = var1; // L: 16
+	} // L: 17
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "(I)[Lox;",
-		garbageValue = "1811636946"
+		descriptor = "(B)V",
+		garbageValue = "8"
 	)
-	public static FontName[] method7085() {
-		return new FontName[]{FontName_plain12, FontName_verdana11, FontName_bold12, FontName_plain11, FontName_verdana15, FontName_verdana13}; // L: 16
-	}
+	public static void method7509() {
+		VarpDefinition.VarpDefinition_cached.clear(); // L: 41
+	} // L: 42
 
-	@ObfuscatedName("iv")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1759173263"
+		descriptor = "(ILbo;ZI)I",
+		garbageValue = "35948304"
 	)
-	@Export("decrementMenuEntries")
-	static void decrementMenuEntries() {
-		for (int var0 = 0; var0 < Client.menuOptionsCount; ++var0) { // L: 9355
-			int var2 = Client.menuOpcodes[var0]; // L: 9357
-			boolean var1 = var2 == 57 || var2 == 58 || var2 == 1007 || var2 == 25 || var2 == 30; // L: 9359
-			if (var1) { // L: 9361
-				if (var0 < Client.menuOptionsCount - 1) { // L: 9362
-					for (int var3 = var0; var3 < Client.menuOptionsCount - 1; ++var3) { // L: 9363
-						Client.menuActions[var3] = Client.menuActions[var3 + 1]; // L: 9364
-						Client.menuTargets[var3] = Client.menuTargets[var3 + 1]; // L: 9365
-						Client.menuOpcodes[var3] = Client.menuOpcodes[var3 + 1]; // L: 9366
-						Client.menuIdentifiers[var3] = Client.menuIdentifiers[var3 + 1]; // L: 9367
-						Client.menuArguments1[var3] = Client.menuArguments1[var3 + 1]; // L: 9368
-						Client.menuArguments2[var3] = Client.menuArguments2[var3 + 1]; // L: 9369
-						Client.menuShiftClick[var3] = Client.menuShiftClick[var3 + 1]; // L: 9370
-					}
+	static int method7511(int var0, Script var1, boolean var2) {
+		int var4;
+		int var9;
+		if (var0 == ScriptOpcodes.CC_CREATE) { // L: 478
+			class295.Interpreter_intStackSize -= 3; // L: 479
+			var9 = Interpreter.Interpreter_intStack[class295.Interpreter_intStackSize]; // L: 480
+			var4 = Interpreter.Interpreter_intStack[class295.Interpreter_intStackSize + 1]; // L: 481
+			int var11 = Interpreter.Interpreter_intStack[class295.Interpreter_intStackSize + 2]; // L: 482
+			if (var4 == 0) { // L: 483
+				throw new RuntimeException(); // L: 484
+			} else {
+				Widget var6 = HorizontalAlignment.getWidget(var9); // L: 486
+				if (var6.children == null) { // L: 487
+					var6.children = new Widget[var11 + 1];
 				}
 
-				--var0; // L: 9373
-				--Client.menuOptionsCount; // L: 9374
+				if (var6.children.length <= var11) { // L: 488
+					Widget[] var7 = new Widget[var11 + 1]; // L: 489
+
+					for (int var8 = 0; var8 < var6.children.length; ++var8) { // L: 490
+						var7[var8] = var6.children[var8];
+					}
+
+					var6.children = var7; // L: 491
+				}
+
+				if (var11 > 0 && var6.children[var11 - 1] == null) { // L: 493
+					throw new RuntimeException("" + (var11 - 1));
+				} else {
+					Widget var12 = new Widget(); // L: 494
+					var12.type = var4; // L: 495
+					var12.parentId = var12.id = var6.id; // L: 496
+					var12.childIndex = var11; // L: 497
+					var12.isIf3 = true; // L: 498
+					var6.children[var11] = var12; // L: 499
+					if (var2) { // L: 500
+						class432.scriptDotWidget = var12;
+					} else {
+						class341.scriptActiveWidget = var12; // L: 501
+					}
+
+					class290.invalidateWidget(var6); // L: 502
+					return 1; // L: 503
+				}
+			}
+		} else {
+			Widget var3;
+			if (var0 == ScriptOpcodes.CC_DELETE) { // L: 505
+				var3 = var2 ? class432.scriptDotWidget : class341.scriptActiveWidget; // L: 506
+				Widget var10 = HorizontalAlignment.getWidget(var3.id); // L: 507
+				var10.children[var3.childIndex] = null; // L: 508
+				class290.invalidateWidget(var10); // L: 509
+				return 1; // L: 510
+			} else if (var0 == ScriptOpcodes.CC_DELETEALL) { // L: 512
+				var3 = HorizontalAlignment.getWidget(Interpreter.Interpreter_intStack[--class295.Interpreter_intStackSize]); // L: 513
+				var3.children = null; // L: 514
+				class290.invalidateWidget(var3); // L: 515
+				return 1; // L: 516
+			} else if (var0 == 103) { // L: 518
+				class295.Interpreter_intStackSize -= 3; // L: 519
+				return 1; // L: 520
+			} else if (var0 == 104) { // L: 522
+				--class295.Interpreter_intStackSize; // L: 523
+				return 1; // L: 524
+			} else if (var0 != ScriptOpcodes.CC_FIND) { // L: 526
+				if (var0 == ScriptOpcodes.IF_FIND) { // L: 539
+					var3 = HorizontalAlignment.getWidget(Interpreter.Interpreter_intStack[--class295.Interpreter_intStackSize]); // L: 540
+					if (var3 != null) { // L: 541
+						Interpreter.Interpreter_intStack[++class295.Interpreter_intStackSize - 1] = 1; // L: 542
+						if (var2) { // L: 543
+							class432.scriptDotWidget = var3;
+						} else {
+							class341.scriptActiveWidget = var3; // L: 544
+						}
+					} else {
+						Interpreter.Interpreter_intStack[++class295.Interpreter_intStackSize - 1] = 0; // L: 546
+					}
+
+					return 1; // L: 547
+				} else if (var0 == 202) { // L: 549
+					Interpreter.Interpreter_intStack[class295.Interpreter_intStackSize + 1] = 0; // L: 550
+					return 1; // L: 551
+				} else if (var0 == 203) { // L: 553
+					Interpreter.Interpreter_intStack[--class295.Interpreter_intStackSize + 1] = 0; // L: 554
+					return 1; // L: 555
+				} else {
+					return 2; // L: 557
+				}
+			} else {
+				class295.Interpreter_intStackSize -= 2; // L: 527
+				var9 = Interpreter.Interpreter_intStack[class295.Interpreter_intStackSize]; // L: 528
+				var4 = Interpreter.Interpreter_intStack[class295.Interpreter_intStackSize + 1]; // L: 529
+				Widget var5 = class143.getWidgetChild(var9, var4); // L: 530
+				if (var5 != null && var4 != -1) { // L: 531
+					Interpreter.Interpreter_intStack[++class295.Interpreter_intStackSize - 1] = 1; // L: 532
+					if (var2) { // L: 533
+						class432.scriptDotWidget = var5;
+					} else {
+						class341.scriptActiveWidget = var5; // L: 534
+					}
+				} else {
+					Interpreter.Interpreter_intStack[++class295.Interpreter_intStackSize - 1] = 0; // L: 536
+				}
+
+				return 1; // L: 537
 			}
 		}
+	}
 
-		Interpreter.method1875(Calendar.menuWidth / 2 + Projectile.menuX, ReflectionCheck.menuY); // L: 9378
-	} // L: 9380
+	@ObfuscatedName("lb")
+	@ObfuscatedSignature(
+		descriptor = "([BII)V",
+		garbageValue = "-1923637215"
+	)
+	static void method7510(byte[] var0, int var1) {
+		if (Client.randomDatData == null) { // L: 11870
+			Client.randomDatData = new byte[24];
+		}
+
+		class350.writeRandomDat(var0, var1, Client.randomDatData, 0, 24); // L: 11871
+	} // L: 11872
 }

@@ -41,7 +41,6 @@ public class RuneliteMenuEntry extends AbstractInjector
 		addInvoke("newRuneliteMenuEntry", true);
 		addInvoke("newBareRuneliteMenuEntry", false);
 		addSwap(InjectUtil.findMethod(inject, "incrementMenuEntries"));
-		addSwap(InjectUtil.findMethod(inject, "decrementMenuEntries"));
 	}
 
 	private void addInvoke(String methodName, boolean iload)

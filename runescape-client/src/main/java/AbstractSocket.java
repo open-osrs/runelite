@@ -4,103 +4,80 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mg")
+@ObfuscatedName("nj")
 @Implements("AbstractSocket")
 public abstract class AbstractSocket {
 	protected AbstractSocket() {
 	} // L: 7
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-499949391"
+		descriptor = "(B)V",
+		garbageValue = "105"
 	)
 	@Export("close")
 	public abstract void close();
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "-86"
+		descriptor = "(I)I",
+		garbageValue = "-1669312252"
 	)
 	@Export("readUnsignedByte")
 	public abstract int readUnsignedByte() throws IOException;
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "2115909346"
+		garbageValue = "-1264669351"
 	)
 	@Export("available")
 	public abstract int available() throws IOException;
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Z",
-		garbageValue = "67"
+		descriptor = "(II)Z",
+		garbageValue = "396806768"
 	)
 	@Export("isAvailable")
 	public abstract boolean isAvailable(int var1) throws IOException;
 
-	@ObfuscatedName("r")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "([BIII)I",
-		garbageValue = "-781316249"
+		garbageValue = "52142940"
 	)
 	@Export("read")
 	public abstract int read(byte[] var1, int var2, int var3) throws IOException;
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "([BIII)V",
-		garbageValue = "300460862"
+		descriptor = "([BIIB)V",
+		garbageValue = "-57"
 	)
 	@Export("write")
 	public abstract void write(byte[] var1, int var2, int var3) throws IOException;
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		descriptor = "(Lpc;I)V",
-		garbageValue = "195231876"
+		descriptor = "(Llq;Llq;Ljava/lang/String;Ljava/lang/String;I)Lmr;",
+		garbageValue = "1832446298"
 	)
-	@Export("updatePlayer")
-	static final void updatePlayer(PacketBuffer var0) {
-		var0.importIndex(); // L: 37
-		int var1 = Client.localPlayerIndex; // L: 38
-		Player var2 = WorldMapSprite.localPlayer = Client.players[var1] = new Player(); // L: 39
-		var2.index = var1; // L: 40
-		int var3 = var0.readBits(30); // L: 41
-		byte var4 = (byte)(var3 >> 28); // L: 42
-		int var5 = var3 >> 14 & 16383; // L: 43
-		int var6 = var3 & 16383; // L: 44
-		var2.pathX[0] = var5 - Canvas.baseX; // L: 45
-		var2.x = (var2.pathX[0] << 7) + (var2.transformedSize() << 6); // L: 46
-		var2.pathY[0] = var6 - class118.baseY; // L: 47
-		var2.y = (var2.pathY[0] << 7) + (var2.transformedSize() << 6); // L: 48
-		SoundSystem.Client_plane = var2.plane = var4; // L: 49
-		if (Players.field1278[var1] != null) { // L: 50
-			var2.read(Players.field1278[var1]);
-		}
+	public static Font method6899(AbstractArchive var0, AbstractArchive var1, String var2, String var3) {
+		int var4 = var0.getGroupId(var2); // L: 94
+		int var5 = var0.getFileId(var4, var3); // L: 95
+		return class19.method319(var0, var1, var4, var5); // L: 96
+	}
 
-		Players.Players_count = 0; // L: 51
-		Players.Players_indices[++Players.Players_count - 1] = var1; // L: 52
-		Players.field1276[var1] = 0; // L: 53
-		Players.Players_emptyIdxCount = 0; // L: 54
-
-		for (int var7 = 1; var7 < 2048; ++var7) { // L: 55
-			if (var7 != var1) { // L: 56
-				int var8 = var0.readBits(18); // L: 57
-				int var9 = var8 >> 16; // L: 58
-				int var10 = var8 >> 8 & 597; // L: 59
-				int var11 = var8 & 597; // L: 60
-				Players.Players_regions[var7] = (var10 << 14) + var11 + (var9 << 28); // L: 61
-				Players.Players_orientations[var7] = 0; // L: 62
-				Players.Players_targetIndices[var7] = -1; // L: 63
-				Players.Players_emptyIndices[++Players.Players_emptyIdxCount - 1] = var7; // L: 64
-				Players.field1276[var7] = 0; // L: 65
-			}
-		}
-
-		var0.exportIndex(); // L: 67
-	} // L: 68
+	@ObfuscatedName("p")
+	@ObfuscatedSignature(
+		descriptor = "(III)I",
+		garbageValue = "1681140308"
+	)
+	static final int method6884(int var0, int var1) {
+		int var2 = var1 * 57 + var0; // L: 1006
+		var2 ^= var2 << 13; // L: 1007
+		int var3 = (var2 * var2 * 15731 + 789221) * var2 + 1376312589 & Integer.MAX_VALUE; // L: 1008
+		return var3 >> 19 & 255; // L: 1009
+	}
 }

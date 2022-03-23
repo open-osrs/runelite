@@ -2,109 +2,78 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dk")
-public class class129 {
-	@ObfuscatedName("c")
-	@ObfuscatedGetter(
-		longValue = 8663139797518624471L
-	)
-	long field1538;
-	@ObfuscatedName("l")
-	@ObfuscatedGetter(
-		intValue = 1174888179
-	)
-	int field1530;
+@ObfuscatedName("dl")
+public class class129 extends class128 {
 	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Llt;"
+		descriptor = "Leh;"
 	)
-	IterableNodeDeque field1531;
+	static ClanSettings field1535;
+	@ObfuscatedName("v")
+	@ObfuscatedGetter(
+		intValue = -312799529
+	)
+	int field1536;
+	@ObfuscatedName("o")
+	boolean field1534;
+	// $FF: synthetic field
+	@ObfuscatedSignature(
+		descriptor = "Lee;"
+	)
+	final class131 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lpi;)V"
+		descriptor = "(Lee;)V"
 	)
-	public class129(Buffer var1) {
-		this.field1530 = -1; // L: 9
-		this.field1531 = new IterableNodeDeque(); // L: 10
-		this.method2777(var1); // L: 28
-	} // L: 29
+	class129(class131 var1) {
+		this.this$0 = var1;
+		this.field1536 = -1; // L: 178
+	} // L: 181
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lpi;I)V",
-		garbageValue = "1524635602"
+		descriptor = "(Lpd;B)V",
+		garbageValue = "-73"
 	)
-	void method2777(Buffer var1) {
-		this.field1538 = var1.readLong(); // L: 32
-		this.field1530 = var1.readInt(); // L: 33
+	void vmethod3107(Buffer var1) {
+		this.field1536 = var1.readUnsignedShort(); // L: 184
+		this.field1534 = var1.readUnsignedByte() == 1; // L: 185
+	} // L: 186
 
-		for (int var2 = var1.readUnsignedByte(); var2 != 0; var2 = var1.readUnsignedByte()) { // L: 34 35 55
-			Object var3;
-			if (var2 == 3) { // L: 37
-				var3 = new class148(this);
-			} else if (var2 == 1) { // L: 38
-				var3 = new class124(this);
-			} else if (var2 == 13) { // L: 39
-				var3 = new class141(this);
-			} else if (var2 == 4) { // L: 40
-				var3 = new class133(this);
-			} else if (var2 == 6) {
-				var3 = new class140(this); // L: 41
-			} else if (var2 == 5) { // L: 42
-				var3 = new class125(this);
-			} else if (var2 == 2) { // L: 43
-				var3 = new class130(this);
-			} else if (var2 == 7) { // L: 44
-				var3 = new class123(this);
-			} else if (var2 == 14) { // L: 45
-				var3 = new class127(this);
-			} else if (var2 == 8) { // L: 46
-				var3 = new class144(this);
-			} else if (var2 == 9) { // L: 47
-				var3 = new class150(this);
-			} else if (var2 == 10) {
-				var3 = new class136(this); // L: 48
-			} else if (var2 == 11) { // L: 49
-				var3 = new class131(this);
-			} else if (var2 == 12) { // L: 50
-				var3 = new class135(this);
-			} else {
-				if (var2 != 15) { // L: 51
-					throw new RuntimeException(""); // L: 52
-				}
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		descriptor = "(Leh;I)V",
+		garbageValue = "-1228032820"
+	)
+	void vmethod3104(ClanSettings var1) {
+		var1.method2925(this.field1536, this.field1534); // L: 189
+	} // L: 190
 
-				var3 = new class145(this);
-			}
-
-			((class126)var3).vmethod3019(var1); // L: 53
-			this.field1531.addFirst((Node)var3); // L: 54
+	@ObfuscatedName("ly")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;ZI)Ljava/lang/String;",
+		garbageValue = "76298290"
+	)
+	static String method2849(String var0, boolean var1) {
+		String var2 = var1 ? "https://" : "http://"; // L: 11815
+		if (Client.gameBuild == 1) { // L: 11816
+			var0 = var0 + "-wtrc";
+		} else if (Client.gameBuild == 2) { // L: 11817
+			var0 = var0 + "-wtqa";
+		} else if (Client.gameBuild == 3) { // L: 11818
+			var0 = var0 + "-wtwip";
+		} else if (Client.gameBuild == 5) { // L: 11819
+			var0 = var0 + "-wti";
+		} else if (Client.gameBuild == 4) { // L: 11820
+			var0 = "local";
 		}
 
-	} // L: 57
-
-	@ObfuscatedName("l")
-	@ObfuscatedSignature(
-		descriptor = "(Ley;I)V",
-		garbageValue = "1848526667"
-	)
-	public void method2775(ClanSettings var1) {
-		if (this.field1538 == var1.field1588 && this.field1530 == var1.field1589) { // L: 60
-			for (class126 var2 = (class126)this.field1531.last(); var2 != null; var2 = (class126)this.field1531.previous()) { // L: 61
-				var2.vmethod3020(var1); // L: 62
-			}
-
-			++var1.field1589; // L: 64
-		} else {
-			throw new RuntimeException("");
+		String var3 = ""; // L: 11821
+		if (class429.field4593 != null) { // L: 11822
+			var3 = "/p=" + class429.field4593;
 		}
-	} // L: 65
 
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		descriptor = "(Lkq;I)V",
-		garbageValue = "-1439723306"
-	)
-	public static void method2774(AbstractArchive var0) {
-		InvDefinition.InvDefinition_archive = var0; // L: 17
-	} // L: 18
+		String var4 = "runescape.com"; // L: 11823
+		return var2 + var0 + "." + var4 + "/l=" + FriendSystem.clientLanguage + "/a=" + class7.field27 + var3 + "/"; // L: 11824
+	}
 }

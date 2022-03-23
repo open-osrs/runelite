@@ -9,66 +9,66 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fc")
+@ObfuscatedName("ft")
 @Implements("NetSocket")
 public final class NetSocket extends AbstractSocket implements Runnable {
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@Export("inputStream")
 	InputStream inputStream;
-	@ObfuscatedName("l")
-	@Export("outputStream")
-	OutputStream outputStream;
-	@ObfuscatedName("s")
+	@ObfuscatedName("o")
 	@Export("socket")
 	Socket socket;
-	@ObfuscatedName("e")
+	@ObfuscatedName("h")
+	@Export("outputStream")
+	OutputStream outputStream;
+	@ObfuscatedName("g")
 	@Export("isClosed")
 	boolean isClosed;
-	@ObfuscatedName("r")
-	@ObfuscatedSignature(
-		descriptor = "Lex;"
-	)
-	@Export("taskHandler")
-	TaskHandler taskHandler;
-	@ObfuscatedName("o")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "Lfw;"
 	)
+	@Export("taskHandler")
+	TaskHandler taskHandler;
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "Lfn;"
+	)
 	@Export("task")
 	Task task;
-	@ObfuscatedName("i")
+	@ObfuscatedName("d")
 	@Export("outBuffer")
 	byte[] outBuffer;
-	@ObfuscatedName("w")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -818522115
+		intValue = 1965865583
 	)
 	@Export("outLength")
 	int outLength;
-	@ObfuscatedName("v")
+	@ObfuscatedName("u")
 	@ObfuscatedGetter(
-		intValue = 991491695
+		intValue = -401346385
 	)
 	@Export("outOffset")
 	int outOffset;
-	@ObfuscatedName("a")
+	@ObfuscatedName("r")
 	@Export("exceptionWriting")
 	boolean exceptionWriting;
-	@ObfuscatedName("y")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 123579555
+		intValue = -418935701
 	)
 	@Export("bufferLength")
 	final int bufferLength;
-	@ObfuscatedName("u")
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = -1696123211
+		intValue = -1680142407
 	)
 	@Export("maxPacketLength")
 	final int maxPacketLength;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/net/Socket;Lex;I)V"
+		descriptor = "(Ljava/net/Socket;Lfw;I)V"
 	)
 	public NetSocket(Socket var1, TaskHandler var2, int var3) throws IOException {
 		this.isClosed = false; // L: 16
@@ -84,63 +84,63 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		this.socket.setReceiveBufferSize(65536); // L: 34
 		this.socket.setSendBufferSize(65536); // L: 35
 		this.inputStream = this.socket.getInputStream(); // L: 36
-		this.outputStream = this.socket.getOutputStream();
-	}
+		this.outputStream = this.socket.getOutputStream(); // L: 37
+	} // L: 38
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-499949391"
+		descriptor = "(B)V",
+		garbageValue = "105"
 	)
 	@Export("close")
 	public void close() {
-		if (!this.isClosed) {
-			synchronized(this) {
-				this.isClosed = true;
+		if (!this.isClosed) { // L: 41
+			synchronized(this) { // L: 42
+				this.isClosed = true; // L: 43
 				this.notifyAll(); // L: 44
-			} // L: 45
+			}
 
-			if (this.task != null) { // L: 46
-				while (this.task.status == 0) { // L: 47
-					Language.method5813(1L); // L: 48
+			if (this.task != null) {
+				while (this.task.status == 0) {
+					GrandExchangeOfferTotalQuantityComparator.method6007(1L);
 				}
 
-				if (this.task.status == 1) { // L: 50
+				if (this.task.status == 1) {
 					try {
-						((Thread)this.task.result).join(); // L: 52
-					} catch (InterruptedException var3) { // L: 54
+						((Thread)this.task.result).join();
+					} catch (InterruptedException var3) {
 					}
 				}
 			}
 
-			this.task = null; // L: 57
+			this.task = null;
 		}
-	} // L: 58
+	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "-86"
+		descriptor = "(I)I",
+		garbageValue = "-1669312252"
 	)
 	@Export("readUnsignedByte")
 	public int readUnsignedByte() throws IOException {
-		return this.isClosed ? 0 : this.inputStream.read(); // L: 65 66
+		return this.isClosed ? 0 : this.inputStream.read();
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "2115909346"
+		garbageValue = "-1264669351"
 	)
 	@Export("available")
 	public int available() throws IOException {
 		return this.isClosed ? 0 : this.inputStream.available();
 	}
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Z",
-		garbageValue = "67"
+		descriptor = "(II)Z",
+		garbageValue = "396806768"
 	)
 	@Export("isAvailable")
 	public boolean isAvailable(int var1) throws IOException {
@@ -151,20 +151,20 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("r")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "([BIII)I",
-		garbageValue = "-781316249"
+		garbageValue = "52142940"
 	)
 	@Export("read")
 	public int read(byte[] var1, int var2, int var3) throws IOException {
-		if (this.isClosed) {
+		if (this.isClosed) { // L: 80
 			return 0;
 		} else {
 			int var4;
 			int var5;
-			for (var4 = var3; var3 > 0; var3 -= var5) {
-				var5 = this.inputStream.read(var1, var2, var3);
+			for (var4 = var3; var3 > 0; var3 -= var5) { // L: 81 82 86
+				var5 = this.inputStream.read(var1, var2, var3); // L: 83
 				if (var5 <= 0) { // L: 84
 					throw new EOFException();
 				}
@@ -172,20 +172,20 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 				var2 += var5; // L: 85
 			}
 
-			return var4;
+			return var4; // L: 88
 		}
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "([BIIS)V",
-		garbageValue = "155"
+		descriptor = "([BIII)V",
+		garbageValue = "2083273816"
 	)
 	@Export("write0")
 	void write0(byte[] var1, int var2, int var3) throws IOException {
-		if (!this.isClosed) {
+		if (!this.isClosed) { // L: 92
 			if (this.exceptionWriting) { // L: 93
-				this.exceptionWriting = false;
+				this.exceptionWriting = false; // L: 94
 				throw new IOException(); // L: 95
 			} else {
 				if (this.outBuffer == null) { // L: 97
@@ -211,15 +211,19 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 		}
 	} // L: 111
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "([BIII)V",
-		garbageValue = "300460862"
+		descriptor = "([BIIB)V",
+		garbageValue = "-57"
 	)
 	@Export("write")
 	public void write(byte[] var1, int var2, int var3) throws IOException {
 		this.write0(var1, var2, var3); // L: 161
 	} // L: 162
+
+	protected void finalize() {
+		this.close();
+	}
 
 	public void run() {
 		try {
@@ -260,7 +264,7 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 					this.outLength = (var1 + this.outLength) % this.bufferLength; // L: 137
 
 					try {
-						if (this.outLength == this.outOffset) { // L: 139
+						if (this.outOffset == this.outLength) { // L: 139
 							this.outputStream.flush();
 						}
 					} catch (IOException var8) { // L: 141
@@ -288,93 +292,95 @@ public final class NetSocket extends AbstractSocket implements Runnable {
 				break;
 			}
 		} catch (Exception var12) { // L: 154
-			FloorDecoration.RunException_sendStackTrace((String)null, var12); // L: 155
+			class301.RunException_sendStackTrace((String)null, var12); // L: 155
 		}
 
 	} // L: 157
 
-	protected void finalize() {
-		this.close(); // L: 61
-	} // L: 62
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/CharSequence;II[BII)I",
+		garbageValue = "682010792"
+	)
+	@Export("encodeStringCp1252")
+	public static int encodeStringCp1252(CharSequence var0, int var1, int var2, byte[] var3, int var4) {
+		int var5 = var2 - var1; // L: 45
+
+		for (int var6 = 0; var6 < var5; ++var6) { // L: 46
+			char var7 = var0.charAt(var6 + var1); // L: 47
+			if (var7 > 0 && var7 < 128 || var7 >= 160 && var7 <= 255) { // L: 48
+				var3[var6 + var4] = (byte)var7;
+			} else if (var7 == 8364) { // L: 49
+				var3[var6 + var4] = -128;
+			} else if (var7 == 8218) { // L: 50
+				var3[var6 + var4] = -126;
+			} else if (var7 == 402) { // L: 51
+				var3[var6 + var4] = -125;
+			} else if (var7 == 8222) { // L: 52
+				var3[var6 + var4] = -124;
+			} else if (var7 == 8230) { // L: 53
+				var3[var6 + var4] = -123;
+			} else if (var7 == 8224) {
+				var3[var6 + var4] = -122;
+			} else if (var7 == 8225) {
+				var3[var6 + var4] = -121;
+			} else if (var7 == 710) {
+				var3[var6 + var4] = -120;
+			} else if (var7 == 8240) {
+				var3[var6 + var4] = -119;
+			} else if (var7 == 352) { // L: 58
+				var3[var6 + var4] = -118;
+			} else if (var7 == 8249) { // L: 59
+				var3[var6 + var4] = -117;
+			} else if (var7 == 338) { // L: 60
+				var3[var6 + var4] = -116;
+			} else if (var7 == 381) { // L: 61
+				var3[var6 + var4] = -114;
+			} else if (var7 == 8216) { // L: 62
+				var3[var6 + var4] = -111;
+			} else if (var7 == 8217) { // L: 63
+				var3[var6 + var4] = -110;
+			} else if (var7 == 8220) { // L: 64
+				var3[var6 + var4] = -109;
+			} else if (var7 == 8221) { // L: 65
+				var3[var6 + var4] = -108;
+			} else if (var7 == 8226) { // L: 66
+				var3[var6 + var4] = -107;
+			} else if (var7 == 8211) { // L: 67
+				var3[var6 + var4] = -106;
+			} else if (var7 == 8212) { // L: 68
+				var3[var6 + var4] = -105;
+			} else if (var7 == 732) { // L: 69
+				var3[var6 + var4] = -104;
+			} else if (var7 == 8482) { // L: 70
+				var3[var6 + var4] = -103;
+			} else if (var7 == 353) { // L: 71
+				var3[var6 + var4] = -102;
+			} else if (var7 == 8250) { // L: 72
+				var3[var6 + var4] = -101;
+			} else if (var7 == 339) { // L: 73
+				var3[var6 + var4] = -100;
+			} else if (var7 == 382) { // L: 74
+				var3[var6 + var4] = -98;
+			} else if (var7 == 376) { // L: 75
+				var3[var6 + var4] = -97;
+			} else {
+				var3[var6 + var4] = 63; // L: 76
+			}
+		}
+
+		return var5; // L: 78
+	}
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Lfs;",
-		garbageValue = "1"
+		descriptor = "(IIII)I",
+		garbageValue = "1228266479"
 	)
-	public static HealthBarDefinition method3073(int var0) {
-		HealthBarDefinition var1 = (HealthBarDefinition)HealthBarDefinition.HealthBarDefinition_cached.get((long)var0); // L: 37
-		if (var1 != null) { // L: 38
-			return var1;
-		} else {
-			byte[] var2 = HealthBarDefinition.HealthBarDefinition_archive.takeFile(33, var0); // L: 39
-			var1 = new HealthBarDefinition(); // L: 40
-			if (var2 != null) { // L: 41
-				var1.decode(new Buffer(var2));
-			}
-
-			HealthBarDefinition.HealthBarDefinition_cached.put(var1, (long)var0); // L: 42
-			return var1; // L: 43
-		}
+	public static int method3271(int var0, int var1, int var2) {
+		int var3 = class260.method5203(var2 - var1 + 1); // L: 54
+		var3 <<= var1; // L: 55
+		var0 |= var3; // L: 56
+		return var0; // L: 57
 	}
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1639582857"
-	)
-	public static void method3105() {
-		try {
-			if (class265.musicPlayerStatus == 1) { // L: 70
-				int var0 = class265.midiPcmStream.method5096(); // L: 71
-				if (var0 > 0 && class265.midiPcmStream.isReady()) { // L: 72
-					var0 -= GrandExchangeOfferNameComparator.pcmSampleLength; // L: 73
-					if (var0 < 0) { // L: 74
-						var0 = 0;
-					}
-
-					class265.midiPcmStream.setPcmStreamVolume(var0); // L: 75
-					return; // L: 76
-				}
-
-				class265.midiPcmStream.clear(); // L: 78
-				class265.midiPcmStream.removeAll(); // L: 79
-				if (class265.musicTrackArchive != null) { // L: 80
-					class265.musicPlayerStatus = 2;
-				} else {
-					class265.musicPlayerStatus = 0; // L: 81
-				}
-
-				class265.musicTrack = null; // L: 82
-				FileSystem.soundCache = null; // L: 83
-			}
-		} catch (Exception var2) { // L: 86
-			var2.printStackTrace(); // L: 87
-			class265.midiPcmStream.clear(); // L: 88
-			class265.musicPlayerStatus = 0; // L: 89
-			class265.musicTrack = null; // L: 90
-			FileSystem.soundCache = null; // L: 91
-			class265.musicTrackArchive = null; // L: 92
-		}
-
-	} // L: 94
-
-	@ObfuscatedName("fw")
-	@ObfuscatedSignature(
-		descriptor = "(III)V",
-		garbageValue = "1276680943"
-	)
-	static void method3096(int var0, int var1) {
-		int[] var2 = new int[9]; // L: 1472
-
-		for (int var3 = 0; var3 < var2.length; ++var3) { // L: 1473
-			int var4 = var3 * 32 + 15 + 128; // L: 1474
-			int var5 = var4 * 3 + 600; // L: 1477
-			int var7 = Rasterizer3D.Rasterizer3D_sine[var4]; // L: 1480
-			int var6 = class167.method3254(var5, var1); // L: 1481
-			var2[var3] = var6 * var7 >> 16; // L: 1482
-		}
-
-		Scene.Scene_buildVisiblityMap(var2, 500, 800, var0 * 334 / var1, 334); // L: 1484
-	} // L: 1485
 }

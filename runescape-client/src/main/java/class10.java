@@ -16,93 +16,81 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("y")
+@ObfuscatedName("k")
 public class class10 {
-	@ObfuscatedName("ho")
-	@ObfuscatedSignature(
-		descriptor = "Lpt;"
-	)
-	@Export("compass")
-	static SpritePixels compass;
-	@ObfuscatedName("ht")
-	@ObfuscatedSignature(
-		descriptor = "[Lpg;"
-	)
-	@Export("mapSceneSprites")
-	static IndexedSprite[] mapSceneSprites;
-	@ObfuscatedName("c")
-	HttpsURLConnection field68;
-	@ObfuscatedName("l")
-	final Map field61;
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "Lnv;"
-	)
-	class382 field66;
-	@ObfuscatedName("e")
-	Map field63;
-	@ObfuscatedName("r")
-	@ObfuscatedSignature(
-		descriptor = "La;"
-	)
-	final class9 field67;
+	@ObfuscatedName("v")
+	HttpsURLConnection field49;
 	@ObfuscatedName("o")
-	boolean field65;
-	@ObfuscatedName("i")
-	boolean field64;
-	@ObfuscatedName("w")
-	@ObfuscatedGetter(
-		intValue = -1912735681
+	final Map field47;
+	@ObfuscatedName("h")
+	@ObfuscatedSignature(
+		descriptor = "Lob;"
 	)
-	int field60;
+	class398 field46;
+	@ObfuscatedName("g")
+	Map field48;
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		descriptor = "Lr;"
+	)
+	final class9 field53;
+	@ObfuscatedName("n")
+	boolean field51;
+	@ObfuscatedName("d")
+	boolean field52;
+	@ObfuscatedName("f")
+	@ObfuscatedGetter(
+		intValue = -1134154975
+	)
+	int field50;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/net/URL;La;)V"
+		descriptor = "(Ljava/net/URL;Lr;)V"
 	)
 	public class10(URL var1, class9 var2) throws IOException {
-		this.field65 = false;
-		this.field64 = false;
-		this.field60 = 300000;
-		if (!var2.method68()) {
-			throw new UnsupportedEncodingException("Unsupported request method used " + var2.method75());
+		this.field51 = false; // L: 20
+		this.field52 = false; // L: 21
+		this.field50 = 300000; // L: 22
+		if (!var2.method65()) {
+			throw new UnsupportedEncodingException("Unsupported request method used " + var2.method73()); // L: 25
 		} else {
-			this.field68 = (HttpsURLConnection)var1.openConnection();
-			this.field68.setSSLSocketFactory(new class15());
-			this.field67 = var2;
-			this.field61 = new HashMap();
-			this.field63 = new HashMap();
+			this.field49 = (HttpsURLConnection)var1.openConnection(); // L: 26
+			this.field49.setSSLSocketFactory(new class15()); // L: 27
+			this.field53 = var2; // L: 28
+			this.field47 = new HashMap(); // L: 29
+			this.field48 = new HashMap(); // L: 30
 		}
-	}
+	} // L: 31
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Ljava/lang/String;I)V",
-		garbageValue = "-860651608"
+		descriptor = "(Ljava/lang/String;Ljava/lang/String;B)V",
+		garbageValue = "113"
 	)
-	public void method85(String var1, String var2) {
-		if (!this.field65) { // L: 34
-			this.field61.put(var1, var2);
+	public void method87(String var1, String var2) {
+		if (!this.field51) { // L: 34
+			this.field47.put(var1, var2); // L: 35
 		}
-	}
+	} // L: 36
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "(I)Ljava/lang/String;",
-		garbageValue = "-1858534087"
+		garbageValue = "-1439457532"
 	)
-	String method98() {
-		ArrayList var1 = new ArrayList(this.field63.entrySet());
+	String method100() {
+		ArrayList var1 = new ArrayList(this.field48.entrySet()); // L: 39
 		Collections.sort(var1, new class18(this)); // L: 40
 		StringBuilder var2 = new StringBuilder(); // L: 53
 		Iterator var3 = var1.iterator(); // L: 54
 
-		while (var3.hasNext()) {
+		while (var3.hasNext()) { // L: 65
 			Entry var4 = (Entry)var3.next(); // L: 55
 			if (var2.length() > 0) { // L: 57
 				var2.append(",");
 			}
 
-			var2.append(((class381)var4.getKey()).method6812()); // L: 58
+			var2.append(((class397)var4.getKey()).method7217()); // L: 58
 			float var5 = (Float)var4.getValue(); // L: 59
 			if (var5 < 1.0F) { // L: 60
 				String var6 = Float.toString(var5).substring(0, 4); // L: 61
@@ -113,32 +101,32 @@ public class class10 {
 		return var2.toString(); // L: 66
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-2080769"
+		garbageValue = "1510318175"
 	)
-	void method86() throws ProtocolException {
-		if (!this.field65) { // L: 70
-			this.field68.setRequestMethod(this.field67.method75()); // L: 71
-			if (!this.field63.isEmpty()) { // L: 72
-				this.field61.put("Accept", this.method98());
+	void method89() throws ProtocolException {
+		if (!this.field51) { // L: 70
+			this.field49.setRequestMethod(this.field53.method73()); // L: 71
+			if (!this.field48.isEmpty()) { // L: 72
+				this.field47.put("Accept", this.method100());
 			}
 
-			Iterator var1 = this.field61.entrySet().iterator(); // L: 73
+			Iterator var1 = this.field47.entrySet().iterator(); // L: 73
 
 			while (var1.hasNext()) {
 				Entry var2 = (Entry)var1.next(); // L: 74
-				this.field68.setRequestProperty((String)var2.getKey(), (String)var2.getValue()); // L: 76
+				this.field49.setRequestProperty((String)var2.getKey(), (String)var2.getValue()); // L: 76
 			}
 
-			if (this.field67.method70() && this.field66 != null) { // L: 79
-				this.field68.setDoOutput(true); // L: 80
+			if (this.field53.method67() && this.field46 != null) { // L: 79
+				this.field49.setDoOutput(true); // L: 80
 				ByteArrayOutputStream var13 = new ByteArrayOutputStream(); // L: 81
 
 				try {
-					var13.write(this.field66.method6817((byte)32)); // L: 83
-					var13.writeTo(this.field68.getOutputStream()); // L: 84
+					var13.write(this.field46.vmethod7229()); // L: 83
+					var13.writeTo(this.field49.getOutputStream()); // L: 84
 				} catch (IOException var11) { // L: 86
 					var11.printStackTrace(); // L: 87
 				} finally {
@@ -153,172 +141,117 @@ public class class10 {
 				}
 			}
 
-			this.field68.setConnectTimeout(this.field60); // L: 100
-			this.field68.setInstanceFollowRedirects(this.field64); // L: 101
-			this.field65 = true; // L: 102
+			this.field49.setConnectTimeout(this.field50); // L: 100
+			this.field49.setInstanceFollowRedirects(this.field52); // L: 101
+			this.field51 = true; // L: 102
 		}
-	}
+	} // L: 103
 
-	@ObfuscatedName("e")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "1109890756"
+		garbageValue = "1894788243"
 	)
-	boolean method96() throws IOException, SocketTimeoutException {
-		if (!this.field65) {
-			this.method86();
+	boolean method105() throws IOException, SocketTimeoutException {
+		if (!this.field51) { // L: 106
+			this.method89();
 		}
 
-		this.field68.connect();
-		return this.field68.getResponseCode() == -1;
+		this.field49.connect(); // L: 107
+		return this.field49.getResponseCode() == -1; // L: 108
 	}
 
-	@ObfuscatedName("r")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lg;",
-		garbageValue = "269406108"
+		descriptor = "(B)Ly;",
+		garbageValue = "84"
 	)
-	class21 method99() {
+	class21 method91() {
 		try {
-			if (!this.field65 || this.field68.getResponseCode() == -1) {
+			if (!this.field51 || this.field49.getResponseCode() == -1) { // L: 114
 				return new class21("No REST response has been received yet.");
 			}
 		} catch (IOException var10) { // L: 116
-			this.field68.disconnect();
-			return new class21("Error decoding REST response code: " + var10.getMessage());
+			this.field49.disconnect(); // L: 117
+			return new class21("Error decoding REST response code: " + var10.getMessage()); // L: 118
 		}
 
 		class21 var1 = null; // L: 120
 
 		class21 var3;
 		try {
-			var1 = new class21(this.field68); // L: 122
+			var1 = new class21(this.field49); // L: 122
 			return var1; // L: 130
 		} catch (IOException var8) { // L: 124
 			var3 = new class21("Error decoding REST response: " + var8.getMessage()); // L: 125
 		} finally {
-			this.field68.disconnect(); // L: 128
+			this.field49.disconnect(); // L: 128
 		}
 
 		return var3;
 	}
 
 	@ObfuscatedName("c")
-	public static final int method101(double var0, double var2, double var4) {
-		double var6 = var4; // L: 9
-		double var8 = var4; // L: 10
-		double var10 = var4; // L: 11
-		if (0.0D != var2) { // L: 12
-			double var12;
-			if (var4 < 0.5D) { // L: 14
-				var12 = var4 * (1.0D + var2);
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;B)V",
+		garbageValue = "-69"
+	)
+	static final void method106(String var0) {
+		StringBuilder var10000 = new StringBuilder();
+		Object var10001 = null; // L: 179
+		var10000 = var10000.append("Please remove ").append(var0);
+		var10001 = null;
+		String var1 = var10000.append(" from your friend list first").toString();
+		Login.addGameMessage(30, "", var1); // L: 181
+	} // L: 183
+
+	@ObfuscatedName("hf")
+	@ObfuscatedSignature(
+		descriptor = "(IIIS)V",
+		garbageValue = "-13200"
+	)
+	@Export("worldToScreen")
+	static final void worldToScreen(int var0, int var1, int var2) {
+		if (var0 >= 128 && var1 >= 128 && var0 <= 13056 && var1 <= 13056) { // L: 4980
+			int var3 = Archive.getTileHeight(var0, var1, class160.Client_plane) - var2; // L: 4985
+			var0 -= EnumComposition.cameraX; // L: 4986
+			var3 -= FriendSystem.cameraY; // L: 4987
+			var1 -= CollisionMap.cameraZ; // L: 4988
+			int var4 = Rasterizer3D.Rasterizer3D_sine[Language.cameraPitch]; // L: 4989
+			int var5 = Rasterizer3D.Rasterizer3D_cosine[Language.cameraPitch]; // L: 4990
+			int var6 = Rasterizer3D.Rasterizer3D_sine[MusicPatchNode2.cameraYaw]; // L: 4991
+			int var7 = Rasterizer3D.Rasterizer3D_cosine[MusicPatchNode2.cameraYaw]; // L: 4992
+			int var8 = var6 * var1 + var0 * var7 >> 16; // L: 4993
+			var1 = var7 * var1 - var0 * var6 >> 16; // L: 4994
+			var0 = var8; // L: 4995
+			var8 = var5 * var3 - var4 * var1 >> 16; // L: 4996
+			var1 = var5 * var1 + var4 * var3 >> 16; // L: 4997
+			if (var1 >= 50) { // L: 4999
+				Client.viewportTempX = var0 * Client.viewportZoom / var1 + Client.viewportWidth / 2; // L: 5000
+				Client.viewportTempY = var8 * Client.viewportZoom / var1 + Client.viewportHeight / 2; // L: 5001
 			} else {
-				var12 = var2 + var4 - var2 * var4; // L: 15
+				Client.viewportTempX = -1; // L: 5004
+				Client.viewportTempY = -1; // L: 5005
 			}
 
-			double var14 = var4 * 2.0D - var12; // L: 16
-			double var16 = 0.3333333333333333D + var0; // L: 17
-			if (var16 > 1.0D) { // L: 18
-				--var16;
-			}
-
-			double var20 = var0 - 0.3333333333333333D; // L: 20
-			if (var20 < 0.0D) { // L: 21
-				++var20;
-			}
-
-			if (var16 * 6.0D < 1.0D) { // L: 22
-				var6 = var14 + var16 * (var12 - var14) * 6.0D;
-			} else if (2.0D * var16 < 1.0D) { // L: 23
-				var6 = var12;
-			} else if (var16 * 3.0D < 2.0D) { // L: 24
-				var6 = 6.0D * (0.6666666666666666D - var16) * (var12 - var14) + var14;
-			} else {
-				var6 = var14;
-			}
-
-			if (var0 * 6.0D < 1.0D) { // L: 26
-				var8 = var0 * (var12 - var14) * 6.0D + var14;
-			} else if (var0 * 2.0D < 1.0D) { // L: 27
-				var8 = var12;
-			} else if (3.0D * var0 < 2.0D) { // L: 28
-				var8 = var14 + 6.0D * (0.6666666666666666D - var0) * (var12 - var14);
-			} else {
-				var8 = var14; // L: 29
-			}
-
-			if (var20 * 6.0D < 1.0D) { // L: 30
-				var10 = var20 * (var12 - var14) * 6.0D + var14;
-			} else if (var20 * 2.0D < 1.0D) { // L: 31
-				var10 = var12;
-			} else if (var20 * 3.0D < 2.0D) { // L: 32
-				var10 = var14 + (var12 - var14) * (0.6666666666666666D - var20) * 6.0D;
-			} else {
-				var10 = var14; // L: 33
-			}
+		} else {
+			Client.viewportTempX = -1; // L: 4981
+			Client.viewportTempY = -1; // L: 4982
 		}
+	} // L: 4983 5007
 
-		int var22 = (int)(256.0D * var6); // L: 35
-		int var13 = (int)(256.0D * var8); // L: 36
-		int var23 = (int)(256.0D * var10); // L: 37
-		int var15 = var23 + (var13 << 8) + (var22 << 16); // L: 38
-		return var15; // L: 39
-	}
-
-	@ObfuscatedName("r")
+	@ObfuscatedName("lu")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Z",
-		garbageValue = "-5"
+		descriptor = "(Ljava/lang/String;I)V",
+		garbageValue = "1276498116"
 	)
-	public static boolean method87(int var0) {
-		return (var0 >> 20 & 1) != 0; // L: 25
-	}
-
-	@ObfuscatedName("w")
-	@ObfuscatedSignature(
-		descriptor = "(I)[Lpt;",
-		garbageValue = "1676613528"
-	)
-	static SpritePixels[] method104() {
-		SpritePixels[] var0 = new SpritePixels[class434.SpriteBuffer_spriteCount]; // L: 103
-
-		for (int var1 = 0; var1 < class434.SpriteBuffer_spriteCount; ++var1) { // L: 104
-			SpritePixels var2 = var0[var1] = new SpritePixels(); // L: 105
-			var2.width = class434.SpriteBuffer_spriteWidth; // L: 106
-			var2.height = class434.SpriteBuffer_spriteHeight; // L: 107
-			var2.xOffset = class434.SpriteBuffer_xOffsets[var1]; // L: 108
-			var2.yOffset = class434.SpriteBuffer_yOffsets[var1]; // L: 109
-			var2.subWidth = class434.SpriteBuffer_spriteWidths[var1]; // L: 110
-			var2.subHeight = Fonts.SpriteBuffer_spriteHeights[var1]; // L: 111
-			int var3 = var2.subWidth * var2.subHeight; // L: 112
-			byte[] var4 = WorldMapLabelSize.SpriteBuffer_pixels[var1]; // L: 113
-			var2.pixels = new int[var3]; // L: 114
-
-			for (int var5 = 0; var5 < var3; ++var5) { // L: 115
-				var2.pixels[var5] = HealthBarUpdate.SpriteBuffer_spritePalette[var4[var5] & 255];
-			}
+	@Export("clanKickUser")
+	static final void clanKickUser(String var0) {
+		if (class230.friendsChat != null) { // L: 11715
+			PacketBufferNode var1 = ItemContainer.getPacketBufferNode(ClientPacket.field2921, Client.packetWriter.isaacCipher); // L: 11716
+			var1.packetBuffer.writeByte(ItemLayer.stringCp1252NullTerminatedByteSize(var0)); // L: 11717
+			var1.packetBuffer.writeStringCp1252NullTerminated(var0); // L: 11718
+			Client.packetWriter.addNode(var1); // L: 11719
 		}
-
-		Canvas.method365(); // L: 117
-		return var0; // L: 118
-	}
-
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		descriptor = "(IIIB)I",
-		garbageValue = "15"
-	)
-	static final int method103(int var0, int var1, int var2) {
-		int var3 = var0 / var2; // L: 965
-		int var4 = var0 & var2 - 1; // L: 966
-		int var5 = var1 / var2; // L: 967
-		int var6 = var1 & var2 - 1; // L: 968
-		int var7 = class117.method2653(var3, var5); // L: 969
-		int var8 = class117.method2653(var3 + 1, var5); // L: 970
-		int var9 = class117.method2653(var3, var5 + 1); // L: 971
-		int var10 = class117.method2653(var3 + 1, var5 + 1); // L: 972
-		int var11 = WorldMapRegion.method4495(var7, var8, var4, var2); // L: 973
-		int var12 = WorldMapRegion.method4495(var9, var10, var4, var2); // L: 974
-		return WorldMapRegion.method4495(var11, var12, var6, var2); // L: 975
-	}
+	} // L: 11720
 }

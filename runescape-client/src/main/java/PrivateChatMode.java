@@ -1,56 +1,39 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("py")
+@ObfuscatedName("qv")
 @Implements("PrivateChatMode")
 public class PrivateChatMode {
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lpy;"
+		descriptor = "Lqv;"
 	)
-	static final PrivateChatMode field4634;
-	@ObfuscatedName("l")
+	static final PrivateChatMode field4740;
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Lpy;"
+		descriptor = "Lqv;"
 	)
-	public static final PrivateChatMode field4632;
-	@ObfuscatedName("s")
+	public static final PrivateChatMode field4738;
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Lpy;"
+		descriptor = "Lqv;"
 	)
-	static final PrivateChatMode field4633;
-	@ObfuscatedName("e")
+	static final PrivateChatMode field4739;
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 1716574203
+		intValue = -1675526131
 	)
-	public final int field4631;
+	public final int field4737;
 
 	static {
-		field4634 = new PrivateChatMode(0); // L: 5
-		field4632 = new PrivateChatMode(1); // L: 6
-		field4633 = new PrivateChatMode(2);
+		field4740 = new PrivateChatMode(0); // L: 5
+		field4738 = new PrivateChatMode(1); // L: 6
+		field4739 = new PrivateChatMode(2);
 	} // L: 7
 
 	PrivateChatMode(int var1) {
-		this.field4631 = var1; // L: 15
+		this.field4737 = var1; // L: 15
 	} // L: 16
-
-	@ObfuscatedName("l")
-	@ObfuscatedSignature(
-		descriptor = "(Lpc;IB)V",
-		garbageValue = "76"
-	)
-	@Export("updatePlayers")
-	static final void updatePlayers(PacketBuffer var0, int var1) {
-		int var2 = var0.offset; // L: 71
-		Players.Players_pendingUpdateCount = 0; // L: 72
-		class150.method3025(var0); // L: 73
-		AttackOption.method2292(var0); // L: 74
-		if (var0.offset - var2 != var1) { // L: 75
-			throw new RuntimeException(var0.offset - var2 + " " + var1); // L: 76
-		}
-	} // L: 78
 }

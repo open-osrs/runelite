@@ -1,100 +1,93 @@
-import java.io.File;
 import java.net.URL;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cm")
+@ObfuscatedName("ct")
 @Implements("UrlRequest")
 public class UrlRequest {
-	@ObfuscatedName("r")
-	@Export("cacheDir")
-	static File cacheDir;
-	@ObfuscatedName("em")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "Lkz;"
+		descriptor = "Ley;"
 	)
-	@Export("archive18")
-	static Archive archive18;
-	@ObfuscatedName("c")
+	static ClanChannel field1344;
+	@ObfuscatedName("bo")
+	@ObfuscatedGetter(
+		intValue = -565666141
+	)
+	static int field1346;
+	@ObfuscatedName("v")
 	@Export("url")
 	final URL url;
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@Export("isDone0")
 	volatile boolean isDone0;
-	@ObfuscatedName("s")
+	@ObfuscatedName("h")
 	@Export("response0")
 	volatile byte[] response0;
 
 	UrlRequest(URL var1) {
-		this.url = var1; // L: 97
-	} // L: 98
+		this.url = var1; // L: 115
+	} // L: 116
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "(I)Z",
-		garbageValue = "-1976117199"
+		garbageValue = "-2022569902"
 	)
 	@Export("isDone")
 	public boolean isDone() {
-		return this.isDone0; // L: 101
+		return this.isDone0; // L: 119
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "(I)[B",
-		garbageValue = "1707102034"
+		garbageValue = "-892038744"
 	)
 	@Export("getResponse")
 	public byte[] getResponse() {
-		return this.response0; // L: 105
+		return this.response0; // L: 123
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(ILnb;Lkz;I)V",
-		garbageValue = "-793908641"
+		descriptor = "(S)Ljava/lang/String;",
+		garbageValue = "4111"
 	)
-	static void method2422(int var0, ArchiveDisk var1, Archive var2) {
-		ArchiveDiskAction var3 = new ArchiveDiskAction(); // L: 18
-		var3.type = 1; // L: 19
-		var3.key = (long)var0; // L: 20
-		var3.archiveDisk = var1; // L: 21
-		var3.archive = var2; // L: 22
-		synchronized(ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue) { // L: 23
-			ArchiveDiskActionHandler.ArchiveDiskActionHandler_requestQueue.addFirst(var3); // L: 24
-		} // L: 25
+	public String method2546() {
+		return this.url.toString(); // L: 127
+	}
 
-		synchronized(ArchiveDiskActionHandler.ArchiveDiskActionHandler_lock) { // L: 27
-			if (ArchiveDiskActionHandler.field3869 == 0) { // L: 28
-				ArchiveDiskActionHandler.ArchiveDiskActionHandler_thread = new Thread(new ArchiveDiskActionHandler()); // L: 29
-				ArchiveDiskActionHandler.ArchiveDiskActionHandler_thread.setDaemon(true); // L: 30
-				ArchiveDiskActionHandler.ArchiveDiskActionHandler_thread.start(); // L: 31
-				ArchiveDiskActionHandler.ArchiveDiskActionHandler_thread.setPriority(5); // L: 32
+	@ObfuscatedName("o")
+	@ObfuscatedSignature(
+		descriptor = "(IIIB)I",
+		garbageValue = "1"
+	)
+	static int method2545(int var0, int var1, int var2) {
+		return var0 << 28 | var1 << 14 | var2; // L: 34
+	}
+
+	@ObfuscatedName("ll")
+	@ObfuscatedSignature(
+		descriptor = "(III)V",
+		garbageValue = "624212840"
+	)
+	static final void method2555(int var0, int var1) {
+		if (Client.currentClanChannels[var0] != null) { // L: 11753
+			if (var1 >= 0 && var1 < Client.currentClanChannels[var0].method3056()) { // L: 11754
+				ClanChannelMember var2 = (ClanChannelMember)Client.currentClanChannels[var0].members.get(var1); // L: 11755
+				if (var2.rank == -1) {
+					PacketBufferNode var3 = ItemContainer.getPacketBufferNode(ClientPacket.field2953, Client.packetWriter.isaacCipher); // L: 11757
+					var3.packetBuffer.writeByte(3 + ItemLayer.stringCp1252NullTerminatedByteSize(var2.username.getName())); // L: 11758
+					var3.packetBuffer.writeByte(var0); // L: 11759
+					var3.packetBuffer.writeShort(var1); // L: 11760
+					var3.packetBuffer.writeStringCp1252NullTerminated(var2.username.getName()); // L: 11761
+					Client.packetWriter.addNode(var3); // L: 11762
+				}
 			}
-
-			ArchiveDiskActionHandler.field3869 = 600; // L: 34
 		}
-	}
-
-	@ObfuscatedName("e")
-	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "-1455921541"
-	)
-	public static int method2432(int var0) {
-		return class383.field4276[var0 & 16383]; // L: 37
-	}
-
-	@ObfuscatedName("ku")
-	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "1421327475"
-	)
-	static final void method2424(int var0) {
-		var0 = Math.min(Math.max(var0, 0), 127); // L: 11563
-		class424.clientPreferences.areaSoundEffectsVolume = var0; // L: 11564
-		GameEngine.savePreferences(); // L: 11565
-	} // L: 11566
+	} // L: 11756 11763
 }
