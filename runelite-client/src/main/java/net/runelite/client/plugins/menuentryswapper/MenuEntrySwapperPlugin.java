@@ -71,6 +71,7 @@ import static net.runelite.client.plugins.menuentryswapper.MenuEntrySwapperConfi
 import static net.runelite.client.plugins.menuentryswapper.MenuEntrySwapperConfig.KaramjaGlovesMode;
 import static net.runelite.client.plugins.menuentryswapper.MenuEntrySwapperConfig.MorytaniaLegsMode;
 import static net.runelite.client.plugins.menuentryswapper.MenuEntrySwapperConfig.RadasBlessingMode;
+import static net.runelite.client.plugins.menuentryswapper.MenuEntrySwapperConfig.UnchargedCellsMode;
 import net.runelite.client.util.Text;
 
 @PluginDescriptor(
@@ -419,6 +420,12 @@ public class MenuEntrySwapperPlugin extends Plugin
 
 		swap("climb", "climb-up", () -> (shiftModifier() ? config.swapStairsShiftClick() : config.swapStairsLeftClick()) == MenuEntrySwapperConfig.StairsMode.CLIMB_UP);
 		swap("climb", "climb-down", () -> (shiftModifier() ? config.swapStairsShiftClick() : config.swapStairsLeftClick()) == MenuEntrySwapperConfig.StairsMode.CLIMB_DOWN);
+
+		swap("deposit", "deposit-runes", config::swapDepositPool);
+
+		swap("take", "uncharged cells", "take-1", () -> config.swapUnchargedCells() == UnchargedCellsMode.TAKE_1);
+		swap("take", "uncharged cells", "take-5", () -> config.swapUnchargedCells() == UnchargedCellsMode.TAKE_5);
+		swap("take", "uncharged cells", "take-10", () -> config.swapUnchargedCells() == UnchargedCellsMode.TAKE_10);
 	}
 
 	public Swap swap(String option, String swappedOption, Supplier<Boolean> enabled)
