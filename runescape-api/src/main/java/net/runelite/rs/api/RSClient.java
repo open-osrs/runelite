@@ -960,6 +960,9 @@ public interface RSClient extends RSGameEngine, Client
 	@Import("Scene_plane")
 	void setScenePlane(int scenePlane);
 
+	@Import("Scene_plane")
+	int getScenePlane();
+
 	@Import("Scene_cameraXTileMin")
 	void setMinTileX(int i);
 

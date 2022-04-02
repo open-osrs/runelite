@@ -394,6 +394,16 @@ public interface Client extends GameEngine
 	int getPlane();
 
 	/**
+	 * Gets the max plane the client can render.
+	 * <p>
+	 * Unlike the plane, the ScenePlane is affected the current status of roof visibility.
+	 * <p>
+	 *
+	 * @return the plane
+	 */
+	int getScenePlane();
+
+	/**
 	 * Gets the current scene
 	 */
 	Scene getScene();
@@ -1143,7 +1153,7 @@ public interface Client extends GameEngine
 	 * @return the new projectile
 	 */
 	Projectile createProjectile(int id, int plane, int startX, int startY, int startZ, int startCycle, int endCycle,
-		int slope, int startHeight, int endHeight, @Nullable Actor target, int targetX, int targetY);
+								int slope, int startHeight, int endHeight, @Nullable Actor target, int targetX, int targetY);
 
 	/**
 	 * Gets a list of all projectiles currently spawned.
