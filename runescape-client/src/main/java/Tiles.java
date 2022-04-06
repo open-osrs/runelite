@@ -130,7 +130,7 @@ public final class Tiles {
 							var25 = var9[var24];
 						}
 
-						WorldMapIcon_1.method4556(var1, var22, var23, var11, var20 + var7 & 3, var19, var8, var25); // L: 347
+						WorldMapIcon_1.addObjects(var1, var22, var23, var11, var20 + var7 & 3, var19, var8, var25); // L: 347
 					}
 				}
 			}

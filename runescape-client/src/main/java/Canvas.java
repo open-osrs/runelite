@@ -106,7 +106,7 @@ public final class Canvas extends java.awt.Canvas {
 						var19 = var4[var18];
 					}
 
-					WorldMapIcon_1.method4556(var12, var16, var17, var6, var15, var14, var3, var19); // L: 313
+					WorldMapIcon_1.addObjects(var12, var16, var17, var6, var15, var14, var3, var19); // L: 313
 				}
 			}
 		}

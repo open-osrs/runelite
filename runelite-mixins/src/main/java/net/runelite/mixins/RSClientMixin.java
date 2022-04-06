@@ -143,12 +143,15 @@ import static net.runelite.mixins.CameraMixin.STANDARD_PITCH_MAX;
 import static net.runelite.mixins.CameraMixin.STANDARD_PITCH_MIN;
 import net.runelite.rs.api.RSAbstractArchive;
 import net.runelite.rs.api.RSArchive;
+import net.runelite.rs.api.RSBuffer;
 import net.runelite.rs.api.RSChatChannel;
 import net.runelite.rs.api.RSClanChannel;
 import net.runelite.rs.api.RSClient;
+import net.runelite.rs.api.RSCollisionMap;
 import net.runelite.rs.api.RSDualNode;
 import net.runelite.rs.api.RSEnumComposition;
 import net.runelite.rs.api.RSEvictingDualNodeHashTable;
+import net.runelite.rs.api.RSFloorOverlayDefinition;
 import net.runelite.rs.api.RSFriendSystem;
 import net.runelite.rs.api.RSIndexedSprite;
 import net.runelite.rs.api.RSInterfaceParent;
@@ -2879,6 +2882,67 @@ public abstract class RSClientMixin implements RSClient
 		}
 
 		return modelData.newModelData(modelData, true, true, true, true);
+	}
+
+	@Inject
+	public static RSFloorOverlayDefinition loadFloorOverlay(int var0)
+	{
+		RSFloorOverlayDefinition var1 = (RSFloorOverlayDefinition) client.getFloorOverlayDefinitionCache().get(var0);
+
+		if (var1 == null)
+		{
+			byte[] var2 = client.getFloorOverlayDefinitionArchive().loadData(4, var0);
+			var1 = client.newFloorOverlayDefinition();
+			if (var2 != null)
+			{
+				RSBuffer var3 = client.newBuffer(var2);
+				var1.decode(var3, var0);
+			}
+
+			var1.postDecode();
+			client.getFloorOverlayDefinitionCache().put((RSDualNode) var1, (long) var0);
+		}
+
+		return var1;
+	}
+
+	@Copy("addObjects")
+	@Replace("addObjects")
+	@SuppressWarnings("InfiniteRecursion")
+	public static void copy$addObjects(int var0, int var1, int var2, int var3, int var4, int var5, RSScene var6, RSCollisionMap var7)
+	{
+		boolean resetLowMemory = false;
+
+		byte tileSetting = client.getTileSettings()[var0][var1][var2];
+
+		if (client.isLowMemory())
+		{
+			byte[] var10000 = client.getTileSettings()[var0][var1];
+			var10000[var2] &= -17;
+			if (var5 == 22)
+			{
+				int TileOverlay = client.getTileOverlays()[var0][var1][var2] & 255;
+
+				if (TileOverlay > 0)
+				{
+					RSFloorOverlayDefinition floorOverlayDefinition = loadFloorOverlay(TileOverlay - 1);
+					if (floorOverlayDefinition.getTexture() < 0 && floorOverlayDefinition.getPrimaryRgb() == 16711935)
+					{
+						client.setLowMemory(false);
+						resetLowMemory = true;
+					}
+				}
+			}
+		}
+
+		copy$addObjects(var0, var1, var2, var3, var4, var5, var6, var7);
+
+		client.getTileSettings()[var0][var1][var2] = tileSetting;
+
+		if (resetLowMemory)
+		{
+			client.setLowMemory(true);
+		}
 	}
 }
 

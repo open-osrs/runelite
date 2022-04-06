@@ -127,7 +127,8 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 		descriptor = "(IIIIIILgs;Lgf;I)V",
 		garbageValue = "-1640512620"
 	)
-	static final void method4556(int var0, int var1, int var2, int var3, int var4, int var5, Scene var6, CollisionMap var7) {
+	@Export("addObjects")
+	static final void addObjects(int var0, int var1, int var2, int var3, int var4, int var5, Scene var6, CollisionMap var7) {
 		if (!Client.isLowDetail || (Tiles.Tiles_renderFlags[0][var1][var2] & 2) != 0 || (Tiles.Tiles_renderFlags[var0][var1][var2] & 16) == 0) { // L: 355 356 357
 			if (var0 < Tiles.Tiles_minPlane) { // L: 360
 				Tiles.Tiles_minPlane = var0;
