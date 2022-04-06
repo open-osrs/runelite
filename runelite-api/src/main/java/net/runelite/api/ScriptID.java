@@ -276,6 +276,12 @@ public final class ScriptID
 	public static final int GE_ITEM_SEARCH = 752;
 
 	/**
+	 * On load listener for building the quest list interface
+	 */
+	@ScriptArguments(integer = 8)
+	public static final int QUESTLIST_INIT = 1350;
+
+	/**
 	 * Called when the friends list is updated
 	 * <ul>
 	 * <li> int (WidgetID) Friends list "full container" </li>
@@ -428,4 +434,19 @@ public final class ScriptID
 	 */
 	@ScriptArguments(integer = 1)
 	public static final int NOTIFICATION_DELAY = 3347;
+
+	/**
+	 * Check if a quest should be filtered from the quest list
+	 * <ul>
+	 * <li> int (StructID) Quest struct </li>
+	 * <li> int State filter </li>
+	 * <li> int Requirement filter </li>
+	 * <li> int Stats filter </li>
+	 * </ul>
+	 */
+	@ScriptArguments(integer = 4)
+	public static final int QUEST_FILTER = 3238;
+
+	@ScriptArguments(integer = 18, string = 1)
+	public static final int GROUP_IRONMAN_STORAGE_BUILD = 5269;
 }

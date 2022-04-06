@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Abex
+ * Copyright (c) 2022, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,27 +22,16 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.config;
+package com.jagex.oldscape.pub;
 
-import lombok.Data;
-
-/**
- * A profile/save of a OSRS account. Each account can 1 profile per {@link RuneScapeProfileType}
- * (ie Standard/League/DMM}.
- */
-@Data
-public class RuneScapeProfile
+public interface OAuthApi
 {
-	public static final int ACCOUNT_HASH_INVALID = -1;
+	boolean isOnLoginScreen();
 
-	private final String displayName;
-	private final RuneScapeProfileType type;
-	private final byte[] loginHash;
-	private final long accountHash;
+	void setOtlTokenRequester(OtlTokenRequester otlTokenRequester);
 
 	/**
-	 * Profile key used to save configs for this profile to the config store. This will
-	 * always start with {@link ConfigManager#RSPROFILE_GROUP}
+	 * Gets a unique per-RuneScape-Account identifier or {@code -1} if the client has not logged in yet
 	 */
-	private final String key;
+	long getAccountHash();
 }
