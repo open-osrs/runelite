@@ -1339,13 +1339,8 @@ public class ChatCommandsPlugin extends Plugin
 			search = message.substring(LEVEL_COMMAND_STRING.length() + 1);
 		}
 
-		search = SkillAbbreviations.getFullName(search);
-		final HiscoreSkill skill;
-		try
-		{
-			skill = HiscoreSkill.valueOf(search.toUpperCase());
-		}
-		catch (IllegalArgumentException i)
+		final HiscoreSkill skill = findHiscoreSkill(search);
+		if (skill == null)
 		{
 			return;
 		}
@@ -1967,11 +1962,6 @@ public class ChatCommandsPlugin extends Plugin
 			case "hmt":
 				return "Theatre of Blood Hard Mode";
 
-			// agility course
-			case "prif":
-			case "prifddinas":
-				return "Prifddinas Agility Course";
-
 			// The Gauntlet
 			case "gaunt":
 			case "gauntlet":
@@ -2021,6 +2011,26 @@ public class ChatCommandsPlugin extends Plugin
 			case "hs5":
 			case "hs 5":
 				return "Hallowed Sepulchre Floor 5";
+
+			// Prifddinas Agility Course
+			case "prif":
+			case "prifddinas":
+				return "Prifddinas Agility Course";
+
+			// Shayzien Basic Agility Course
+			case "shayb":
+			case "sbac":
+			case "shayzienbasic":
+			case "shayzien basic":
+				return "Shayzien Basic Agility Course";
+
+			// Shayzien Advanced Agility Course
+			case "shaya":
+			case "saac":
+			case "shayadv":
+			case "shayadvanced":
+			case "shayzien advanced":
+				return "Shayzien Advanced Agility Course";
 
 			// Ape Atoll Agility
 			case "aa":
@@ -2155,5 +2165,95 @@ public class ChatCommandsPlugin extends Plugin
 			default:
 				return WordUtils.capitalize(boss);
 		}
+	}
+
+	private static String longSkillName(String skill)
+	{
+		switch (skill.toUpperCase())
+		{
+			case "ATK":
+			case "ATT":
+				return net.runelite.api.Skill.ATTACK.getName();
+			case "DEF":
+				return net.runelite.api.Skill.DEFENCE.getName();
+			case "STR":
+				return net.runelite.api.Skill.STRENGTH.getName();
+			case "HEALTH":
+			case "HIT":
+			case "HITPOINT":
+			case "HP":
+				return net.runelite.api.Skill.HITPOINTS.getName();
+			case "RANGE":
+			case "RANGING":
+			case "RNG":
+				return net.runelite.api.Skill.RANGED.getName();
+			case "PRAY":
+				return net.runelite.api.Skill.PRAYER.getName();
+			case "MAG":
+			case "MAGE":
+				return net.runelite.api.Skill.MAGIC.getName();
+			case "COOK":
+				return net.runelite.api.Skill.COOKING.getName();
+			case "WC":
+			case "WOOD":
+			case "WOODCUT":
+				return net.runelite.api.Skill.WOODCUTTING.getName();
+			case "FLETCH":
+				return net.runelite.api.Skill.FLETCHING.getName();
+			case "FISH":
+				return net.runelite.api.Skill.FISHING.getName();
+			case "FM":
+			case "FIRE":
+				return net.runelite.api.Skill.FIREMAKING.getName();
+			case "CRAFT":
+				return net.runelite.api.Skill.CRAFTING.getName();
+			case "SMITH":
+				return net.runelite.api.Skill.SMITHING.getName();
+			case "MINE":
+				return net.runelite.api.Skill.MINING.getName();
+			case "HL":
+			case "HERB":
+				return net.runelite.api.Skill.HERBLORE.getName();
+			case "AGI":
+			case "AGIL":
+				return net.runelite.api.Skill.AGILITY.getName();
+			case "THIEF":
+				return net.runelite.api.Skill.THIEVING.getName();
+			case "SLAY":
+				return net.runelite.api.Skill.SLAYER.getName();
+			case "FARM":
+				return net.runelite.api.Skill.FARMING.getName();
+			case "RC":
+			case "RUNE":
+			case "RUNECRAFTING":
+				return net.runelite.api.Skill.RUNECRAFT.getName();
+			case "HUNT":
+				return net.runelite.api.Skill.HUNTER.getName();
+			case "CON":
+			case "CONSTRUCT":
+				return net.runelite.api.Skill.CONSTRUCTION.getName();
+			case "ALL":
+			case "TOTAL":
+				return net.runelite.api.Skill.OVERALL.getName();
+			default:
+				return skill;
+		}
+	}
+
+	private static HiscoreSkill findHiscoreSkill(String search)
+	{
+		String s = longSkillName(search);
+		if (s == search)
+		{
+			s = longBossName(search);
+		}
+		for (HiscoreSkill skill : HiscoreSkill.values())
+		{
+			if (skill.getName().equals(s))
+			{
+				return skill;
+			}
+		}
+		return null;
 	}
 }
