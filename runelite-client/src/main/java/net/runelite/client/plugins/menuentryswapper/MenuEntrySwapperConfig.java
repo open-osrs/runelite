@@ -138,6 +138,18 @@ public interface MenuEntrySwapperConfig extends Config
 	}
 
 	@ConfigItem(
+		position = -2,
+		keyName = "objectLeftClickCustomization",
+		name = "Customizable left-click",
+		description = "Allows customization of left-clicks on objects",
+		section = objectSection
+	)
+	default boolean objectLeftClickCustomization()
+	{
+		return true;
+	}
+
+	@ConfigItem(
 		keyName = "swapAdmire",
 		name = "Admire",
 		description = "Swap Admire with Teleport, Spellbook and Perks (max cape) for mounted skill capes.",
@@ -836,24 +848,5 @@ public interface MenuEntrySwapperConfig extends Config
 	default boolean swapDepositPool()
 	{
 		return false;
-	}
-
-	enum UnchargedCellsMode
-	{
-		TAKE,
-		TAKE_1,
-		TAKE_5,
-		TAKE_10
-	}
-
-	@ConfigItem(
-		keyName = "swapUnchargedCells",
-		name = "Uncharged Cells",
-		description = "Swap the take option for Uncharged Cells in Guardians of the Rift.",
-		section = objectSection
-	)
-	default UnchargedCellsMode swapUnchargedCells()
-	{
-		return UnchargedCellsMode.TAKE;
 	}
 }
