@@ -69,5 +69,7 @@ public interface NPC extends Actor
 	@Nullable
 	NPCComposition getTransformedComposition();
 
+	void setComposition(NPCComposition composition);
+
 	void onDefinitionChanged(NPCComposition composition);
 }
