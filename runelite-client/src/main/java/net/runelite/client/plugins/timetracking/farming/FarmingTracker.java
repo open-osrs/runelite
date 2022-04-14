@@ -42,7 +42,6 @@ import net.runelite.api.GameState;
 import net.runelite.api.Varbits;
 import net.runelite.api.WidgetNode;
 import net.runelite.api.coords.WorldPoint;
-import net.runelite.api.vars.Autoweed;
 import net.runelite.api.widgets.WidgetModalMode;
 import net.runelite.client.Notifier;
 import net.runelite.client.config.ConfigManager;
@@ -111,7 +110,7 @@ public class FarmingTracker
 		}
 
 		{
-			String autoweed = Integer.toString(client.getVar(Varbits.AUTOWEED));
+			String autoweed = Integer.toString(client.getVarbitValue(Varbits.AUTOWEED));
 			if (!autoweed.equals(configManager.getRSProfileConfiguration(TimeTrackingConfig.CONFIG_GROUP, TimeTrackingConfig.AUTOWEED)))
 			{
 				configManager.setRSProfileConfiguration(TimeTrackingConfig.CONFIG_GROUP, TimeTrackingConfig.AUTOWEED, autoweed);
@@ -120,7 +119,7 @@ public class FarmingTracker
 		}
 
 		{
-			boolean botanist = client.getVar(Varbits.LEAGUE_RELIC_5) == 1;
+			boolean botanist = client.getVarbitValue(Varbits.LEAGUE_RELIC_5) == 1;
 			if (!Boolean.valueOf(botanist).equals(configManager.getRSProfileConfiguration(TimeTrackingConfig.CONFIG_GROUP, TimeTrackingConfig.BOTANIST, Boolean.class)))
 			{
 				configManager.setRSProfileConfiguration(TimeTrackingConfig.CONFIG_GROUP, TimeTrackingConfig.BOTANIST, botanist);
@@ -144,9 +143,9 @@ public class FarmingTracker
 			for (FarmingPatch patch : region.getPatches())
 			{
 				// Write the config value if it doesn't match what is current, or it is more than 5 minutes old
-				Varbits varbit = patch.getVarbit();
+				int varbit = patch.getVarbit();
 				String key = patch.configKey();
-				String strVarbit = Integer.toString(client.getVar(varbit));
+				String strVarbit = Integer.toString(client.getVarbitValue(varbit));
 				String storedValue = configManager.getRSProfileConfiguration(TimeTrackingConfig.CONFIG_GROUP, key);
 
 				if (storedValue != null)
@@ -173,7 +172,7 @@ public class FarmingTracker
 						else if (!newRegionLoaded && timeSinceModalClose > 1)
 						{
 							PatchState previousPatchState = patch.getImplementation().forVarbitValue(Integer.parseInt(parts[0]));
-							PatchState currentPatchState = patch.getImplementation().forVarbitValue(client.getVar(varbit));
+							PatchState currentPatchState = patch.getImplementation().forVarbitValue(client.getVarbitValue(varbit));
 
 							if (previousPatchState == null || currentPatchState == null)
 							{

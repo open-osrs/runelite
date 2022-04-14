@@ -1,6 +1,5 @@
 /*
- * Copyright (c) 2020, dekvall <https://github.com/dekvall>
- * Copyright (c) 2020, Jordan <nightfirecat@protonmail.com>
+ * Copyright (c) 2018, Jasper Ketelaar <Jasper0781@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -23,40 +22,33 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.herbiboars;
+package net.runelite.client.plugins.mta;
 
-import com.google.common.collect.ImmutableSet;
-import java.util.Set;
-import lombok.Getter;
-import lombok.Value;
-import net.runelite.api.annotations.Varbit;
+import java.awt.Graphics2D;
+import javax.inject.Inject;
+import net.runelite.api.widgets.WidgetItem;
+import net.runelite.client.ui.overlay.WidgetItemOverlay;
 
-/**
- * A representation of a trail of footsteps which appears when hunting for the Herbiboar.
- */
-@Value
-class TrailToSpot
+class MTAItemOverlay extends WidgetItemOverlay
 {
-	/**
-	 * The Varbit associated with the trail. When inactive, this Varbit's value should be less than
-	 * {@link TrailToSpot#getValue()}. When this trail appears after searching a spot, this Varbit's value should be
-	 * equal to that of {@link TrailToSpot#getValue()}. Once the next object along the trail has been searched, this
-	 * Varbit's value will be greater than that of {@link TrailToSpot#getValue()}.
-	 */
-	@Getter(onMethod_ = {@Varbit})
-	private final int varbitId;
-	/**
-	 * The cutoff reference value to compare against the value of {@link TrailToSpot#getVarbitId()} ()} to determine its state
-	 * along the current trail.
-	 */
-	private final int value;
-	/**
-	 * The object ID of the footprints which appear when the trail is made visible.
-	 */
-	private final int footprint;
+	private final MTAPlugin plugin;
 
-	Set<Integer> getFootprintIds()
+	@Inject
+	public MTAItemOverlay(MTAPlugin plugin)
 	{
-		return ImmutableSet.of(footprint, footprint + 1);
+		this.plugin = plugin;
+		showOnInventory();
+	}
+
+	@Override
+	public void renderItemOverlay(Graphics2D graphics, int itemId, WidgetItem widgetItem)
+	{
+		for (MTARoom room : plugin.getRooms())
+		{
+			if (room.inside())
+			{
+				room.renderItemOverlay(graphics, itemId, widgetItem);
+			}
+		}
 	}
 }

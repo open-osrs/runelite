@@ -24,15 +24,12 @@
  */
 package net.runelite.api;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
 import net.runelite.api.widgets.WidgetInfo;
+import net.runelite.api.annotations.Varbit;
 
 /**
  * An enumeration of different prayer spells.
  */
-@Getter
-@AllArgsConstructor
 public enum Prayer
 {
 	/**
@@ -152,19 +149,40 @@ public enum Prayer
 	 */
 	AUGURY(Varbits.PRAYER_AUGURY, 40.0, WidgetInfo.PRAYER_AUGURY);
 
+	private final int varbit;
+	private final double drainRate;
+	private final WidgetInfo widgetInfo;
+
+	Prayer(@Varbit int varbit, double drainRate, WidgetInfo widgetInfo)
+	{
+		this.varbit = varbit;
+		this.drainRate = drainRate;
+		this.widgetInfo = widgetInfo;
+	}
+
 	/**
 	 * Gets the varbit that stores whether the prayer is active or not.
+	 *
+	 * @return the prayer active varbit
 	 */
-	private final Varbits varbit;
+	@Varbit
+	public int getVarbit()
+	{
+		return varbit;
+	}
 
 	/**
 	 * Gets the prayer drain rate (measured in pray points/minute)
+	 *
+	 * @return the prayer drain rate
 	 */
-	private final double drainRate;
+	public double getDrainRate()
+	{
+		return drainRate;
+	}
 
-	/**
-	 * Gets the widget info for prayer
-	 */
-	private final WidgetInfo widgetInfo;
-
+	public WidgetInfo getWidgetInfo()
+	{
+		return widgetInfo;
+	}
 }
