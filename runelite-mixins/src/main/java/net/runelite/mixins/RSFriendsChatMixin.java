@@ -1,6 +1,7 @@
 package net.runelite.mixins;
 
 import net.runelite.api.FriendsChatMember;
+import net.runelite.api.FriendsChatRank;
 import net.runelite.api.events.FriendsChatMemberJoined;
 import net.runelite.api.events.FriendsChatMemberLeft;
 import net.runelite.api.mixins.Inject;
@@ -43,5 +44,19 @@ public abstract class RSFriendsChatMixin implements RSFriendsChat
 
 		FriendsChatMemberLeft event = new FriendsChatMemberLeft(member);
 		client.getCallbacks().postDeferred(event);
+	}
+
+	@Inject
+	@Override
+	public FriendsChatRank getMyRank()
+	{
+		return FriendsChatRank.valueOf(this.getRank());
+	}
+
+	@Inject
+	@Override
+	public FriendsChatRank getKickRank()
+	{
+		return FriendsChatRank.valueOf(this.getMinKickRank());
 	}
 }

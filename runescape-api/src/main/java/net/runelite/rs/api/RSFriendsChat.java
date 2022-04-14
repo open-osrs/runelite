@@ -11,4 +11,10 @@ public interface RSFriendsChat extends RSUserList<FriendsChatMember>, FriendsCha
 
 	@Import("name")
 	String getName();
+
+	@Import("rank")
+	int getRank();
+
+	@Import("minKick")
+	byte getMinKickRank();
 }

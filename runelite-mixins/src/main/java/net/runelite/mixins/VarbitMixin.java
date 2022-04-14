@@ -3,7 +3,6 @@ package net.runelite.mixins;
 import net.runelite.api.VarClientInt;
 import net.runelite.api.VarClientStr;
 import net.runelite.api.VarbitComposition;
-import net.runelite.api.Varbits;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import java.util.Map;
@@ -33,10 +32,9 @@ public abstract class VarbitMixin implements RSClient
 
 	@Inject
 	@Override
-	public int getVar(Varbits varbit)
+	public int getVar(int varbit)
 	{
-		int varbitId = varbit.getId();
-		return getVarbitValue(getVarps(), varbitId);
+		return getVarbitValue(getVarps(), varbit);
 	}
 
 	@Inject
@@ -48,10 +46,9 @@ public abstract class VarbitMixin implements RSClient
 
 	@Inject
 	@Override
-	public void setVarbit(Varbits varbit, int value)
+	public void setVarbit(int varbit, int value)
 	{
-		int varbitId = varbit.getId();
-		setVarbitValue(getVarps(), varbitId, value);
+		setVarbitValue(getVarps(), varbit, value);
 	}
 
 	@Inject
