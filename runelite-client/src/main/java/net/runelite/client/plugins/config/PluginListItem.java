@@ -236,7 +236,7 @@ class PluginListItem extends JPanel implements SearchablePlugin
 		buttonPanel.add(onOffToggle);
 		if (pluginConfig.getPlugin() != null)
 		{
-			onOffToggle.addItemListener(i ->
+			onOffToggle.addActionListener(i ->
 			{
 				if (onOffToggle.isSelected())
 				{
