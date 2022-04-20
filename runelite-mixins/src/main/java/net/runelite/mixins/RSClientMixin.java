@@ -1051,7 +1051,8 @@ public abstract class RSClientMixin implements RSClient
 			for (int i = optionCount; i < tmpOptionsCount; ++i)
 			{
 				RSRuneLiteMenuEntry entry = rl$menuEntries[i];
-				if (entry == null) {
+				if (entry == null)
+				{
 					rl$logger.error("about to crash: opcnt:{} tmpopcnt:{} i:{}", optionCount, tmpOptionsCount, i);
 				}
 				rl$menuEntries[i].setConsumer(null);
@@ -1691,7 +1692,8 @@ public abstract class RSClientMixin implements RSClient
 				&& client.getMenuArguments2()[i] == param1
 				&& option.equals(client.getMenuOptions()[i])
 				&& (option.equals(target) || target.equals(client.getMenuTargets()[i]))
-			) {
+			)
+			{
 				menuEntry = rl$menuEntries[i];
 				break;
 			}
@@ -1718,7 +1720,8 @@ public abstract class RSClientMixin implements RSClient
 			client.getMenuArguments2()[i] = param1;
 			client.getMenuForceLeftClick()[i] = false;
 			menuEntry = rl$menuEntries[i];
-			if (menuEntry == null) {
+			if (menuEntry == null)
+			{
 				menuEntry = rl$menuEntries[i] = newRuneliteMenuEntry(i);
 			}
 		}
@@ -1743,9 +1746,12 @@ public abstract class RSClientMixin implements RSClient
 
 			if (menuEntry.getConsumer() != null)
 			{
-				try {
+				try
+				{
 					menuEntry.getConsumer().accept(menuEntry);
-				} catch (Exception ex) {
+				}
+				catch (Exception ex)
+				{
 					client.getLogger().warn("exception in menu callback", ex);
 				}
 			}
@@ -1785,9 +1791,11 @@ public abstract class RSClientMixin implements RSClient
 			}
 		}
 
-		if (opcode == MenuAction.WIDGET_CONTINUE.getId()) {
+		if (opcode == MenuAction.WIDGET_CONTINUE.getId())
+		{
 			Widget widget = client.getWidget(param1);
-			if (widget == null || param0 > -1 && widget.getChild(param0) == null) {
+			if (widget == null || param0 > -1 && widget.getChild(param0) == null)
+			{
 				return;
 			}
 		}
