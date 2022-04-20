@@ -420,11 +420,18 @@ class DevToolsOverlay extends Overlay
 			return;
 		}
 
-		for (WidgetItem item : inventoryWidget.getWidgetItems())
+		for (Widget item : inventoryWidget.getDynamicChildren())
 		{
-			Rectangle slotBounds = item.getCanvasBounds();
+			Rectangle slotBounds = item.getBounds();
+			int itemId = item.getItemId();
 
-			String idText = "" + item.getId();
+			if (itemId == 6512)
+			{
+				continue;
+			}
+
+			String idText = "" + itemId;
+
 			FontMetrics fm = graphics.getFontMetrics();
 			Rectangle2D textBounds = fm.getStringBounds(idText, graphics);
 
