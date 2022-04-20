@@ -141,7 +141,7 @@ public class InteractHighlightPlugin extends Plugin
 		switch (menuOptionClicked.getMenuAction())
 		{
 			case ITEM_USE_ON_GAME_OBJECT:
-			case SPELL_CAST_ON_GAME_OBJECT:
+			case WIDGET_TARGET_ON_GAME_OBJECT:
 			case GAME_OBJECT_FIRST_OPTION:
 			case GAME_OBJECT_SECOND_OPTION:
 			case GAME_OBJECT_THIRD_OPTION:
@@ -158,7 +158,7 @@ public class InteractHighlightPlugin extends Plugin
 				break;
 			}
 			case ITEM_USE_ON_NPC:
-			case SPELL_CAST_ON_NPC:
+			case WIDGET_TARGET_ON_NPC:
 			case NPC_FIRST_OPTION:
 			case NPC_SECOND_OPTION:
 			case NPC_THIRD_OPTION:
@@ -168,7 +168,7 @@ public class InteractHighlightPlugin extends Plugin
 				int id = menuOptionClicked.getId();
 				interactedObject = null;
 				interactedNpc = findNpc(id);
-				attacked = menuOptionClicked.getMenuAction() == MenuAction.NPC_SECOND_OPTION || menuOptionClicked.getMenuAction() == MenuAction.SPELL_CAST_ON_NPC;
+				attacked = menuOptionClicked.getMenuAction() == MenuAction.NPC_SECOND_OPTION || menuOptionClicked.getMenuAction() == MenuAction.WIDGET_TARGET_ON_NPC;
 				clickTick = client.getTickCount();
 				gameCycle = client.getGameCycle();
 				break;
@@ -176,8 +176,11 @@ public class InteractHighlightPlugin extends Plugin
 			// Any menu click which clears an interaction
 			case WALK:
 			case ITEM_USE:
+			case WIDGET_TARGET_ON_WIDGET:
 			case ITEM_USE_ON_GROUND_ITEM:
+			case WIDGET_TARGET_ON_GROUND_ITEM:
 			case ITEM_USE_ON_PLAYER:
+			case WIDGET_TARGET_ON_PLAYER:
 			case ITEM_FIRST_OPTION:
 			case ITEM_SECOND_OPTION:
 			case ITEM_THIRD_OPTION:
@@ -190,6 +193,13 @@ public class InteractHighlightPlugin extends Plugin
 			case GROUND_ITEM_FIFTH_OPTION:
 				interactedObject = null;
 				interactedNpc = null;
+				break;
+			default:
+				if (menuOptionClicked.isItemOp())
+				{
+					interactedObject = null;
+					interactedNpc = null;
+				}
 		}
 	}
 
