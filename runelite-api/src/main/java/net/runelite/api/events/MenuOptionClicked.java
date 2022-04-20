@@ -26,6 +26,7 @@ package net.runelite.api.events;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.widgets.Widget;
@@ -52,6 +53,7 @@ public class MenuOptionClicked
 	 * Whether or not the event has been consumed by a subscriber.
 	 */
 	@Getter
+	@Setter
 	private boolean consumed;
 
 	/**
@@ -62,12 +64,22 @@ public class MenuOptionClicked
 		return menuEntry.getParam0();
 	}
 
+	public void setParam0(int param0)
+	{
+		menuEntry.setParam0(param0);
+	}
+
 	/**
 	 * Action parameter 1. Its value depends on the menuAction.
 	 */
 	public int getParam1()
 	{
 		return menuEntry.getParam1();
+	}
+
+	public void setParam1(int param1)
+	{
+		menuEntry.setParam1(param1);
 	}
 
 	/**
@@ -78,12 +90,22 @@ public class MenuOptionClicked
 		return menuEntry.getOption();
 	}
 
+	public void setMenuOption(String menuOption)
+	{
+		menuEntry.setOption(menuOption);
+	}
+
 	/**
 	 * The target of the action.
 	 */
 	public String getMenuTarget()
 	{
 		return menuEntry.getTarget();
+	}
+
+	public void setMenuTarget(String menuTarget)
+	{
+		menuEntry.setOption(menuTarget);
 	}
 
 	/**
@@ -94,12 +116,22 @@ public class MenuOptionClicked
 		return menuEntry.getType();
 	}
 
+	public void setMenuAction(MenuAction menuAction)
+	{
+		menuEntry.setType(menuAction);
+	}
+
 	/**
 	 * The ID of the object, actor, or item that the interaction targets.
 	 */
 	public int getId()
 	{
 		return menuEntry.getIdentifier();
+	}
+
+	public void setId(int id)
+	{
+		menuEntry.setIdentifier(id);
 	}
 
 	/**
@@ -160,8 +192,32 @@ public class MenuOptionClicked
 	}
 
 	@Deprecated
+	public void setActionParam(int actionParam)
+	{
+		menuEntry.setParam0(actionParam);
+	}
+
+	@Deprecated
 	public int getWidgetId()
 	{
 		return menuEntry.getParam1();
+	}
+
+	@Deprecated
+	public void setWidgetId(int widgetId)
+	{
+		menuEntry.setParam1(widgetId);
+	}
+
+
+	@Deprecated
+	public void setMenuEntry(MenuEntry entry)
+	{
+		this.setMenuOption(entry.getOption());
+		this.setMenuTarget(entry.getTarget());
+		this.setId(entry.getIdentifier());
+		this.setMenuAction(entry.getType());
+		this.setParam0(entry.getParam0());
+		this.setParam1(entry.getParam1());
 	}
 }
