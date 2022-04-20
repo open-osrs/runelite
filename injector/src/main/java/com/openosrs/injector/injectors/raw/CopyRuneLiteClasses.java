@@ -54,7 +54,7 @@ public class CopyRuneLiteClasses extends AbstractInjector
 		{
 			ClassFile runeliteObjectVanilla = inject.vanilla.findClass(className);
 
-			final ClassFile runeLiteObjectDeob = inject.getDeobfuscated()
+			final ClassFile runeLiteDeob = inject.getDeobfuscated()
 				.findClass(className);
 
 			if (runeliteObjectVanilla == null)
@@ -62,11 +62,11 @@ public class CopyRuneLiteClasses extends AbstractInjector
 				runeliteObjectVanilla = new ClassFile(inject.vanilla);
 				runeliteObjectVanilla.setVersion(Opcodes.V1_8);
 				runeliteObjectVanilla.setName(className);
-				runeliteObjectVanilla.setAccess(runeLiteObjectDeob.getAccess());
+				runeliteObjectVanilla.setAccess(runeLiteDeob.getAccess());
 
-				if (runeLiteObjectDeob.getParentClass() != null)
+				if (runeLiteDeob.getParentClass() != null)
 				{
-					ClassFile deobClass = inject.getDeobfuscated().findClass(runeLiteObjectDeob.getParentClass().getName());
+					ClassFile deobClass = inject.getDeobfuscated().findClass(runeLiteDeob.getParentClass().getName());
 
 					if (deobClass != null)
 					{
@@ -74,25 +74,30 @@ public class CopyRuneLiteClasses extends AbstractInjector
 					}
 					else
 					{
-						runeliteObjectVanilla.setParentClass(runeLiteObjectDeob.getParentClass());
+						runeliteObjectVanilla.setParentClass(runeLiteDeob.getParentClass());
 					}
 				}
 
-				inject.toVanilla.put(runeLiteObjectDeob, runeliteObjectVanilla);
+				inject.toVanilla.put(runeLiteDeob, runeliteObjectVanilla);
 
-				for (Class interfaze : runeLiteObjectDeob.getInterfaces())
+				for (Class interfaze : runeLiteDeob.getInterfaces())
 				{
 					runeliteObjectVanilla.getInterfaces().addInterface(interfaze);
 				}
 
-				for (Field field : runeLiteObjectDeob.getFields())
+				for (Field field : runeLiteDeob.getFields())
 				{
 					field.setType(InjectUtil.deobToVanilla(inject, field.getType()));
 					runeliteObjectVanilla.addField(field);
 				}
 
-				for (Method method : runeLiteObjectDeob.getMethods())
+				for (Method method : runeLiteDeob.getMethods())
 				{
+					if (className.equals("RuneLiteMenuEntry") && (method.getName().equals("getItemId") || method.getName().equals("getWidget")))
+					{
+						continue;
+					}
+
 					transformMethod(method);
 					runeliteObjectVanilla.addMethod(method);
 				}
