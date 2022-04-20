@@ -45,8 +45,7 @@ public class InventoryWidgetItemQuery extends WidgetItemQuery
 			WidgetInfo.SHOP_INVENTORY_ITEMS_CONTAINER,
 			WidgetInfo.GRAND_EXCHANGE_INVENTORY_ITEMS_CONTAINER,
 			WidgetInfo.GUIDE_PRICES_INVENTORY_ITEMS_CONTAINER,
-			WidgetInfo.EQUIPMENT_INVENTORY_ITEMS_CONTAINER,
-			WidgetInfo.INVENTORY
+			WidgetInfo.EQUIPMENT_INVENTORY_ITEMS_CONTAINER
 		};
 
 	@Override
@@ -69,36 +68,29 @@ public class InventoryWidgetItemQuery extends WidgetItemQuery
 			{
 				continue;
 			}
-			if (widgetInfo == WidgetInfo.INVENTORY)
-			{
-				widgetItems.addAll(inventory.getWidgetItems());
-				break;
-			}
-			else
-			{
-				Widget[] children = inventory.getDynamicChildren();
-				for (int i = 0; i < children.length; i++)
-				{
-					Widget child = children[i];
-					boolean isDragged = child.isWidgetItemDragged(child.getItemId());
-					int dragOffsetX = 0;
-					int dragOffsetY = 0;
 
-					if (isDragged)
-					{
-						Point p = child.getWidgetItemDragOffsets();
-						dragOffsetX = p.getX();
-						dragOffsetY = p.getY();
-					}
-					// set bounds to same size as default inventory
-					Rectangle bounds = child.getBounds();
-					bounds.setBounds(bounds.x - 1, bounds.y - 1, 32, 32);
-					Rectangle dragBounds = child.getBounds();
-					dragBounds.setBounds(bounds.x + dragOffsetX, bounds.y + dragOffsetY, 32, 32);
-					widgetItems.add(new WidgetItem(child.getItemId(), child.getItemQuantity(), i, bounds, child, dragBounds));
+			Widget[] children = inventory.getDynamicChildren();
+			for (int i = 0; i < children.length; i++)
+			{
+				Widget child = children[i];
+				boolean isDragged = child.isWidgetItemDragged(child.getItemId());
+				int dragOffsetX = 0;
+				int dragOffsetY = 0;
+
+				if (isDragged)
+				{
+					Point p = child.getWidgetItemDragOffsets();
+					dragOffsetX = p.getX();
+					dragOffsetY = p.getY();
 				}
-				break;
+				// set bounds to same size as default inventory
+				Rectangle bounds = child.getBounds();
+				bounds.setBounds(bounds.x - 1, bounds.y - 1, 32, 32);
+				Rectangle dragBounds = child.getBounds();
+				dragBounds.setBounds(bounds.x + dragOffsetX, bounds.y + dragOffsetY, 32, 32);
+				widgetItems.add(new WidgetItem(child.getItemId(), child.getItemQuantity(), i, bounds, child, dragBounds));
 			}
+			break;
 		}
 		return widgetItems;
 	}
