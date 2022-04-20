@@ -61,7 +61,6 @@ import net.runelite.api.coords.LocalPoint;
 import net.runelite.api.coords.WorldPoint;
 import net.runelite.api.widgets.Widget;
 import net.runelite.api.widgets.WidgetInfo;
-import net.runelite.api.widgets.WidgetItem;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.ui.overlay.Overlay;
 import net.runelite.client.ui.overlay.OverlayLayer;
@@ -420,11 +419,18 @@ class DevToolsOverlay extends Overlay
 			return;
 		}
 
-		for (WidgetItem item : inventoryWidget.getWidgetItems())
+		for (Widget item : inventoryWidget.getDynamicChildren())
 		{
-			Rectangle slotBounds = item.getCanvasBounds();
+			Rectangle slotBounds = item.getBounds();
+			int itemId = item.getItemId();
 
-			String idText = "" + item.getId();
+			if (itemId == 6512)
+			{
+				continue;
+			}
+
+			String idText = "" + itemId;
+
 			FontMetrics fm = graphics.getFontMetrics();
 			Rectangle2D textBounds = fm.getStringBounds(idText, graphics);
 

@@ -29,16 +29,31 @@ import net.runelite.mapping.Import;
 public interface RSMenuAction
 {
 	@Import("action")
+	String getOption();
+
+	@Import("action")
 	void setOption(String yes);
+
+	@Import("opcode")
+	int getOpcode();
 
 	@Import("opcode")
 	void setOpcode(int yes);
 
 	@Import("identifier")
+	int getIdentifier();
+
+	@Import("identifier")
 	void setIdentifier(int yes);
 
 	@Import("param0")
+	int getParam0();
+
+	@Import("param0")
 	void setParam0(int yes);
+
+	@Import("param1")
+	int getParam1();
 
 	@Import("param1")
 	void setParam1(int yes);

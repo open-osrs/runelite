@@ -574,6 +574,14 @@ public interface Client extends OAuthApi, GameEngine
 	void setDraggedOnWidget(Widget widget);
 
 	/**
+	 * Get the number of client cycles the current dragged widget
+	 * has been dragged for.
+	 *
+	 * @return
+	 */
+	int getDragTime();
+
+	/**
 	 * Gets Interface ID of the root widget
 	 */
 	int getTopLevelInterfaceId();
@@ -2083,6 +2091,13 @@ public interface Client extends OAuthApi, GameEngine
 	 * @return
 	 */
 	int getSelectedItemIndex();
+
+	/**
+	 * Get the selected widget, such as a selected spell or selected item (eg. "Use")
+	 * @return the selected widget
+	 */
+	@Nullable
+	Widget getSelectedWidget();
 
 	/**
 	 * Returns client item composition cache
