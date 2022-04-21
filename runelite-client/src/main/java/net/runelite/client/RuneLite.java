@@ -32,7 +32,6 @@ import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.jagex.oldscape.pub.OAuthApi;
-import com.jagex.oldscape.pub.OtlTokenResponse;
 import com.openosrs.client.OpenOSRS;
 import com.openosrs.client.game.PlayerManager;
 import com.openosrs.client.ui.OpenOSRSSplashScreen;
@@ -53,9 +52,8 @@ import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 import java.util.Locale;
 import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeUnit;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 import javax.annotation.Nullable;
 import javax.inject.Provider;
@@ -96,8 +94,6 @@ import net.runelite.http.api.RuneLiteAPI;
 import net.runelite.http.api.worlds.World;
 import net.runelite.http.api.worlds.WorldResult;
 import okhttp3.Cache;
-import okhttp3.Call;
-import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -125,9 +121,6 @@ public class RuneLite
 
 	@Inject
 	private net.runelite.client.plugins.PluginManager pluginManager;
-
-	@Inject
-	private OkHttpClient okHttpClient;
 
 	@Inject
 	private ExternalPluginManager externalPluginManager;
@@ -687,68 +680,6 @@ public class RuneLite
 
 		try
 		{
-			log.info("Initializing OTL token requester with access token");
-			oAuthApi.setOtlTokenRequester(url ->
-			{
-				CompletableFuture<OtlTokenResponse> f = new CompletableFuture<>();
-				okHttpClient.newCall(new Request.Builder()
-					.url(url)
-					.header("Authorization", "Bearer " + accessToken)
-					.get()
-					.build())
-					.enqueue(new Callback()
-					{
-						private void complete(boolean success, String token)
-						{
-							f.complete(new OtlTokenResponse()
-							{
-								@Override
-								public boolean isSuccess()
-								{
-									return success;
-								}
-
-								@Override
-								public String getToken()
-								{
-									return token;
-								}
-							});
-						}
-
-						@Override
-						public void onFailure(Call call, IOException e)
-						{
-							log.error("HTTP error while performing OTL request", e);
-							complete(false, null);
-						}
-
-						@Override
-						public void onResponse(Call call, Response response) throws IOException
-						{
-							if (response.code() != 200)
-							{
-								log.error("Non-OK response performing OTL request: {}", response.code());
-								complete(false, null);
-								response.close();
-								return;
-							}
-
-							if (response.body() == null)
-							{
-								log.error("OK response with empty body from OTL request");
-								complete(false, null);
-								response.close();
-								return;
-							}
-
-							log.debug("Successful OTL response");
-							complete(true, response.body().string());
-							response.close();
-						}
-					});
-				return f;
-			});
 		}
 		catch (LinkageError ex)
 		{
