@@ -1042,7 +1042,8 @@ public final class Client extends GameEngine implements Usernamed, OAuthApi {
 	@ObfuscatedGetter(
 		intValue = 913012823
 	)
-	static int field688;
+	@Export("selectedSpellItemId")
+	static int selectedSpellItemId;
 	@ObfuscatedName("ny")
 	@Export("selectedSpellActionName")
 	static String selectedSpellActionName;
@@ -1526,7 +1527,7 @@ public final class Client extends GameEngine implements Usernamed, OAuthApi {
 		selectedItemName = null; // L: 456
 		isSpellSelected = false; // L: 457
 		selectedSpellChildIndex = -1; // L: 459
-		field688 = -1; // L: 460
+		selectedSpellItemId = -1; // L: 460
 		selectedSpellActionName = null; // L: 462
 		selectedSpellName = null; // L: 463
 		rootInterface = -1; // L: 464

@@ -237,7 +237,7 @@ public class SoundCache {
 			Client.destinationX = var0; // L: 8716
 			Client.destinationY = var1; // L: 8717
 			var8 = ItemContainer.getPacketBufferNode(ClientPacket.field2894, Client.packetWriter.isaacCipher); // L: 8718
-			var8.packetBuffer.method7796(Client.field688); // L: 8719
+			var8.packetBuffer.method7796(Client.selectedSpellItemId); // L: 8719
 			var8.packetBuffer.writeByte(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0); // L: 8720
 			var8.packetBuffer.method7791(class250.baseY + var1); // L: 8721
 			var8.packetBuffer.method7796(Client.selectedSpellChildIndex); // L: 8722
@@ -331,7 +331,7 @@ public class SoundCache {
 					var9.packetBuffer.writeShort(Client.selectedSpellChildIndex); // L: 8672
 					var9.packetBuffer.method7795(var3); // L: 8673
 					var9.packetBuffer.method7806(class92.selectedSpellWidget); // L: 8674
-					var9.packetBuffer.method7796(Client.field688); // L: 8675
+					var9.packetBuffer.method7796(Client.selectedSpellItemId); // L: 8675
 					Client.packetWriter.addNode(var9); // L: 8676
 				}
 			} else if (var2 == 9) {
@@ -437,7 +437,7 @@ public class SoundCache {
 						var9.packetBuffer.method7796(var3); // L: 8242
 						var9.packetBuffer.method7787(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0); // L: 8243
 						var9.packetBuffer.writeInt(class92.selectedSpellWidget); // L: 8244
-						var9.packetBuffer.writeShort(Client.field688); // L: 8245
+						var9.packetBuffer.writeShort(Client.selectedSpellItemId); // L: 8245
 						Client.packetWriter.addNode(var9); // L: 8246
 					}
 				} else if (var2 == 16) {
@@ -464,7 +464,7 @@ public class SoundCache {
 					Client.destinationX = var0; // L: 8780
 					Client.destinationY = var1; // L: 8781
 					var8 = ItemContainer.getPacketBufferNode(ClientPacket.field2942, Client.packetWriter.isaacCipher); // L: 8782
-					var8.packetBuffer.writeShort(Client.field688); // L: 8783
+					var8.packetBuffer.writeShort(Client.selectedSpellItemId); // L: 8783
 					var8.packetBuffer.writeByte(KeyHandler.KeyHandler_pressedKeys[82] ? 1 : 0); // L: 8784
 					var8.packetBuffer.method7795(var3); // L: 8785
 					var8.packetBuffer.writeInt(class92.selectedSpellWidget); // L: 8786
@@ -862,7 +862,7 @@ public class SoundCache {
 												var16 = class143.getWidgetChild(var1, var0); // L: 8648
 												if (var16 != null) { // L: 8649
 													var9 = ItemContainer.getPacketBufferNode(ClientPacket.field2932, Client.packetWriter.isaacCipher); // L: 8651
-													var9.packetBuffer.writeShort(Client.field688); // L: 8652
+													var9.packetBuffer.writeShort(Client.selectedSpellItemId); // L: 8652
 													var9.packetBuffer.writeIntME(class92.selectedSpellWidget); // L: 8653
 													var9.packetBuffer.method7796(var16.itemId); // L: 8654
 													var9.packetBuffer.method7791(Client.selectedSpellChildIndex); // L: 8655

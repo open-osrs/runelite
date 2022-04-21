@@ -2152,6 +2152,12 @@ public interface Client extends OAuthApi, GameEngine
 
 	int getSelectedSpellFlags();
 
+	void setSelectedSpellFlags(int var0);
+
+	int getSelectedSpellItemId();
+
+	void setSelectedSpellItemId(int itemId);
+
 	/**
 	 * Set whether or not player attack options will be hidden for friends
 	 */
