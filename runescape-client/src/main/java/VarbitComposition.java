@@ -4,128 +4,125 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gn")
+@ObfuscatedName("gi")
 @Implements("VarbitComposition")
 public class VarbitComposition extends DualNode {
-	@ObfuscatedName("v")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Llq;"
-	)
-	@Export("VarbitDefinition_archive")
-	public static AbstractArchive VarbitDefinition_archive;
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "Liq;"
+		descriptor = "Lig;"
 	)
 	@Export("VarbitDefinition_cached")
 	public static EvictingDualNodeHashTable VarbitDefinition_cached;
 	@ObfuscatedName("n")
-	static final int[] field1983;
-	@ObfuscatedName("h")
+	static final int[] field1970;
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -603401275
+		intValue = -775301691
 	)
 	@Export("baseVar")
 	public int baseVar;
-	@ObfuscatedName("g")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -902508973
+		intValue = 1129048987
 	)
 	@Export("startBit")
 	public int startBit;
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -1508398865
+		intValue = 153132931
 	)
 	@Export("endBit")
 	public int endBit;
 
 	static {
 		VarbitDefinition_cached = new EvictingDualNodeHashTable(64); // L: 11
-		field1983 = new int[32]; // L: 15
+		field1970 = new int[32]; // L: 15
 		int var0 = 2; // L: 18
 
 		for (int var1 = 0; var1 < 32; ++var1) { // L: 19
-			field1983[var1] = var0 - 1; // L: 20
+			field1970[var1] = var0 - 1; // L: 20
 			var0 += var0; // L: 21
 		}
 
 	} // L: 23
 
-	@ObfuscatedName("v")
+	VarbitComposition() {
+	} // L: 25
+
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lpd;B)V",
-		garbageValue = "58"
+		descriptor = "(Lpi;I)V",
+		garbageValue = "391271030"
 	)
 	@Export("decode")
-	public void decode(Buffer var1) {
+	void decode(Buffer var1) {
 		while (true) {
-			int var2 = var1.readUnsignedByte(); // L: 27
-			if (var2 == 0) { // L: 28
-				return; // L: 31
+			int var2 = var1.readUnsignedByte(); // L: 39
+			if (var2 == 0) { // L: 40
+				return; // L: 43
 			}
 
-			this.decodeNext(var1, var2); // L: 29
+			this.decodeNext(var1, var2); // L: 41
 		}
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(Lpd;IB)V",
-		garbageValue = "-96"
+		descriptor = "(Lpi;II)V",
+		garbageValue = "-467631265"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
-		if (var2 == 1) { // L: 34
-			this.baseVar = var1.readUnsignedShort(); // L: 35
-			this.startBit = var1.readUnsignedByte(); // L: 36
-			this.endBit = var1.readUnsignedByte(); // L: 37
+		if (var2 == 1) { // L: 46
+			this.baseVar = var1.readUnsignedShort(); // L: 47
+			this.startBit = var1.readUnsignedByte(); // L: 48
+			this.endBit = var1.readUnsignedByte(); // L: 49
 		}
 
-	} // L: 40
+	} // L: 52
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("hq")
 	@ObfuscatedSignature(
-		descriptor = "(Ldi;FI)F",
-		garbageValue = "-1168558464"
+		descriptor = "(IIII)V",
+		garbageValue = "-1670747147"
 	)
-	static float method3555(class117 var0, float var1) {
-		if (var0 == null) { // L: 161
-			return 0.0F; // L: 162
+	@Export("worldToScreen")
+	static final void worldToScreen(int var0, int var1, int var2) {
+		if (var0 >= 128 && var1 >= 128 && var0 <= 13056 && var1 <= 13056) { // L: 5402
+			int var3 = WorldMapLabel.getTileHeight(var0, var1, class18.Client_plane) - var2; // L: 5407
+			var0 -= WorldMapLabelSize.cameraX; // L: 5408
+			var3 -= ItemContainer.cameraY; // L: 5409
+			var1 -= class154.cameraZ; // L: 5410
+			int var4 = Rasterizer3D.Rasterizer3D_sine[class147.cameraPitch]; // L: 5411
+			int var5 = Rasterizer3D.Rasterizer3D_cosine[class147.cameraPitch]; // L: 5412
+			int var6 = Rasterizer3D.Rasterizer3D_sine[class21.cameraYaw]; // L: 5413
+			int var7 = Rasterizer3D.Rasterizer3D_cosine[class21.cameraYaw]; // L: 5414
+			int var8 = var0 * var7 + var6 * var1 >> 16; // L: 5415
+			var1 = var7 * var1 - var0 * var6 >> 16; // L: 5416
+			var0 = var8; // L: 5417
+			var8 = var5 * var3 - var4 * var1 >> 16; // L: 5418
+			var1 = var5 * var1 + var3 * var4 >> 16; // L: 5419
+			if (var1 >= 50) { // L: 5421
+				Client.viewportTempX = var0 * Client.viewportZoom / var1 + Client.viewportWidth / 2; // L: 5422
+				Client.viewportTempY = Client.viewportHeight / 2 + var8 * Client.viewportZoom / var1; // L: 5423
+			} else {
+				Client.viewportTempX = -1; // L: 5426
+				Client.viewportTempY = -1; // L: 5427
+			}
+
 		} else {
-			float var2;
-			if (var0.field1432 == var1) { // L: 165
-				var2 = 0.0F; // L: 166
-			} else if (var1 == var0.field1433) { // L: 168
-				var2 = 1.0F; // L: 169
-			} else {
-				var2 = (var1 - var0.field1432) / (var0.field1433 - var0.field1432); // L: 172
-			}
-
-			float var3;
-			if (var0.field1438) { // L: 175
-				var3 = var2; // L: 176
-			} else {
-				float[] var4 = new float[]{var0.field1440[0] - var2, var0.field1440[1], var0.field1440[2], var0.field1440[3]}; // L: 179 180 181 182 183
-				float[] var5 = new float[5]; // L: 184
-				int var6 = class154.method3129(var4, 3, 0.0F, true, 1.0F, true, var5); // L: 185
-				if (var6 == 1) { // L: 186
-					var3 = var5[0]; // L: 187
-				} else {
-					var3 = 0.0F; // L: 190
-				}
-			}
-
-			return (var0.field1435[1] + (var0.field1435[3] * var3 + var0.field1435[2]) * var3) * var3 + var0.field1435[0]; // L: 193
+			Client.viewportTempX = -1; // L: 5403
+			Client.viewportTempY = -1; // L: 5404
 		}
-	}
+	} // L: 5405 5429
 
-	@ObfuscatedName("u")
+	@ObfuscatedName("ko")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Z",
-		garbageValue = "13"
+		descriptor = "(I)I",
+		garbageValue = "1667758885"
 	)
-	public static boolean method3561(int var0) {
-		return (var0 >> 31 & 1) != 0; // L: 41
+	static final int method3578() {
+		float var0 = 200.0F * ((float)class131.clientPreferences.method2240() - 0.5F); // L: 11994
+		return 100 - Math.round(var0); // L: 11995
 	}
 }

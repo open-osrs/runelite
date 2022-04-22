@@ -1,7 +1,7 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 
-@ObfuscatedName("mc")
+@ObfuscatedName("mb")
 public class class350 {
 	@ObfuscatedName("v")
 	@Export("writeRandomDat")
@@ -51,7 +51,7 @@ public class class350 {
 
 	} // L: 49
 
-	@ObfuscatedName("r")
+	@ObfuscatedName("o")
 	@Export("clearIntArray")
 	public static void clearIntArray(int[] var0, int var1, int var2) {
 		for (var2 = var2 + var1 - 7; var1 < var2; var0[var1++] = 0) { // L: 364 365 373

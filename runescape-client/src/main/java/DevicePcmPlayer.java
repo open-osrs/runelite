@@ -9,22 +9,22 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ac")
+@ObfuscatedName("ae")
 @Implements("DevicePcmPlayer")
 public class DevicePcmPlayer extends PcmPlayer {
 	@ObfuscatedName("v")
 	@Export("format")
 	AudioFormat format;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@Export("line")
 	SourceDataLine line;
-	@ObfuscatedName("h")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 1710681231
+		intValue = -1556714099
 	)
 	@Export("capacity2")
 	int capacity2;
-	@ObfuscatedName("g")
+	@ObfuscatedName("f")
 	@Export("byteSamples")
 	byte[] byteSamples;
 
@@ -33,90 +33,90 @@ public class DevicePcmPlayer extends PcmPlayer {
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "44"
+		descriptor = "(I)V",
+		garbageValue = "-843995592"
 	)
 	@Export("init")
 	protected void init() {
-		this.format = new AudioFormat((float)SecureRandomFuture.field949, 16, PcmPlayer.PcmPlayer_stereo ? 2 : 1, true, false); // L: 22
-		this.byteSamples = new byte[256 << (PcmPlayer.PcmPlayer_stereo ? 2 : 1)]; // L: 23
-	} // L: 24
+		this.format = new AudioFormat((float)PcmPlayer.field268, 16, PcmPlayer.PcmPlayer_stereo ? 2 : 1, true, false); // L: 21
+		this.byteSamples = new byte[256 << (PcmPlayer.PcmPlayer_stereo ? 2 : 1)]; // L: 22
+	} // L: 23
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(IS)V",
-		garbageValue = "5561"
+		descriptor = "(II)V",
+		garbageValue = "1651380399"
 	)
 	@Export("open")
 	protected void open(int var1) throws LineUnavailableException {
 		try {
-			Info var2 = new Info(SourceDataLine.class, this.format, var1 << (PcmPlayer.PcmPlayer_stereo ? 2 : 1)); // L: 29
-			this.line = (SourceDataLine)AudioSystem.getLine(var2); // L: 30
-			this.line.open(); // L: 31
-			this.line.start(); // L: 32
-			this.capacity2 = var1; // L: 33
-		} catch (LineUnavailableException var3) { // L: 35
-			if (class263.method5208(var1) != 1) { // L: 36
-				this.open(Login.method1894(var1)); // L: 37
+			Info var2 = new Info(SourceDataLine.class, this.format, var1 << (PcmPlayer.PcmPlayer_stereo ? 2 : 1)); // L: 27
+			this.line = (SourceDataLine)AudioSystem.getLine(var2); // L: 28
+			this.line.open(); // L: 29
+			this.line.start(); // L: 30
+			this.capacity2 = var1; // L: 31
+		} catch (LineUnavailableException var3) { // L: 33
+			if (class150.method3150(var1) != 1) { // L: 34
+				this.open(class67.method1909(var1)); // L: 35
 			} else {
-				this.line = null; // L: 40
-				throw var3; // L: 41
+				this.line = null; // L: 38
+				throw var3; // L: 39
 			}
 		}
-	} // L: 38 43
+	} // L: 36 41
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "0"
+		descriptor = "(I)I",
+		garbageValue = "244839095"
 	)
 	@Export("position")
 	protected int position() {
-		return this.capacity2 - (this.line.available() >> (PcmPlayer.PcmPlayer_stereo ? 2 : 1)); // L: 47
+		return this.capacity2 - (this.line.available() >> (PcmPlayer.PcmPlayer_stereo ? 2 : 1)); // L: 44
 	}
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("f")
 	@Export("write")
 	protected void write() {
-		int var1 = 256; // L: 53
-		if (PcmPlayer.PcmPlayer_stereo) { // L: 54
+		int var1 = 256; // L: 49
+		if (PcmPlayer.PcmPlayer_stereo) { // L: 50
 			var1 <<= 1;
 		}
 
-		for (int var2 = 0; var2 < var1; ++var2) { // L: 55
-			int var3 = super.samples[var2]; // L: 56
-			if ((var3 + 8388608 & -16777216) != 0) { // L: 57
-				var3 = 8388607 ^ var3 >> 31; // L: 58
+		for (int var2 = 0; var2 < var1; ++var2) { // L: 51
+			int var3 = super.samples[var2]; // L: 52
+			if ((var3 + 8388608 & -16777216) != 0) { // L: 53
+				var3 = 8388607 ^ var3 >> 31; // L: 54
 			}
 
-			this.byteSamples[var2 * 2] = (byte)(var3 >> 8); // L: 60
-			this.byteSamples[var2 * 2 + 1] = (byte)(var3 >> 16); // L: 61
+			this.byteSamples[var2 * 2] = (byte)(var3 >> 8); // L: 56
+			this.byteSamples[var2 * 2 + 1] = (byte)(var3 >> 16); // L: 57
 		}
 
-		this.line.write(this.byteSamples, 0, var1 << 1); // L: 63
-	} // L: 64
+		this.line.write(this.byteSamples, 0, var1 << 1); // L: 59
+	} // L: 60
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-1892762612"
+		garbageValue = "-1662003992"
 	)
 	@Export("close")
 	protected void close() {
-		if (this.line != null) { // L: 68
-			this.line.close(); // L: 69
-			this.line = null; // L: 70
+		if (this.line != null) { // L: 63
+			this.line.close(); // L: 64
+			this.line = null; // L: 65
 		}
 
-	} // L: 72
+	} // L: 67
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-476108420"
+		garbageValue = "1137884684"
 	)
 	@Export("discard")
 	protected void discard() {
-		this.line.flush(); // L: 76
-	} // L: 77
+		this.line.flush(); // L: 70
+	} // L: 71
 }

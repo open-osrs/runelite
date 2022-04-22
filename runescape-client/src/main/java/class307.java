@@ -1,44 +1,38 @@
-import net.runelite.mapping.Export;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ky")
+@ObfuscatedName("kh")
 public class class307 {
-	@ObfuscatedName("w")
-	@ObfuscatedGetter(
-		intValue = -1390768501
-	)
-	static int field3588;
-	@ObfuscatedName("mo")
-	@ObfuscatedGetter(
-		intValue = -1395433659
-	)
-	@Export("menuX")
-	static int menuX;
-
-	@ObfuscatedName("g")
+	@ObfuscatedName("oj")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "882175193"
+		descriptor = "[Lky;"
 	)
-	@Export("savePreferences")
-	static void savePreferences() {
-		AccessFile var0 = null; // L: 134
+	static Widget[] field3585;
 
-		try {
-			var0 = ReflectionCheck.getPreferencesFile("", Login.field917.name, true); // L: 136
-			Buffer var1 = Interpreter.clientPreferences.toBuffer(); // L: 137
-			var0.write(var1.array, 0, var1.offset); // L: 138
-		} catch (Exception var3) { // L: 140
-		}
+	static {
+		int var0 = 0; // L: 9
+		int var1 = 0; // L: 10
+		class302[] var2 = class216.method4365(); // L: 12
 
-		try {
-			if (var0 != null) { // L: 142
-				var0.closeSync(true); // L: 143
+		for (int var3 = 0; var3 < var2.length; ++var3) { // L: 13
+			class302 var4 = var2[var3]; // L: 14
+			if (var4.field3550 > var0) {
+				var0 = var4.field3550; // L: 16
 			}
-		} catch (Exception var2) { // L: 146
+
+			if (var4.field3548 > var1) { // L: 17
+				var1 = var4.field3548;
+			}
 		}
 
-	} // L: 147
+	} // L: 21
+
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "(I)Z",
+		garbageValue = "1276900291"
+	)
+	public static boolean method5789() {
+		return class273.musicPlayerStatus != 0 ? true : class273.midiPcmStream.isReady(); // L: 70 71
+	}
 }

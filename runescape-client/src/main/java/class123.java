@@ -3,151 +3,99 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("da")
+@ObfuscatedName("dw")
 public enum class123 implements MouseWheel {
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lda;"
+		descriptor = "Ldw;"
 	)
-	field1505(0, 0),
-	@ObfuscatedName("o")
+	field1483(0, 0),
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lda;"
+		descriptor = "Ldw;"
 	)
-	field1494(1, 1),
-	@ObfuscatedName("h")
+	field1492(1, 1),
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "Lda;"
+		descriptor = "Ldw;"
 	)
-	field1495(2, 2),
-	@ObfuscatedName("g")
-	@ObfuscatedSignature(
-		descriptor = "Lda;"
-	)
-	field1496(3, 3),
-	@ObfuscatedName("l")
-	@ObfuscatedSignature(
-		descriptor = "Lda;"
-	)
-	field1497(4, 4),
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "Lda;"
-	)
-	field1498(5, 5),
-	@ObfuscatedName("d")
-	@ObfuscatedSignature(
-		descriptor = "Lda;"
-	)
-	field1493(6, 6),
+	field1486(2, 2),
 	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lda;"
+		descriptor = "Ldw;"
 	)
-	field1500(7, 7),
-	@ObfuscatedName("u")
+	field1482(3, 3),
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "Lda;"
+		descriptor = "Ldw;"
 	)
-	field1501(8, 8);
-
-	@ObfuscatedName("hi")
-	@Export("regions")
-	static int[] regions;
-	@ObfuscatedName("r")
-	@ObfuscatedGetter(
-		intValue = -1756049989
+	field1481(4, 4),
+	@ObfuscatedName("n")
+	@ObfuscatedSignature(
+		descriptor = "Ldw;"
 	)
-	final int field1503;
-	@ObfuscatedName("k")
-	@ObfuscatedGetter(
-		intValue = -1875451971
+	field1484(5, 5),
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		descriptor = "Ldw;"
 	)
-	final int field1499;
-
-	class123(int var3, int var4) {
-		this.field1503 = var3; // L: 101
-		this.field1499 = var4; // L: 102
-	} // L: 103
+	field1487(6, 6),
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		descriptor = "Ldw;"
+	)
+	field1488(7, 7),
+	@ObfuscatedName("q")
+	@ObfuscatedSignature(
+		descriptor = "Ldw;"
+	)
+	field1489(8, 8);
 
 	@ObfuscatedName("o")
+	@ObfuscatedGetter(
+		intValue = 1942889575
+	)
+	final int field1490;
+	@ObfuscatedName("r")
+	@ObfuscatedGetter(
+		intValue = -315171815
+	)
+	final int field1491;
+
+	class123(int var3, int var4) {
+		this.field1490 = var3; // L: 110
+		this.field1491 = var4; // L: 111
+	} // L: 112
+
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "(B)I",
-		garbageValue = "15"
+		garbageValue = "16"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field1499; // L: 106
+		return this.field1491; // L: 115
 	}
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(CI)B",
-		garbageValue = "-1526513264"
+		descriptor = "(II)Lfk;",
+		garbageValue = "2122696884"
 	)
-	@Export("charToByteCp1252")
-	public static byte charToByteCp1252(char var0) {
-		byte var1;
-		if (var0 > 0 && var0 < 128 || var0 >= 160 && var0 <= 255) { // L: 12
-			var1 = (byte)var0;
-		} else if (var0 == 8364) { // L: 13
-			var1 = -128;
-		} else if (var0 == 8218) { // L: 14
-			var1 = -126;
-		} else if (var0 == 402) { // L: 15
-			var1 = -125;
-		} else if (var0 == 8222) { // L: 16
-			var1 = -124;
-		} else if (var0 == 8230) { // L: 17
-			var1 = -123;
-		} else if (var0 == 8224) { // L: 18
-			var1 = -122;
-		} else if (var0 == 8225) { // L: 19
-			var1 = -121;
-		} else if (var0 == 710) { // L: 20
-			var1 = -120;
-		} else if (var0 == 8240) { // L: 21
-			var1 = -119;
-		} else if (var0 == 352) { // L: 22
-			var1 = -118;
-		} else if (var0 == 8249) { // L: 23
-			var1 = -117;
-		} else if (var0 == 338) { // L: 24
-			var1 = -116;
-		} else if (var0 == 381) { // L: 25
-			var1 = -114;
-		} else if (var0 == 8216) { // L: 26
-			var1 = -111;
-		} else if (var0 == 8217) { // L: 27
-			var1 = -110;
-		} else if (var0 == 8220) { // L: 28
-			var1 = -109;
-		} else if (var0 == 8221) { // L: 29
-			var1 = -108;
-		} else if (var0 == 8226) { // L: 30
-			var1 = -107;
-		} else if (var0 == 8211) { // L: 31
-			var1 = -106;
-		} else if (var0 == 8212) { // L: 32
-			var1 = -105;
-		} else if (var0 == 732) { // L: 33
-			var1 = -104;
-		} else if (var0 == 8482) { // L: 34
-			var1 = -103;
-		} else if (var0 == 353) { // L: 35
-			var1 = -102;
-		} else if (var0 == 8250) { // L: 36
-			var1 = -101;
-		} else if (var0 == 339) { // L: 37
-			var1 = -100;
-		} else if (var0 == 382) { // L: 38
-			var1 = -98;
-		} else if (var0 == 376) { // L: 39
-			var1 = -97;
+	public static FloorUnderlayDefinition method2806(int var0) {
+		FloorUnderlayDefinition var1 = (FloorUnderlayDefinition)FloorUnderlayDefinition.FloorUnderlayDefinition_cached.get((long)var0); // L: 21
+		if (var1 != null) { // L: 22
+			return var1;
 		} else {
-			var1 = 63; // L: 40
-		}
+			byte[] var2 = FloorUnderlayDefinition.FloorUnderlayDefinition_archive.takeFile(1, var0); // L: 23
+			var1 = new FloorUnderlayDefinition(); // L: 24
+			if (var2 != null) { // L: 25
+				var1.decode(new Buffer(var2), var0);
+			}
 
-		return var1; // L: 41
+			var1.postDecode(); // L: 26
+			FloorUnderlayDefinition.FloorUnderlayDefinition_cached.put(var1, (long)var0); // L: 27
+			return var1; // L: 28
+		}
 	}
 }

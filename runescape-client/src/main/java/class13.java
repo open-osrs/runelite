@@ -8,86 +8,113 @@ import net.runelite.mapping.ObfuscatedSignature;
 import org.bouncycastle.crypto.tls.DefaultTlsClient;
 import org.bouncycastle.crypto.tls.TlsAuthentication;
 
-@ObfuscatedName("j")
+@ObfuscatedName("k")
 class class13 extends DefaultTlsClient {
+	@ObfuscatedName("gk")
+	@ObfuscatedSignature(
+		descriptor = "Lmd;"
+	)
+	@Export("fontPlain12")
+	static Font fontPlain12;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lc;"
+		descriptor = "Lw;"
 	)
 	final class12 this$1;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lc;)V"
+		descriptor = "(Lw;)V"
 	)
 	class13(class12 var1) {
-		this.this$1 = var1; // L: 282
+		this.this$1 = var1; // L: 227
 	}
 
 	public Hashtable getClientExtensions() throws IOException {
-		Hashtable var1 = super.getClientExtensions(); // L: 285
-		if (var1 == null) { // L: 286
-			var1 = new Hashtable(); // L: 287
+		Hashtable var1 = super.getClientExtensions(); // L: 229
+		if (var1 == null) { // L: 230
+			var1 = new Hashtable(); // L: 231
 		}
 
-		byte[] var2 = this.this$1.val$host.getBytes(); // L: 289
-		ByteArrayOutputStream var3 = new ByteArrayOutputStream(); // L: 290
-		DataOutputStream var4 = new DataOutputStream(var3); // L: 291
-		var4.writeShort(var2.length + 3); // L: 292
-		var4.writeByte(0); // L: 293
-		var4.writeShort(var2.length); // L: 294
-		var4.write(var2); // L: 295
-		var4.close(); // L: 296
-		var1.put(0, var3.toByteArray()); // L: 297
-		return var1; // L: 298
+		byte[] var2 = this.this$1.val$host.getBytes(); // L: 233
+		ByteArrayOutputStream var3 = new ByteArrayOutputStream(); // L: 234
+		DataOutputStream var4 = new DataOutputStream(var3); // L: 235
+		var4.writeShort(var2.length + 3); // L: 236
+		var4.writeByte(0); // L: 237
+		var4.writeShort(var2.length); // L: 238
+		var4.write(var2); // L: 239
+		var4.close(); // L: 240
+		var1.put(0, var3.toByteArray()); // L: 241
+		return var1; // L: 242
 	}
 
 	public TlsAuthentication getAuthentication() throws IOException {
-		return new class11(this); // L: 303
+		return new class11(this); // L: 246
 	}
 
-	@ObfuscatedName("la")
+	@ObfuscatedName("gs")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;ZB)V",
-		garbageValue = "1"
+		descriptor = "(IIII)V",
+		garbageValue = "-547008186"
 	)
-	@Export("findItemDefinitions")
-	static void findItemDefinitions(String var0, boolean var1) {
-		var0 = var0.toLowerCase(); // L: 11841
-		short[] var2 = new short[16]; // L: 11842
-		int var3 = 0; // L: 11843
-
-		for (int var4 = 0; var4 < ArchiveLoader.ItemDefinition_fileCount; ++var4) { // L: 11844
-			ItemComposition var9 = class67.ItemDefinition_get(var4); // L: 11845
-			if ((!var1 || var9.isTradable) && var9.noteTemplate == -1 && var9.name.toLowerCase().indexOf(var0) != -1) { // L: 11846 11847 11848
-				if (var3 >= 250) { // L: 11849
-					PendingSpawn.foundItemIdCount = -1; // L: 11850
-					class14.foundItemIds = null; // L: 11851
-					return; // L: 11852
-				}
-
-				if (var3 >= var2.length) { // L: 11854
-					short[] var6 = new short[var2.length * 2]; // L: 11855
-
-					for (int var7 = 0; var7 < var3; ++var7) { // L: 11856
-						var6[var7] = var2[var7];
-					}
-
-					var2 = var6; // L: 11857
-				}
-
-				var2[var3++] = (short)var4; // L: 11859
+	static final void method163(int var0, int var1, int var2) {
+		if (WorldMapLabelSize.cameraX < var0) { // L: 3729
+			WorldMapLabelSize.cameraX = (var0 - WorldMapLabelSize.cameraX) * ArchiveDisk.field4309 / 1000 + WorldMapLabelSize.cameraX + Script.field955; // L: 3730
+			if (WorldMapLabelSize.cameraX > var0) { // L: 3731
+				WorldMapLabelSize.cameraX = var0;
 			}
 		}
 
-		class14.foundItemIds = var2; // L: 11861
-		MouseRecorder.foundItemIndex = 0; // L: 11862
-		PendingSpawn.foundItemIdCount = var3; // L: 11863
-		String[] var8 = new String[PendingSpawn.foundItemIdCount]; // L: 11864
-
-		for (int var5 = 0; var5 < PendingSpawn.foundItemIdCount; ++var5) { // L: 11865
-			var8[var5] = class67.ItemDefinition_get(var2[var5]).name;
+		if (WorldMapLabelSize.cameraX > var0) { // L: 3733
+			WorldMapLabelSize.cameraX -= (WorldMapLabelSize.cameraX - var0) * ArchiveDisk.field4309 / 1000 + Script.field955; // L: 3734
+			if (WorldMapLabelSize.cameraX < var0) { // L: 3735
+				WorldMapLabelSize.cameraX = var0;
+			}
 		}
 
-		class193.method3880(var8, class14.foundItemIds); // L: 11866
-	} // L: 11867
+		if (ItemContainer.cameraY < var1) { // L: 3737
+			ItemContainer.cameraY = (var1 - ItemContainer.cameraY) * ArchiveDisk.field4309 / 1000 + ItemContainer.cameraY + Script.field955; // L: 3738
+			if (ItemContainer.cameraY > var1) { // L: 3739
+				ItemContainer.cameraY = var1;
+			}
+		}
+
+		if (ItemContainer.cameraY > var1) { // L: 3741
+			ItemContainer.cameraY -= (ItemContainer.cameraY - var1) * ArchiveDisk.field4309 / 1000 + Script.field955; // L: 3742
+			if (ItemContainer.cameraY < var1) { // L: 3743
+				ItemContainer.cameraY = var1;
+			}
+		}
+
+		if (class154.cameraZ < var2) { // L: 3745
+			class154.cameraZ = (var2 - class154.cameraZ) * ArchiveDisk.field4309 / 1000 + class154.cameraZ + Script.field955; // L: 3746
+			if (class154.cameraZ > var2) { // L: 3747
+				class154.cameraZ = var2;
+			}
+		}
+
+		if (class154.cameraZ > var2) { // L: 3749
+			class154.cameraZ -= (class154.cameraZ - var2) * ArchiveDisk.field4309 / 1000 + Script.field955; // L: 3750
+			if (class154.cameraZ < var2) { // L: 3751
+				class154.cameraZ = var2;
+			}
+		}
+
+	} // L: 3753
+
+	@ObfuscatedName("hs")
+	@ObfuscatedSignature(
+		descriptor = "(IIB)I",
+		garbageValue = "109"
+	)
+	static int method164(int var0, int var1) {
+		int var2 = var1 - 334; // L: 5445
+		if (var2 < 0) { // L: 5446
+			var2 = 0;
+		} else if (var2 > 100) { // L: 5447
+			var2 = 100;
+		}
+
+		int var3 = (Client.zoomWidth - Client.zoomHeight) * var2 / 100 + Client.zoomHeight; // L: 5448
+		return var0 * var3 / 256; // L: 5449
+	}
 }

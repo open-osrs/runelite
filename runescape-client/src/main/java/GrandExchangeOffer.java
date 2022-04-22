@@ -4,39 +4,42 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ly")
+@ObfuscatedName("lh")
 @Implements("GrandExchangeOffer")
 public class GrandExchangeOffer {
+	@ObfuscatedName("z")
+	@Export("BZip2Decompressor_block")
+	static int[] BZip2Decompressor_block;
 	@ObfuscatedName("v")
 	@Export("state")
 	byte state;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 10431225
+		intValue = 882617765
 	)
 	@Export("id")
 	public int id;
-	@ObfuscatedName("h")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 268603401
+		intValue = 274655921
 	)
 	@Export("unitPrice")
 	public int unitPrice;
-	@ObfuscatedName("g")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -2119681887
+		intValue = -1718567641
 	)
 	@Export("totalQuantity")
 	public int totalQuantity;
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = 151834997
+		intValue = 781050121
 	)
 	@Export("currentQuantity")
 	public int currentQuantity;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = -92952021
+		intValue = 1429654689
 	)
 	@Export("currentPrice")
 	public int currentPrice;
@@ -45,7 +48,7 @@ public class GrandExchangeOffer {
 	} // L: 13
 
 	@ObfuscatedSignature(
-		descriptor = "(Lpd;Z)V",
+		descriptor = "(Lpi;Z)V",
 		garbageValue = "0"
 	)
 	public GrandExchangeOffer(Buffer var1, boolean var2) {
@@ -57,32 +60,32 @@ public class GrandExchangeOffer {
 		this.currentPrice = var1.readInt(); // L: 21
 	} // L: 22
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-1572624507"
+		descriptor = "(S)I",
+		garbageValue = "3324"
 	)
 	@Export("status")
 	public int status() {
 		return this.state & 7; // L: 50
 	}
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-2085742420"
+		descriptor = "(B)I",
+		garbageValue = "126"
 	)
 	@Export("type")
 	public int type() {
 		return (this.state & 8) == 8 ? 1 : 0; // L: 54
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
 		descriptor = "(II)V",
-		garbageValue = "-337380449"
+		garbageValue = "659147953"
 	)
-	void method6050(int var1) {
+	void method6018(int var1) {
 		this.state &= -8; // L: 58
 		this.state = (byte)(this.state | var1 & 7); // L: 59
 	} // L: 60
@@ -90,9 +93,9 @@ public class GrandExchangeOffer {
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "(II)V",
-		garbageValue = "1896957082"
+		garbageValue = "1485129862"
 	)
-	void method6053(int var1) {
+	void method6025(int var1) {
 		this.state &= -9; // L: 63
 		if (var1 == 1) {
 			this.state = (byte)(this.state | 8); // L: 64
@@ -100,51 +103,12 @@ public class GrandExchangeOffer {
 
 	} // L: 65
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("ah")
 	@ObfuscatedSignature(
-		descriptor = "(Lbr;Lbr;IZI)I",
-		garbageValue = "1940653872"
+		descriptor = "(IB)I",
+		garbageValue = "41"
 	)
-	@Export("compareWorlds")
-	static int compareWorlds(World var0, World var1, int var2, boolean var3) {
-		if (var2 == 1) { // L: 211
-			int var4 = var0.population; // L: 212
-			int var5 = var1.population; // L: 213
-			if (!var3) { // L: 214
-				if (var4 == -1) { // L: 215
-					var4 = 2001;
-				}
-
-				if (var5 == -1) { // L: 216
-					var5 = 2001;
-				}
-			}
-
-			return var4 - var5; // L: 218
-		} else if (var2 == 2) { // L: 220
-			return var0.location - var1.location;
-		} else if (var2 == 3) { // L: 221
-			if (var0.activity.equals("-")) { // L: 222
-				if (var1.activity.equals("-")) { // L: 223
-					return 0;
-				} else {
-					return var3 ? -1 : 1; // L: 224
-				}
-			} else if (var1.activity.equals("-")) { // L: 226
-				return var3 ? 1 : -1;
-			} else {
-				return var0.activity.compareTo(var1.activity); // L: 227
-			}
-		} else if (var2 == 4) { // L: 229
-			return var0.method1612() ? (var1.method1612() ? 0 : 1) : (var1.method1612() ? -1 : 0);
-		} else if (var2 == 5) { // L: 230
-			return var0.method1628() ? (var1.method1628() ? 0 : 1) : (var1.method1628() ? -1 : 0);
-		} else if (var2 == 6) { // L: 231
-			return var0.isPvp() ? (var1.isPvp() ? 0 : 1) : (var1.isPvp() ? -1 : 0);
-		} else if (var2 == 7) { // L: 232
-			return var0.isMembersOnly() ? (var1.isMembersOnly() ? 0 : 1) : (var1.isMembersOnly() ? -1 : 0);
-		} else {
-			return var0.id - var1.id; // L: 233
-		}
+	static int method6032(int var0) {
+		return (int)Math.pow(2.0D, (double)(7.0F + (float)var0 / 256.0F)); // L: 3837
 	}
 }

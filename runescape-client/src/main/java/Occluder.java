@@ -3,113 +3,115 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 
-@ObfuscatedName("hd")
+@ObfuscatedName("ip")
 @Implements("Occluder")
 public final class Occluder {
-	@ObfuscatedName("hc")
-	@Export("regionMapArchives")
-	static byte[][] regionMapArchives;
+	@ObfuscatedName("bs")
+	@ObfuscatedGetter(
+		intValue = 521485803
+	)
+	static int field2687;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 2118219045
+		intValue = 432924175
 	)
 	@Export("minTileX")
 	int minTileX;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -1278987595
+		intValue = 870286189
 	)
 	@Export("maxTileX")
 	int maxTileX;
-	@ObfuscatedName("h")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -1725451551
+		intValue = -1384680613
 	)
 	@Export("minTileY")
 	int minTileY;
-	@ObfuscatedName("g")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 1053658137
+		intValue = 307229679
 	)
 	@Export("maxTileY")
 	int maxTileY;
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -552645515
+		intValue = -2026987549
 	)
 	@Export("type")
 	int type;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 1118377853
+		intValue = -1038398405
 	)
 	@Export("minX")
 	int minX;
-	@ObfuscatedName("d")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = 1442245953
+		intValue = -1926841753
 	)
 	@Export("maxX")
 	int maxX;
-	@ObfuscatedName("f")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -1253210515
+		intValue = 933387719
 	)
 	@Export("minZ")
 	int minZ;
-	@ObfuscatedName("u")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = 141469663
+		intValue = 1713258203
 	)
 	@Export("maxZ")
 	int maxZ;
-	@ObfuscatedName("r")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 928393647
+		intValue = 293086529
 	)
 	@Export("minY")
 	int minY;
-	@ObfuscatedName("k")
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = -1686310297
+		intValue = -324431291
 	)
 	@Export("maxY")
 	int maxY;
-	@ObfuscatedName("x")
-	@ObfuscatedGetter(
-		intValue = -1392704329
-	)
-	int field2453;
-	@ObfuscatedName("c")
-	@ObfuscatedGetter(
-		intValue = 163437119
-	)
-	int field2454;
-	@ObfuscatedName("j")
-	@ObfuscatedGetter(
-		intValue = -465176021
-	)
-	int field2455;
 	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -821512955
+		intValue = -1076390299
 	)
-	int field2456;
-	@ObfuscatedName("s")
-	@ObfuscatedGetter(
-		intValue = -1125361357
-	)
-	int field2460;
-	@ObfuscatedName("b")
-	@ObfuscatedGetter(
-		intValue = 1349803663
-	)
-	int field2458;
+	int field2669;
 	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -1964398833
+		intValue = -1300048983
 	)
-	int field2459;
+	int field2681;
+	@ObfuscatedName("k")
+	@ObfuscatedGetter(
+		intValue = 1268857779
+	)
+	int field2682;
+	@ObfuscatedName("d")
+	@ObfuscatedGetter(
+		intValue = 156478241
+	)
+	int field2683;
+	@ObfuscatedName("m")
+	@ObfuscatedGetter(
+		intValue = -213765683
+	)
+	int field2684;
+	@ObfuscatedName("u")
+	@ObfuscatedGetter(
+		intValue = -606308779
+	)
+	int field2685;
+	@ObfuscatedName("t")
+	@ObfuscatedGetter(
+		intValue = 1936535027
+	)
+	int field2686;
 
 	Occluder() {
 	} // L: 23

@@ -1,44 +1,37 @@
-import java.awt.Component;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gf")
+@ObfuscatedName("gv")
 @Implements("CollisionMap")
 public class CollisionMap {
-	@ObfuscatedName("in")
+	@ObfuscatedName("al")
 	@ObfuscatedGetter(
-		intValue = 446364801
-	)
-	@Export("cameraZ")
-	static int cameraZ;
-	@ObfuscatedName("ae")
-	@ObfuscatedGetter(
-		intValue = 982444573
+		intValue = -2036334399
 	)
 	@Export("xInset")
-	int xInset;
-	@ObfuscatedName("ab")
+	public int xInset;
+	@ObfuscatedName("av")
 	@ObfuscatedGetter(
-		intValue = -1784818161
+		intValue = 248145697
 	)
 	@Export("yInset")
-	int yInset;
-	@ObfuscatedName("aa")
+	public int yInset;
+	@ObfuscatedName("at")
 	@ObfuscatedGetter(
-		intValue = -170149503
+		intValue = -1443603637
 	)
 	@Export("xSize")
 	int xSize;
-	@ObfuscatedName("ad")
+	@ObfuscatedName("an")
 	@ObfuscatedGetter(
-		intValue = -1782324325
+		intValue = -322616853
 	)
 	@Export("ySize")
 	int ySize;
-	@ObfuscatedName("aj")
+	@ObfuscatedName("ay")
 	@Export("flags")
 	public int[][] flags;
 
@@ -53,8 +46,8 @@ public class CollisionMap {
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-633194876"
+		descriptor = "(B)V",
+		garbageValue = "41"
 	)
 	@Export("clear")
 	public void clear() {
@@ -70,12 +63,12 @@ public class CollisionMap {
 
 	} // L: 59
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(IIIIZB)V",
-		garbageValue = "1"
+		descriptor = "(IIIIZI)V",
+		garbageValue = "41761614"
 	)
-	public void method3838(int var1, int var2, int var3, int var4, boolean var5) {
+	public void method3872(int var1, int var2, int var3, int var4, boolean var5) {
 		var1 -= this.xInset; // L: 62
 		var2 -= this.yInset; // L: 63
 		if (var3 == 0) { // L: 64
@@ -150,9 +143,9 @@ public class CollisionMap {
 
 		if (var5) { // L: 122
 			if (var3 == 0) { // L: 123
-				if (var4 == 0) {
-					this.setFlag(var1, var2, 65536);
-					this.setFlag(var1 - 1, var2, 4096);
+				if (var4 == 0) { // L: 124
+					this.setFlag(var1, var2, 65536); // L: 125
+					this.setFlag(var1 - 1, var2, 4096); // L: 126
 				}
 
 				if (var4 == 1) { // L: 128
@@ -222,10 +215,10 @@ public class CollisionMap {
 
 	} // L: 182
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(IIIIZI)V",
-		garbageValue = "-283720745"
+		descriptor = "(IIIIZB)V",
+		garbageValue = "-49"
 	)
 	@Export("addGameObject")
 	public void addGameObject(int var1, int var2, int var3, int var4, boolean var5) {
@@ -249,10 +242,10 @@ public class CollisionMap {
 
 	} // L: 196
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "(IIB)V",
-		garbageValue = "31"
+		garbageValue = "122"
 	)
 	@Export("setBlockedByFloor")
 	public void setBlockedByFloor(int var1, int var2) {
@@ -262,10 +255,10 @@ public class CollisionMap {
 		var10000[var2] |= 2097152;
 	} // L: 202
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
 		descriptor = "(III)V",
-		garbageValue = "229046415"
+		garbageValue = "577213527"
 	)
 	@Export("setBlockedByFloorDec")
 	public void setBlockedByFloorDec(int var1, int var2) {
@@ -277,8 +270,8 @@ public class CollisionMap {
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(IIII)V",
-		garbageValue = "-848797449"
+		descriptor = "(IIIB)V",
+		garbageValue = "-85"
 	)
 	@Export("setFlag")
 	void setFlag(int var1, int var2, int var3) {
@@ -286,12 +279,12 @@ public class CollisionMap {
 		var10000[var2] |= var3;
 	} // L: 212
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "(IIIIZI)V",
-		garbageValue = "1529819557"
+		garbageValue = "-1937676600"
 	)
-	public void method3843(int var1, int var2, int var3, int var4, boolean var5) {
+	public void method3853(int var1, int var2, int var3, int var4, boolean var5) {
 		var1 -= this.xInset; // L: 215
 		var2 -= this.yInset; // L: 216
 		if (var3 == 0) { // L: 217
@@ -438,10 +431,10 @@ public class CollisionMap {
 
 	} // L: 335
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(IIIIIZB)V",
-		garbageValue = "-77"
+		descriptor = "(IIIIIZI)V",
+		garbageValue = "1357982372"
 	)
 	@Export("setFlagOffNonSquare")
 	public void setFlagOffNonSquare(int var1, int var2, int var3, int var4, int var5, boolean var6) {
@@ -471,10 +464,10 @@ public class CollisionMap {
 
 	} // L: 354
 
-	@ObfuscatedName("u")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(IIII)V",
-		garbageValue = "1782689060"
+		descriptor = "(IIIB)V",
+		garbageValue = "-35"
 	)
 	@Export("setFlagOff")
 	void setFlagOff(int var1, int var2, int var3) {
@@ -482,44 +475,15 @@ public class CollisionMap {
 		var10000[var2] &= ~var3;
 	} // L: 358
 
-	@ObfuscatedName("r")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(III)V",
-		garbageValue = "1241992272"
+		descriptor = "(IIB)V",
+		garbageValue = "-18"
 	)
-	public void method3846(int var1, int var2) {
+	public void method3847(int var1, int var2) {
 		var1 -= this.xInset; // L: 361
 		var2 -= this.yInset; // L: 362
 		int[] var10000 = this.flags[var1]; // L: 363
 		var10000[var2] &= -262145;
 	} // L: 364
-
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/awt/Component;I)V",
-		garbageValue = "-1691642668"
-	)
-	static void method3852(Component var0) {
-		var0.removeKeyListener(KeyHandler.KeyHandler_instance); // L: 124
-		var0.removeFocusListener(KeyHandler.KeyHandler_instance); // L: 125
-		KeyHandler.field124 = -1; // L: 126
-	} // L: 127
-
-	@ObfuscatedName("ki")
-	@ObfuscatedSignature(
-		descriptor = "(Lkn;IIIB)V",
-		garbageValue = "69"
-	)
-	@Export("drawCompass")
-	static final void drawCompass(Widget var0, int var1, int var2, int var3) {
-		SpriteMask var4 = var0.getSpriteMask(false); // L: 11642
-		if (var4 != null) { // L: 11643
-			if (Client.minimapState < 3) { // L: 11644
-				class14.compass.drawRotatedMaskedCenteredAround(var1, var2, var4.width, var4.height, 25, 25, Client.camAngleY, 256, var4.xStarts, var4.xWidths);
-			} else {
-				Rasterizer2D.Rasterizer2D_fillMaskedRectangle(var1, var2, 0, var4.xStarts, var4.xWidths); // L: 11645
-			}
-
-		}
-	} // L: 11646
 }

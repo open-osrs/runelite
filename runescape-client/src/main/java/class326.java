@@ -4,214 +4,201 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("la")
+@ObfuscatedName("lf")
 public class class326 {
+	@ObfuscatedName("q")
+	static int[] field4041;
 	@ObfuscatedName("v")
 	@Export("spriteMap")
 	final HashMap spriteMap;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "Lnm;"
 	)
 	@Export("bounds")
 	Bounds bounds;
-	@ObfuscatedName("h")
-	int[] field4043;
-	@ObfuscatedName("g")
-	int[] field4044;
-	@ObfuscatedName("l")
+	@ObfuscatedName("i")
+	int[] field4034;
+	@ObfuscatedName("f")
+	int[] field4037;
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -1991693335
+		intValue = -2113149807
 	)
-	int field4045;
+	int field4038;
 
 	public class326() {
 		this.spriteMap = new HashMap(); // L: 10
 		this.bounds = new Bounds(0, 0); // L: 11
-		this.field4043 = new int[2048]; // L: 12
-		this.field4044 = new int[2048]; // L: 13
-		this.field4045 = 0; // L: 14
-		HealthBar.method2351(); // L: 21
+		this.field4034 = new int[2048]; // L: 12
+		this.field4037 = new int[2048]; // L: 13
+		this.field4038 = 0; // L: 14
+		WorldMapSection2.method3959(); // L: 21
 	} // L: 22
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(IB)V",
-		garbageValue = "15"
+		descriptor = "(II)V",
+		garbageValue = "1093596616"
 	)
-	void method6107(int var1) {
+	void method6042(int var1) {
 		int var2 = var1 * 2 + 1; // L: 46
-		double[] var3 = Message.method1112(0.0D, (double)((float)var1 / 3.0F), var1); // L: 47
-		double var4 = var3[var1] * var3[var1]; // L: 48
-		int[] var6 = new int[var2 * var2]; // L: 49
-		boolean var7 = false; // L: 50
+		double var4 = (double)((float)var1 / 3.0F); // L: 48
+		int var6 = var1 * 2 + 1; // L: 50
+		double[] var7 = new double[var6]; // L: 51
+		int var8 = -var1;
 
-		for (int var8 = 0; var8 < var2; ++var8) { // L: 51
-			for (int var9 = 0; var9 < var2; ++var9) { // L: 52
-				int var10 = var6[var9 + var8 * var2] = (int)(var3[var9] * var3[var8] / var4 * 256.0D); // L: 53
-				if (!var7 && var10 > 0) { // L: 54
-					var7 = true; // L: 55
+		for (int var9 = 0; var8 <= var1; ++var9) {
+			var7[var9] = AbstractWorldMapIcon.method4415((double)var8, 0.0D, var4); // L: 53
+			++var8; // L: 52
+		}
+
+		double[] var14 = var7; // L: 57
+		double var15 = var7[var1] * var7[var1]; // L: 58
+		int[] var17 = new int[var2 * var2]; // L: 59
+		boolean var10 = false; // L: 60
+
+		for (int var11 = 0; var11 < var2; ++var11) { // L: 61
+			for (int var12 = 0; var12 < var2; ++var12) { // L: 62
+				int var13 = var17[var12 + var2 * var11] = (int)(var14[var11] * var14[var12] / var15 * 256.0D); // L: 63
+				if (!var10 && var13 > 0) { // L: 64
+					var10 = true; // L: 65
 				}
 			}
 		}
 
-		SpritePixels var11 = new SpritePixels(var6, var2, var2); // L: 59
-		this.spriteMap.put(var1, var11); // L: 60
-	} // L: 61
+		SpritePixels var18 = new SpritePixels(var17, var2, var2); // L: 69
+		this.spriteMap.put(var1, var18); // L: 70
+	} // L: 71
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Lql;",
-		garbageValue = "3"
+		descriptor = "(IS)Lqi;",
+		garbageValue = "255"
 	)
-	SpritePixels method6084(int var1) {
-		if (!this.spriteMap.containsKey(var1)) { // L: 64
-			this.method6107(var1); // L: 65
+	SpritePixels method6043(int var1) {
+		if (!this.spriteMap.containsKey(var1)) { // L: 74
+			this.method6042(var1); // L: 75
 		}
 
-		return (SpritePixels)this.spriteMap.get(var1); // L: 67
+		return (SpritePixels)this.spriteMap.get(var1); // L: 77
 	}
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "(IIB)V",
-		garbageValue = "-103"
+		garbageValue = "-73"
 	)
-	public final void method6091(int var1, int var2) {
-		if (this.field4045 < this.field4043.length) {
-			this.field4043[this.field4045] = var1;
-			this.field4044[this.field4045] = var2;
-			++this.field4045;
+	public final void method6044(int var1, int var2) {
+		if (this.field4038 < this.field4034.length) { // L: 81
+			this.field4034[this.field4038] = var1; // L: 82
+			this.field4037[this.field4038] = var2; // L: 83
+			++this.field4038; // L: 84
 		}
-	} // L: 75
+	} // L: 85
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-726081819"
+		garbageValue = "1343978449"
 	)
-	public final void method6086() {
-		this.field4045 = 0;
-	} // L: 79
+	public final void method6057() {
+		this.field4038 = 0; // L: 88
+	} // L: 89
 
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(IILql;FI)V",
-		garbageValue = "-1878611374"
+		descriptor = "(IILqi;FI)V",
+		garbageValue = "1463676048"
 	)
-	public final void method6082(int var1, int var2, SpritePixels var3, float var4) {
-		int var5 = (int)(18.0F * var4);
-		SpritePixels var6 = this.method6084(var5); // L: 83
-		int var7 = var5 * 2 + 1;
-		Bounds var8 = new Bounds(0, 0, var3.subWidth, var3.subHeight);
-		Bounds var9 = new Bounds(0, 0);
-		this.bounds.setHigh(var7, var7); // L: 87
-		System.nanoTime();
+	public final void method6045(int var1, int var2, SpritePixels var3, float var4) {
+		int var5 = (int)(18.0F * var4); // L: 92
+		SpritePixels var6 = this.method6043(var5); // L: 93
+		int var7 = var5 * 2 + 1; // L: 94
+		Bounds var8 = new Bounds(0, 0, var3.subWidth, var3.subHeight); // L: 95
+		Bounds var9 = new Bounds(0, 0); // L: 96
+		this.bounds.setHigh(var7, var7); // L: 97
+		System.nanoTime(); // L: 98
 
 		int var10;
 		int var11;
 		int var12;
-		for (var10 = 0; var10 < this.field4045; ++var10) {
-			var11 = this.field4043[var10];
-			var12 = this.field4044[var10]; // L: 91
-			int var13 = (int)((float)(var11 - var1) * var4) - var5;
-			int var14 = (int)((float)var3.subHeight - (float)(var12 - var2) * var4) - var5; // L: 93
-			this.bounds.setLow(var13, var14); // L: 94
-			this.bounds.method6985(var8, var9); // L: 95
-			this.method6087(var6, var3, var9); // L: 96
+		for (var10 = 0; var10 < this.field4038; ++var10) { // L: 99
+			var11 = this.field4034[var10]; // L: 100
+			var12 = this.field4037[var10]; // L: 101
+			int var13 = (int)(var4 * (float)(var11 - var1)) - var5; // L: 102
+			int var14 = (int)((float)var3.subHeight - (float)(var12 - var2) * var4) - var5; // L: 103
+			this.bounds.setLow(var13, var14); // L: 104
+			this.bounds.method6945(var8, var9); // L: 105
+			this.method6046(var6, var3, var9); // L: 106
 		}
 
-		System.nanoTime(); // L: 98
-		System.nanoTime(); // L: 99
+		System.nanoTime(); // L: 108
+		System.nanoTime(); // L: 109
 
-		for (var10 = 0; var10 < var3.pixels.length; ++var10) { // L: 100
-			if (var3.pixels[var10] == 0) { // L: 101
-				var3.pixels[var10] = -16777216; // L: 102
+		for (var10 = 0; var10 < var3.pixels.length; ++var10) { // L: 110
+			if (var3.pixels[var10] == 0) { // L: 111
+				var3.pixels[var10] = -16777216; // L: 112
 			} else {
-				var11 = (var3.pixels[var10] + 64 - 1) / 256; // L: 105
-				if (var11 <= 0) { // L: 106
-					var3.pixels[var10] = -16777216; // L: 107
+				var11 = (var3.pixels[var10] + 64 - 1) / 256; // L: 115
+				if (var11 <= 0) { // L: 116
+					var3.pixels[var10] = -16777216; // L: 117
 				} else {
-					if (var11 > class113.field1387.length) { // L: 110
-						var11 = class113.field1387.length;
+					if (var11 > field4041.length) { // L: 120
+						var11 = field4041.length;
 					}
 
-					var12 = class113.field1387[var11 - 1]; // L: 111
-					var3.pixels[var10] = -16777216 | var12; // L: 112
+					var12 = field4041[var11 - 1]; // L: 121
+					var3.pixels[var10] = -16777216 | var12; // L: 122
 				}
 			}
 		}
 
-		System.nanoTime(); // L: 114
-	} // L: 115
+		System.nanoTime(); // L: 124
+	} // L: 125
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "(Lql;Lql;Lnm;I)V",
-		garbageValue = "-839631696"
+		descriptor = "(Lqi;Lqi;Lnm;I)V",
+		garbageValue = "-1856311554"
 	)
-	void method6087(SpritePixels var1, SpritePixels var2, Bounds var3) {
-		if (var3.highX != 0 && var3.highY != 0) { // L: 118
-			int var4 = 0; // L: 119
-			int var5 = 0; // L: 120
-			if (var3.lowX == 0) { // L: 121
+	void method6046(SpritePixels var1, SpritePixels var2, Bounds var3) {
+		if (var3.highX != 0 && var3.highY != 0) { // L: 128
+			int var4 = 0; // L: 129
+			int var5 = 0; // L: 130
+			if (var3.lowX == 0) { // L: 131
 				var4 = var1.subWidth - var3.highX;
 			}
 
-			if (var3.lowY == 0) { // L: 122
+			if (var3.lowY == 0) { // L: 132
 				var5 = var1.subHeight - var3.highY;
 			}
 
-			int var6 = var4 + var5 * var1.subWidth; // L: 123
-			int var7 = var2.subWidth * var3.lowY + var3.lowX; // L: 124
+			int var6 = var4 + var5 * var1.subWidth; // L: 133
+			int var7 = var2.subWidth * var3.lowY + var3.lowX; // L: 134
 
-			for (int var8 = 0; var8 < var3.highY; ++var8) { // L: 125
-				for (int var9 = 0; var9 < var3.highX; ++var9) { // L: 126
-					int[] var10000 = var2.pixels; // L: 127
+			for (int var8 = 0; var8 < var3.highY; ++var8) { // L: 135
+				for (int var9 = 0; var9 < var3.highX; ++var9) { // L: 136
+					int[] var10000 = var2.pixels; // L: 137
 					int var10001 = var7++;
 					var10000[var10001] += var1.pixels[var6++];
 				}
 
-				var6 += var1.subWidth - var3.highX; // L: 129
-				var7 += var2.subWidth - var3.highX; // L: 130
+				var6 += var1.subWidth - var3.highX; // L: 139
+				var7 += var2.subWidth - var3.highX; // L: 140
 			}
 
 		}
-	} // L: 132
+	} // L: 142
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("lh")
 	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "2127405993"
+		descriptor = "(Lky;I)I",
+		garbageValue = "-658194090"
 	)
-	@Export("iLog")
-	public static int iLog(int var0) {
-		int var1 = 0; // L: 71
-		if (var0 < 0 || var0 >= 65536) { // L: 72
-			var0 >>>= 16; // L: 73
-			var1 += 16; // L: 74
-		}
-
-		if (var0 >= 256) { // L: 76
-			var0 >>>= 8; // L: 77
-			var1 += 8; // L: 78
-		}
-
-		if (var0 >= 16) { // L: 80
-			var0 >>>= 4; // L: 81
-			var1 += 4; // L: 82
-		}
-
-		if (var0 >= 4) { // L: 84
-			var0 >>>= 2; // L: 85
-			var1 += 2; // L: 86
-		}
-
-		if (var0 >= 1) { // L: 88
-			var0 >>>= 1; // L: 89
-			++var1; // L: 90
-		}
-
-		return var0 + var1; // L: 92
+	@Export("getWidgetFlags")
+	static int getWidgetFlags(Widget var0) {
+		IntegerNode var1 = (IntegerNode)Client.widgetFlags.get(((long)var0.id << 32) + (long)var0.childIndex); // L: 12457
+		return var1 != null ? var1.integer : var0.flags; // L: 12458 12459
 	}
 }

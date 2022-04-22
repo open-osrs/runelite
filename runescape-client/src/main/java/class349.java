@@ -1,58 +1,76 @@
-import java.io.IOException;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mn")
+@ObfuscatedName("mh")
 public final class class349 {
 	@ObfuscatedName("v")
 	@Export("base37Table")
-	static final char[] base37Table;
-	@ObfuscatedName("o")
-	static long[] field4155;
+	public static final char[] base37Table;
+	@ObfuscatedName("c")
+	static long[] field4142;
+	@ObfuscatedName("i")
+	@ObfuscatedSignature(
+		descriptor = "Lln;"
+	)
+	@Export("HitSplatDefinition_fontsArchive")
+	static AbstractArchive HitSplatDefinition_fontsArchive;
 
 	static {
 		base37Table = new char[]{'_', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'}; // L: 4
-		field4155 = new long[12]; // L: 5
+		field4142 = new long[12]; // L: 5
 
-		for (int var0 = 0; var0 < field4155.length; ++var0) { // L: 8
-			field4155[var0] = (long)Math.pow(37.0D, (double)var0);
+		for (int var0 = 0; var0 < field4142.length; ++var0) { // L: 8
+			field4142[var0] = (long)Math.pow(37.0D, (double)var0);
 		}
 
 	} // L: 9
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lcv;",
-		garbageValue = "77762889"
+		descriptor = "(ILpi;I)Lfj;",
+		garbageValue = "-307481051"
 	)
-	static ClientPreferences method6537() {
-		AccessFile var0 = null; // L: 112
-		ClientPreferences var1 = new ClientPreferences(); // L: 113
+	public static class168 method6509(int var0, Buffer var1) {
+		int var2 = var1.readUnsignedByte(); // L: 24
+		boolean var3 = (var2 & 1) != 0; // L: 25
+		boolean var4 = (var2 & 2) != 0; // L: 26
+		class168 var5 = new class168(var0); // L: 27
+		int var6;
+		int[] var7;
+		boolean var8;
+		int var9;
+		short var10;
+		if (var3) { // L: 28
+			var6 = var1.readUnsignedByte(); // L: 29
+			var7 = new int[]{var6 & 15, var6 >> 4 & 15}; // L: 30 31 32
+			var8 = var5.field1791 != null && var7.length == var5.field1791.length; // L: 33
 
-		try {
-			var0 = ReflectionCheck.getPreferencesFile("", Login.field917.name, false); // L: 115
-			byte[] var2 = new byte[(int)var0.length()]; // L: 116
-
-			int var4;
-			for (int var3 = 0; var3 < var2.length; var3 += var4) { // L: 117 118 121
-				var4 = var0.read(var2, var3, var2.length - var3); // L: 119
-				if (var4 == -1) {
-					throw new IOException(); // L: 120
+			for (var9 = 0; var9 < 2; ++var9) { // L: 34
+				if (var7[var9] != 15) { // L: 35
+					var10 = (short)var1.readUnsignedShort(); // L: 36
+					if (var8) { // L: 37
+						var5.field1791[var7[var9]] = var10; // L: 38
+					}
 				}
 			}
-
-			var1 = new ClientPreferences(new Buffer(var2)); // L: 123
-		} catch (Exception var6) { // L: 125
 		}
 
-		try {
-			if (var0 != null) { // L: 127
-				var0.close();
+		if (var4) { // L: 43
+			var6 = var1.readUnsignedByte(); // L: 44
+			var7 = new int[]{var6 & 15, var6 >> 4 & 15}; // L: 45 46 47
+			var8 = var5.field1790 != null && var7.length == var5.field1790.length; // L: 48
+
+			for (var9 = 0; var9 < 2; ++var9) { // L: 49
+				if (var7[var9] != 15) { // L: 50
+					var10 = (short)var1.readUnsignedShort(); // L: 51
+					if (var8) { // L: 52
+						var5.field1790[var7[var9]] = var10; // L: 53
+					}
+				}
 			}
-		} catch (Exception var5) { // L: 129
 		}
 
-		return var1; // L: 130
+		return var5; // L: 58
 	}
 }

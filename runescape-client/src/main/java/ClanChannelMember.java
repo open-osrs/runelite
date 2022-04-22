@@ -4,21 +4,21 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("eu")
+@ObfuscatedName("ec")
 @Implements("ClanChannelMember")
 public class ClanChannelMember {
 	@ObfuscatedName("v")
 	@Export("rank")
 	public byte rank;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -1591925387
+		intValue = -113610011
 	)
 	@Export("world")
 	public int world;
-	@ObfuscatedName("h")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "Lqy;"
+		descriptor = "Lqb;"
 	)
 	@Export("username")
 	public Username username;
@@ -26,64 +26,53 @@ public class ClanChannelMember {
 	ClanChannelMember() {
 	} // L: 10
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/CharSequence;IZI)Z",
-		garbageValue = "1411070013"
+		descriptor = "(IB)Lfv;",
+		garbageValue = "111"
 	)
-	static boolean method2850(CharSequence var0, int var1, boolean var2) {
-		if (var1 >= 2 && var1 <= 36) { // L: 39
-			boolean var3 = false; // L: 40
-			boolean var4 = false; // L: 41
-			int var5 = 0; // L: 42
-			int var6 = var0.length(); // L: 43
-
-			for (int var7 = 0; var7 < var6; ++var7) { // L: 44
-				char var8 = var0.charAt(var7); // L: 45
-				if (var7 == 0) { // L: 46
-					if (var8 == '-') { // L: 47
-						var3 = true; // L: 48
-						continue;
-					}
-
-					if (var8 == '+') { // L: 51
-						continue;
-					}
-				}
-
-				int var10;
-				if (var8 >= '0' && var8 <= '9') { // L: 53
-					var10 = var8 - '0';
-				} else if (var8 >= 'A' && var8 <= 'Z') { // L: 54
-					var10 = var8 - '7';
-				} else {
-					if (var8 < 'a' || var8 > 'z') { // L: 55
-						return false; // L: 56
-					}
-
-					var10 = var8 - 'W';
-				}
-
-				if (var10 >= var1) { // L: 57
-					return false;
-				}
-
-				if (var3) { // L: 58
-					var10 = -var10;
-				}
-
-				int var9 = var5 * var1 + var10; // L: 59
-				if (var9 / var1 != var5) { // L: 60
-					return false;
-				}
-
-				var5 = var9; // L: 61
-				var4 = true; // L: 62
+	public static HealthBarDefinition method2870(int var0) {
+		HealthBarDefinition var1 = (HealthBarDefinition)HealthBarDefinition.HealthBarDefinition_cached.get((long)var0); // L: 37
+		if (var1 != null) { // L: 38
+			return var1;
+		} else {
+			byte[] var2 = HealthBarDefinition.HealthBarDefinition_archive.takeFile(33, var0); // L: 39
+			var1 = new HealthBarDefinition(); // L: 40
+			if (var2 != null) { // L: 41
+				var1.decode(new Buffer(var2));
 			}
 
-			return var4; // L: 64
-		} else {
-			throw new IllegalArgumentException("" + var1);
+			HealthBarDefinition.HealthBarDefinition_cached.put(var1, (long)var0); // L: 42
+			return var1; // L: 43
 		}
 	}
+
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		descriptor = "(II)I",
+		garbageValue = "-704026744"
+	)
+	public static int method2869(int var0) {
+		if (var0 > 0) { // L: 182
+			return 1;
+		} else {
+			return var0 < 0 ? -1 : 0; // L: 183 184
+		}
+	}
+
+	@ObfuscatedName("fc")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "0"
+	)
+	static final void method2868() {
+		if (Client.logoutTimer > 0) { // L: 2967
+			ItemLayer.logOut(); // L: 2968
+		} else {
+			Client.timer.method6562(); // L: 2971
+			Decimator.updateGameState(40); // L: 2972
+			ModeWhere.field4073 = Client.packetWriter.getSocket(); // L: 2973
+			Client.packetWriter.removeSocket(); // L: 2974
+		}
+	} // L: 2969 2975
 }

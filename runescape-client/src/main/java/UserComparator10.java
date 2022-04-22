@@ -2,17 +2,10 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("dk")
+@ObfuscatedName("dp")
 @Implements("UserComparator10")
 public class UserComparator10 extends AbstractUserComparator {
-	@ObfuscatedName("ap")
-	@Export("client")
-	@ObfuscatedSignature(
-		descriptor = "Lclient;"
-	)
-	static Client client;
 	@ObfuscatedName("v")
 	@Export("reversed")
 	final boolean reversed;
@@ -23,8 +16,8 @@ public class UserComparator10 extends AbstractUserComparator {
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lnl;Lnl;I)I",
-		garbageValue = "-86339846"
+		descriptor = "(Lnf;Lnf;I)I",
+		garbageValue = "-1424673720"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -39,42 +32,62 @@ public class UserComparator10 extends AbstractUserComparator {
 		return this.compareBuddy((Buddy)var1, (Buddy)var2); // L: 22
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "311319485"
+		descriptor = "([BI)V",
+		garbageValue = "1465062374"
 	)
-	public static int method2615(int var0) {
-		return class121.Entity_unpackID(ViewportMouse.ViewportMouse_entityTags[var0]); // L: 77
+	@Export("ByteArrayPool_release")
+	public static synchronized void ByteArrayPool_release(byte[] var0) {
+		if (var0.length == 100 && ByteArrayPool.ByteArrayPool_smallCount < ByteArrayPool.field4159) { // L: 116
+			ByteArrayPool.ByteArrayPool_small[++ByteArrayPool.ByteArrayPool_smallCount - 1] = var0; // L: 117
+		} else if (var0.length == 5000 && ByteArrayPool.ByteArrayPool_mediumCount < ByteArrayPool.field4160) { // L: 120
+			ByteArrayPool.ByteArrayPool_medium[++ByteArrayPool.ByteArrayPool_mediumCount - 1] = var0; // L: 121
+		} else if (var0.length == 10000 && ByteArrayPool.ByteArrayPool_largeCount < ByteArrayPool.field4161) { // L: 124
+			ByteArrayPool.ByteArrayPool_large[++ByteArrayPool.ByteArrayPool_largeCount - 1] = var0; // L: 125
+		} else if (var0.length == 30000 && ByteArrayPool.field4163 < ByteArrayPool.field4152) { // L: 128
+			ByteArrayPool.field4162[++ByteArrayPool.field4163 - 1] = var0; // L: 129
+		} else {
+			if (BoundaryObject.ByteArrayPool_arrays != null) { // L: 132
+				for (int var1 = 0; var1 < FloorOverlayDefinition.ByteArrayPool_alternativeSizes.length; ++var1) { // L: 133
+					if (var0.length == FloorOverlayDefinition.ByteArrayPool_alternativeSizes[var1] && class128.ByteArrayPool_altSizeArrayCounts[var1] < BoundaryObject.ByteArrayPool_arrays[var1].length) { // L: 134
+						BoundaryObject.ByteArrayPool_arrays[var1][class128.ByteArrayPool_altSizeArrayCounts[var1]++] = var0; // L: 135
+						return; // L: 136
+					}
+				}
+			}
+
+		}
+	} // L: 118 122 126 130 140
+
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-1291930273"
+	)
+	static void method2622() {
+		ItemContainer.itemContainers = new NodeHashTable(32); // L: 78
+	} // L: 79
+
+	@ObfuscatedName("q")
+	@ObfuscatedSignature(
+		descriptor = "(IB)Z",
+		garbageValue = "56"
+	)
+	public static boolean method2629(int var0) {
+		return (var0 >> 31 & 1) != 0; // L: 41
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("ip")
 	@ObfuscatedSignature(
-		descriptor = "(ILbo;ZB)I",
-		garbageValue = "64"
+		descriptor = "(III)Lgt;",
+		garbageValue = "1713441982"
 	)
-	static int method2614(int var0, Script var1, boolean var2) {
-		Widget var3 = var2 ? class432.scriptDotWidget : class341.scriptActiveWidget; // L: 1101
-		if (var0 == ScriptOpcodes.CC_GETX) { // L: 1102
-			Interpreter.Interpreter_intStack[++class295.Interpreter_intStackSize - 1] = var3.x; // L: 1103
-			return 1; // L: 1104
-		} else if (var0 == ScriptOpcodes.CC_GETY) { // L: 1106
-			Interpreter.Interpreter_intStack[++class295.Interpreter_intStackSize - 1] = var3.y; // L: 1107
-			return 1; // L: 1108
-		} else if (var0 == ScriptOpcodes.CC_GETWIDTH) { // L: 1110
-			Interpreter.Interpreter_intStack[++class295.Interpreter_intStackSize - 1] = var3.width; // L: 1111
-			return 1; // L: 1112
-		} else if (var0 == ScriptOpcodes.CC_GETHEIGHT) { // L: 1114
-			Interpreter.Interpreter_intStack[++class295.Interpreter_intStackSize - 1] = var3.height; // L: 1115
-			return 1; // L: 1116
-		} else if (var0 == ScriptOpcodes.CC_GETHIDE) { // L: 1118
-			Interpreter.Interpreter_intStack[++class295.Interpreter_intStackSize - 1] = var3.isHidden ? 1 : 0; // L: 1119
-			return 1; // L: 1120
-		} else if (var0 == ScriptOpcodes.CC_GETLAYER) { // L: 1122
-			Interpreter.Interpreter_intStack[++class295.Interpreter_intStackSize - 1] = var3.parentId; // L: 1123
-			return 1; // L: 1124
-		} else {
-			return 2; // L: 1126
-		}
+	static RouteStrategy method2623(int var0, int var1) {
+		Client.field783.approxDestinationX = var0; // L: 8598
+		Client.field783.approxDestinationY = var1; // L: 8599
+		Client.field783.approxDestinationSizeX = 1; // L: 8600
+		Client.field783.approxDestinationSizeY = 1; // L: 8601
+		return Client.field783; // L: 8602
 	}
 }

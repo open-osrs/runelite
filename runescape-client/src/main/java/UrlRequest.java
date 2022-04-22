@@ -1,93 +1,100 @@
 import java.net.URL;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ct")
+@ObfuscatedName("cw")
 @Implements("UrlRequest")
 public class UrlRequest {
-	@ObfuscatedName("b")
-	@ObfuscatedSignature(
-		descriptor = "Ley;"
-	)
-	static ClanChannel field1344;
-	@ObfuscatedName("bo")
-	@ObfuscatedGetter(
-		intValue = -565666141
-	)
-	static int field1346;
 	@ObfuscatedName("v")
 	@Export("url")
 	final URL url;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@Export("isDone0")
 	volatile boolean isDone0;
-	@ObfuscatedName("h")
+	@ObfuscatedName("i")
 	@Export("response0")
 	volatile byte[] response0;
 
 	UrlRequest(URL var1) {
-		this.url = var1; // L: 115
-	} // L: 116
+		this.url = var1; // L: 114
+	} // L: 115
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "-2022569902"
+		descriptor = "(B)Z",
+		garbageValue = "16"
 	)
 	@Export("isDone")
 	public boolean isDone() {
-		return this.isDone0; // L: 119
+		return this.isDone0; // L: 118
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(I)[B",
-		garbageValue = "-892038744"
+		garbageValue = "1979081265"
 	)
 	@Export("getResponse")
 	public byte[] getResponse() {
-		return this.response0; // L: 123
+		return this.response0; // L: 122
 	}
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(S)Ljava/lang/String;",
-		garbageValue = "4111"
-	)
-	public String method2546() {
-		return this.url.toString(); // L: 127
-	}
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(IIIB)I",
+		descriptor = "(B)Ljava/lang/String;",
 		garbageValue = "1"
 	)
-	static int method2545(int var0, int var1, int var2) {
-		return var0 << 28 | var1 << 14 | var2; // L: 34
+	public String method2554() {
+		return this.url.toString(); // L: 126
 	}
 
-	@ObfuscatedName("ll")
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-1489870449"
+	)
+	public static void method2564() {
+		class54.reflectionChecks = new IterableNodeDeque(); // L: 24
+	} // L: 25
+
+	@ObfuscatedName("ks")
 	@ObfuscatedSignature(
 		descriptor = "(III)V",
-		garbageValue = "624212840"
+		garbageValue = "232574947"
 	)
-	static final void method2555(int var0, int var1) {
-		if (Client.currentClanChannels[var0] != null) { // L: 11753
-			if (var1 >= 0 && var1 < Client.currentClanChannels[var0].method3056()) { // L: 11754
-				ClanChannelMember var2 = (ClanChannelMember)Client.currentClanChannels[var0].members.get(var1); // L: 11755
-				if (var2.rank == -1) {
-					PacketBufferNode var3 = ItemContainer.getPacketBufferNode(ClientPacket.field2953, Client.packetWriter.isaacCipher); // L: 11757
-					var3.packetBuffer.writeByte(3 + ItemLayer.stringCp1252NullTerminatedByteSize(var2.username.getName())); // L: 11758
-					var3.packetBuffer.writeByte(var0); // L: 11759
-					var3.packetBuffer.writeShort(var1); // L: 11760
-					var3.packetBuffer.writeStringCp1252NullTerminated(var2.username.getName()); // L: 11761
-					Client.packetWriter.addNode(var3); // L: 11762
-				}
-			}
+	static void method2551(int var0, int var1) {
+		MenuAction var2 = Interpreter.tempMenuAction; // L: 11865
+		if (var2 != null) { // L: 11867
+			class9.menuAction(var2.param0, var2.param1, var2.opcode, var2.identifier, var2.action, var2.action, var0, var1); // L: 11868
 		}
-	} // L: 11756 11763
+
+		Interpreter.tempMenuAction = null; // L: 11871
+	} // L: 11872
+
+	@ObfuscatedName("mr")
+	@ObfuscatedSignature(
+		descriptor = "(S)V",
+		garbageValue = "1100"
+	)
+	static void method2560() {
+		if (Client.field759 && GrandExchangeEvents.localPlayer != null) { // L: 12618
+			int var0 = GrandExchangeEvents.localPlayer.pathX[0]; // L: 12619
+			int var1 = GrandExchangeEvents.localPlayer.pathY[0]; // L: 12620
+			if (var0 < 0 || var1 < 0 || var0 >= 104 || var1 >= 104) { // L: 12621
+				return;
+			}
+
+			class10.oculusOrbFocalPointX = GrandExchangeEvents.localPlayer.x; // L: 12622
+			int var2 = WorldMapLabel.getTileHeight(GrandExchangeEvents.localPlayer.x, GrandExchangeEvents.localPlayer.y, class18.Client_plane) - Client.camFollowHeight; // L: 12623
+			if (var2 < Decimator.field397) { // L: 12624
+				Decimator.field397 = var2;
+			}
+
+			ClientPacket.oculusOrbFocalPointY = GrandExchangeEvents.localPlayer.y; // L: 12625
+			Client.field759 = false; // L: 12626
+		}
+
+	} // L: 12628
 }

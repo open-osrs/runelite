@@ -1,47 +1,36 @@
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ma")
+@ObfuscatedName("mi")
 public class class356 {
-	@ObfuscatedName("g")
-	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "33344244"
+	@ObfuscatedName("i")
+	@ObfuscatedGetter(
+		intValue = -29527757
 	)
-	public static boolean method6621() {
-		try {
-			if (class273.musicPlayerStatus == 2) { // L: 70
-				if (class273.musicTrack == null) { // L: 71
-					class273.musicTrack = MusicTrack.readTrack(class147.musicTrackArchive, ArchiveLoader.musicTrackGroupId, class273.musicTrackFileId); // L: 72
-					if (class273.musicTrack == null) { // L: 73
-						return false;
-					}
-				}
+	static int field4185;
 
-				if (class273.soundCache == null) { // L: 75
-					class273.soundCache = new SoundCache(class273.soundEffectsArchive, class273.musicSamplesArchive);
-				}
-
-				if (WorldMapEvent.midiPcmStream.loadMusicTrack(class273.musicTrack, class273.musicPatchesArchive, class273.soundCache, 22050)) { // L: 76
-					WorldMapEvent.midiPcmStream.clearAll(); // L: 77
-					WorldMapEvent.midiPcmStream.setPcmStreamVolume(DevicePcmPlayerProvider.musicTrackVolume); // L: 78
-					WorldMapEvent.midiPcmStream.setMusicTrack(class273.musicTrack, class260.musicTrackBoolean); // L: 79
-					class273.musicPlayerStatus = 0; // L: 80
-					class273.musicTrack = null; // L: 81
-					class273.soundCache = null; // L: 82
-					class147.musicTrackArchive = null; // L: 83
-					return true; // L: 84
-				}
-			}
-		} catch (Exception var1) { // L: 88
-			var1.printStackTrace(); // L: 89
-			WorldMapEvent.midiPcmStream.clear(); // L: 90
-			class273.musicPlayerStatus = 0; // L: 91
-			class273.musicTrack = null; // L: 92
-			class273.soundCache = null; // L: 93
-			class147.musicTrackArchive = null; // L: 94
+	@ObfuscatedName("aq")
+	@ObfuscatedSignature(
+		descriptor = "(ILbd;ZI)I",
+		garbageValue = "1300878569"
+	)
+	static int method6582(int var0, Script var1, boolean var2) {
+		int var3;
+		if (var0 == 3500) { // L: 2322
+			var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 2323
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = PacketBufferNode.method5187(var3) ? 1 : 0; // L: 2324
+			return 1; // L: 2325
+		} else if (var0 == 3501) { // L: 2327
+			var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 2328
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = GrandExchangeOfferOwnWorldComparator.method1130(var3) ? 1 : 0; // L: 2329
+			return 1; // L: 2330
+		} else if (var0 == 3502) { // L: 2332
+			var3 = Interpreter.Interpreter_intStack[--Interpreter.Interpreter_intStackSize]; // L: 2333
+			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = GrandExchangeOfferOwnWorldComparator.method1138(var3) ? 1 : 0; // L: 2334
+			return 1; // L: 2335
+		} else {
+			return 2; // L: 2337
 		}
-
-		return false; // L: 96
 	}
 }

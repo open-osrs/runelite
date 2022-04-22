@@ -1,45 +1,24 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dm")
+@ObfuscatedName("dv")
 public class class114 {
-	@ObfuscatedName("g")
-	public static final float field1396;
-	@ObfuscatedName("l")
-	public static final float field1394;
-	@ObfuscatedName("x")
-	@ObfuscatedSignature(
-		descriptor = "[Lqx;"
-	)
-	@Export("title_muteSprite")
-	static IndexedSprite[] title_muteSprite;
+	@ObfuscatedName("f")
+	public static final float field1382;
+	@ObfuscatedName("b")
+	public static final float field1380;
 
 	static {
-		field1396 = Math.ulp(1.0F); // L: 10
-		field1394 = 2.0F * field1396; // L: 11
+		field1382 = Math.ulp(1.0F); // L: 10
+		field1380 = 2.0F * field1382; // L: 11
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(II)Lgk;",
-		garbageValue = "725728757"
+		descriptor = "(I)[Ljp;",
+		garbageValue = "-1344733039"
 	)
-	@Export("StructDefinition_getStructDefinition")
-	public static StructComposition StructDefinition_getStructDefinition(int var0) {
-		StructComposition var1 = (StructComposition)StructComposition.StructDefinition_cached.get((long)var0); // L: 23
-		if (var1 != null) { // L: 24
-			return var1;
-		} else {
-			byte[] var2 = StructComposition.StructDefinition_archive.takeFile(34, var0); // L: 25
-			var1 = new StructComposition(); // L: 26
-			if (var2 != null) { // L: 27
-				var1.decode(new Buffer(var2));
-			}
-
-			var1.postDecode(); // L: 28
-			StructComposition.StructDefinition_cached.put(var1, (long)var0); // L: 29
-			return var1; // L: 30
-		}
+	public static class263[] method2662() {
+		return new class263[]{class263.field3006, class263.field3005, class263.field3015, class263.field3007, class263.field3008, class263.field3009, class263.field3004, class263.field3011, class263.field3012, class263.field3013}; // L: 17
 	}
 }

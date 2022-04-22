@@ -1,24 +1,30 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fb")
+@ObfuscatedName("fc")
 @Implements("VarcInt")
 public class VarcInt extends DualNode {
-	@ObfuscatedName("v")
+	@ObfuscatedName("uy")
 	@ObfuscatedSignature(
-		descriptor = "Llq;"
+		descriptor = "Llf;"
 	)
-	@Export("VarcInt_archive")
-	public static AbstractArchive VarcInt_archive;
-	@ObfuscatedName("o")
+	public static class326 field1841;
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Liq;"
+		descriptor = "Lig;"
 	)
 	@Export("VarcInt_cached")
-	public static EvictingDualNodeHashTable VarcInt_cached;
-	@ObfuscatedName("h")
+	static EvictingDualNodeHashTable VarcInt_cached;
+	@ObfuscatedName("ho")
+	@ObfuscatedGetter(
+		intValue = -248717599
+	)
+	@Export("baseY")
+	static int baseY;
+	@ObfuscatedName("i")
 	@Export("persist")
 	public boolean persist;
 
@@ -26,35 +32,35 @@ public class VarcInt extends DualNode {
 		VarcInt_cached = new EvictingDualNodeHashTable(64); // L: 11
 	}
 
-	public VarcInt() {
+	VarcInt() {
 		this.persist = false; // L: 12
-	}
+	} // L: 14
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lpd;B)V",
-		garbageValue = "-81"
+		descriptor = "(Lpi;I)V",
+		garbageValue = "-400441754"
 	)
-	public void method3386(Buffer var1) {
+	void method3414(Buffer var1) {
 		while (true) {
-			int var2 = var1.readUnsignedByte(); // L: 20
-			if (var2 == 0) { // L: 21
-				return; // L: 24
+			int var2 = var1.readUnsignedByte(); // L: 28
+			if (var2 == 0) { // L: 29
+				return; // L: 32
 			}
 
-			this.method3387(var1, var2); // L: 22
+			this.method3407(var1, var2); // L: 30
 		}
 	}
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(Lpd;II)V",
-		garbageValue = "141297465"
+		descriptor = "(Lpi;IB)V",
+		garbageValue = "114"
 	)
-	void method3387(Buffer var1, int var2) {
-		if (var2 == 2) { // L: 27
-			this.persist = true; // L: 28
+	void method3407(Buffer var1, int var2) {
+		if (var2 == 2) { // L: 35
+			this.persist = true; // L: 36
 		}
 
-	} // L: 31
+	} // L: 39
 }

@@ -3,18 +3,18 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mm")
+@ObfuscatedName("mw")
 @Implements("IgnoreList")
 public class IgnoreList extends UserList {
-	@ObfuscatedName("h")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "Lpa;"
+		descriptor = "Lpe;"
 	)
 	@Export("loginType")
 	final LoginType loginType;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lpa;)V"
+		descriptor = "(Lpe;)V"
 	)
 	public IgnoreList(LoginType var1) {
 		super(400); // L: 13
@@ -23,68 +23,68 @@ public class IgnoreList extends UserList {
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lnc;",
-		garbageValue = "-1289438305"
+		descriptor = "(I)Lnn;",
+		garbageValue = "-2105397576"
 	)
 	@Export("newInstance")
 	User newInstance() {
-		return new Ignored(); // L: 19
+		return new Ignored(); // L: 18
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(II)[Lnc;",
-		garbageValue = "-1075861644"
+		descriptor = "(II)[Lnn;",
+		garbageValue = "1888809026"
 	)
 	@Export("newTypedArray")
 	User[] newTypedArray(int var1) {
-		return new Ignored[var1]; // L: 24
+		return new Ignored[var1]; // L: 22
 	}
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(Lpd;II)V",
-		garbageValue = "-1154440804"
+		descriptor = "(Lpi;IS)V",
+		garbageValue = "-22904"
 	)
 	@Export("read")
 	public void read(Buffer var1, int var2) {
 		while (true) {
-			if (var1.offset < var2) { // L: 28
-				int var3 = var1.readUnsignedByte(); // L: 29
-				boolean var4 = (var3 & 1) == 1; // L: 30
-				Username var5 = new Username(var1.readStringCp1252NullTerminated(), this.loginType); // L: 31
-				Username var6 = new Username(var1.readStringCp1252NullTerminated(), this.loginType); // L: 32
-				var1.readStringCp1252NullTerminated(); // L: 33
-				if (var5 != null && var5.hasCleanName()) { // L: 34
-					Ignored var7 = (Ignored)this.getByCurrentUsername(var5); // L: 35
-					if (var4) { // L: 36
-						Ignored var8 = (Ignored)this.getByCurrentUsername(var6); // L: 37
-						if (var8 != null && var7 != var8) { // L: 38
-							if (var7 != null) { // L: 39
-								this.remove(var8); // L: 40
+			if (var1.offset < var2) { // L: 26
+				int var3 = var1.readUnsignedByte(); // L: 27
+				boolean var4 = (var3 & 1) == 1; // L: 28
+				Username var5 = new Username(var1.readStringCp1252NullTerminated(), this.loginType); // L: 29
+				Username var6 = new Username(var1.readStringCp1252NullTerminated(), this.loginType); // L: 30
+				var1.readStringCp1252NullTerminated(); // L: 31
+				if (var5 != null && var5.hasCleanName()) { // L: 32
+					Ignored var7 = (Ignored)this.getByCurrentUsername(var5); // L: 33
+					if (var4) { // L: 34
+						Ignored var8 = (Ignored)this.getByCurrentUsername(var6); // L: 35
+						if (var8 != null && var8 != var7) { // L: 36
+							if (var7 != null) { // L: 37
+								this.remove(var8); // L: 38
 							} else {
-								var7 = var8; // L: 43
+								var7 = var8; // L: 41
 							}
 						}
 					}
 
-					if (var7 != null) { // L: 47
-						this.changeName(var7, var5, var6); // L: 48
+					if (var7 != null) { // L: 45
+						this.changeName(var7, var5, var6); // L: 46
 						continue;
 					}
 
-					if (this.getSize() < 400) { // L: 50
-						int var9 = this.getSize(); // L: 51
-						var7 = (Ignored)this.addLast(var5, var6); // L: 52
-						var7.id = var9; // L: 53
+					if (this.getSize() < 400) { // L: 48
+						int var9 = this.getSize(); // L: 49
+						var7 = (Ignored)this.addLast(var5, var6); // L: 50
+						var7.id = var9; // L: 51
 					}
 					continue;
 				}
 
-				throw new IllegalStateException(); // L: 56
+				throw new IllegalStateException(); // L: 54
 			}
 
-			return; // L: 57
+			return; // L: 55
 		}
 	}
 }

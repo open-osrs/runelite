@@ -5,51 +5,51 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("mv")
 public final class class362 implements Comparable {
 	@ObfuscatedName("v")
-	Object field4235;
-	@ObfuscatedName("o")
-	Object field4234;
-	@ObfuscatedName("h")
+	Object field4221;
+	@ObfuscatedName("c")
+	Object field4224;
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		longValue = 6425194224424863611L
+		longValue = -5736347963697719881L
 	)
-	long field4236;
-	@ObfuscatedName("g")
+	long field4222;
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		longValue = -2616776762809416091L
+		longValue = -1907411133840236385L
 	)
-	long field4237;
+	long field4223;
 
 	class362(Object var1, Object var2) {
-		this.field4235 = var1; // L: 10
-		this.field4234 = var2; // L: 11
+		this.field4221 = var1; // L: 10
+		this.field4224 = var2; // L: 11
 	} // L: 12
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "(Lmv;I)I",
-		garbageValue = "-1461813325"
+		garbageValue = "-368071179"
 	)
-	int method6652(class362 var1) {
-		if (this.field4237 < var1.field4237) {
+	int method6615(class362 var1) {
+		if (this.field4223 < var1.field4223) {
 			return -1; // L: 15
 		} else {
-			return this.field4237 > var1.field4237 ? 1 : 0; // L: 16 17
+			return this.field4223 > var1.field4223 ? 1 : 0; // L: 16 17
 		}
 	}
 
 	public boolean equals(Object var1) {
-		if (var1 instanceof class362) { // L: 22
-			return this.field4234.equals(((class362)var1).field4234);
+		if (var1 instanceof class362) { // L: 21
+			return this.field4224.equals(((class362)var1).field4224);
 		} else {
-			throw new IllegalArgumentException(); // L: 23
+			throw new IllegalArgumentException(); // L: 22
 		}
 	}
 
 	public int hashCode() {
-		return this.field4234.hashCode(); // L: 28
+		return this.field4224.hashCode(); // L: 26
 	}
 
 	public int compareTo(Object var1) {
-		return this.method6652((class362)var1); // L: 32
+		return this.method6615((class362)var1); // L: 30
 	}
 }

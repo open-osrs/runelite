@@ -4,77 +4,73 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ca")
+@ObfuscatedName("ch")
 @Implements("ScriptEvent")
 public class ScriptEvent extends Node {
-	@ObfuscatedName("a")
-	@Export("ByteArrayPool_arrays")
-	public static byte[][][] ByteArrayPool_arrays;
-	@ObfuscatedName("pp")
-	@ObfuscatedSignature(
-		descriptor = "Lps;"
+	@ObfuscatedName("hr")
+	@ObfuscatedGetter(
+		intValue = -1925838321
 	)
-	@Export("HitSplatDefinition_cachedSprites")
-	static class426 HitSplatDefinition_cachedSprites;
+	static int field1042;
 	@ObfuscatedName("v")
 	@Export("args")
 	Object[] args;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@Export("isMouseInputEvent")
 	boolean isMouseInputEvent;
-	@ObfuscatedName("h")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "Lkn;"
+		descriptor = "Lky;"
 	)
 	@Export("widget")
 	Widget widget;
-	@ObfuscatedName("g")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 590834085
+		intValue = 736658407
 	)
 	@Export("mouseX")
 	int mouseX;
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -1385336571
+		intValue = 1446872253
 	)
 	@Export("mouseY")
 	int mouseY;
 	@ObfuscatedName("n")
 	@ObfuscatedGetter(
-		intValue = 274794473
+		intValue = -2054800039
 	)
 	@Export("opIndex")
 	int opIndex;
-	@ObfuscatedName("d")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Lkn;"
+		descriptor = "Lky;"
 	)
 	@Export("dragTarget")
 	Widget dragTarget;
-	@ObfuscatedName("f")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 639168691
+		intValue = -2138407541
 	)
 	@Export("keyTyped")
 	int keyTyped;
-	@ObfuscatedName("u")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = 272606769
+		intValue = 606437039
 	)
 	@Export("keyPressed")
 	int keyPressed;
-	@ObfuscatedName("r")
+	@ObfuscatedName("o")
 	@Export("targetName")
 	String targetName;
-	@ObfuscatedName("k")
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = 1898862119
+		intValue = -2094030297
 	)
-	int field1053;
-	@ObfuscatedName("x")
+	int field1031;
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 1051993591
+		intValue = -2085929869
 	)
 	@Export("type")
 	int type;
@@ -86,40 +82,34 @@ public class ScriptEvent extends Node {
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "([Ljava/lang/Object;I)V",
-		garbageValue = "108517262"
+		garbageValue = "-578941506"
 	)
 	@Export("setArgs")
 	public void setArgs(Object[] var1) {
 		this.args = var1; // L: 22
 	} // L: 23
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(IB)V",
-		garbageValue = "-95"
+		descriptor = "(II)V",
+		garbageValue = "551800403"
 	)
 	@Export("setType")
 	public void setType(int var1) {
 		this.type = var1; // L: 26
 	} // L: 27
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("iv")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-2145174079"
+		descriptor = "(IIIIS)V",
+		garbageValue = "-6716"
 	)
-	static void method2111() {
-		Tiles.Tiles_underlays = null; // L: 64
-		Tiles.Tiles_overlays = null; // L: 65
-		Tiles.Tiles_shapes = null; // L: 66
-		RunException.field4754 = null; // L: 67
-		DirectByteArrayCopier.field3277 = null; // L: 68
-		GrandExchangeOfferNameComparator.field4010 = null; // L: 69
-		Widget.field3495 = null; // L: 70
-		class4.Tiles_hue = null; // L: 71
-		Login.Tiles_saturation = null; // L: 72
-		WorldMapSectionType.Tiles_lightness = null; // L: 73
-		class300.Tiles_hueMultiplier = null; // L: 74
-		Tiles.field986 = null; // L: 75
-	} // L: 76
+	static final void method2092(int var0, int var1, int var2, int var3) {
+		for (int var4 = 0; var4 < Client.rootWidgetCount; ++var4) { // L: 8661
+			if (Client.rootWidgetWidths[var4] + Client.rootWidgetXs[var4] > var0 && Client.rootWidgetXs[var4] < var0 + var2 && Client.rootWidgetYs[var4] + Client.rootWidgetHeights[var4] > var1 && Client.rootWidgetYs[var4] < var3 + var1) { // L: 8662
+				Client.field716[var4] = true;
+			}
+		}
+
+	} // L: 8664
 }
