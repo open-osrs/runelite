@@ -3,64 +3,46 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("kb")
+@ObfuscatedName("kr")
 public enum class309 implements MouseWheel {
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lkb;"
+		descriptor = "Lkr;"
 	)
-	field3918(-1),
-	@ObfuscatedName("o")
+	field3914(-1),
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lkb;"
+		descriptor = "Lkr;"
 	)
-	field3910(0),
-	@ObfuscatedName("h")
+	field3911(0),
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "Lkb;"
+		descriptor = "Lkr;"
 	)
-	field3912(1),
-	@ObfuscatedName("g")
+	field3915(1),
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lkb;"
+		descriptor = "Lkr;"
 	)
-	field3911(2);
+	field3913(2);
 
-	@ObfuscatedName("t")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = 2019650593
+		intValue = -1882933983
 	)
-	@Export("canvasHeight")
-	public static int canvasHeight;
-	@ObfuscatedName("l")
-	@ObfuscatedGetter(
-		intValue = 608041089
-	)
-	final int field3914;
+	final int field3910;
 
 	class309(int var3) {
-		this.field3914 = var3; // L: 15
-	} // L: 16
+		this.field3910 = var3; // L: 19
+	} // L: 20
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "(B)I",
-		garbageValue = "15"
+		garbageValue = "16"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field3914; // L: 20
+		return this.field3910; // L: 23
 	}
-
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "76"
-	)
-	public static void method5804() {
-		if (NetCache.NetCache_socket != null) { // L: 264
-			NetCache.NetCache_socket.close();
-		}
-
-	} // L: 265
 }

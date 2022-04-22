@@ -1,29 +1,23 @@
 import java.util.Comparator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("nq")
+@ObfuscatedName("nz")
 @Implements("AbstractUserComparator")
 public abstract class AbstractUserComparator implements Comparator {
-	@ObfuscatedName("x")
-	@ObfuscatedGetter(
-		intValue = 1477105489
-	)
-	static int field4268;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@Export("nextComparator")
 	Comparator nextComparator;
 
 	protected AbstractUserComparator() {
 	} // L: 8
 
-	@ObfuscatedName("u")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/util/Comparator;I)V",
-		garbageValue = "-1235523353"
+		descriptor = "(Ljava/util/Comparator;B)V",
+		garbageValue = "-80"
 	)
 	@Export("addComparator")
 	final void addComparator(Comparator var1) {
@@ -35,10 +29,10 @@ public abstract class AbstractUserComparator implements Comparator {
 
 	} // L: 17
 
-	@ObfuscatedName("r")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(Lnc;Lnc;I)I",
-		garbageValue = "1354743050"
+		descriptor = "(Lnn;Lnn;I)I",
+		garbageValue = "1222967356"
 	)
 	@Export("compareUser")
 	protected final int compareUser(User var1, User var2) {
@@ -49,18 +43,16 @@ public abstract class AbstractUserComparator implements Comparator {
 		return super.equals(var1); // L: 25
 	}
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("iz")
 	@ObfuscatedSignature(
-		descriptor = "(Llq;IB)Z",
-		garbageValue = "-20"
+		descriptor = "(II)Ljava/lang/String;",
+		garbageValue = "-89739893"
 	)
-	static boolean method6771(AbstractArchive var0, int var1) {
-		byte[] var2 = var0.takeFileFlat(var1); // L: 161
-		if (var2 == null) { // L: 162
-			return false;
+	static String method6736(int var0) {
+		if (var0 < 0) { // L: 9848
+			return "";
 		} else {
-			ClientPreferences.SpriteBuffer_decode(var2); // L: 163
-			return true; // L: 164
+			return Client.menuTargets[var0].length() > 0 ? Client.menuActions[var0] + " " + Client.menuTargets[var0] : Client.menuActions[var0]; // L: 9849 9850
 		}
 	}
 }

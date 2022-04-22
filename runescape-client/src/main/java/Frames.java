@@ -3,21 +3,18 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("go")
+@ObfuscatedName("im")
 @Implements("Frames")
 public class Frames extends DualNode {
-	@ObfuscatedName("q")
-	@Export("Widget_loadedInterfaces")
-	public static boolean[] Widget_loadedInterfaces;
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "[Lgi;"
+		descriptor = "[Lhf;"
 	)
 	@Export("frames")
 	Animation[] frames;
 
 	@ObfuscatedSignature(
-		descriptor = "(Llq;Llq;IZ)V"
+		descriptor = "(Lln;Lln;IZ)V"
 	)
 	Frames(AbstractArchive var1, AbstractArchive var2, int var3, boolean var4) {
 		NodeDeque var5 = new NodeDeque(); // L: 35
@@ -54,73 +51,22 @@ public class Frames extends DualNode {
 
 	} // L: 60
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(II)Z",
-		garbageValue = "-2054162856"
+		garbageValue = "1974445635"
 	)
 	@Export("hasAlphaTransform")
 	public boolean hasAlphaTransform(int var1) {
 		return this.frames[var1].hasAlphaTransform; // L: 63
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(FFFF[FB)V",
-		garbageValue = "1"
+		descriptor = "(IS)I",
+		garbageValue = "500"
 	)
-	static void method4316(float var0, float var1, float var2, float var3, float[] var4) {
-		float var5 = var1 - var0; // L: 318
-		float var6 = var2 - var1; // L: 319
-		float var7 = var3 - var2; // L: 320
-		float var8 = var6 - var5; // L: 321
-		var4[3] = var7 - var6 - var8; // L: 322
-		var4[2] = var8 + var8 + var8; // L: 323
-		var4[1] = var5 + var5 + var5; // L: 324
-		var4[0] = var0; // L: 325
-	} // L: 326
-
-	@ObfuscatedName("kx")
-	@ObfuscatedSignature(
-		descriptor = "(Lkn;I)Z",
-		garbageValue = "-1456881202"
-	)
-	static final boolean method4319(Widget var0) {
-		int var1 = var0.contentType; // L: 11529
-		if (var1 == 205) { // L: 11530
-			Client.logoutTimer = 250; // L: 11531
-			return true; // L: 11532
-		} else {
-			int var2;
-			int var3;
-			if (var1 >= 300 && var1 <= 313) { // L: 11534
-				var2 = (var1 - 300) / 2; // L: 11535
-				var3 = var1 & 1; // L: 11536
-				Client.playerAppearance.changeAppearance(var2, var3 == 1); // L: 11537
-			}
-
-			if (var1 >= 314 && var1 <= 323) { // L: 11539
-				var2 = (var1 - 314) / 2; // L: 11540
-				var3 = var1 & 1; // L: 11541
-				Client.playerAppearance.method5610(var2, var3 == 1); // L: 11542
-			}
-
-			if (var1 == 324) {
-				Client.playerAppearance.changeSex(false); // L: 11544
-			}
-
-			if (var1 == 325) { // L: 11545
-				Client.playerAppearance.changeSex(true);
-			}
-
-			if (var1 == 326) { // L: 11546
-				PacketBufferNode var4 = ItemContainer.getPacketBufferNode(ClientPacket.field2896, Client.packetWriter.isaacCipher); // L: 11548
-				Client.playerAppearance.write(var4.packetBuffer); // L: 11549
-				Client.packetWriter.addNode(var4); // L: 11550
-				return true; // L: 11551
-			} else {
-				return false; // L: 11553
-			}
-		}
+	public static int method4934(int var0) {
+		return FileSystem.Entity_unpackID(ViewportMouse.ViewportMouse_entityTags[var0]); // L: 61
 	}
 }

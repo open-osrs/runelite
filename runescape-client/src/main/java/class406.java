@@ -1,6 +1,6 @@
 import net.runelite.mapping.ObfuscatedName;
 
-@ObfuscatedName("or")
+@ObfuscatedName("os")
 public class class406 extends Node {
 	@ObfuscatedName("v")
 	public long field4407;

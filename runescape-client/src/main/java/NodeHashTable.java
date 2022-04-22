@@ -9,25 +9,25 @@ public final class NodeHashTable {
 	@ObfuscatedName("v")
 	@Export("size")
 	int size;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "[Loz;"
+		descriptor = "[Loq;"
 	)
 	@Export("buckets")
 	Node[] buckets;
-	@ObfuscatedName("h")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "Loz;"
+		descriptor = "Loq;"
 	)
 	@Export("currentGet")
 	Node currentGet;
-	@ObfuscatedName("g")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Loz;"
+		descriptor = "Loq;"
 	)
 	@Export("current")
 	Node current;
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@Export("index")
 	int index;
 
@@ -46,7 +46,7 @@ public final class NodeHashTable {
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(J)Loz;"
+		descriptor = "(J)Loq;"
 	)
 	@Export("get")
 	public Node get(long var1) {
@@ -64,9 +64,9 @@ public final class NodeHashTable {
 		return null; // L: 34
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Loz;J)V"
+		descriptor = "(Loq;J)V"
 	)
 	@Export("put")
 	public void put(Node var1, long var2) {
@@ -82,9 +82,9 @@ public final class NodeHashTable {
 		var1.key = var2; // L: 44
 	} // L: 45
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "()Loz;"
+		descriptor = "()Loq;"
 	)
 	@Export("first")
 	public Node first() {
@@ -92,9 +92,9 @@ public final class NodeHashTable {
 		return this.next(); // L: 49
 	}
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "()Loz;"
+		descriptor = "()Loq;"
 	)
 	@Export("next")
 	public Node next() {

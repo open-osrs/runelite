@@ -1,23 +1,30 @@
+import net.runelite.mapping.Export;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("os")
+@ObfuscatedName("oa")
 public class class391 implements class396 {
+	@ObfuscatedName("fn")
+	@ObfuscatedGetter(
+		intValue = -1037477201
+	)
+	static int field4372;
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lpx;"
+		descriptor = "Lpd;"
 	)
-	public final class419 field4376;
+	public final class419 field4373;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lpf;)V"
+		descriptor = "(Lpp;)V"
 	)
 	class391(class420 var1) {
-		this.field4376 = var1; // L: 14
+		this.field4373 = var1; // L: 14
 	} // L: 15
 
 	@ObfuscatedSignature(
-		descriptor = "(Loo;)V"
+		descriptor = "(Lom;)V"
 	)
 	public class391(class392 var1) {
 		this(new class420(var1)); // L: 10
@@ -26,34 +33,48 @@ public class class391 implements class396 {
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "(IB)I",
-		garbageValue = "15"
+		garbageValue = "50"
 	)
-	public int method7164(int var1) {
-		return this.field4376.vmethod7559(var1); // L: 18
+	public int method7105(int var1) {
+		return this.field4373.vmethod7471(var1); // L: 18
 	}
 
-	@ObfuscatedName("le")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-896274145"
+		descriptor = "(Ljava/lang/String;ZZI)V",
+		garbageValue = "977969655"
 	)
-	static void method7169() {
-		if (Client.field602 && class19.localPlayer != null) { // L: 11917
-			int var0 = class19.localPlayer.pathX[0]; // L: 11918
-			int var1 = class19.localPlayer.pathY[0]; // L: 11919
-			if (var0 < 0 || var1 < 0 || var0 >= 104 || var1 >= 104) { // L: 11920
-				return;
-			}
+	@Export("openURL")
+	public static void openURL(String var0, boolean var1, boolean var2) {
+		WorldMapElement.method3403(var0, var1, "openjs", var2); // L: 27
+	} // L: 28
 
-			Messages.oculusOrbFocalPointX = class19.localPlayer.x; // L: 11921
-			int var2 = Archive.getTileHeight(class19.localPlayer.x, class19.localPlayer.y, class160.Client_plane) - Client.camFollowHeight; // L: 11922
-			if (var2 < FloorOverlayDefinition.field2136) { // L: 11923
-				FloorOverlayDefinition.field2136 = var2;
-			}
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		descriptor = "(I)[Lqi;",
+		garbageValue = "1455527219"
+	)
+	static SpritePixels[] method7111() {
+		SpritePixels[] var0 = new SpritePixels[class451.SpriteBuffer_spriteCount]; // L: 169
 
-			class115.oculusOrbFocalPointY = class19.localPlayer.y; // L: 11924
-			Client.field602 = false; // L: 11925
+		for (int var1 = 0; var1 < class451.SpriteBuffer_spriteCount; ++var1) { // L: 170
+			SpritePixels var2 = var0[var1] = new SpritePixels(); // L: 171
+			var2.width = class451.SpriteBuffer_spriteWidth; // L: 172
+			var2.height = class451.SpriteBuffer_spriteHeight; // L: 173
+			var2.xOffset = class451.SpriteBuffer_xOffsets[var1]; // L: 174
+			var2.yOffset = class271.SpriteBuffer_yOffsets[var1]; // L: 175
+			var2.subWidth = class451.SpriteBuffer_spriteWidths[var1]; // L: 176
+			var2.subHeight = class451.SpriteBuffer_spriteHeights[var1]; // L: 177
+			int var3 = var2.subHeight * var2.subWidth; // L: 178
+			byte[] var4 = FriendLoginUpdate.SpriteBuffer_pixels[var1]; // L: 179
+			var2.pixels = new int[var3]; // L: 180
+
+			for (int var5 = 0; var5 < var3; ++var5) { // L: 181
+				var2.pixels[var5] = NetFileRequest.SpriteBuffer_spritePalette[var4[var5] & 255];
+			}
 		}
 
-	} // L: 11927
+		ArchiveDiskActionHandler.method5813(); // L: 183
+		return var0; // L: 184
+	}
 }

@@ -16,8 +16,8 @@ public class UserComparator6 extends AbstractUserComparator {
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lnl;Lnl;B)I",
-		garbageValue = "114"
+		descriptor = "(Lnf;Lnf;B)I",
+		garbageValue = "-108"
 	)
 	@Export("compareBuddy")
 	int compareBuddy(Buddy var1, Buddy var2) {
@@ -32,52 +32,37 @@ public class UserComparator6 extends AbstractUserComparator {
 		return this.compareBuddy((Buddy)var1, (Buddy)var2); // L: 21
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(IIII)I",
-		garbageValue = "551180200"
+		descriptor = "(IB)Lgi;",
+		garbageValue = "-4"
 	)
-	static final int method2631(int var0, int var1, int var2) {
-		int var3 = var0 / var2; // L: 970
-		int var4 = var0 & var2 - 1; // L: 971
-		int var5 = var1 / var2; // L: 972
-		int var6 = var1 & var2 - 1; // L: 973
-		int var7 = Language.method6137(var3, var5); // L: 974
-		int var8 = Language.method6137(var3 + 1, var5); // L: 975
-		int var9 = Language.method6137(var3, var5 + 1); // L: 976
-		int var10 = Language.method6137(var3 + 1, var5 + 1); // L: 977
-		int var12 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var4 * 1024 / var2] >> 1; // L: 980
-		int var11 = ((65536 - var12) * var7 >> 16) + (var12 * var8 >> 16); // L: 981
-		int var14 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var4 * 1024 / var2] >> 1; // L: 986
-		int var13 = ((65536 - var14) * var9 >> 16) + (var14 * var10 >> 16); // L: 987
-		int var16 = 65536 - Rasterizer3D.Rasterizer3D_cosine[var6 * 1024 / var2] >> 1; // L: 992
-		int var15 = ((65536 - var16) * var11 >> 16) + (var13 * var16 >> 16); // L: 993
-		return var15; // L: 995
+	public static VarbitComposition method2643(int var0) {
+		VarbitComposition var1 = (VarbitComposition)VarbitComposition.VarbitDefinition_cached.get((long)var0); // L: 28
+		if (var1 != null) { // L: 29
+			return var1;
+		} else {
+			byte[] var2 = class11.VarbitDefinition_archive.takeFile(14, var0); // L: 30
+			var1 = new VarbitComposition(); // L: 31
+			if (var2 != null) { // L: 32
+				var1.decode(new Buffer(var2));
+			}
+
+			VarbitComposition.VarbitDefinition_cached.put(var1, (long)var0); // L: 33
+			return var1; // L: 34
+		}
 	}
 
-	@ObfuscatedName("gv")
+	@ObfuscatedName("lv")
 	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "-328819266"
+		descriptor = "([BII)V",
+		garbageValue = "1110458768"
 	)
-	@Export("setWindowedMode")
-	static void setWindowedMode(int var0) {
-		Client.field529 = 0L; // L: 3924
-		if (var0 >= 2) { // L: 3925
-			Client.isResizable = true;
-		} else {
-			Client.isResizable = false; // L: 3926
+	static void method2646(byte[] var0, int var1) {
+		if (Client.randomDatData == null) { // L: 12567
+			Client.randomDatData = new byte[24];
 		}
 
-		if (ReflectionCheck.getWindowedMode() == 1) { // L: 3927
-			UserComparator10.client.setMaxCanvasSize(765, 503); // L: 3928
-		} else {
-			UserComparator10.client.setMaxCanvasSize(7680, 2160); // L: 3931
-		}
-
-		if (Client.gameState >= 25) { // L: 3933
-			class17.method228();
-		}
-
-	} // L: 3934
+		class350.writeRandomDat(var0, var1, Client.randomDatData, 0, 24); // L: 12568
+	} // L: 12569
 }

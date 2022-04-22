@@ -1,113 +1,106 @@
 import java.io.IOException;
-import java.util.Arrays;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cj")
+@ObfuscatedName("cl")
 @Implements("PacketWriter")
 public class PacketWriter {
-	@ObfuscatedName("nw")
-	@ObfuscatedSignature(
-		descriptor = "Lbp;"
-	)
-	@Export("tempMenuAction")
-	static MenuAction tempMenuAction;
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lnj;"
+		descriptor = "Lny;"
 	)
 	@Export("socket")
 	AbstractSocket socket;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lld;"
+		descriptor = "Llk;"
 	)
 	@Export("packetBufferNodes")
 	IterableNodeDeque packetBufferNodes;
-	@ObfuscatedName("h")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 750825519
+		intValue = -669543133
 	)
 	@Export("bufferSize")
 	int bufferSize;
-	@ObfuscatedName("g")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lpd;"
+		descriptor = "Lpi;"
 	)
 	@Export("buffer")
 	Buffer buffer;
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "Lqo;"
+		descriptor = "Lqv;"
 	)
 	@Export("isaacCipher")
 	public IsaacCipher isaacCipher;
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lpy;"
+		descriptor = "Lpz;"
 	)
 	@Export("packetBuffer")
 	PacketBuffer packetBuffer;
-	@ObfuscatedName("d")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Ljd;"
+		descriptor = "Ljq;"
 	)
 	@Export("serverPacket")
 	ServerPacket serverPacket;
-	@ObfuscatedName("f")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 1694781515
+		intValue = 365925591
 	)
 	@Export("serverPacketLength")
 	int serverPacketLength;
-	@ObfuscatedName("u")
-	boolean field1328;
+	@ObfuscatedName("q")
+	boolean field1317;
+	@ObfuscatedName("o")
+	@ObfuscatedGetter(
+		intValue = -11589615
+	)
+	int field1322;
 	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = -1137458333
-	)
-	int field1326;
-	@ObfuscatedName("k")
-	@ObfuscatedGetter(
-		intValue = 1022499315
+		intValue = 1829594601
 	)
 	@Export("pendingWrites")
 	int pendingWrites;
-	@ObfuscatedName("x")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "Ljd;"
+		descriptor = "Ljq;"
 	)
-	ServerPacket field1320;
-	@ObfuscatedName("c")
+	ServerPacket field1324;
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "Ljd;"
+		descriptor = "Ljq;"
 	)
-	ServerPacket field1329;
-	@ObfuscatedName("j")
+	ServerPacket field1325;
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "Ljd;"
+		descriptor = "Ljq;"
 	)
-	ServerPacket field1331;
+	ServerPacket field1313;
 
 	PacketWriter() {
 		this.packetBufferNodes = new IterableNodeDeque(); // L: 15
-		this.bufferSize = 0;
+		this.bufferSize = 0; // L: 16
 		this.buffer = new Buffer(5000); // L: 17
 		this.packetBuffer = new PacketBuffer(40000); // L: 19
 		this.serverPacket = null; // L: 20
-		this.serverPacketLength = 0; // L: 21
-		this.field1328 = true; // L: 22
-		this.field1326 = 0; // L: 23
+		this.serverPacketLength = 0;
+		this.field1317 = true; // L: 22
+		this.field1322 = 0; // L: 23
 		this.pendingWrites = 0; // L: 24
 	} // L: 29
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "(B)V",
-		garbageValue = "1"
+		garbageValue = "-114"
 	)
 	@Export("clearBuffer")
 	final void clearBuffer() {
@@ -115,10 +108,10 @@ public class PacketWriter {
 		this.bufferSize = 0; // L: 33
 	} // L: 34
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-1824965765"
+		garbageValue = "-1641157190"
 	)
 	@Export("flush")
 	final void flush() throws IOException {
@@ -143,10 +136,10 @@ public class PacketWriter {
 
 	} // L: 52
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(Ljt;B)V",
-		garbageValue = "121"
+		descriptor = "(Ljd;I)V",
+		garbageValue = "-1704102815"
 	)
 	@Export("addNode")
 	public final void addNode(PacketBufferNode var1) {
@@ -156,20 +149,20 @@ public class PacketWriter {
 		this.bufferSize += var1.index; // L: 58
 	} // L: 59
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Lnj;B)V",
-		garbageValue = "33"
+		descriptor = "(Lny;I)V",
+		garbageValue = "1949084856"
 	)
 	@Export("setSocket")
 	void setSocket(AbstractSocket var1) {
 		this.socket = var1; // L: 62
 	} // L: 63
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-2133508090"
+		garbageValue = "-600547113"
 	)
 	@Export("close")
 	void close() {
@@ -190,193 +183,40 @@ public class PacketWriter {
 		this.socket = null; // L: 73
 	} // L: 74
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "(B)Lnj;",
-		garbageValue = "2"
+		descriptor = "(I)Lny;",
+		garbageValue = "1980129228"
 	)
 	@Export("getSocket")
 	AbstractSocket getSocket() {
 		return this.socket; // L: 77
 	}
 
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "([BZI)Ljava/lang/Object;",
-		garbageValue = "1183406666"
-	)
-	public static Object method2511(byte[] var0, boolean var1) {
-		if (var0 == null) { // L: 7
-			return null;
-		} else if (var0.length > 136) { // L: 8
-			DirectByteArrayCopier var2 = new DirectByteArrayCopier(); // L: 10
-			var2.set(var0); // L: 11
-			return var2; // L: 12
-		} else {
-			return var0; // L: 16
-		}
-	}
-
 	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-801712084"
+		descriptor = "(II)Z",
+		garbageValue = "948804767"
 	)
-	public static void method2485() {
-		WorldMapElement.WorldMapElement_cachedSprites.clear(); // L: 159
-	} // L: 160
-
-	@ObfuscatedName("ft")
-	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "1"
-	)
-	static void method2489() {
-		Client.mouseLastLastPressedTimeMillis = -1L; // L: 2354
-		BuddyRankComparator.mouseRecorder.index = 0; // L: 2355
-		Varps.hasFocus = true; // L: 2356
-		Client.hadFocus = true; // L: 2357
-		Client.field718 = -1L; // L: 2358
-		class33.reflectionChecks = new IterableNodeDeque(); // L: 2360
-		Client.packetWriter.clearBuffer(); // L: 2362
-		Client.packetWriter.packetBuffer.offset = 0; // L: 2363
-		Client.packetWriter.serverPacket = null; // L: 2364
-		Client.packetWriter.field1320 = null; // L: 2365
-		Client.packetWriter.field1329 = null; // L: 2366
-		Client.packetWriter.field1331 = null; // L: 2367
-		Client.packetWriter.serverPacketLength = 0; // L: 2368
-		Client.packetWriter.field1326 = 0; // L: 2369
-		Client.rebootTimer = 0; // L: 2370
-		Client.logoutTimer = 0; // L: 2371
-		Client.hintArrowType = 0; // L: 2372
-		class268.method5228(); // L: 2373
-		ItemComposition.method3764(0); // L: 2374
-		NetCache.method5988(); // L: 2375
-		Client.isItemSelected = 0; // L: 2376
-		Client.isSpellSelected = false; // L: 2377
-		Client.soundEffectCount = 0; // L: 2378
-		Client.camAngleY = 0; // L: 2379
-		Client.oculusOrbState = 0; // L: 2380
-		class340.field4109 = null; // L: 2381
-		Client.minimapState = 0; // L: 2382
-		Client.field721 = -1; // L: 2383
-		Client.destinationX = 0; // L: 2384
-		Client.destinationY = 0; // L: 2385
-		Client.playerAttackOption = AttackOption.AttackOption_hidden; // L: 2386
-		Client.npcAttackOption = AttackOption.AttackOption_hidden; // L: 2387
-		Client.npcCount = 0; // L: 2388
-		Players.Players_count = 0; // L: 2390
-
-		int var0;
-		for (var0 = 0; var0 < 2048; ++var0) { // L: 2391
-			Players.field1289[var0] = null; // L: 2392
-			Players.field1285[var0] = class193.field2193; // L: 2393
-		}
-
-		for (var0 = 0; var0 < 2048; ++var0) { // L: 2396
-			Client.players[var0] = null;
-		}
-
-		for (var0 = 0; var0 < 32768; ++var0) { // L: 2397
-			Client.npcs[var0] = null;
-		}
-
-		Client.combatTargetPlayerIndex = -1; // L: 2398
-		Client.projectiles.clear(); // L: 2399
-		Client.graphicsObjects.clear(); // L: 2400
-
-		for (var0 = 0; var0 < 4; ++var0) { // L: 2401
-			for (int var4 = 0; var4 < 104; ++var4) { // L: 2402
-				for (int var2 = 0; var2 < 104; ++var2) { // L: 2403
-					Client.groundItems[var0][var4][var2] = null; // L: 2404
-				}
-			}
-		}
-
-		Client.pendingSpawns = new NodeDeque(); // L: 2408
-		class155.friendSystem.clear(); // L: 2409
-
-		for (var0 = 0; var0 < VarpDefinition.VarpDefinition_fileCount; ++var0) { // L: 2410
-			VarpDefinition var1 = SoundCache.VarpDefinition_get(var0); // L: 2411
-			if (var1 != null) { // L: 2412
-				Varps.Varps_temp[var0] = 0; // L: 2413
-				Varps.Varps_main[var0] = 0; // L: 2414
-			}
-		}
-
-		JagexCache.varcs.clearTransient(); // L: 2417
-		Client.followerIndex = -1; // L: 2418
-		if (Client.rootInterface != -1) { // L: 2419
-			WorldMapID.method5000(Client.rootInterface);
-		}
-
-		for (InterfaceParent var3 = (InterfaceParent)Client.interfaceParents.first(); var3 != null; var3 = (InterfaceParent)Client.interfaceParents.next()) { // L: 2420
-			class20.closeInterface(var3, true); // L: 2421
-		}
-
-		Client.rootInterface = -1; // L: 2423
-		Client.interfaceParents = new NodeHashTable(8); // L: 2424
-		Client.meslayerContinueWidget = null; // L: 2425
-		class268.method5228(); // L: 2426
-		Client.playerAppearance.update((int[])null, new int[]{0, 0, 0, 0, 0}, false, -1); // L: 2427
-
-		for (var0 = 0; var0 < 8; ++var0) { // L: 2428
-			Client.playerMenuActions[var0] = null; // L: 2429
-			Client.playerOptionsPriorities[var0] = false; // L: 2430
-		}
-
-		ItemContainer.itemContainers = new NodeHashTable(32); // L: 2433
-		Client.isLoading = true; // L: 2435
-
-		for (var0 = 0; var0 < 100; ++var0) { // L: 2436
-			Client.field564[var0] = true;
-		}
-
-		class17.method228(); // L: 2437
-		class230.friendsChat = null; // L: 2438
-		class134.guestClanSettings = null; // L: 2439
-		Arrays.fill(Client.currentClanSettings, (Object)null); // L: 2440
-		class83.guestClanChannel = null; // L: 2441
-		Arrays.fill(Client.currentClanChannels, (Object)null); // L: 2442
-
-		for (var0 = 0; var0 < 8; ++var0) { // L: 2443
-			Client.grandExchangeOffers[var0] = new GrandExchangeOffer();
-		}
-
-		ReflectionCheck.grandExchangeEvents = null; // L: 2444
-	} // L: 2445
-
-	@ObfuscatedName("jv")
-	@ObfuscatedSignature(
-		descriptor = "(Lkn;B)Z",
-		garbageValue = "27"
-	)
-	@Export("runCs1")
-	static final boolean runCs1(Widget var0) {
-		if (var0.cs1Comparisons == null) { // L: 10275
-			return false;
-		} else {
-			for (int var1 = 0; var1 < var0.cs1Comparisons.length; ++var1) { // L: 10276
-				int var2 = WorldMapAreaData.method5086(var0, var1); // L: 10277
-				int var3 = var0.cs1ComparisonValues[var1]; // L: 10278
-				if (var0.cs1Comparisons[var1] == 2) { // L: 10279
-					if (var2 >= var3) { // L: 10280
-						return false;
-					}
-				} else if (var0.cs1Comparisons[var1] == 3) { // L: 10282
-					if (var2 <= var3) { // L: 10283
-						return false;
-					}
-				} else if (var0.cs1Comparisons[var1] == 4) { // L: 10285
-					if (var2 == var3) { // L: 10286
-						return false;
-					}
-				} else if (var2 != var3) { // L: 10288
-					return false;
-				}
-			}
-
-			return true; // L: 10290
-		}
+	public static boolean method2498(int var0) {
+		return (var0 >> 21 & 1) != 0; // L: 21
 	}
+
+	@ObfuscatedName("kr")
+	@ObfuscatedSignature(
+		descriptor = "(Lky;IIII)V",
+		garbageValue = "-2050353968"
+	)
+	@Export("drawCompass")
+	static final void drawCompass(Widget var0, int var1, int var2, int var3) {
+		SpriteMask var4 = var0.getSpriteMask(false); // L: 12305
+		if (var4 != null) { // L: 12306
+			if (Client.minimapState < 3) { // L: 12307
+				class14.compass.drawRotatedMaskedCenteredAround(var1, var2, var4.width, var4.height, 25, 25, Client.camAngleY, 256, var4.xStarts, var4.xWidths);
+			} else {
+				Rasterizer2D.Rasterizer2D_fillMaskedRectangle(var1, var2, 0, var4.xStarts, var4.xWidths); // L: 12308
+			}
+
+		}
+	} // L: 12309
 }

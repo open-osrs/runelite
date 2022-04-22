@@ -3,18 +3,18 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lt")
+@ObfuscatedName("lr")
 @Implements("LinkDeque")
 public class LinkDeque {
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lol;"
+		descriptor = "Lot;"
 	)
 	@Export("sentinel")
 	Link sentinel;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lol;"
+		descriptor = "Lot;"
 	)
 	@Export("current")
 	Link current;
@@ -27,7 +27,7 @@ public class LinkDeque {
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lol;)V"
+		descriptor = "(Lot;)V"
 	)
 	@Export("addFirst")
 	public void addFirst(Link var1) {
@@ -41,35 +41,35 @@ public class LinkDeque {
 		var1.previous.next = var1; // L: 19
 	} // L: 20
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "()Lol;"
+		descriptor = "()Lot;"
 	)
 	@Export("last")
 	public Link last() {
-		Link var1 = this.sentinel.previous; // L: 24
-		if (var1 == this.sentinel) { // L: 25
-			this.current = null; // L: 26
-			return null; // L: 27
+		Link var1 = this.sentinel.previous; // L: 23
+		if (var1 == this.sentinel) { // L: 24
+			this.current = null; // L: 25
+			return null; // L: 26
 		} else {
-			this.current = var1.previous; // L: 29
-			return var1; // L: 30
+			this.current = var1.previous; // L: 28
+			return var1; // L: 29
 		}
 	}
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "()Lol;"
+		descriptor = "()Lot;"
 	)
 	@Export("previous")
 	public Link previous() {
-		Link var1 = this.current; // L: 35
-		if (var1 == this.sentinel) { // L: 36
-			this.current = null; // L: 37
-			return null; // L: 38
+		Link var1 = this.current; // L: 33
+		if (var1 == this.sentinel) { // L: 34
+			this.current = null; // L: 35
+			return null; // L: 36
 		} else {
-			this.current = var1.previous; // L: 40
-			return var1; // L: 41
+			this.current = var1.previous; // L: 38
+			return var1; // L: 39
 		}
 	}
 }

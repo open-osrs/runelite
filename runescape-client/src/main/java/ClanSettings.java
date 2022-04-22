@@ -4,126 +4,116 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("eh")
+@ObfuscatedName("ex")
 @Implements("ClanSettings")
 public class ClanSettings {
-	@ObfuscatedName("sp")
-	@ObfuscatedGetter(
-		intValue = 1198231863
-	)
-	static int field1608;
-	@ObfuscatedName("ov")
-	@ObfuscatedSignature(
-		descriptor = "[Lkn;"
-	)
-	static Widget[] field1622;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@Export("useHashes")
 	boolean useHashes;
-	@ObfuscatedName("h")
+	@ObfuscatedName("i")
 	@Export("useNames")
 	boolean useNames;
-	@ObfuscatedName("g")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		longValue = 3945145856419995181L
+		longValue = -3394018459000773741L
 	)
-	long field1607;
-	@ObfuscatedName("l")
+	long field1586;
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = 618465929
+		intValue = -401549063
 	)
-	int field1598;
+	int field1583;
 	@ObfuscatedName("n")
 	@Export("name")
 	public String name;
-	@ObfuscatedName("d")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = -1783912821
+		intValue = 801648797
 	)
-	int field1594;
-	@ObfuscatedName("f")
+	int field1589;
+	@ObfuscatedName("l")
 	@Export("allowGuests")
 	public boolean allowGuests;
-	@ObfuscatedName("u")
-	public byte field1602;
+	@ObfuscatedName("q")
+	public byte field1591;
+	@ObfuscatedName("o")
+	public byte field1592;
 	@ObfuscatedName("r")
-	public byte field1603;
-	@ObfuscatedName("k")
-	public byte field1604;
-	@ObfuscatedName("x")
-	public byte field1613;
-	@ObfuscatedName("c")
+	public byte field1593;
+	@ObfuscatedName("p")
+	public byte field1606;
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 1908103089
+		intValue = -547296945
 	)
 	@Export("memberCount")
 	public int memberCount;
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@Export("memberHashes")
 	long[] memberHashes;
-	@ObfuscatedName("p")
+	@ObfuscatedName("d")
 	@Export("memberRanks")
 	public byte[] memberRanks;
-	@ObfuscatedName("s")
+	@ObfuscatedName("m")
 	@Export("sortedMembers")
 	int[] sortedMembers;
-	@ObfuscatedName("b")
-	int[] field1610;
-	@ObfuscatedName("w")
-	public int[] field1611;
-	@ObfuscatedName("a")
-	public boolean[] field1600;
-	@ObfuscatedName("m")
+	@ObfuscatedName("u")
+	int[] field1599;
+	@ObfuscatedName("t")
+	public int[] field1600;
+	@ObfuscatedName("g")
+	public boolean[] field1601;
+	@ObfuscatedName("x")
 	@ObfuscatedGetter(
-		intValue = 1818610271
+		intValue = 1213693909
 	)
 	@Export("currentOwner")
 	public int currentOwner;
-	@ObfuscatedName("q")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = -1447317987
+		intValue = 1803569685
 	)
-	public int field1614;
+	public int field1604;
 	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 1779654551
+		intValue = 94812735
 	)
 	@Export("bannedMemberCount")
 	public int bannedMemberCount;
-	@ObfuscatedName("z")
+	@ObfuscatedName("j")
 	@Export("bannedMemberHashes")
 	long[] bannedMemberHashes;
 	@ObfuscatedName("e")
 	@Export("memberNames")
 	public String[] memberNames;
-	@ObfuscatedName("t")
+	@ObfuscatedName("z")
 	@Export("bannedMemberNames")
 	public String[] bannedMemberNames;
-	@ObfuscatedName("i")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "Lpq;"
+		descriptor = "Lpt;"
 	)
 	@Export("parameters")
 	IterableNodeHashTable parameters;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lpd;)V"
+		descriptor = "(Lpi;)V"
 	)
 	public ClanSettings(Buffer var1) {
-		this.field1598 = 0; // L: 14
+		this.field1583 = 0; // L: 14
 		this.name = null; // L: 15
-		this.field1594 = 0; // L: 16
+		this.field1589 = 0; // L: 16
 		this.currentOwner = -1; // L: 29
-		this.field1614 = -1; // L: 30
-		this.method2931(var1); // L: 43
+		this.field1604 = -1; // L: 30
+		this.method2961(var1); // L: 43
 	} // L: 44
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "(IB)V",
-		garbageValue = "-123"
+		garbageValue = "-82"
 	)
-	void method2913(int var1) {
+	void method2953(int var1) {
 		if (this.useHashes) { // L: 47
 			if (this.memberHashes != null) { // L: 48
 				System.arraycopy(this.memberHashes, 0, this.memberHashes = new long[var1], 0, this.memberCount);
@@ -146,43 +136,43 @@ public class ClanSettings {
 			this.memberRanks = new byte[var1]; // L: 56
 		}
 
-		if (this.field1610 != null) { // L: 57
-			System.arraycopy(this.field1610, 0, this.field1610 = new int[var1], 0, this.memberCount);
+		if (this.field1599 != null) { // L: 57
+			System.arraycopy(this.field1599, 0, this.field1599 = new int[var1], 0, this.memberCount);
 		} else {
-			this.field1610 = new int[var1]; // L: 58
+			this.field1599 = new int[var1]; // L: 58
 		}
 
-		if (this.field1611 != null) { // L: 59
-			System.arraycopy(this.field1611, 0, this.field1611 = new int[var1], 0, this.memberCount);
+		if (this.field1600 != null) { // L: 59
+			System.arraycopy(this.field1600, 0, this.field1600 = new int[var1], 0, this.memberCount);
 		} else {
-			this.field1611 = new int[var1]; // L: 60
+			this.field1600 = new int[var1]; // L: 60
 		}
 
-		if (this.field1600 != null) {
-			System.arraycopy(this.field1600, 0, this.field1600 = new boolean[var1], 0, this.memberCount); // L: 61
+		if (this.field1601 != null) { // L: 61
+			System.arraycopy(this.field1601, 0, this.field1601 = new boolean[var1], 0, this.memberCount);
 		} else {
-			this.field1600 = new boolean[var1]; // L: 62
+			this.field1601 = new boolean[var1]; // L: 62
 		}
 
 	} // L: 63
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(IB)V",
-		garbageValue = "9"
+		garbageValue = "28"
 	)
-	void method2973(int var1) {
+	void method2954(int var1) {
 		if (this.useHashes) { // L: 66
-			if (this.bannedMemberHashes != null) { // L: 67
-				System.arraycopy(this.bannedMemberHashes, 0, this.bannedMemberHashes = new long[var1], 0, this.bannedMemberCount);
+			if (this.bannedMemberHashes != null) {
+				System.arraycopy(this.bannedMemberHashes, 0, this.bannedMemberHashes = new long[var1], 0, this.bannedMemberCount); // L: 67
 			} else {
 				this.bannedMemberHashes = new long[var1]; // L: 68
 			}
 		}
 
 		if (this.useNames) { // L: 70
-			if (this.bannedMemberNames != null) { // L: 71
-				System.arraycopy(this.bannedMemberNames, 0, this.bannedMemberNames = new String[var1], 0, this.bannedMemberCount);
+			if (this.bannedMemberNames != null) {
+				System.arraycopy(this.bannedMemberNames, 0, this.bannedMemberNames = new String[var1], 0, this.bannedMemberCount); // L: 71
 			} else {
 				this.bannedMemberNames = new String[var1]; // L: 72
 			}
@@ -190,12 +180,12 @@ public class ClanSettings {
 
 	} // L: 74
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
 		descriptor = "(Ljava/lang/String;I)I",
-		garbageValue = "-1580381638"
+		garbageValue = "35363585"
 	)
-	public int method2979(String var1) {
+	public int method2955(String var1) {
 		if (var1 != null && var1.length() != 0) { // L: 77
 			for (int var2 = 0; var2 < this.memberCount; ++var2) { // L: 78
 				if (this.memberNames[var2].equals(var1)) { // L: 79
@@ -209,20 +199,20 @@ public class ClanSettings {
 		}
 	}
 
-	@ObfuscatedName("g")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "(IIII)I",
-		garbageValue = "1226760366"
+		garbageValue = "-1723451340"
 	)
-	public int method2915(int var1, int var2, int var3) {
+	public int method2956(int var1, int var2, int var3) {
 		int var4 = var3 == 31 ? -1 : (1 << var3 + 1) - 1; // L: 85
-		return (this.field1610[var1] & var4) >>> var2; // L: 86
+		return (this.field1599[var1] & var4) >>> var2; // L: 86
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("b")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Ljava/lang/Integer;",
-		garbageValue = "-18"
+		descriptor = "(II)Ljava/lang/Integer;",
+		garbageValue = "1275001332"
 	)
 	@Export("getTitleGroupValue")
 	public Integer getTitleGroupValue(int var1) {
@@ -237,7 +227,7 @@ public class ClanSettings {
 	@ObfuscatedName("n")
 	@ObfuscatedSignature(
 		descriptor = "(B)[I",
-		garbageValue = "11"
+		garbageValue = "33"
 	)
 	@Export("getSortedMembers")
 	public int[] getSortedMembers() {
@@ -253,29 +243,29 @@ public class ClanSettings {
 			}
 
 			int[] var3 = this.sortedMembers; // L: 105
-			WorldMapData_0.method4518(var1, var3, 0, var1.length - 1); // L: 107
+			class433.method7605(var1, var3, 0, var1.length - 1); // L: 107
 		}
 
-		return this.sortedMembers; // L: 110
+		return this.sortedMembers;
 	}
 
-	@ObfuscatedName("d")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
 		descriptor = "(JLjava/lang/String;II)V",
-		garbageValue = "1792170403"
+		garbageValue = "1216847947"
 	)
-	void method2918(long var1, String var3, int var4) {
+	void method2959(long var1, String var3, int var4) {
 		if (var3 != null && var3.length() == 0) { // L: 114
 			var3 = null;
 		}
 
-		if (this.useHashes != var1 > 0L) { // L: 115
+		if (var1 > 0L != this.useHashes) { // L: 115
 			throw new RuntimeException("");
-		} else if (var3 != null != this.useNames) { // L: 116
+		} else if (this.useNames != (var3 != null)) { // L: 116
 			throw new RuntimeException("");
 		} else {
 			if (var1 > 0L && (this.memberHashes == null || this.memberCount >= this.memberHashes.length) || var3 != null && (this.memberNames == null || this.memberCount >= this.memberNames.length)) { // L: 117
-				this.method2913(this.memberCount + 5);
+				this.method2953(this.memberCount + 5);
 			}
 
 			if (this.memberHashes != null) { // L: 118
@@ -293,20 +283,20 @@ public class ClanSettings {
 				this.memberRanks[this.memberCount] = 0; // L: 125
 			}
 
-			this.field1610[this.memberCount] = 0; // L: 127
-			this.field1611[this.memberCount] = var4; // L: 128
-			this.field1600[this.memberCount] = false; // L: 129
+			this.field1599[this.memberCount] = 0; // L: 127
+			this.field1600[this.memberCount] = var4; // L: 128
+			this.field1601[this.memberCount] = false; // L: 129
 			++this.memberCount; // L: 130
 			this.sortedMembers = null; // L: 131
 		}
 	} // L: 132
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(IB)V",
-		garbageValue = "0"
+		descriptor = "(II)V",
+		garbageValue = "831178976"
 	)
-	void method2919(int var1) {
+	void method2960(int var1) {
 		if (var1 >= 0 && var1 < this.memberCount) { // L: 135
 			--this.memberCount; // L: 136
 			this.sortedMembers = null; // L: 137
@@ -314,16 +304,16 @@ public class ClanSettings {
 				this.memberHashes = null; // L: 139
 				this.memberNames = null; // L: 140
 				this.memberRanks = null; // L: 141
-				this.field1610 = null; // L: 142
-				this.field1611 = null; // L: 143
-				this.field1600 = null; // L: 144
+				this.field1599 = null; // L: 142
+				this.field1600 = null; // L: 143
+				this.field1601 = null; // L: 144
 				this.currentOwner = -1; // L: 145
-				this.field1614 = -1; // L: 146
+				this.field1604 = -1; // L: 146
 			} else {
 				System.arraycopy(this.memberRanks, var1 + 1, this.memberRanks, var1, this.memberCount - var1); // L: 149
-				System.arraycopy(this.field1610, var1 + 1, this.field1610, var1, this.memberCount - var1); // L: 150
-				System.arraycopy(this.field1611, var1 + 1, this.field1611, var1, this.memberCount - var1); // L: 151
-				System.arraycopy(this.field1600, var1 + 1, this.field1600, var1, this.memberCount - var1); // L: 152
+				System.arraycopy(this.field1599, var1 + 1, this.field1599, var1, this.memberCount - var1); // L: 150
+				System.arraycopy(this.field1600, var1 + 1, this.field1600, var1, this.memberCount - var1); // L: 151
+				System.arraycopy(this.field1601, var1 + 1, this.field1601, var1, this.memberCount - var1); // L: 152
 				if (this.memberHashes != null) { // L: 153
 					System.arraycopy(this.memberHashes, var1 + 1, this.memberHashes, var1, this.memberCount - var1);
 				}
@@ -340,32 +330,32 @@ public class ClanSettings {
 		}
 	} // L: 157
 
-	@ObfuscatedName("u")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "56399515"
+		garbageValue = "-131657821"
 	)
 	@Export("updateOwner")
 	void updateOwner() {
 		if (this.memberCount == 0) { // L: 160
 			this.currentOwner = -1; // L: 161
-			this.field1614 = -1; // L: 162
+			this.field1604 = -1; // L: 162
 		} else {
 			this.currentOwner = -1; // L: 165
-			this.field1614 = -1; // L: 166
+			this.field1604 = -1; // L: 166
 			int var1 = 0; // L: 167
 			byte var2 = this.memberRanks[0]; // L: 168
 
 			for (int var3 = 1; var3 < this.memberCount; ++var3) { // L: 169
 				if (this.memberRanks[var3] > var2) { // L: 170
 					if (var2 == 125) { // L: 171
-						this.field1614 = var1;
+						this.field1604 = var1;
 					}
 
 					var1 = var3; // L: 172
 					var2 = this.memberRanks[var3]; // L: 173
-				} else if (this.field1614 == -1 && this.memberRanks[var3] == 125) { // L: 175
-					this.field1614 = var3; // L: 176
+				} else if (this.field1604 == -1 && this.memberRanks[var3] == 125) { // L: 175
+					this.field1604 = var3; // L: 176
 				}
 			}
 
@@ -377,23 +367,23 @@ public class ClanSettings {
 		}
 	} // L: 163 181
 
-	@ObfuscatedName("r")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "(JLjava/lang/String;B)V",
-		garbageValue = "94"
+		garbageValue = "17"
 	)
-	void method2912(long var1, String var3) {
+	void method2996(long var1, String var3) {
 		if (var3 != null && var3.length() == 0) { // L: 184
 			var3 = null;
 		}
 
 		if (this.useHashes != var1 > 0L) { // L: 185
 			throw new RuntimeException("");
-		} else if (this.useNames != (var3 != null)) { // L: 186
+		} else if (var3 != null != this.useNames) { // L: 186
 			throw new RuntimeException("");
 		} else {
 			if (var1 > 0L && (this.bannedMemberHashes == null || this.bannedMemberCount >= this.bannedMemberHashes.length) || var3 != null && (this.bannedMemberNames == null || this.bannedMemberCount >= this.bannedMemberNames.length)) { // L: 187
-				this.method2973(this.bannedMemberCount + 5);
+				this.method2954(this.bannedMemberCount + 5);
 			}
 
 			if (this.bannedMemberHashes != null) { // L: 188
@@ -408,12 +398,12 @@ public class ClanSettings {
 		}
 	} // L: 191
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("r")
 	@ObfuscatedSignature(
 		descriptor = "(II)V",
-		garbageValue = "2044582624"
+		garbageValue = "-1100183884"
 	)
-	void method2922(int var1) {
+	void method2963(int var1) {
 		--this.bannedMemberCount; // L: 194
 		if (this.bannedMemberCount == 0) { // L: 195
 			this.bannedMemberHashes = null; // L: 196
@@ -430,17 +420,17 @@ public class ClanSettings {
 
 	} // L: 203
 
-	@ObfuscatedName("x")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "(IBI)I",
-		garbageValue = "2038770318"
+		descriptor = "(IBB)I",
+		garbageValue = "-48"
 	)
-	int method2940(int var1, byte var2) {
+	int method2964(int var1, byte var2) {
 		if (var2 != 126 && var2 != 127) { // L: 206
-			if (this.currentOwner == var1 && (this.field1614 == -1 || this.memberRanks[this.field1614] < 125)) { // L: 207
+			if (this.currentOwner == var1 && (this.field1604 == -1 || this.memberRanks[this.field1604] < 125)) { // L: 207
 				return -1;
-			} else if (this.memberRanks[var1] == var2) { // L: 208
-				return -1;
+			} else if (this.memberRanks[var1] == var2) {
+				return -1; // L: 208
 			} else {
 				this.memberRanks[var1] = var2; // L: 209
 				this.updateOwner(); // L: 210
@@ -451,15 +441,15 @@ public class ClanSettings {
 		}
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
 		descriptor = "(II)Z",
-		garbageValue = "-190759888"
+		garbageValue = "-1731928616"
 	)
-	boolean method2924(int var1) {
+	boolean method2965(int var1) {
 		if (this.currentOwner != var1 && this.memberRanks[var1] != 126) { // L: 215
 			this.memberRanks[this.currentOwner] = 125; // L: 216
-			this.field1614 = this.currentOwner; // L: 217
+			this.field1604 = this.currentOwner; // L: 217
 			this.memberRanks[var1] = 126; // L: 218
 			this.currentOwner = var1; // L: 219
 			return true; // L: 220
@@ -468,47 +458,47 @@ public class ClanSettings {
 		}
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
 		descriptor = "(IZI)I",
-		garbageValue = "-606065608"
+		garbageValue = "1433245156"
 	)
-	int method2925(int var1, boolean var2) {
-		if (this.field1600[var1] == var2) { // L: 224
+	int method3027(int var1, boolean var2) {
+		if (this.field1601[var1] == var2) { // L: 224
 			return -1;
 		} else {
-			this.field1600[var1] = var2; // L: 225
+			this.field1601[var1] = var2; // L: 225
 			return var1; // L: 226
 		}
 	}
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("d")
 	@ObfuscatedSignature(
-		descriptor = "(IIIIS)I",
-		garbageValue = "23318"
+		descriptor = "(IIIIB)I",
+		garbageValue = "-122"
 	)
-	int method2926(int var1, int var2, int var3, int var4) {
+	int method2967(int var1, int var2, int var3, int var4) {
 		int var5 = (1 << var3) - 1; // L: 230
 		int var6 = var4 == 31 ? -1 : (1 << var4 + 1) - 1; // L: 231
 		int var7 = var6 ^ var5; // L: 232
 		var2 <<= var3; // L: 233
 		var2 &= var7; // L: 234
-		int var8 = this.field1610[var1]; // L: 235
+		int var8 = this.field1599[var1]; // L: 235
 		if ((var8 & var7) == var2) {
 			return -1; // L: 236
 		} else {
 			var8 &= ~var7; // L: 237
-			this.field1610[var1] = var8 | var2; // L: 238
+			this.field1599[var1] = var8 | var2; // L: 238
 			return var1; // L: 239
 		}
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(IIB)Z",
-		garbageValue = "0"
+		descriptor = "(III)Z",
+		garbageValue = "-827323017"
 	)
-	boolean method2927(int var1, int var2) {
+	boolean method2968(int var1, int var2) {
 		if (this.parameters != null) { // L: 243
 			Node var3 = this.parameters.get((long)var1); // L: 244
 			if (var3 != null) { // L: 245
@@ -532,12 +522,12 @@ public class ClanSettings {
 		return true; // L: 257
 	}
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
 		descriptor = "(IIIIB)Z",
-		garbageValue = "-101"
+		garbageValue = "42"
 	)
-	boolean method2928(int var1, int var2, int var3, int var4) {
+	boolean method2969(int var1, int var2, int var3, int var4) {
 		int var5 = (1 << var3) - 1; // L: 261
 		int var6 = var4 == 31 ? -1 : (1 << var4 + 1) - 1; // L: 262
 		int var7 = var6 ^ var5; // L: 263
@@ -567,14 +557,14 @@ public class ClanSettings {
 		return true; // L: 281
 	}
 
-	@ObfuscatedName("w")
-	boolean method2938(int var1, long var2) {
+	@ObfuscatedName("t")
+	boolean method2978(int var1, long var2) {
 		if (this.parameters != null) { // L: 285
 			Node var4 = this.parameters.get((long)var1); // L: 286
 			if (var4 != null) { // L: 287
 				if (var4 instanceof class406) { // L: 288
 					class406 var5 = (class406)var4; // L: 289
-					if (var5.field4407 == var2) { // L: 290
+					if (var2 == var5.field4407) { // L: 290
 						return false;
 					}
 
@@ -592,12 +582,12 @@ public class ClanSettings {
 		return true; // L: 299
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "(ILjava/lang/String;I)Z",
-		garbageValue = "-529235235"
+		descriptor = "(ILjava/lang/String;B)Z",
+		garbageValue = "49"
 	)
-	boolean method2956(int var1, String var2) {
+	boolean method2971(int var1, String var2) {
 		if (var2 == null) { // L: 303
 			var2 = "";
 		} else if (var2.length() > 80) { // L: 304
@@ -630,12 +620,12 @@ public class ClanSettings {
 		return true; // L: 322
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "(Lpd;I)V",
-		garbageValue = "18266587"
+		descriptor = "(Lpi;I)V",
+		garbageValue = "-1262320600"
 	)
-	void method2931(Buffer var1) {
+	void method2961(Buffer var1) {
 		int var2 = var1.readUnsignedByte(); // L: 326
 		if (var2 >= 1 && var2 <= 6) { // L: 327
 			int var3 = var1.readUnsignedByte(); // L: 328
@@ -657,10 +647,10 @@ public class ClanSettings {
 				this.bannedMemberNames = null; // L: 337
 			}
 
-			this.field1598 = var1.readInt(); // L: 339
-			this.field1594 = var1.readInt(); // L: 340
-			if (var2 <= 3 && this.field1594 != 0) { // L: 341
-				this.field1594 += 16912800;
+			this.field1583 = var1.readInt(); // L: 339
+			this.field1589 = var1.readInt(); // L: 340
+			if (var2 <= 3 && this.field1589 != 0) { // L: 341
+				this.field1589 += 16912800;
 			}
 
 			this.memberCount = var1.readUnsignedShort(); // L: 342
@@ -671,10 +661,10 @@ public class ClanSettings {
 			}
 
 			this.allowGuests = var1.readUnsignedByte() == 1; // L: 348
-			this.field1602 = var1.readByte(); // L: 349
-			this.field1603 = var1.readByte(); // L: 350
-			this.field1604 = var1.readByte(); // L: 351
-			this.field1613 = var1.readByte(); // L: 352
+			this.field1591 = var1.readByte(); // L: 349
+			this.field1592 = var1.readByte(); // L: 350
+			this.field1593 = var1.readByte(); // L: 351
+			this.field1606 = var1.readByte(); // L: 352
 			int var4;
 			if (this.memberCount > 0) { // L: 353
 				if (this.useHashes && (this.memberHashes == null || this.memberHashes.length < this.memberCount)) { // L: 354
@@ -689,16 +679,16 @@ public class ClanSettings {
 					this.memberRanks = new byte[this.memberCount];
 				}
 
-				if (this.field1610 == null || this.field1610.length < this.memberCount) { // L: 357
-					this.field1610 = new int[this.memberCount];
+				if (this.field1599 == null || this.field1599.length < this.memberCount) { // L: 357
+					this.field1599 = new int[this.memberCount];
 				}
 
-				if (this.field1611 == null || this.field1611.length < this.memberCount) { // L: 358
-					this.field1611 = new int[this.memberCount];
+				if (this.field1600 == null || this.field1600.length < this.memberCount) { // L: 358
+					this.field1600 = new int[this.memberCount];
 				}
 
-				if (this.field1600 == null || this.field1600.length < this.memberCount) { // L: 359
-					this.field1600 = new boolean[this.memberCount];
+				if (this.field1601 == null || this.field1601.length < this.memberCount) { // L: 359
+					this.field1601 = new boolean[this.memberCount];
 				}
 
 				for (var4 = 0; var4 < this.memberCount; ++var4) { // L: 360
@@ -712,19 +702,19 @@ public class ClanSettings {
 
 					this.memberRanks[var4] = var1.readByte(); // L: 363
 					if (var2 >= 2) { // L: 364
-						this.field1610[var4] = var1.readInt();
+						this.field1599[var4] = var1.readInt();
 					}
 
 					if (var2 >= 5) { // L: 365
-						this.field1611[var4] = var1.readUnsignedShort();
+						this.field1600[var4] = var1.readUnsignedShort();
 					} else {
-						this.field1611[var4] = 0; // L: 366
+						this.field1600[var4] = 0; // L: 366
 					}
 
 					if (var2 >= 6) { // L: 367
-						this.field1600[var4] = var1.readUnsignedByte() == 1;
+						this.field1601[var4] = var1.readUnsignedByte() == 1;
 					} else {
-						this.field1600[var4] = false; // L: 368
+						this.field1601[var4] = false; // L: 368
 					}
 				}
 
@@ -754,7 +744,7 @@ public class ClanSettings {
 			if (var2 >= 3) { // L: 380
 				var4 = var1.readUnsignedShort(); // L: 381
 				if (var4 > 0) { // L: 382
-					this.parameters = new IterableNodeHashTable(var4 < 16 ? Login.method1894(var4) : 16); // L: 383
+					this.parameters = new IterableNodeHashTable(var4 < 16 ? class67.method1909(var4) : 16); // L: 383
 
 					while (var4-- > 0) { // L: 384
 						int var5 = var1.readInt(); // L: 385
@@ -779,64 +769,65 @@ public class ClanSettings {
 		}
 	} // L: 403
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lpq;III)I",
-		garbageValue = "1431232639"
+		descriptor = "(Lch;B)V",
+		garbageValue = "28"
 	)
-	static int method2976(IterableNodeHashTable var0, int var1, int var2) {
-		if (var0 == null) { // L: 33
-			return var2;
+	@Export("runScriptEvent")
+	public static void runScriptEvent(ScriptEvent var0) {
+		Interpreter.runScript(var0, 500000, 475000); // L: 108
+	} // L: 109
+
+	@ObfuscatedName("r")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "1975517919"
+	)
+	static final void method3031() {
+		class149.method3138("You can't add yourself to your own friend list"); // L: 110
+	} // L: 111
+
+	@ObfuscatedName("u")
+	@ObfuscatedSignature(
+		descriptor = "(IIB)I",
+		garbageValue = "-26"
+	)
+	static final int method3028(int var0, int var1) {
+		if (var0 == -2) { // L: 942
+			return 12345678;
+		} else if (var0 == -1) { // L: 943
+			if (var1 < 2) { // L: 944
+				var1 = 2;
+			} else if (var1 > 126) { // L: 945
+				var1 = 126;
+			}
+
+			return var1; // L: 946
 		} else {
-			IntegerNode var3 = (IntegerNode)var0.get((long)var1); // L: 34
-			return var3 == null ? var2 : var3.integer; // L: 35 36
+			var1 = (var0 & 127) * var1 / 128; // L: 948
+			if (var1 < 2) { // L: 949
+				var1 = 2;
+			} else if (var1 > 126) { // L: 950
+				var1 = 126;
+			}
+
+			return (var0 & 65408) + var1; // L: 951
 		}
 	}
 
-	@ObfuscatedName("jz")
+	@ObfuscatedName("x")
 	@ObfuscatedSignature(
-		descriptor = "([Lkn;II)V",
-		garbageValue = "1847121175"
+		descriptor = "(ZB)V",
+		garbageValue = "-89"
 	)
-	@Export("runComponentCloseListeners")
-	static final void runComponentCloseListeners(Widget[] var0, int var1) {
-		for (int var2 = 0; var2 < var0.length; ++var2) { // L: 11119
-			Widget var3 = var0[var2]; // L: 11120
-			if (var3 != null) { // L: 11121
-				if (var3.type == 0) { // L: 11122
-					if (var3.children != null) { // L: 11123
-						runComponentCloseListeners(var3.children, var1);
-					}
-
-					InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var3.id); // L: 11124
-					if (var4 != null) { // L: 11125
-						MouseHandler.runIntfCloseListeners(var4.group, var1);
-					}
-				}
-
-				ScriptEvent var5;
-				if (var1 == 0 && var3.onDialogAbort != null) { // L: 11127
-					var5 = new ScriptEvent(); // L: 11128
-					var5.widget = var3; // L: 11129
-					var5.args = var3.onDialogAbort; // L: 11130
-					class1.runScriptEvent(var5); // L: 11131
-				}
-
-				if (var1 == 1 && var3.onSubChange != null) { // L: 11133
-					if (var3.childIndex >= 0) { // L: 11134
-						Widget var6 = HorizontalAlignment.getWidget(var3.id); // L: 11135
-						if (var6 == null || var6.children == null || var3.childIndex >= var6.children.length || var3 != var6.children[var3.childIndex]) { // L: 11136
-							continue;
-						}
-					}
-
-					var5 = new ScriptEvent(); // L: 11140
-					var5.widget = var3; // L: 11141
-					var5.args = var3.onSubChange; // L: 11142
-					class1.runScriptEvent(var5); // L: 11143
-				}
-			}
+	public static void method3033(boolean var0) {
+		if (var0 != DevicePcmPlayerProvider.ItemDefinition_inMembersWorld) { // L: 584
+			ItemComposition.ItemDefinition_cached.clear(); // L: 586
+			ItemComposition.ItemDefinition_cachedModels.clear(); // L: 587
+			ItemComposition.ItemDefinition_cachedSprites.clear(); // L: 588
+			DevicePcmPlayerProvider.ItemDefinition_inMembersWorld = var0; // L: 590
 		}
 
-	} // L: 11146
+	} // L: 592
 }

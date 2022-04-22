@@ -2,39 +2,34 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
-import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gc")
+@ObfuscatedName("ia")
 @Implements("FaceNormal")
 public class FaceNormal {
+	@ObfuscatedName("b")
+	@ObfuscatedGetter(
+		intValue = -360796493
+	)
+	static int field2664;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -1581281175
+		intValue = 1964753239
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -1155482083
+		intValue = 538442569
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("h")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 990620569
+		intValue = 708188277
 	)
 	@Export("z")
 	int z;
 
 	FaceNormal() {
 	} // L: 8
-
-	@ObfuscatedName("ao")
-	@ObfuscatedSignature(
-		descriptor = "(IB)I",
-		garbageValue = "12"
-	)
-	static int method4313(int var0) {
-		return (int)Math.pow(2.0D, (double)((float)var0 / 256.0F + 7.0F)); // L: 3837
-	}
 }

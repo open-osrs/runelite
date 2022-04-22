@@ -1,109 +1,87 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.atomic.AtomicInteger;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("b")
+@ObfuscatedName("u")
 public class class16 implements ThreadFactory {
+	@ObfuscatedName("eo")
+	@ObfuscatedSignature(
+		descriptor = "Llx;"
+	)
+	@Export("archive6")
+	static Archive archive6;
 	@ObfuscatedName("v")
-	final ThreadGroup field83;
-	@ObfuscatedName("o")
-	final AtomicInteger field84;
+	final ThreadGroup field77;
+	@ObfuscatedName("c")
+	final AtomicInteger field78;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lp;"
+		descriptor = "Ld;"
 	)
 	final class14 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lp;)V"
+		descriptor = "(Ld;)V"
 	)
 	class16(class14 var1) {
-		this.this$0 = var1;
-		this.field84 = new AtomicInteger(1); // L: 66
-		SecurityManager var2 = System.getSecurityManager(); // L: 69
-		this.field83 = var2 != null ? var2.getThreadGroup() : Thread.currentThread().getThreadGroup(); // L: 70
-	} // L: 71
+		this.this$0 = var1; // L: 67
+		this.field78 = new AtomicInteger(1); // L: 65
+		SecurityManager var2 = System.getSecurityManager(); // L: 68
+		this.field77 = var2 != null ? var2.getThreadGroup() : Thread.currentThread().getThreadGroup(); // L: 69
+	} // L: 70
 
 	public Thread newThread(Runnable var1) {
-		Thread var2 = new Thread(this.field83, var1, this.this$0.field74 + "-rest-request-" + this.field84.getAndIncrement(), 0L); // L: 75
-		var2.setDaemon(true); // L: 76
-		var2.setPriority(5); // L: 77
-		return var2; // L: 78
+		Thread var2 = new Thread(this.field77, var1, this.this$0.field69 + "-rest-request-" + this.field78.getAndIncrement(), 0L); // L: 73
+		var2.setDaemon(true); // L: 74
+		var2.setPriority(5); // L: 75
+		return var2; // L: 76
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("i")
 	@ObfuscatedSignature(
-		descriptor = "(Llq;III)Lqx;",
-		garbageValue = "-1536668938"
+		descriptor = "(Ljava/io/File;Ljava/io/File;I)V",
+		garbageValue = "2082256408"
 	)
-	static IndexedSprite method218(AbstractArchive var0, int var1, int var2) {
-		return !GrandExchangeEvent.method6045(var0, var1, var2) ? null : Clock.method3323(); // L: 45 46
-	}
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "-805964566"
-	)
-	@Export("isKeyDown")
-	public static final boolean isKeyDown() {
-		synchronized(KeyHandler.KeyHandler_instance) { // L: 130
-			if (KeyHandler.field137 == KeyHandler.field135) { // L: 131
-				return false;
-			} else {
-				class241.field2833 = KeyHandler.field130[KeyHandler.field135]; // L: 132
-				class1.field3 = KeyHandler.field115[KeyHandler.field135]; // L: 133
-				KeyHandler.field135 = KeyHandler.field135 + 1 & 127; // L: 134
-				return true; // L: 135
+	static void method194(File var0, File var1) {
+		try {
+			AccessFile var2 = new AccessFile(class28.JagexCache_locationFile, "rw", 10000L); // L: 216
+			Buffer var3 = new Buffer(500); // L: 217
+			var3.writeByte(3); // L: 218
+			var3.writeByte(var1 != null ? 1 : 0); // L: 219
+			var3.writeCESU8(var0.getPath()); // L: 220
+			if (var1 != null) {
+				var3.writeCESU8(""); // L: 221
 			}
-		}
-	}
 
-	@ObfuscatedName("g")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/CharSequence;I)I",
-		garbageValue = "-1927967311"
-	)
-	public static int method217(CharSequence var0) {
-		return FloorOverlayDefinition.method3788(var0, 10, true); // L: 68
-	}
-
-	@ObfuscatedName("gz")
-	@ObfuscatedSignature(
-		descriptor = "(Lco;I)V",
-		garbageValue = "362811494"
-	)
-	static final void method215(Actor var0) {
-		if (var0.field1180 == Client.cycle || var0.sequence == -1 || var0.sequenceDelay != 0 || var0.sequenceFrameCycle + 1 > ItemContainer.SequenceDefinition_get(var0.sequence).frameLengths[var0.sequenceFrame]) { // L: 3761
-			int var1 = var0.field1180 - var0.field1179; // L: 3762
-			int var2 = Client.cycle - var0.field1179; // L: 3763
-			int var3 = var0.field1145 * 64 + var0.field1175 * 128; // L: 3764
-			int var4 = var0.field1145 * 64 + var0.field1177 * 128; // L: 3765
-			int var5 = var0.field1145 * 64 + var0.field1176 * 128; // L: 3766
-			int var6 = var0.field1145 * 64 + var0.field1178 * 128; // L: 3767
-			var0.x = (var5 * var2 + var3 * (var1 - var2)) / var1; // L: 3768
-			var0.y = (var6 * var2 + var4 * (var1 - var2)) / var1; // L: 3769
+			var2.write(var3.array, 0, var3.offset); // L: 222
+			var2.close(); // L: 223
+		} catch (IOException var4) { // L: 225
+			var4.printStackTrace(); // L: 226
 		}
 
-		var0.field1197 = 0; // L: 3771
-		var0.orientation = var0.field1181; // L: 3772
-		var0.rotation = var0.orientation; // L: 3773
-	} // L: 3774
+	} // L: 228
 
-	@ObfuscatedName("lf")
+	@ObfuscatedName("fb")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;I)V",
-		garbageValue = "2114031741"
+		descriptor = "(II)V",
+		garbageValue = "1157813230"
 	)
-	@Export("Clan_joinChat")
-	static final void Clan_joinChat(String var0) {
-		if (!var0.equals("")) { // L: 11723
-			PacketBufferNode var1 = ItemContainer.getPacketBufferNode(ClientPacket.field2930, Client.packetWriter.isaacCipher); // L: 11725
-			var1.packetBuffer.writeByte(ItemLayer.stringCp1252NullTerminatedByteSize(var0)); // L: 11726
-			var1.packetBuffer.writeStringCp1252NullTerminated(var0); // L: 11727
-			Client.packetWriter.addNode(var1); // L: 11728
+	@Export("forceDisconnect")
+	static final void forceDisconnect(int var0) {
+		ItemLayer.logOut(); // L: 2941
+		switch(var0) { // L: 2942
+		case 1:
+			Ignored.method6828(24); // L: 2954
+			class4.setLoginResponseString("", "You were disconnected from the server.", ""); // L: 2955
+			break;
+		case 2:
+			Ignored.method6828(24); // L: 2946
+			class4.setLoginResponseString("The game servers are currently being updated.", "Please wait a few minutes and try again.", ""); // L: 2947
 		}
-	} // L: 11729
+
+	} // L: 2960
 }

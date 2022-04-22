@@ -2,168 +2,54 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cd")
+@ObfuscatedName("cm")
 public class class78 {
-	@ObfuscatedName("z")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1805721740"
+		descriptor = "(IB)Lfs;",
+		garbageValue = "124"
 	)
-	protected static final void method2098() {
-		class4.clock.mark(); // L: 436
+	@Export("getEnum")
+	public static EnumComposition getEnum(int var0) {
+		EnumComposition var1 = (EnumComposition)EnumComposition.EnumDefinition_cached.get((long)var0); // L: 29
+		if (var1 != null) { // L: 30
+			return var1;
+		} else {
+			byte[] var2 = EnumComposition.EnumDefinition_archive.takeFile(8, var0); // L: 31
+			var1 = new EnumComposition(); // L: 32
+			if (var2 != null) { // L: 33
+				var1.decode(new Buffer(var2));
+			}
 
-		int var0;
-		for (var0 = 0; var0 < 32; ++var0) { // L: 437
-			GameEngine.graphicsTickTimes[var0] = 0L;
+			EnumComposition.EnumDefinition_cached.put(var1, (long)var0); // L: 34
+			return var1; // L: 35
 		}
+	}
 
-		for (var0 = 0; var0 < 32; ++var0) { // L: 438
-			GameEngine.clientTickTimes[var0] = 0L;
-		}
-
-		class134.gameCyclesToDo = 0; // L: 439
-	} // L: 440
-
-	@ObfuscatedName("ks")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "(IB)V",
-		garbageValue = "126"
+		descriptor = "(II)V",
+		garbageValue = "-39348286"
 	)
-	@Export("changeGameOptions")
-	static final void changeGameOptions(int var0) {
-		SceneTilePaint.method4499(); // L: 11392
-
-		for (ObjectSound var1 = (ObjectSound)ObjectSound.objectSounds.last(); var1 != null; var1 = (ObjectSound)ObjectSound.objectSounds.previous()) { // L: 11394
-			if (var1.obj != null) { // L: 11395
-				var1.set();
-			}
+	static void method2081(int var0) {
+		ItemContainer var1 = (ItemContainer)ItemContainer.itemContainers.get((long)var0); // L: 72
+		if (var1 != null) {
+			var1.remove(); // L: 74
 		}
+	} // L: 73 75
 
-		int var3 = SoundCache.VarpDefinition_get(var0).type; // L: 11398
-		if (var3 != 0) { // L: 11399
-			int var2 = Varps.Varps_main[var0]; // L: 11400
-			if (var3 == 1) { // L: 11401
-				if (var2 == 1) { // L: 11402
-					class175.method3439(0.9D);
-				}
-
-				if (var2 == 2) { // L: 11403
-					class175.method3439(0.8D);
-				}
-
-				if (var2 == 3) { // L: 11404
-					class175.method3439(0.7D);
-				}
-
-				if (var2 == 4) { // L: 11405
-					class175.method3439(0.6D);
-				}
-			}
-
-			if (var3 == 3) { // L: 11407
-				if (var2 == 0) { // L: 11408
-					Tiles.method2040(255);
-				}
-
-				if (var2 == 1) { // L: 11409
-					Tiles.method2040(192);
-				}
-
-				if (var2 == 2) { // L: 11410
-					Tiles.method2040(128);
-				}
-
-				if (var2 == 3) { // L: 11411
-					Tiles.method2040(64);
-				}
-
-				if (var2 == 4) { // L: 11412
-					Tiles.method2040(0);
-				}
-			}
-
-			if (var3 == 4) { // L: 11414
-				if (var2 == 0) { // L: 11415
-					class28.method424(127);
-				}
-
-				if (var2 == 1) { // L: 11416
-					class28.method424(96);
-				}
-
-				if (var2 == 2) { // L: 11417
-					class28.method424(64);
-				}
-
-				if (var2 == 3) { // L: 11418
-					class28.method424(32);
-				}
-
-				if (var2 == 4) { // L: 11419
-					class28.method424(0);
-				}
-			}
-
-			if (var3 == 5) { // L: 11421
-				Client.leftClickOpensMenu = var2;
-			}
-
-			if (var3 == 6) { // L: 11422
-				Client.chatEffects = var2;
-			}
-
-			if (var3 == 9) { // L: 11423
-				Client.field655 = var2;
-			}
-
-			if (var3 == 10) { // L: 11424
-				if (var2 == 0) { // L: 11425
-					class21.method334(127);
-				}
-
-				if (var2 == 1) { // L: 11426
-					class21.method334(96);
-				}
-
-				if (var2 == 2) { // L: 11427
-					class21.method334(64);
-				}
-
-				if (var2 == 3) { // L: 11428
-					class21.method334(32);
-				}
-
-				if (var2 == 4) { // L: 11429
-					class21.method334(0);
-				}
-			}
-
-			if (var3 == 17) { // L: 11431
-				Client.followerIndex = var2 & 65535; // L: 11432
-			}
-
-			if (var3 == 18) { // L: 11434
-				Client.playerAttackOption = (AttackOption)ChatChannel.findEnumerated(SoundSystem.method789(), var2); // L: 11435
-				if (Client.playerAttackOption == null) { // L: 11436
-					Client.playerAttackOption = AttackOption.AttackOption_dependsOnCombatLevels;
-				}
-			}
-
-			if (var3 == 19) { // L: 11438
-				if (var2 == -1) { // L: 11439
-					Client.combatTargetPlayerIndex = -1;
-				} else {
-					Client.combatTargetPlayerIndex = var2 & 2047; // L: 11440
-				}
-			}
-
-			if (var3 == 22) { // L: 11442
-				Client.npcAttackOption = (AttackOption)ChatChannel.findEnumerated(SoundSystem.method789(), var2); // L: 11443
-				if (Client.npcAttackOption == null) { // L: 11444
-					Client.npcAttackOption = AttackOption.AttackOption_dependsOnCombatLevels;
-				}
-			}
-
+	@ObfuscatedName("y")
+	@ObfuscatedSignature(
+		descriptor = "(IZIB)V",
+		garbageValue = "2"
+	)
+	public static final void method2082(int var0, boolean var1, int var2) {
+		if (var0 >= 8000 && var0 <= 48000) { // L: 45
+			PcmPlayer.field268 = var0; // L: 46
+			PcmPlayer.PcmPlayer_stereo = var1; // L: 47
+			PcmPlayer.field295 = var2; // L: 48
+		} else {
+			throw new IllegalArgumentException();
 		}
-	} // L: 11446
+	} // L: 49
 }

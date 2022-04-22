@@ -3,62 +3,48 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("eo")
+@ObfuscatedName("ek")
 public class class142 extends class128 {
-	@ObfuscatedName("fr")
-	@ObfuscatedGetter(
-		intValue = -1385057085
-	)
-	static int field1634;
-	@ObfuscatedName("ic")
+	@ObfuscatedName("ke")
 	@ObfuscatedSignature(
-		descriptor = "[Lql;"
+		descriptor = "Lky;"
 	)
-	@Export("mapDotSprites")
-	static SpritePixels[] mapDotSprites;
+	@Export("dragInventoryWidget")
+	static Widget dragInventoryWidget;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 397410515
+		intValue = -1140726439
 	)
-	int field1630;
+	int field1623;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lee;"
+		descriptor = "Les;"
 	)
 	final class131 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lee;)V"
+		descriptor = "(Les;)V"
 	)
 	class142(class131 var1) {
 		this.this$0 = var1;
-		this.field1630 = -1; // L: 213
+		this.field1623 = -1; // L: 213
 	} // L: 215
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lpd;B)V",
-		garbageValue = "-73"
+		descriptor = "(Lpi;I)V",
+		garbageValue = "-413979452"
 	)
-	void vmethod3107(Buffer var1) {
-		this.field1630 = var1.readUnsignedShort(); // L: 218
+	void vmethod3168(Buffer var1) {
+		this.field1623 = var1.readUnsignedShort(); // L: 218
 	} // L: 219
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Leh;I)V",
-		garbageValue = "-1228032820"
+		descriptor = "(Lex;S)V",
+		garbageValue = "-10316"
 	)
-	void vmethod3104(ClanSettings var1) {
-		var1.method2922(this.field1630); // L: 222
+	void vmethod3162(ClanSettings var1) {
+		var1.method2963(this.field1623); // L: 222
 	} // L: 223
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(IIB)Z",
-		garbageValue = "1"
-	)
-	public static boolean method3004(int var0, int var1) {
-		return (var0 >> var1 + 1 & 1) != 0; // L: 13
-	}
 }

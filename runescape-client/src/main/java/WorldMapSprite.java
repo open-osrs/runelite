@@ -1,12 +1,13 @@
+import java.io.IOException;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("is")
+@ObfuscatedName("hn")
 @Implements("WorldMapSprite")
 public final class WorldMapSprite {
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@Export("tileColors")
 	final int[] tileColors;
 
@@ -15,13 +16,13 @@ public final class WorldMapSprite {
 	} // L: 12
 
 	WorldMapSprite(int[] var1) {
-		this.tileColors = var1;
-	}
+		this.tileColors = var1; // L: 15
+	} // L: 16
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(III)I",
-		garbageValue = "373946087"
+		garbageValue = "921646370"
 	)
 	@Export("getTileColor")
 	final int getTileColor(int var1, int var2) {
@@ -30,109 +31,91 @@ public final class WorldMapSprite {
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(I)J",
-		garbageValue = "1898905069"
+		descriptor = "(Ljl;Lqv;I)Ljd;",
+		garbageValue = "-2117269105"
 	)
-	public static final synchronized long method4989() {
-		long var0 = System.currentTimeMillis(); // L: 14
-		if (var0 < class269.field3153) { // L: 15
-			class269.field3154 += class269.field3153 - var0; // L: 16
+	@Export("getPacketBufferNode")
+	public static PacketBufferNode getPacketBufferNode(ClientPacket var0, IsaacCipher var1) {
+		PacketBufferNode var2;
+		if (PacketBufferNode.PacketBufferNode_packetBufferNodeCount == 0) { // L: 24
+			var2 = new PacketBufferNode(); // L: 25
+		} else {
+			var2 = PacketBufferNode.PacketBufferNode_packetBufferNodes[--PacketBufferNode.PacketBufferNode_packetBufferNodeCount]; // L: 28
 		}
 
-		class269.field3153 = var0; // L: 18
-		return var0 + class269.field3154; // L: 19
+		var2.clientPacket = var0; // L: 31
+		var2.clientPacketLength = var0.length; // L: 32
+		if (var2.clientPacketLength == -1) {
+			var2.packetBuffer = new PacketBuffer(260); // L: 33
+		} else if (var2.clientPacketLength == -2) { // L: 34
+			var2.packetBuffer = new PacketBuffer(10000);
+		} else if (var2.clientPacketLength <= 18) {
+			var2.packetBuffer = new PacketBuffer(20); // L: 35
+		} else if (var2.clientPacketLength <= 98) { // L: 36
+			var2.packetBuffer = new PacketBuffer(100);
+		} else {
+			var2.packetBuffer = new PacketBuffer(260); // L: 37
+		}
+
+		var2.packetBuffer.setIsaacCipher(var1); // L: 38
+		var2.packetBuffer.writeByteIsaac(var2.clientPacket.id); // L: 39
+		var2.index = 0; // L: 40
+		return var2; // L: 41
 	}
 
-	@ObfuscatedName("ig")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Lcw;IIIB)V",
-		garbageValue = "-125"
+		descriptor = "(B)V",
+		garbageValue = "-64"
 	)
-	@Export("addPlayerToMenu")
-	static final void addPlayerToMenu(Player var0, int var1, int var2, int var3) {
-		if (class19.localPlayer != var0) { // L: 9499
-			if (Client.menuOptionsCount < 400) { // L: 9500
-				String var4;
-				int var7;
-				if (var0.skillLevel == 0) { // L: 9502
-					String var5 = var0.actions[0] + var0.username + var0.actions[1]; // L: 9503
-					var7 = var0.combatLevel; // L: 9505
-					int var8 = class19.localPlayer.combatLevel; // L: 9506
-					int var9 = var8 - var7; // L: 9508
-					String var6;
-					if (var9 < -9) { // L: 9509
-						var6 = ChatChannel.colorStartTag(16711680); // L: 9510
-					} else if (var9 < -6) { // L: 9513
-						var6 = ChatChannel.colorStartTag(16723968); // L: 9514
-					} else if (var9 < -3) { // L: 9517
-						var6 = ChatChannel.colorStartTag(16740352); // L: 9518
-					} else if (var9 < 0) { // L: 9521
-						var6 = ChatChannel.colorStartTag(16756736); // L: 9522
-					} else if (var9 > 9) { // L: 9525
-						var6 = ChatChannel.colorStartTag(65280); // L: 9526
-					} else if (var9 > 6) { // L: 9529
-						var6 = ChatChannel.colorStartTag(4259584); // L: 9530
-					} else if (var9 > 3) { // L: 9533
-						var6 = ChatChannel.colorStartTag(8453888); // L: 9534
-					} else if (var9 > 0) { // L: 9537
-						var6 = ChatChannel.colorStartTag(12648192); // L: 9538
-					} else {
-						var6 = ChatChannel.colorStartTag(16776960); // L: 9541
+	static void method4351() {
+		if (Login.clearLoginScreen) { // L: 249
+			Login.titleboxSprite = null; // L: 250
+			Login.titlebuttonSprite = null; // L: 251
+			Login.runesSprite = null; // L: 252
+			class17.leftTitleSprite = null; // L: 253
+			ViewportMouse.rightTitleSprite = null; // L: 254
+			Decimator.logoSprite = null; // L: 255
+			class92.title_muteSprite = null; // L: 256
+			WorldMapSection2.options_buttons_0Sprite = null; // L: 257
+			class54.options_buttons_2Sprite = null; // L: 258
+			class393.worldSelectBackSprites = null; // L: 259
+			class400.worldSelectFlagSprites = null; // L: 260
+			class126.worldSelectArrows = null; // L: 261
+			TileItem.worldSelectStars = null; // L: 262
+			class135.field1569 = null; // L: 263
+			class341.loginScreenRunesAnimation.method2193(); // L: 264
+			Actor.method2183(2); // L: 265
+			if (NetCache.NetCache_socket != null) { // L: 267
+				try {
+					Buffer var0 = new Buffer(4); // L: 269
+					var0.writeByte(2); // L: 270
+					var0.writeMedium(0); // L: 271
+					NetCache.NetCache_socket.write(var0.array, 0, 4); // L: 272
+				} catch (IOException var3) {
+					try {
+						NetCache.NetCache_socket.close(); // L: 276
+					} catch (Exception var2) { // L: 278
 					}
 
-					var4 = var5 + var6 + " " + " (" + "level-" + var0.combatLevel + ")" + var0.actions[2]; // L: 9543
-				} else {
-					var4 = var0.actions[0] + var0.username + var0.actions[1] + " " + " (" + "skill-" + var0.skillLevel + ")" + var0.actions[2]; // L: 9545
+					++NetCache.NetCache_ioExceptions; // L: 279
+					NetCache.NetCache_socket = null; // L: 280
 				}
-
-				int var10;
-				if (Client.isItemSelected == 1) { // L: 9546
-					SecureRandomFuture.insertMenuItemNoShift("Use", Client.selectedItemName + " " + "->" + " " + ChatChannel.colorStartTag(16777215) + var4, 14, var1, var2, var3); // L: 9547
-				} else if (Client.isSpellSelected) { // L: 9550
-					if ((class154.selectedSpellFlags & 8) == 8) { // L: 9551
-						SecureRandomFuture.insertMenuItemNoShift(Client.selectedSpellActionName, Client.selectedSpellName + " " + "->" + " " + ChatChannel.colorStartTag(16777215) + var4, 15, var1, var2, var3); // L: 9552
-					}
-				} else {
-					for (var10 = 7; var10 >= 0; --var10) { // L: 9557
-						if (Client.playerMenuActions[var10] != null) { // L: 9558
-							short var11 = 0; // L: 9559
-							if (Client.playerMenuActions[var10].equalsIgnoreCase("Attack")) { // L: 9560
-								if (Client.playerAttackOption == AttackOption.AttackOption_hidden) { // L: 9561
-									continue;
-								}
-
-								if (Client.playerAttackOption == AttackOption.AttackOption_alwaysRightClick || Client.playerAttackOption == AttackOption.AttackOption_dependsOnCombatLevels && var0.combatLevel > class19.localPlayer.combatLevel) { // L: 9562
-									var11 = 2000; // L: 9563
-								}
-
-								if (class19.localPlayer.team != 0 && var0.team != 0) { // L: 9565
-									if (var0.team == class19.localPlayer.team) { // L: 9566
-										var11 = 2000;
-									} else {
-										var11 = 0; // L: 9567
-									}
-								} else if (Client.playerAttackOption == AttackOption.field1279 && var0.isClanMember()) { // L: 9569
-									var11 = 2000; // L: 9570
-								}
-							} else if (Client.playerOptionsPriorities[var10]) { // L: 9573
-								var11 = 2000;
-							}
-
-							boolean var12 = false; // L: 9574
-							var7 = Client.playerMenuOpcodes[var10] + var11; // L: 9575
-							SecureRandomFuture.insertMenuItemNoShift(Client.playerMenuActions[var10], ChatChannel.colorStartTag(16777215) + var4, var7, var1, var2, var3); // L: 9576
-						}
-					}
-				}
-
-				for (var10 = 0; var10 < Client.menuOptionsCount; ++var10) { // L: 9581
-					if (Client.menuOpcodes[var10] == 23) { // L: 9582
-						Client.menuTargets[var10] = ChatChannel.colorStartTag(16777215) + var4; // L: 9583
-						break;
-					}
-				}
-
 			}
+
+			Login.clearLoginScreen = false; // L: 283
 		}
-	} // L: 9587
+	} // L: 284
+
+	@ObfuscatedName("li")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-1972677763"
+	)
+	@Export("Clan_leaveChat")
+	static final void Clan_leaveChat() {
+		PacketBufferNode var0 = getPacketBufferNode(ClientPacket.field2986, Client.packetWriter.isaacCipher); // L: 12403
+		var0.packetBuffer.writeByte(0); // L: 12404
+		Client.packetWriter.addNode(var0); // L: 12405
+	} // L: 12406
 }

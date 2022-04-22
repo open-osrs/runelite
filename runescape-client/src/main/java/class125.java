@@ -2,84 +2,71 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dp")
+@ObfuscatedName("dn")
 public class class125 extends class128 {
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -1820756907
+		intValue = 1563450385
 	)
-	int field1524;
-	@ObfuscatedName("o")
+	int field1505;
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -797454973
+		intValue = 166042901
 	)
-	int field1521;
-	@ObfuscatedName("h")
+	int field1506;
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -1722236613
+		intValue = 436886769
 	)
-	int field1522;
-	@ObfuscatedName("g")
+	int field1504;
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -377441011
+		intValue = -647039723
 	)
-	int field1523;
+	int field1503;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lee;"
+		descriptor = "Les;"
 	)
 	final class131 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lee;)V"
+		descriptor = "(Les;)V"
 	)
 	class125(class131 var1) {
 		this.this$0 = var1;
-		this.field1524 = -1; // L: 158
+		this.field1505 = -1; // L: 158
 	} // L: 163
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lpd;B)V",
-		garbageValue = "-73"
+		descriptor = "(Lpi;I)V",
+		garbageValue = "-413979452"
 	)
-	void vmethod3107(Buffer var1) {
-		this.field1524 = var1.readUnsignedShort(); // L: 166
-		this.field1521 = var1.readInt(); // L: 167
-		this.field1522 = var1.readUnsignedByte(); // L: 168
-		this.field1523 = var1.readUnsignedByte(); // L: 169
+	void vmethod3168(Buffer var1) {
+		this.field1505 = var1.readUnsignedShort(); // L: 166
+		this.field1506 = var1.readInt(); // L: 167
+		this.field1504 = var1.readUnsignedByte(); // L: 168
+		this.field1503 = var1.readUnsignedByte(); // L: 169
 	} // L: 170
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Leh;I)V",
-		garbageValue = "-1228032820"
+		descriptor = "(Lex;S)V",
+		garbageValue = "-10316"
 	)
-	void vmethod3104(ClanSettings var1) {
-		var1.method2926(this.field1524, this.field1521, this.field1522, this.field1523); // L: 173
+	void vmethod3162(ClanSettings var1) {
+		var1.method2967(this.field1505, this.field1506, this.field1504, this.field1503); // L: 173
 	} // L: 174
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Laz;B)V",
-		garbageValue = "13"
+		descriptor = "(Lln;Lln;Lln;I)V",
+		garbageValue = "2079991679"
 	)
-	public static final void method2804(class47 var0) {
-		BuddyRankComparator.pcmPlayerProvider = var0; // L: 45
-	} // L: 46
-
-	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		descriptor = "(ZI)V",
-		garbageValue = "1096360732"
-	)
-	public static void method2803(boolean var0) {
-		if (var0 != HealthBar.ItemDefinition_inMembersWorld) { // L: 560
-			ItemComposition.ItemDefinition_cached.clear(); // L: 562
-			ItemComposition.ItemDefinition_cachedModels.clear(); // L: 563
-			ItemComposition.ItemDefinition_cachedSprites.clear(); // L: 564
-			HealthBar.ItemDefinition_inMembersWorld = var0; // L: 566
-		}
-
-	} // L: 568
+	public static void method2811(AbstractArchive var0, AbstractArchive var1, AbstractArchive var2) {
+		class11.SequenceDefinition_archive = var0; // L: 46
+		SequenceDefinition.SequenceDefinition_animationsArchive = var1; // L: 47
+		SequenceDefinition.SequenceDefinition_skeletonsArchive = var2; // L: 48
+	} // L: 49
 }

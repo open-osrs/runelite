@@ -3,78 +3,81 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dh")
+@ObfuscatedName("dm")
 public class class113 {
-	@ObfuscatedName("u")
-	static int[] field1387;
+	@ObfuscatedName("ar")
+	@ObfuscatedSignature(
+		descriptor = "Lnm;"
+	)
+	static Bounds field1378;
+	@ObfuscatedName("fv")
+	static String field1372;
+	@ObfuscatedName("gr")
+	@ObfuscatedSignature(
+		descriptor = "Lmd;"
+	)
+	@Export("fontPlain11")
+	static Font fontPlain11;
 	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -57602381
+		intValue = 1540502007
 	)
-	int field1384;
-	@ObfuscatedName("o")
-	float field1385;
-	@ObfuscatedName("h")
-	float field1386;
-	@ObfuscatedName("g")
-	float field1390;
-	@ObfuscatedName("l")
-	float field1388;
+	int field1373;
+	@ObfuscatedName("c")
+	float field1376;
+	@ObfuscatedName("i")
+	float field1371;
+	@ObfuscatedName("f")
+	float field1377;
+	@ObfuscatedName("b")
+	float field1369;
 	@ObfuscatedName("n")
-	float field1389;
-	@ObfuscatedName("d")
+	float field1374;
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Ldh;"
+		descriptor = "Ldm;"
 	)
-	class113 field1392;
+	class113 field1375;
 
 	class113() {
-		this.field1386 = Float.MAX_VALUE; // L: 8
-		this.field1390 = Float.MAX_VALUE; // L: 9
-		this.field1388 = Float.MAX_VALUE; // L: 10
-		this.field1389 = Float.MAX_VALUE; // L: 11
+		this.field1371 = Float.MAX_VALUE; // L: 8
+		this.field1377 = Float.MAX_VALUE; // L: 9
+		this.field1369 = Float.MAX_VALUE; // L: 10
+		this.field1374 = Float.MAX_VALUE; // L: 11
 	} // L: 14
 
 	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lpd;II)V",
-		garbageValue = "938981955"
+		descriptor = "(Lpi;IB)V",
+		garbageValue = "51"
 	)
-	void method2632(Buffer var1, int var2) {
-		this.field1384 = var1.readShort(); // L: 17
-		this.field1385 = var1.method7965(); // L: 18
-		this.field1386 = var1.method7965(); // L: 19
-		this.field1390 = var1.method7965(); // L: 20
-		this.field1388 = var1.method7965(); // L: 21
-		this.field1389 = var1.method7965(); // L: 22
+	void method2647(Buffer var1, int var2) {
+		this.field1373 = var1.readShort(); // L: 17
+		this.field1376 = var1.method7681(); // L: 18
+		this.field1371 = var1.method7681(); // L: 19
+		this.field1377 = var1.method7681(); // L: 20
+		this.field1369 = var1.method7681(); // L: 21
+		this.field1374 = var1.method7681(); // L: 22
 	} // L: 23
 
-	@ObfuscatedName("h")
+	@ObfuscatedName("kw")
 	@ObfuscatedSignature(
-		descriptor = "([BIIB)Ljava/lang/String;",
-		garbageValue = "90"
+		descriptor = "(II)V",
+		garbageValue = "-2120622991"
 	)
-	@Export("decodeStringCp1252")
-	public static String decodeStringCp1252(byte[] var0, int var1, int var2) {
-		char[] var3 = new char[var2]; // L: 82
-		int var4 = 0; // L: 83
+	static final void method2650(int var0) {
+		var0 = Math.max(Math.min(var0, 100), 0); // L: 11987
+		var0 = 100 - var0; // L: 11988
+		float var1 = (float)var0 / 200.0F + 0.5F; // L: 11989
+		KitDefinition.method3453((double)var1); // L: 11990
+	} // L: 11991
 
-		for (int var5 = 0; var5 < var2; ++var5) { // L: 84
-			int var6 = var0[var5 + var1] & 255; // L: 85
-			if (var6 != 0) { // L: 86
-				if (var6 >= 128 && var6 < 160) { // L: 87
-					char var7 = class345.cp1252AsciiExtension[var6 - 128]; // L: 88
-					if (var7 == 0) { // L: 89
-						var7 = '?';
-					}
-
-					var6 = var7; // L: 90
-				}
-
-				var3[var4++] = (char)var6; // L: 92
-			}
-		}
-
-		return new String(var3, 0, var4); // L: 94
+	@ObfuscatedName("lt")
+	@ObfuscatedSignature(
+		descriptor = "(I)Z",
+		garbageValue = "-1995001878"
+	)
+	public static boolean method2651() {
+		return Client.staffModLevel >= 2; // L: 12599
 	}
 }
