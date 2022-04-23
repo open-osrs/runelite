@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: PR title lint
         if: github.event_name == 'pull_request'
-        uses: morrisoncole/pr-lint-action@v1.4.1
+        uses: MorrisonCole/pr-lint-action@v1.6.1
         with:
           title-regex: '^([\w-/]+): \w+'
           on-failed-regex-fail-action: false
@@ -25,8 +25,8 @@ jobs:
     name: Validate gradle wrapper
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.3.4
-      - uses: gradle/wrapper-validation-action@v1.0.3
+      - uses: actions/checkout@v2.4.2
+      - uses: gradle/wrapper-validation-action@v1.0.4
 
   build:
     name: Build
@@ -34,19 +34,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2.3.4
-      - uses: actions/cache@v2.1.3
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+      - uses: actions/checkout@v2.4.2
       - name: Make gradlew executable
         run: chmod +x ./gradlew
       - name: Set up JDK 11
-        uses: actions/setup-java@v1.4.3
+        uses: actions/setup-java@v3.1.1
         with:
+          distribution: 'adopt'
           java-version: 11
+          cache: 'gradle'
       - name: Assembling
         run: ./gradlew assemble --console=plain
       - name: Building
@@ -58,19 +54,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2.3.4
-      - uses: actions/cache@v2.1.3
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+      - uses: actions/checkout@v2.4.2
       - name: Make gradlew executable
         run: chmod +x ./gradlew
       - name: Set up JDK 11
-        uses: actions/setup-java@v1.4.3
+        uses: actions/setup-java@v3.1.1
         with:
+          distribution: 'adopt'
           java-version: 11
+          cache: 'gradle'
       - name: Assembling
         run: ./gradlew assemble --console=plain
       - name: Testing
@@ -82,19 +74,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2.3.4
-      - uses: actions/cache@v2.1.3
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+      - uses: actions/checkout@v2.4.2
       - name: Make gradlew executable
         run: chmod +x ./gradlew
       - name: Set up JDK 11
-        uses: actions/setup-java@v1.4.3
+        uses: actions/setup-java@v3.1.1
         with:
+          distribution: 'adopt'
           java-version: 11
+          cache: 'gradle'
       - name: Assembling
         run: ./gradlew assemble --console=plain
       - name: Checking code conventions
@@ -106,19 +94,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2.3.4
-      - uses: actions/cache@v2.1.3
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle.kts') }}
-          restore-keys: |
-            ${{ runner.os }}-gradle-
+      - uses: actions/checkout@v2.4.2
       - name: Make gradlew executable
         run: chmod +x ./gradlew
       - name: Set up JDK 11
-        uses: actions/setup-java@v1.4.3
+        uses: actions/setup-java@v3.1.1
         with:
+          distribution: 'adopt'
           java-version: 11
+          cache: 'gradle'
       - name: Assembling
         run: ./gradlew assemble --console=plain
       - name: Checking code conventions
@@ -132,6 +116,6 @@ jobs:
     steps:
       - name: Approve pull request
         if: github.event_name == 'pull_request' && github.actor == 'OpenOSRS'
-        uses: hmarr/auto-approve-action@v2.0.0
+        uses: hmarr/auto-approve-action@v2.2.1
         with:
           github-token: ${{ secrets.Owain }}
