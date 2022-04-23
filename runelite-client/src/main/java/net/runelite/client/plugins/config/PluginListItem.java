@@ -189,6 +189,12 @@ class PluginListItem extends JPanel implements SearchablePlugin
 							{
 								return oprsExternalPluginManager.reloadStart(pluginId);
 							}
+
+							@Override
+							protected void done()
+							{
+								pluginListPanel.rebuildPluginList();
+							}
 						}.execute();
 					}
 				}.execute();
