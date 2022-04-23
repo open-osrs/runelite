@@ -80,15 +80,19 @@ public abstract class RSGameEngineMixin implements RSGameEngine
 		client.getCallbacks().post(focusChanged);
 	}
 
-	@Inject
-	@MethodHook("post")
-	public void onPost(Object canvas)
+	@Copy("post")
+	@Replace("post")
+	public void copy$post(Object canvas)
 	{
+		if (!client.isGpu())
+		{
+			copy$post(canvas);
+		}
+
 		DrawCallbacks drawCallbacks = client.getDrawCallbacks();
 		if (drawCallbacks != null)
 		{
 			drawCallbacks.draw(viewportColor);
-			viewportColor = 0;
 		}
 	}
 
