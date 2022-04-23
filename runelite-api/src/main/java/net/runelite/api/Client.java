@@ -1895,6 +1895,14 @@ public interface Client extends OAuthApi, GameEngine
 	void setBlacklistDeadNpcs(Set<Integer> blacklist);
 
 	/**
+	 * Adds a custom clientscript to the list of available clientscripts.
+	 *
+	 * @param script compiled clientscript code
+	 * @return the id of the newly-added script
+	 */
+	int addClientScript(byte[] script);
+
+	/**
 	 * Gets an array of tile collision data.
 	 * <p>
 	 * The index into the array is the plane/z-axis coordinate.
