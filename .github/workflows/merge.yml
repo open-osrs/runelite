@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: automerge
         if: github.event_name == 'pull_request' && github.actor == 'Owain94'
-        uses: pascalgn/automerge-action@v0.12.0
+        uses: pascalgn/automerge-action@v0.15.2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MERGE_FORKS: false
@@ -32,7 +32,7 @@ jobs:
 
       - name: Delete PR head branch
         if: github.event_name == 'pull_request' && github.actor == 'Owain94'
-        uses: dawidd6/action-delete-branch@v3.0.2
+        uses: dawidd6/action-delete-branch@v3.1.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branches: ${{ steps.extract_branch.outputs.branch }}
