@@ -27,6 +27,7 @@ package net.runelite.mixins;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import net.runelite.api.ChatMessageType;
 import net.runelite.api.events.ScriptCallbackEvent;
 import net.runelite.api.events.ScriptPostFired;
 import net.runelite.api.events.ScriptPreFired;
@@ -123,7 +124,16 @@ public abstract class ScriptVMMixin implements RSClient
 					client.setIntStackSize(intStackSize);
 					return true;
 				}
-
+				else if ("mes".equals(stringOp))
+				{
+					int intStackSize = client.getIntStackSize();
+					int messageType = client.getIntStack()[--intStackSize];
+					String message = client.getStringStack()[--stringStackSize];
+					client.setStringStackSize(stringStackSize);
+					client.setIntStackSize(intStackSize);
+					client.addChatMessage(ChatMessageType.of(messageType), "", message, null, true);
+					return true;
+				}
 				ScriptCallbackEvent event = new ScriptCallbackEvent();
 				event.setScript(currentScript);
 				event.setEventName(stringOp);
