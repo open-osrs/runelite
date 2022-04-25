@@ -939,7 +939,22 @@ public abstract class RSClientMixin implements RSClient
 	@Override
 	public MenuEntry[] getMenuEntries()
 	{
-		return Arrays.copyOf(rl$menuEntries, client.getMenuOptionCount());
+		RSRuneLiteMenuEntry[] menuEntries = Arrays.copyOf(rl$menuEntries, client.getMenuOptionCount());
+
+		for (RSRuneLiteMenuEntry menuEntry : menuEntries)
+		{
+			if (menuEntry.getOption() == null)
+			{
+				menuEntry.setOption("null");
+			}
+
+			if (menuEntry.getTarget() == null)
+			{
+				menuEntry.setTarget("null");
+			}
+		}
+
+		return menuEntries;
 	}
 
 	@Inject
@@ -1057,6 +1072,16 @@ public abstract class RSClientMixin implements RSClient
 		}
 		else if (optionCount == tmpOptionsCount + 1)
 		{
+			if (client.getMenuOptions()[tmpOptionsCount] == null)
+			{
+				client.getMenuOptions()[tmpOptionsCount] = "null";
+			}
+
+			if (client.getMenuTargets()[tmpOptionsCount] == null)
+			{
+				client.getMenuTargets()[tmpOptionsCount] = "null";
+			}
+
 			String menuOption = client.getMenuOptions()[tmpOptionsCount];
 			String menuTarget = client.getMenuTargets()[tmpOptionsCount];
 			int menuOpcode = client.getMenuOpcodes()[tmpOptionsCount];
@@ -1071,18 +1096,6 @@ public abstract class RSClientMixin implements RSClient
 			else
 			{
 				rl$menuEntries[tmpOptionsCount].setConsumer(null);
-			}
-
-			if (menuOption == null || menuTarget == null)
-			{
-				client.getLogger().warn("We're probably about to crash: menu op {} targ {} action {} id {} p0 {} p1 {}",
-					menuOption,
-					menuTarget,
-					menuOpcode,
-					menuIdentifier,
-					menuArgument1,
-					menuArgument2
-				);
 			}
 
 			MenuEntryAdded menuEntryAdded = new MenuEntryAdded(
