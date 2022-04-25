@@ -1790,15 +1790,6 @@ public abstract class RSClientMixin implements RSClient
 			}
 		}
 
-		if (opcode == MenuAction.WIDGET_CONTINUE.getId())
-		{
-			Widget widget = client.getWidget(param1);
-			if (widget == null || param0 > -1 && widget.getChild(param0) == null)
-			{
-				return;
-			}
-		}
-
 		copy$menuAction(event.getParam0(), event.getParam1(),
 			event.getMenuAction() == UNKNOWN ? opcode : event.getMenuAction().getId(),
 			event.getId(), event.getMenuOption(), event.getMenuTarget(),
