@@ -1073,6 +1073,18 @@ public abstract class RSClientMixin implements RSClient
 				rl$menuEntries[tmpOptionsCount].setConsumer(null);
 			}
 
+			if (menuOption == null || menuTarget == null)
+			{
+				client.getLogger().warn("We're probably about to crash: menu op {} targ {} action {} id {} p0 {} p1 {}",
+					menuOption,
+					menuTarget,
+					menuOpcode,
+					menuIdentifier,
+					menuArgument1,
+					menuArgument2
+				);
+			}
+
 			MenuEntryAdded menuEntryAdded = new MenuEntryAdded(
 				menuOption,
 				menuTarget,
