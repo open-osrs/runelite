@@ -48,7 +48,6 @@ import net.runelite.api.FriendContainer;
 import net.runelite.api.GameState;
 import net.runelite.api.GrandExchangeOffer;
 import net.runelite.api.GraphicsObject;
-import net.runelite.api.HashTable;
 import net.runelite.api.HintArrowType;
 import net.runelite.api.Ignore;
 import net.runelite.api.IndexDataBase;
@@ -88,7 +87,6 @@ import net.runelite.api.StructComposition;
 import net.runelite.api.Tile;
 import net.runelite.api.VarPlayer;
 import net.runelite.api.Varbits;
-import net.runelite.api.WidgetNode;
 import net.runelite.api.WorldType;
 import net.runelite.api.clan.ClanChannel;
 import net.runelite.api.clan.ClanRank;
@@ -1934,19 +1932,12 @@ public abstract class RSClientMixin implements RSClient
 	@Inject
 	public static void preRenderWidgetLayer(Widget[] widgets, int parentId, int minX, int minY, int maxX, int maxY, int x, int y, int var8)
 	{
-		@SuppressWarnings("unchecked") HashTable<WidgetNode> componentTable = client.getComponentTable();
-
-		for (int i = 0; i < widgets.length; i++)
+		for (Widget value : widgets)
 		{
-			RSWidget widget = (RSWidget) widgets[i];
+			RSWidget widget = (RSWidget) value;
 			if (widget == null || widget.getRSParentId() != parentId || widget.isSelfHidden())
 			{
 				continue;
-			}
-
-			if (parentId != -1)
-			{
-				widget.setRenderParentId(parentId);
 			}
 
 			final int renderX = x + widget.getRelativeX();
@@ -1968,24 +1959,6 @@ public abstract class RSClientMixin implements RSClient
 				viewportColor = outAlpha << 24 | c1 + c2;
 				widget.setHidden(true);
 				hiddenWidgets.add(widget);
-			}
-			else
-			{
-				WidgetNode childNode = componentTable.get(widget.getId());
-				if (childNode != null)
-				{
-					int widgetId = widget.getId();
-					int groupId = childNode.getId();
-					RSWidget[] children = client.getWidgets()[groupId];
-
-					for (RSWidget child : children)
-					{
-						if (child.getRSParentId() == -1)
-						{
-							child.setRenderParentId(widgetId);
-						}
-					}
-				}
 			}
 		}
 	}
