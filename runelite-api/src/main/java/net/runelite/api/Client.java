@@ -420,7 +420,6 @@ public interface Client extends OAuthApi, GameEngine
 	 * <p>
 	 * (getLocalPlayerIndex returns the local index, useful for menus/interacting)
 	 */
-	@Nullable
 	Player getLocalPlayer();
 
 	int getLocalPlayerIndex();
