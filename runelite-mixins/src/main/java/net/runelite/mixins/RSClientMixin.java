@@ -103,7 +103,6 @@ import net.runelite.api.events.GameStateChanged;
 import net.runelite.api.events.GrandExchangeOfferChanged;
 import net.runelite.api.events.GrandExchangeSearched;
 import net.runelite.api.events.ItemSpawned;
-import net.runelite.api.events.Menu;
 import net.runelite.api.events.MenuEntryAdded;
 import net.runelite.api.events.MenuOpened;
 import net.runelite.api.events.MenuOptionClicked;
@@ -1789,15 +1788,6 @@ public abstract class RSClientMixin implements RSClient
 			}
 		}
 
-		if (opcode == MenuAction.WIDGET_CONTINUE.getId())
-		{
-			Widget widget = client.getWidget(param1);
-			if (widget == null || param0 > -1 && widget.getChild(param0) == null)
-			{
-				return;
-			}
-		}
-
 		copy$menuAction(event.getParam0(), event.getParam1(),
 			event.getMenuAction() == UNKNOWN ? opcode : event.getMenuAction().getId(),
 			event.getId(), event.getMenuOption(), event.getMenuTarget(),
@@ -2195,19 +2185,6 @@ public abstract class RSClientMixin implements RSClient
 		}
 
 		return false;
-	}
-
-	@Copy("menu")
-	@Replace("menu")
-	void copy$menu()
-	{
-		Menu menu = Menu.MENU;
-		menu.reset();
-		getCallbacks().post(menu);
-		if (menu.shouldRun())
-		{
-			copy$menu();
-		}
 	}
 
 	@Inject
