@@ -29,11 +29,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashSet;
 import java.util.Set;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class OverlayIndex
 {
+	@Getter
 	private static final Set<Integer> overlays = new HashSet<>();
 
 	static
