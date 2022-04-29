@@ -16,16 +16,108 @@ open class BootstrapTask @Inject constructor(@Input val type: String) : DefaultT
     val clientJar: RegularFileProperty = project.objects.fileProperty()
 
     @Input
-    val launcherJvm11Arguments = arrayOf("-XX:+DisableAttachMechanism", "-Drunelite.launcher.nojvm=true", "-Xmx1G", "-Xss2m", "-XX:CompileThreshold=1500", "-Djna.nosys=true")
+    val launcherArguments = arrayOf(
+            "-XX:+DisableAttachMechanism",
+            "-Drunelite.launcher.nojvm=true",
+            "-Xmx512m",
+            "-Xss2m",
+            "-XX:CompileThreshold=1500",
+            "-Xincgc",
+            "-XX:+UseConcMarkSweepGC",
+            "-XX:+UseParNewGC"
+    )
 
     @Input
-    val launcherArguments = arrayOf("-XX:+DisableAttachMechanism", "-Drunelite.launcher.nojvm=true", "-Xmx1G", "-Xss2m", "-XX:CompileThreshold=1500", "-Xincgc", "-XX:+UseConcMarkSweepGC", "-XX:+UseParNewGC", "-Djna.nosys=true")
+    val launcherJvm11Arguments = arrayOf(
+            "-XX:+DisableAttachMechanism",
+            "-Drunelite.launcher.nojvm=true",
+            "-Xmx512m",
+            "-Xss2m",
+            "-XX:CompileThreshold=1500"
+    )
 
     @Input
-    val clientJvmArguments = arrayOf("-XX:+DisableAttachMechanism", "-Xmx1G", "-Xss2m", "-XX:CompileThreshold=1500", "-Xincgc", "-XX:+UseConcMarkSweepGC", "-XX:+UseParNewGC", "-Djna.nosys=true", "-Dawt.useSystemAAFontSettings=on", "-Dswing.aatext=true")
+    val launcherJvm11WindowsArguments = arrayOf(
+            "-XX:+DisableAttachMechanism",
+            "-Drunelite.launcher.nojvm=true",
+            "-Drunelite.launcher.blacklistedDlls=RTSSHooks.dll,RTSSHooks64.dll,NahimicOSD.dll,k_fps32.dll,k_fps64.dll",
+            "-Xmx512m",
+            "-Xss2m",
+            "-XX:CompileThreshold=1500"
+    )
 
     @Input
-    val clientJvm9Arguments = arrayOf("-XX:+DisableAttachMechanism", "-Xmx1G", "-Xss2m", "-XX:CompileThreshold=1500", "-Djna.nosys=true", "-Dawt.useSystemAAFontSettings=on", "-Dswing.aatext=true")
+    val launcherJvm17Arguments = arrayOf(
+            "-XX:+DisableAttachMechanism",
+            "-Drunelite.launcher.nojvm=true",
+            "-Xmx512m",
+            "-Xss2m",
+            "-XX:CompileThreshold=1500",
+            "--add-opens=java.desktop/sun.awt=ALL-UNNAMED"
+    )
+
+    @Input
+    val launcherJvm17MacArguments = arrayOf(
+            "-XX:+DisableAttachMechanism",
+            "-Drunelite.launcher.nojvm=true",
+            "-Xmx512m",
+            "-Xss2m",
+            "-XX:CompileThreshold=1500",
+            "--add-opens=java.desktop/sun.awt=ALL-UNNAMED",
+            "--add-opens=java.desktop/com.apple.eawt=ALL-UNNAMED"
+    )
+
+    @Input
+    val launcherJvm17WindowsArguments = arrayOf(
+            "-XX:+DisableAttachMechanism",
+            "-Drunelite.launcher.nojvm=true",
+            "-Drunelite.launcher.blacklistedDlls=RTSSHooks.dll,RTSSHooks64.dll,NahimicOSD.dll,k_fps32.dll,k_fps64.dll",
+            "-Xmx512m",
+            "-Xss2m",
+            "-XX:CompileThreshold=1500",
+            "--add-opens=java.desktop/sun.awt=ALL-UNNAMED"
+    )
+
+    @Input
+    val clientJvmArguments = arrayOf(
+            "-XX:+DisableAttachMechanism",
+            "-Xmx512m",
+            "-Xss2m",
+            "-XX:CompileThreshold=1500",
+            "-Xincgc",
+            "-XX:+UseConcMarkSweepGC",
+            "-XX:+UseParNewGC"
+    )
+
+    @Input
+    val clientJvm9Arguments = arrayOf(
+            "-XX:+DisableAttachMechanism",
+            "-Xmx512m",
+            "-Xss2m",
+            "-XX:CompileThreshold=1500"
+    )
+
+    @Input
+    val clientJvm17MacArguments = arrayOf(
+            "-XX:+DisableAttachMechanism",
+            "-Xmx512m",
+            "-Xss2m",
+            "-XX:CompileThreshold=1500",
+            "--add-opens=java.desktop/sun.awt=ALL-UNNAMED",
+            "--add-opens=java.desktop/com.apple.eawt=ALL-UNNAMED"
+    )
+
+    @Input
+    val clientJvm17Arguments = arrayOf(
+            "-XX:+DisableAttachMechanism",
+            "-Xmx512m",
+            "-Xss2m",
+            "-XX:CompileThreshold=1500",
+            "--add-opens=java.desktop/sun.awt=ALL-UNNAMED"
+    )
+
+    @Input
+    val dependencyHashes = JsonBuilder()
 
     private fun hash(file: ByteArray): String {
         return MessageDigest.getInstance("SHA-256").digest(file).fold("", { str, it -> str + "%02x".format(it) })
@@ -43,6 +135,7 @@ open class BootstrapTask @Inject constructor(@Input val type: String) : DefaultT
             val group = splat[0]
             val version = splat[2]
             lateinit var path: String
+            val platform = ArrayList<JsonBuilder>()
 
             if (it.file.name.contains("runelite-client") ||
                     it.file.name.contains("http-api") ||
@@ -70,38 +163,78 @@ open class BootstrapTask @Inject constructor(@Input val type: String) : DefaultT
                 path += "${group.replace(".", "/")}/${name}/$version/${name}-$version"
                 if (it.classifier != null && it.classifier != "no_aop") {
                     path += "-${it.classifier}"
+
+                    if (it.classifier!!.contains("linux")) {
+                        platform.add(JsonBuilder(
+                                "name" to "linux"
+                        ))
+                    } else if (it.classifier!!.contains("windows")) {
+                        val json = JsonBuilder(
+                                "name" to "win"
+                        )
+
+                        if (it.classifier!!.contains("amd64")) {
+                            json.add("arch" to "amd64")
+                        } else {
+                            json.add("arch" to "x86")
+                        }
+
+                        platform.add(json)
+                    } else if (it.classifier!!.contains("macos")) {
+                        val json = JsonBuilder(
+                                "name" to "macos"
+                        )
+
+                        if (it.classifier!!.contains("x64")) {
+                            json.add("arch" to "x86_64")
+                        } else if (it.classifier!!.contains("arm64")) {
+                            json.add("arch" to "aarch64")
+                        }
+
+                        platform.add(json)
+                    }
                 }
                 path += ".jar"
-            }
-            else
-            {
+            } else {
                 println("ERROR: " + it.file.name + " has no download path!")
                 exitProcess(-1)
             }
-
-
 
             val filePath = it.file.absolutePath
             val artifactFile = File(filePath)
 
             if (!artifactsSet.contains(filePath)) {
                 artifactsSet.add(filePath)
-                artifacts.add(JsonBuilder(
+
+                val sha = hash(artifactFile.readBytes())
+
+                val json = JsonBuilder(
                         "name" to it.file.name,
                         "path" to path,
                         "size" to artifactFile.length(),
-                        "hash" to hash(artifactFile.readBytes())
-                ))
+                        "hash" to sha
+                )
+
+                dependencyHashes.add(it.file.name to sha)
+
+                if (platform.isNotEmpty()) {
+                    json.add("platform" to platform.toTypedArray())
+                }
+
+                artifacts.add(json)
             }
         }
 
         val cjar = clientJar.get().asFile
+        val sha = hash(cjar.readBytes())
         artifacts.add(JsonBuilder(
                 "name" to cjar.name,
                 "path" to "https://github.com/open-osrs/hosting/raw/master/${type}/${cjar.name}",
                 "size" to cjar.length(),
-                "hash" to hash(cjar.readBytes())
+                "hash" to sha
         ))
+
+        dependencyHashes.add(cjar.name to sha)
 
         return artifacts.toTypedArray()
     }
@@ -111,12 +244,19 @@ open class BootstrapTask @Inject constructor(@Input val type: String) : DefaultT
         val json = JsonBuilder(
                 "projectVersion" to ProjectVersions.openosrsVersion,
                 "minimumLauncherVersion" to ProjectVersions.launcherVersion,
-                "launcherJvm11Arguments" to launcherJvm11Arguments,
                 "launcherArguments" to launcherArguments,
+                "launcherJvm11Arguments" to launcherJvm11Arguments,
+                "launcherJvm11WindowsArguments" to launcherJvm11WindowsArguments,
+                "launcherJvm17Arguments" to launcherJvm17Arguments,
+                "launcherJvm17MacArguments" to launcherJvm17MacArguments,
+                "launcherJvm17WindowsArguments" to launcherJvm17WindowsArguments,
                 "clientJvmArguments" to clientJvmArguments,
                 "clientJvm9Arguments" to clientJvm9Arguments,
+                "clientJvm17MacArguments" to clientJvm17MacArguments,
+                "clientJvm17Arguments" to clientJvm17Arguments,
                 "buildCommit" to project.extra["gitCommit"],
-                "artifacts" to getArtifacts()
+                "artifacts" to getArtifacts(),
+                "dependencyHashes" to dependencyHashes
         ).toString()
 
         val prettyJson = JsonOutput.prettyPrint(json)

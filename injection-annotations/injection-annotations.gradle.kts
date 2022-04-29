@@ -23,4 +23,4 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 description = "Injection/Mapping annotations"
-version = "1.0"
+version = "1.1"
