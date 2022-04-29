@@ -235,11 +235,17 @@ public interface RSObjectComposition extends ObjectComposition
 	@Import("transformVarbit")
 	int getTransformVarbit();
 
+	@Import("transformVarbit")
+	int getVarbitId();
+
 	@Import("transformVarp")
 	void setTransformVarp(int transformVarp);
 
 	@Import("transformVarp")
 	int getTransformVarp();
+
+	@Import("transformVarp")
+	int getVarPlayerId();
 
 	@Import("transforms")
 	void setTransforms(int[] transforms);
