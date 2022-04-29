@@ -24,6 +24,8 @@
  */
 package net.runelite.api;
 
+import net.runelite.api.annotations.Varbit;
+
 /**
  * Information about a specific {@link ObjectID}
  */
@@ -75,8 +77,26 @@ public interface ObjectComposition extends ParamHolder
 	ObjectComposition getImpostor();
 
 	/**
+<<<<<<< HEAD
 	 * Get the bitmask that contains information on which directions you can interact
 	 * with this object from.
 	 */
 	int getAccessBitMask();
+=======
+	 * Gets the {@link Varbits} used to switch this multiloc, or {@code -1} if this is not switched by a Varbit
+	 *
+	 * @see #getImpostor()
+	 * @see #getImpostorIds()
+	 */
+	@Varbit
+	int getVarbitId();
+
+	/**
+	 * Gets the {@link VarPlayer} used to switch this multiloc, or {@code -1} if this is not switched by a VarPlayer
+	 *
+	 * @see #getImpostor()
+	 * @see #getImpostorIds()
+	 */
+	int getVarPlayerId();
+>>>>>>> runelite/master
 }
