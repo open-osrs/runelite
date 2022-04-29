@@ -2,7 +2,12 @@ package net.runelite.mixins;
 
 import net.runelite.api.IterableHashTable;
 import net.runelite.api.Node;
-import net.runelite.api.mixins.*;
+import net.runelite.api.mixins.Copy;
+import net.runelite.api.mixins.Inject;
+import net.runelite.api.mixins.MethodHook;
+import net.runelite.api.mixins.Mixin;
+import net.runelite.api.mixins.Replace;
+import net.runelite.api.mixins.Shadow;
 import net.runelite.rs.api.RSBuffer;
 import net.runelite.rs.api.RSClient;
 import net.runelite.rs.api.RSEvictingDualNodeHashTable;
@@ -66,7 +71,10 @@ public abstract class RSObjectCompositionMixin implements RSObjectComposition
 				}
 			}
 		}
-		else if (opcode == 2) setName(buffer.readStringCp1252NullTerminated());
+		else if (opcode == 2)
+		{
+			setName(buffer.readStringCp1252NullTerminated());
+		}
 		else if (opcode == 5)
 		{
 			var3 = buffer.readUnsignedByte();
@@ -88,27 +96,63 @@ public abstract class RSObjectCompositionMixin implements RSObjectComposition
 				}
 			}
 		}
-		else if (opcode == 14) setSizeX(buffer.readUnsignedByte());
-		else if (opcode == 15) setSizeY(buffer.readUnsignedByte());
+		else if (opcode == 14)
+		{
+			setSizeX(buffer.readUnsignedByte());
+		}
+		else if (opcode == 15)
+		{
+			setSizeY(buffer.readUnsignedByte());
+		}
 		else if (opcode == 17)
 		{
 			setInteractType(0);
 			setBoolean1(false);
 		}
-		else if (opcode == 18) setBoolean1(false);
-		else if (opcode == 19) setInt1(buffer.readUnsignedByte());
-		else if (opcode == 21) setClipType(0);
-		else if (opcode == 22) setNonFlatShading(true);
-		else if (opcode == 23) setModelClipped(true);
+		else if (opcode == 18)
+		{
+			setBoolean1(false);
+		}
+		else if (opcode == 19)
+		{
+			setInt1(buffer.readUnsignedByte());
+		}
+		else if (opcode == 21)
+		{
+			setClipType(0);
+		}
+		else if (opcode == 22)
+		{
+			setNonFlatShading(true);
+		}
+		else if (opcode == 23)
+		{
+			setModelClipped(true);
+		}
 		else if (opcode == 24)
 		{
 			setAnimationId(buffer.readUnsignedShort());
-			if (getAnimationId() == 65535) setAnimationId(-1);
+			if (getAnimationId() == 65535)
+			{
+				setAnimationId(-1);
+			}
 		}
-		else if (opcode == 27) setInteractType(1);
-		else if (opcode == 28) setInt2(buffer.readUnsignedByte());
-		else if (opcode == 29) setAmbient(buffer.readByte());
-		else if (opcode == 39) setContrast(buffer.readByte() * 25);
+		else if (opcode == 27)
+		{
+			setInteractType(1);
+		}
+		else if (opcode == 28)
+		{
+			setInt2(buffer.readUnsignedByte());
+		}
+		else if (opcode == 29)
+		{
+			setAmbient(buffer.readByte());
+		}
+		else if (opcode == 39)
+		{
+			setContrast(buffer.readByte() * 25);
+		}
 		else if (opcode >= 30 && opcode < 35)
 		{
 			getActions()[opcode - 30] = buffer.readStringCp1252NullTerminated();
@@ -139,20 +183,62 @@ public abstract class RSObjectCompositionMixin implements RSObjectComposition
 				getRetextureTo()[var4] = (short) buffer.readUnsignedShort();
 			}
 		}
-		else if (opcode == 61) buffer.readUnsignedShort();
-		else if (opcode == 62) setIsRotated(true);
-		else if (opcode == 64) setClipped(false);
-		else if (opcode == 65) setModelSizeX(buffer.readUnsignedShort());
-		else if (opcode == 66) setModelHeight(buffer.readUnsignedShort());
-		else if (opcode == 67) setModelSizeY(buffer.readUnsignedShort());
-		else if (opcode == 68) setMapSceneId(buffer.readUnsignedShort());
-		else if (opcode == 69) accessBitMask = buffer.readUnsignedByte();
-		else if (opcode == 70) setOffsetX(buffer.readShort());
-		else if (opcode == 71) setOffsetHeight(buffer.readShort());
-		else if (opcode == 72) setOffsetY(buffer.readShort());
-		else if (opcode == 73) setBoolean2(true) ;
-		else if (opcode == 74) setIsSolid(true);
-		else if (opcode == 75) setInt3(buffer.readUnsignedByte());
+		else if (opcode == 61)
+		{
+			buffer.readUnsignedShort();
+		}
+		else if (opcode == 62)
+		{
+			setIsRotated(true);
+		}
+		else if (opcode == 64)
+		{
+			setClipped(false);
+		}
+		else if (opcode == 65)
+		{
+			setModelSizeX(buffer.readUnsignedShort());
+		}
+		else if (opcode == 66)
+		{
+			setModelHeight(buffer.readUnsignedShort());
+		}
+		else if (opcode == 67)
+		{
+			setModelSizeY(buffer.readUnsignedShort());
+		}
+		else if (opcode == 68)
+		{
+			setMapSceneId(buffer.readUnsignedShort());
+		}
+		else if (opcode == 69)
+		{
+			accessBitMask = buffer.readUnsignedByte();
+		}
+		else if (opcode == 70)
+		{
+			setOffsetX(buffer.readShort());
+		}
+		else if (opcode == 71)
+		{
+			setOffsetHeight(buffer.readShort());
+		}
+		else if (opcode == 72)
+		{
+			setOffsetY(buffer.readShort());
+		}
+		else if (opcode == 73)
+		{
+			setBoolean2(true);
+		}
+		else if (opcode == 74)
+		{
+			setIsSolid(true);
+		}
+		else if (opcode == 75)
+		{
+			setInt3(buffer.readUnsignedByte());
+		}
 		else if (opcode != 77 && opcode != 92)
 		{
 			if (opcode == 78)
@@ -174,9 +260,18 @@ public abstract class RSObjectCompositionMixin implements RSObjectComposition
 					getSoundEffectIds()[var4] = buffer.readUnsignedShort();
 				}
 			}
-			else if (opcode == 81) setClipType(buffer.readUnsignedByte() * 256);
-			else if (opcode == 82) setMapIconId(buffer.readUnsignedShort());
-			else if (opcode == 89) setBoolean3(false);
+			else if (opcode == 81)
+			{
+				setClipType(buffer.readUnsignedByte() * 256);
+			}
+			else if (opcode == 82)
+			{
+				setMapIconId(buffer.readUnsignedShort());
+			}
+			else if (opcode == 89)
+			{
+				setBoolean3(false);
+			}
 			else if (opcode == 249)
 			{
 				setParams((IterableHashTable<Node>) client.readStringIntParameters(buffer, getParams()));
@@ -185,16 +280,25 @@ public abstract class RSObjectCompositionMixin implements RSObjectComposition
 		else
 		{
 			setTransformVarbit(buffer.readUnsignedShort());
-			if (getTransformVarbit() == 65535) setTransformVarbit(-1);
+			if (getTransformVarbit() == 65535)
+			{
+				setTransformVarbit(-1);
+			}
 			setTransformVarp(buffer.readUnsignedShort());
-			if (getTransformVarp() == 65535) setTransformVarp(-1);
+			if (getTransformVarp() == 65535)
+			{
+				setTransformVarp(-1);
+			}
 
 			var3 = -1;
 
 			if (opcode == 92)
 			{
 				var3 = buffer.readUnsignedShort();
-				if (var3 == 65535) var3 = -1;
+				if (var3 == 65535)
+				{
+					var3 = -1;
+				}
 			}
 
 			var4 = buffer.readUnsignedByte();
@@ -203,7 +307,10 @@ public abstract class RSObjectCompositionMixin implements RSObjectComposition
 			for (int var5 = 0; var5 <= var4; ++var5)
 			{
 				getTransforms()[var5] = buffer.readUnsignedShort();
-				if (getTransforms()[var5] == 65535) getTransforms()[var5] = -1;
+				if (getTransforms()[var5] == 65535)
+				{
+					getTransforms()[var5] = -1;
+				}
 			}
 
 			getTransforms()[var4 + 1] = var3;
