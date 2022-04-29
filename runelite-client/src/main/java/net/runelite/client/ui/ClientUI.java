@@ -1213,16 +1213,22 @@ public class ClientUI
 					opacityField = Window.class.getDeclaredField("opacity");
 					opacityField.setAccessible(true);
 				}
+
 				if (peerField == null)
 				{
 					peerField = Component.class.getDeclaredField("peer");
 					peerField.setAccessible(true);
 				}
+
 				if (setOpacityMethod == null)
 				{
 					setOpacityMethod = Class.forName("java.awt.peer.WindowPeer").getDeclaredMethod("setOpacity", float.class);
 				}
 
+				if (peerField.get(frame) == null)
+				{
+					return;
+				}
 
 				final float opacity = Float.parseFloat(configManager.getConfiguration(OPENOSRS_CONFIG_GROUP, CONFIG_OPACITY_AMOUNT)) / 100F;
 				assert opacity > 0F && opacity <= 1F : "I don't know who you are, I don't know why you tried, and I don't know how you tried, but this is NOT what you're supposed to do and you should honestly feel terrible about what you did, so I want you to take a nice long amount of time to think about what you just tried to do so you are not gonna do this in the future.";
