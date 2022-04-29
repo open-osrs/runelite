@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Owain van Brakel <https://github.com/Owain94>
+ * Copyright (c) 2016-2018, Adam <Adam@sigterm.info>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,15 +22,53 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+package net.runelite.client.plugins.openosrs;
 
-object ProjectVersions {
-    const val launcherVersion = "3.0.0"
-    const val rlVersion = "1.8.18.4"
+import javax.annotation.Nonnull;
+import lombok.extern.slf4j.Slf4j;
 
-    const val openosrsVersion = "4.25.2"
+@Slf4j
+public class OS
+{
+	public enum OSType
+	{
+		Windows, MacOS, Linux, Other
+	}
 
-    const val rsversion = 204.6
-    const val cacheversion = 165
+	private static final OSType DETECTED_OS;
 
-    const val lombokVersion = "1.18.20"
+	static
+	{
+		final String os = System
+			.getProperty("os.name", "generic")
+			.toLowerCase();
+		DETECTED_OS = parseOs(os);
+		log.debug("Detect OS: {}", DETECTED_OS);
+	}
+
+	static OSType parseOs(@Nonnull String os)
+	{
+		os = os.toLowerCase();
+		if ((os.contains("mac")) || (os.contains("darwin")))
+		{
+			return OSType.MacOS;
+		}
+		else if (os.contains("win"))
+		{
+			return OSType.Windows;
+		}
+		else if (os.contains("linux"))
+		{
+			return OSType.Linux;
+		}
+		else
+		{
+			return OSType.Other;
+		}
+	}
+
+	public static OSType getOs()
+	{
+		return DETECTED_OS;
+	}
 }

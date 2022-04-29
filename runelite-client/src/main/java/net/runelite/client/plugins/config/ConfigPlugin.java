@@ -24,6 +24,7 @@
  */
 package net.runelite.client.plugins.config;
 
+import com.openosrs.client.config.OpenOSRSConfig;
 import java.awt.image.BufferedImage;
 import javax.inject.Inject;
 import javax.inject.Provider;
@@ -62,6 +63,9 @@ public class ConfigPlugin extends Plugin
 	private RuneLiteConfig runeLiteConfig;
 
 	@Inject
+	private OpenOSRSConfig openOSRSConfig;
+
+	@Inject
 	private ChatColorConfig chatColorConfig;
 
 	private PluginListPanel pluginListPanel;
@@ -76,6 +80,11 @@ public class ConfigPlugin extends Plugin
 				"RuneLite", "RuneLite client settings",
 				new String[]{"client", "notification", "size", "position", "window", "chrome", "focus", "font", "overlay", "tooltip", "infobox"},
 				runeLiteConfig, configManager.getConfigDescriptor(runeLiteConfig)
+			),
+			new PluginConfigurationDescriptor(
+				"OpenOSRS", "OpenOSRS client settings",
+				new String[]{"client"},
+				openOSRSConfig, configManager.getConfigDescriptor(openOSRSConfig)
 			),
 			new PluginConfigurationDescriptor(
 				"Chat Color", "Recolor chat text", new String[]{"colour", "messages"},
