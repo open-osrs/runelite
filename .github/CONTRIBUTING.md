@@ -52,7 +52,7 @@ Before you submit your pull request consider the following guidelines:
     cd runelite/
     ```
 * After cloning, set a new remote [upstream](https://help.github.com/articles/configuring-a-remote-for-a-fork/) (this helps to keep your fork up to date)
-    
+
     ```shell
     git remote add upstream https://github.com/open-osrs/runelite.git
     ```
