@@ -91,11 +91,7 @@ public class ItemSpriteFactory
 		else if (item.boughtTemplateId != -1)
 		{
 			auxSpritePixels = createSpritePixels(itemProvider, modelProvider, spriteProvider, textureProvider,
-<<<<<<< HEAD
-					item.boughtId, quantity, border, shadowColor, false);
-=======
 				item.boughtId, quantity, border, 0, false);
->>>>>>> runelite/master
 			if (auxSpritePixels == null)
 			{
 				return null;

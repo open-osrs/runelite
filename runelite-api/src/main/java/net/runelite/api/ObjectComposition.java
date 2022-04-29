@@ -77,12 +77,12 @@ public interface ObjectComposition extends ParamHolder
 	ObjectComposition getImpostor();
 
 	/**
-<<<<<<< HEAD
 	 * Get the bitmask that contains information on which directions you can interact
 	 * with this object from.
 	 */
 	int getAccessBitMask();
-=======
+
+	/**
 	 * Gets the {@link Varbits} used to switch this multiloc, or {@code -1} if this is not switched by a Varbit
 	 *
 	 * @see #getImpostor()
@@ -98,5 +98,4 @@ public interface ObjectComposition extends ParamHolder
 	 * @see #getImpostorIds()
 	 */
 	int getVarPlayerId();
->>>>>>> runelite/master
 }
