@@ -149,7 +149,8 @@ public abstract class RSNPCMixin implements RSNPC
 			|| this.getId() == NpcID.TREE_SPIRIT && this.getAnimation() == AnimationID.IDLE
 			|| this.getId() == NpcID.TREE_SPIRIT_6380 && this.getAnimation() == AnimationID.IDLE
 			|| this.getId() == NpcID.TREE_SPIRIT_HARD && this.getAnimation() == AnimationID.IDLE
-		) {
+		)
+		{
 			return copy$getModel();
 		}
 		int actionFrame = getActionFrame();

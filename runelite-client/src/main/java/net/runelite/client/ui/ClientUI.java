@@ -1227,7 +1227,7 @@ public class ClientUI
 
 			}
 			catch (NoSuchFieldException | NoSuchMethodException | ClassNotFoundException | IllegalAccessException |
-				   InvocationTargetException e)
+				InvocationTargetException e)
 			{
 				e.printStackTrace();
 			}
