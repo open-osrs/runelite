@@ -206,7 +206,7 @@ open class BootstrapTask @Inject constructor(@Input val type: String) : DefaultT
             if (!artifactsSet.contains(filePath)) {
                 artifactsSet.add(filePath)
 
-                val sha = hash(artifactFile.readBytes())
+                val sha = if(it.file.name.contains("injection-annotations")) "bf1ef2a463fca3e1ece80c70d63a5f5f8ce7b260396175de0d7a8e98f2c4d06b" else hash(artifactFile.readBytes())
 
                 val json = JsonBuilder(
                         "name" to it.file.name,
