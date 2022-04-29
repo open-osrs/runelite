@@ -25,6 +25,7 @@
 package net.runelite.mixins;
 
 import net.runelite.api.DialogOption;
+import net.runelite.api.ObjectID;
 import net.runelite.api.events.DialogProcessed;
 import net.runelite.api.events.DynamicObjectAnimationChanged;
 import net.runelite.api.mixins.Copy;
@@ -75,7 +76,7 @@ public abstract class RSDynamicObjectMixin implements RSDynamicObject
 	@Inject
 	public void onAnimCycleCountChanged(int idx)
 	{
-		if (client.isInterpolateObjectAnimations())
+		if (client.isInterpolateObjectAnimations() && this.getId() != ObjectID.WATER_WHEEL_26671)
 		{
 			// sets the packed anim frame with the frame cycle
 			int objectFrameCycle = client.getGameCycle() - getAnimCycleCount();
