@@ -10,8 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import net.runelite.client.eventbus.EventBus;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.plugins.OPRSUpdateRepository;
 import net.runelite.client.ui.ColorScheme;
-import org.pf4j.update.UpdateRepository;
 
 public class RepositoryPanel extends JPanel
 {
@@ -45,7 +45,7 @@ public class RepositoryPanel extends JPanel
 		c.gridy = 0;
 		c.insets = new Insets(5, 0, 0, 0);
 
-		for (UpdateRepository repository : externalPluginManager.getRepositories())
+		for (OPRSUpdateRepository repository : externalPluginManager.getRepositories())
 		{
 			final RepositoryBox p = new RepositoryBox(externalPluginManager, repository);
 			add(p, c);

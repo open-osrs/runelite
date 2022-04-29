@@ -16,12 +16,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
+import net.runelite.client.plugins.OPRSUpdateRepository;
 import net.runelite.client.ui.ColorScheme;
 import net.runelite.client.ui.FontManager;
 import net.runelite.client.util.ImageUtil;
 import net.runelite.client.util.LinkBrowser;
 import org.pf4j.update.PluginInfo;
-import org.pf4j.update.UpdateRepository;
 
 public class RepositoryBox extends JPanel
 {
@@ -53,7 +53,7 @@ public class RepositoryBox extends JPanel
 		DISCORD_HOVER_ICON = new ImageIcon(ImageUtil.alphaOffset(discordImg, 0.53f));
 	}
 
-	RepositoryBox(OPRSExternalPluginManager externalPluginManager, UpdateRepository updateRepository)
+	RepositoryBox(OPRSExternalPluginManager externalPluginManager, OPRSUpdateRepository updateRepository)
 	{
 		setLayout(new BorderLayout());
 		setBackground(ColorScheme.DARKER_GRAY_COLOR);

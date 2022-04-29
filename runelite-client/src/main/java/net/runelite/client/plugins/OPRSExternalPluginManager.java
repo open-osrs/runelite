@@ -88,10 +88,9 @@ import org.pf4j.DependencyResolver;
 import org.pf4j.PluginDependency;
 import org.pf4j.PluginRuntimeException;
 import org.pf4j.PluginWrapper;
-import org.pf4j.update.DefaultUpdateRepository;
 import org.pf4j.update.PluginInfo;
-import org.pf4j.update.UpdateManager;
 import org.pf4j.update.UpdateRepository;
+import org.pf4j.update.VerifyException;
 
 @SuppressWarnings("UnstableApiUsage")
 @Slf4j
@@ -107,7 +106,7 @@ public class OPRSExternalPluginManager
 	@Getter(AccessLevel.PUBLIC)
 	private org.pf4j.PluginManager externalPluginManager;
 	@Getter(AccessLevel.PUBLIC)
-	private final List<UpdateRepository> repositories = new ArrayList<>();
+	private final List<OPRSUpdateRepository> repositories = new ArrayList<>();
 	@Inject
 	private OpenOSRSConfig openOSRSConfig;
 	@Inject
@@ -124,7 +123,7 @@ public class OPRSExternalPluginManager
 	@Inject
 	private Groups groups;
 	@Getter(AccessLevel.PUBLIC)
-	private UpdateManager updateManager;
+	private OPRSUpdateManager updateManager;
 	@Inject
 	@Named("safeMode")
 	private boolean safeMode;
@@ -160,7 +159,7 @@ public class OPRSExternalPluginManager
 	}
 
 	/**
-	 * Note that {@link UpdateManager#addRepository} checks if the repo exists, however it throws an exception which is bad
+	 * Note that {@link OPRSUpdateManager#addRepository} checks if the repo exists, however it throws an exception which is bad
 	 */
 	public boolean doesRepoExist(String id)
 	{
@@ -192,17 +191,17 @@ public class OPRSExternalPluginManager
 
 	public static boolean testRepository(URL url, String pluginsJson)
 	{
-		final List<UpdateRepository> repositories = new ArrayList<>();
+		final List<OPRSUpdateRepository> repositories = new ArrayList<>();
 		if (pluginsJson != null)
 		{
-			repositories.add(new DefaultUpdateRepository("repository-testing", url, pluginsJson));
+			repositories.add(new OPRSUpdateRepository("repository-testing", url, pluginsJson));
 		}
 		else
 		{
-			repositories.add(new DefaultUpdateRepository("repository-testing", url));
+			repositories.add(new OPRSUpdateRepository("repository-testing", url));
 		}
 		DefaultPluginManager testPluginManager = new DefaultPluginManager(EXTERNALPLUGIN_DIR.toPath());
-		UpdateManager updateManager = new UpdateManager(testPluginManager, repositories);
+		OPRSUpdateManager updateManager = new OPRSUpdateManager(testPluginManager, repositories);
 
 		return updateManager.getPlugins().size() <= 0;
 	}
@@ -258,7 +257,7 @@ public class OPRSExternalPluginManager
 			loadOldFormat();
 		}
 
-		updateManager = new UpdateManager(externalPluginManager, repositories);
+		updateManager = new OPRSUpdateManager(externalPluginManager, repositories);
 		saveConfig();
 	}
 
@@ -310,11 +309,11 @@ public class OPRSExternalPluginManager
 
 				if (pluginJson == null)
 				{
-					repositories.add(new DefaultUpdateRepository(id, new URL(url)));
+					repositories.add(new OPRSUpdateRepository(id, new URL(url)));
 				}
 				else
 				{
-					repositories.add(new DefaultUpdateRepository(id, new URL(url), pluginJson));
+					repositories.add(new OPRSUpdateRepository(id, new URL(url), pluginJson));
 				}
 			}
 		}
@@ -340,7 +339,7 @@ public class OPRSExternalPluginManager
 				String id = keyval.substring(0, keyval.lastIndexOf(":https"));
 				String url = keyval.substring(keyval.lastIndexOf("https"));
 
-				DefaultUpdateRepository defaultRepo = new DefaultUpdateRepository(id, new URL(url));
+				OPRSUpdateRepository defaultRepo = new OPRSUpdateRepository(id, new URL(url));
 				repositories.add(defaultRepo);
 				log.debug("Added Repo: {}", defaultRepo.getUrl());
 			}
@@ -355,7 +354,7 @@ public class OPRSExternalPluginManager
 			openOSRSConfig.setExternalRepositories(DEFAULT_PLUGIN_REPOS);
 		}
 
-		updateManager = new UpdateManager(externalPluginManager, repositories);
+		updateManager = new OPRSUpdateManager(externalPluginManager, repositories);
 	}
 
 	public void addGHRepository(String owner, String name)
@@ -377,15 +376,15 @@ public class OPRSExternalPluginManager
 
 	public void addRepository(String key, URL url, String pluginsJson)
 	{
-		DefaultUpdateRepository respository;
+		OPRSUpdateRepository respository;
 
 		if (pluginsJson != null)
 		{
-			respository = new DefaultUpdateRepository(key, url, pluginsJson);
+			respository = new OPRSUpdateRepository(key, url, pluginsJson);
 		}
 		else
 		{
-			respository = new DefaultUpdateRepository(key, url);
+			respository = new OPRSUpdateRepository(key, url);
 		}
 
 		updateManager.addRepository(respository);
@@ -1030,10 +1029,18 @@ public class OPRSExternalPluginManager
 						error = true;
 					}
 				}
+				catch (VerifyException ex)
+				{
+					// This should never happen but can crash the client
+					log.error("Cannot update plugin '{}', the SHA512 hash mismatches! {}", plugin.id, ex.getMessage());
+					error = true;
+					break;
+				}
 				catch (PluginRuntimeException ex)
 				{
 					// This should never happen but can crash the client
 					log.warn("Cannot update plugin '{}', the user probably has another client open", plugin.id);
+					log.error(String.valueOf(ex));
 					error = true;
 					break;
 				}
@@ -1181,8 +1188,6 @@ public class OPRSExternalPluginManager
 	}
 
 	/**
-	 * Mostly stolen from {@link java.net.URLStreamHandler#toExternalForm(URL)}
-	 *
 	 * @param url URL to encode
 	 * @return URL, with path, query and ref encoded
 	 */
