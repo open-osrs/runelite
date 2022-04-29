@@ -1199,6 +1199,11 @@ public class ClientUI
 
 	private void setOpacity()
 	{
+		if (frame == null)
+		{
+			return;
+		}
+
 		SwingUtilities.invokeLater(() ->
 		{
 			try
