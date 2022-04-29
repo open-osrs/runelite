@@ -26,8 +26,6 @@
  */
 package net.runelite.client.plugins.openosrs;
 
-import ch.qos.logback.classic.Logger;
-import com.openosrs.client.config.OpenOSRSConfig;
 import java.awt.image.BufferedImage;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -36,19 +34,15 @@ import javax.swing.JOptionPane;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.api.Client;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.config.Keybind;
 import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
-import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
 import net.runelite.client.plugins.openosrs.externals.ExternalPluginManagerPanel;
 import net.runelite.client.ui.ClientToolbar;
 import net.runelite.client.ui.ClientUI;
 import net.runelite.client.ui.NavigationButton;
-import net.runelite.client.util.HotkeyListener;
 import net.runelite.client.util.ImageUtil;
-import org.slf4j.LoggerFactory;
 
 @PluginDescriptor(
 	loadWhenOutdated = true, // prevent users from disabling
@@ -102,8 +96,10 @@ public class OpenOSRSPlugin extends Plugin
 	}
 
 	@Subscribe
-	protected void onConfigChanged(ConfigChanged event) {
-		if (OS.getOs() == OS.OSType.MacOS && event.getGroup().equals("openosrs") && event.getKey().equals("disableHw")) {
+	protected void onConfigChanged(ConfigChanged event)
+	{
+		if (OS.getOs() == OS.OSType.MacOS && event.getGroup().equals("openosrs") && event.getKey().equals("disableHw"))
+		{
 			boolean disableHw = configManager.getConfiguration("openosrs", "disableHw", Boolean.class);
 
 			if (disableHw)
