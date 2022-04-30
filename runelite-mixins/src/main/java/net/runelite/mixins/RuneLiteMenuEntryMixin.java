@@ -38,6 +38,7 @@ public abstract class RuneLiteMenuEntryMixin implements RSRuneLiteMenuEntry
 	@Shadow("client")
 	private static RSClient client;
 
+	@Inject
 	@Override
 	public int getItemOp()
 	{
