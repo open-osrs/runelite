@@ -78,7 +78,7 @@ public class AnnotationAdder
 			return false;
 		}
 
-		log.info("Changed export from {} to {}", exportedName, methodName);
+		log.debug("Changed export from {} to {}", exportedName, methodName);
 		m.findAnnotation(DeobAnnotations.EXPORT, true).setElement(methodName);
 		return true;
 	}
