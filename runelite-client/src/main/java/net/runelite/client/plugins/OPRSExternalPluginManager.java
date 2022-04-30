@@ -89,7 +89,6 @@ import org.pf4j.PluginDependency;
 import org.pf4j.PluginRuntimeException;
 import org.pf4j.PluginWrapper;
 import org.pf4j.update.PluginInfo;
-import org.pf4j.update.UpdateRepository;
 import org.pf4j.update.VerifyException;
 
 @SuppressWarnings("UnstableApiUsage")
