@@ -33,6 +33,7 @@ import net.runelite.client.game.ItemManager;
 @Getter
 public enum MagicAction implements SkillAction
 {
+	LUMBRIDGE_HOME_TELEPORT("Lumbridge Home Teleport", 0, 0, SpriteID.SPELL_LUMBRIDGE_HOME_TELEPORT),
 	WIND_STRIKE("Wind Strike", 1, 5.5f, SpriteID.SPELL_WIND_STRIKE),
 	CONFUSE("Confuse", 3, 13, SpriteID.SPELL_CONFUSE),
 	ENCHANT_OPAL_BOLT("Enchant Opal Bolt", 4, 9, SpriteID.SPELL_ENCHANT_CROSSBOW_BOLT),
