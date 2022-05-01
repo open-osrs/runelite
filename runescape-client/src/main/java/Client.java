@@ -1773,21 +1773,21 @@ public final class Client extends GameEngine implements Usernamed, OAuthApi {
 					Archive.load(); // L: 937
 					UserComparator9.method2619(); // L: 938
 				} else if (gameState == 5) { // L: 940
-					class360.method6592(this, class13.fontPlain12); // L: 941
+					class360.loginScreen(this, class13.fontPlain12); // L: 941
 					Archive.load(); // L: 942
 					UserComparator9.method2619(); // L: 943
 				} else if (gameState != 10 && gameState != 11) { // L: 945
 					if (gameState == 20) { // L: 946
-						class360.method6592(this, class13.fontPlain12); // L: 947
+						class360.loginScreen(this, class13.fontPlain12); // L: 947
 						this.doCycleLoggedOut(); // L: 948
 					} else if (gameState == 50) { // L: 950
-						class360.method6592(this, class13.fontPlain12); // L: 951
+						class360.loginScreen(this, class13.fontPlain12); // L: 951
 						this.doCycleLoggedOut(); // L: 952
 					} else if (gameState == 25) { // L: 954
 						FriendSystem.method1715();
 					}
 				} else {
-					class360.method6592(this, class13.fontPlain12);
+					class360.loginScreen(this, class13.fontPlain12);
 				}
 
 				if (gameState == 30) { // L: 955

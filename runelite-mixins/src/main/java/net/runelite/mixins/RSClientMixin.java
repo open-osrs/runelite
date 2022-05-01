@@ -151,7 +151,9 @@ import net.runelite.rs.api.RSDualNode;
 import net.runelite.rs.api.RSEnumComposition;
 import net.runelite.rs.api.RSEvictingDualNodeHashTable;
 import net.runelite.rs.api.RSFloorOverlayDefinition;
+import net.runelite.rs.api.RSFont;
 import net.runelite.rs.api.RSFriendSystem;
+import net.runelite.rs.api.RSGameEngine;
 import net.runelite.rs.api.RSIndexedSprite;
 import net.runelite.rs.api.RSInterfaceParent;
 import net.runelite.rs.api.RSItemComposition;
@@ -3066,6 +3068,27 @@ public abstract class RSClientMixin implements RSClient
 		OverlayIndex.getOverlays().add((12 << 16) | newScriptId);
 		customClientScripts.put((12 << 16) | newScriptId, script);
 		return newScriptId;
+	}
+
+	@Inject
+	@MethodHook("loginScreen")
+	public static void loginScreenClick(RSGameEngine var0, RSFont var1)
+	{
+		if (!client.isWorldSelectOpen() && (client.getMouseLastPressedX() > client.getLoginScreenXPadding() + 765 || client.getMouseLastPressedY() > 503))
+		{
+			client.setMouseLastPressedX(0);
+			client.setMouseLastPressedX(0);
+		}
+	}
+
+	@FieldHook("worldSelectOpen")
+	@Inject
+	public static void worldSelectionScreenToggled(int idx)
+	{
+		if (!client.isWorldSelectOpen())
+		{
+			Arrays.fill(client.getBufferProvider().getPixels(), 0);
+		}
 	}
 }
 
