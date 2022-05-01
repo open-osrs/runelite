@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Comparator;
 import java.util.Date;
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
@@ -89,7 +90,8 @@ class class360 implements Comparator {
 		descriptor = "(Lao;Lmd;B)V",
 		garbageValue = "3"
 	)
-	static void method6592(GameEngine var0, Font var1) {
+	@Export("loginScreen")
+	static void loginScreen(GameEngine var0, Font var1) {
 		int var4;
 		int var38;
 		if (Login.worldSelectOpen) { // L: 309
