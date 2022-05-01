@@ -3090,5 +3090,15 @@ public abstract class RSClientMixin implements RSClient
 			Arrays.fill(client.getBufferProvider().getPixels(), 0);
 		}
 	}
+
+	@MethodHook("drawTitle")
+	@Inject
+	public static void drawTitleHook(RSFont var0, RSFont var1, RSFont var2)
+	{
+		if (client.isWorldSelectOpen())
+		{
+			Arrays.fill(client.getBufferProvider().getPixels(), 0);
+		}
+	}
 }
 
