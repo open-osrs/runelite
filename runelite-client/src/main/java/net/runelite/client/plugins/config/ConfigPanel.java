@@ -240,6 +240,8 @@ class ConfigPanel extends PluginPanel
 		assert this.pluginConfig == null;
 		this.pluginConfig = pluginConfig;
 
+		scrollPane.getVerticalScrollBar().setValue(0);
+
 		String name = pluginConfig.getName();
 		title.setText(name);
 		title.setForeground(Color.WHITE);
