@@ -1,7 +1,8 @@
 <!--
-  Default stack using IP multicasting. It is similar to the "udp"
-  stack in stacks.xml, but doesn't use streaming state transfer and flushing
-  author: Bela Ban
+  Fast configuration for local mode, ie. all members reside on the same host. Setting ip_ttl to 0 means that
+  no multicast packet will make it outside the local host.
+  Therefore, this configuration will NOT work to cluster members residing on different hosts !
+  Author: Bela Ban
 -->
 
 <config xmlns="urn:org:jgroups"
@@ -9,48 +10,27 @@
 		xsi:schemaLocation="urn:org:jgroups http://www.jgroups.org/schema/jgroups.xsd"
 		version="5.0.0">
 	<UDP
-			bind_addr="127.0.0.1"
 			mcast_port="${jgroups.udp.mcast_port:45588}"
-			ip_ttl="4"
-			tos="8"
-			ucast_recv_buf_size="5M"
-			ucast_send_buf_size="5M"
-			mcast_recv_buf_size="5M"
-			mcast_send_buf_size="5M"
-			max_bundle_size="64K"
-			enable_diagnostics="true"
-			thread_naming_pattern="cl"
+			thread_pool.min_threads="2"
+			thread_pool.max_threads="200"
+			thread_pool.keep_alive_time="5000"
 
-			thread_pool.min_threads="0"
-			thread_pool.max_threads="20"
-			thread_pool.keep_alive_time="30000"/>
-
+			ip_ttl="0"/>
+	<RED/>
 	<PING/>
 	<MERGE3 max_interval="30000"
 			min_interval="10000"/>
-	<FD_SOCK/>
-	<FD_ALL/>
+	<FD_SOCK2/>
+	<FD_ALL3/>
 	<VERIFY_SUSPECT timeout="1500"/>
-	<BARRIER/>
-	<pbcast.NAKACK2 xmit_interval="500"
-					xmit_table_num_rows="100"
-					xmit_table_msgs_per_row="2000"
-					xmit_table_max_compaction_time="30000"
-					use_mcast_xmit="false"
-					discard_delivered_msgs="true"/>
-	<UNICAST3 xmit_interval="500"
-			  xmit_table_num_rows="100"
-			  xmit_table_msgs_per_row="2000"
-			  xmit_table_max_compaction_time="60000"
-			  conn_expiry_timeout="0"/>
+	<pbcast.NAKACK2 xmit_interval="500"/>
+	<UNICAST3 xmit_interval="500"/>
 	<pbcast.STABLE desired_avg_gossip="50000"
-				   max_bytes="4M"/>
-	<pbcast.GMS print_local_addr="false" join_timeout="2000"/>
+				   max_bytes="8m"/>
+	<pbcast.GMS print_local_addr="false" join_timeout="3000"/>
 	<UFC max_credits="2M"
 		 min_threshold="0.4"/>
 	<MFC max_credits="2M"
 		 min_threshold="0.4"/>
 	<FRAG2 frag_size="60K"/>
-	<RSVP resend_interval="2000" timeout="10000"/>
-	<pbcast.STATE_TRANSFER/>
 </config>
