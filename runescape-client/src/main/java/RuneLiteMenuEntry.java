@@ -11,6 +11,7 @@ public class RuneLiteMenuEntry implements MenuEntry
 
 	public RuneLiteMenuEntry()
 	{
+		idx = 499;
 	}
 
 	public RuneLiteMenuEntry(int idx)
