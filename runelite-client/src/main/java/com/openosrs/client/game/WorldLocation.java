@@ -496,6 +496,7 @@ public enum WorldLocation
 	LUMBERYARD("Lumberyard", new Location(3289, 3520, 3327, 3488), 0),
 	LUMBRIDGE_BASEMENT("Lumbridge Basement", new Location(3206, 9626, 3221, 9613), 0),
 	LUMBRIDGE_CASTLE("Lumbridge Castle", new Location(3201, 3235, 3225, 3201), 0),
+	LUMBRIDGE_CASTLE_BANK("Lumbridge Castle Bank", new Location(3201, 3235, 3225, 3201), 2),
 	LUMBRIDGE_SWAMP("Lumby Swamp", new Location(3135, 3203, 3245, 3140), 0),
 	LUMBRIDGE_SWAMP_CAVES("Lumbridge Swamp Caves", new Location(3142, 9598, 3260, 9537), 0),
 	PATERDOMUS("Priest in Peril Temple", new Location(3404, 3495, 3419, 3481), 0),
