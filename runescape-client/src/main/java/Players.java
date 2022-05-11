@@ -143,7 +143,7 @@ public class Players {
 	static void method2419(int var0, int var1) {
 		if (class131.clientPreferences.method2321() != 0 && var0 != -1) { // L: 3622
 			class18.method266(Message.archive11, var0, 0, class131.clientPreferences.method2321(), false); // L: 3623
-			Client.field746 = true; // L: 3624
+			Client.playingJingle = true; // L: 3624
 		}
 
 	} // L: 3626

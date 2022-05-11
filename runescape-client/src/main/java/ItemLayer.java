@@ -131,7 +131,7 @@ public final class ItemLayer {
 		System.gc(); // L: 2932
 		Actor.method2183(2); // L: 2933
 		Client.currentTrackGroupId = -1; // L: 2934
-		Client.field746 = false; // L: 2935
+		Client.playingJingle = false; // L: 2935
 		ClientPreferences.method2259(); // L: 2936
 		Decimator.updateGameState(10); // L: 2937
 	} // L: 2938
