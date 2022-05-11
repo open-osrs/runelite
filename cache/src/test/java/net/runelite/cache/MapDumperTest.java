@@ -65,7 +65,6 @@ public class MapDumperTest
 		File base = StoreLocation.LOCATION,
 			outDir = folder.newFolder();
 		XteaKeyManager keyManager = new XteaKeyManager();
-		keyManager.loadKeys();
 
 		try (Store store = new Store(base))
 		{
@@ -76,7 +75,7 @@ public class MapDumperTest
 
 			for (int i = 0; i < MAX_REGIONS; i++)
 			{
-				Integer[] keysTmp = keyManager.getKeys(i);
+				int[] keys = keyManager.getKey(i);
 
 				int x = i >> 8;
 				int y = i & 0xFF;
@@ -95,9 +94,8 @@ public class MapDumperTest
 
 				Files.write(data, new File(outDir, "m" + x + "_" + y + ".dat"));
 
-				if (keysTmp != null)
+				if (keys != null)
 				{
-					int[] keys = {keysTmp[0], keysTmp[1], keysTmp[2], keysTmp[3]};
 					try
 					{
 						data = land.decompress(storage.loadArchive(land), keys);
@@ -122,7 +120,6 @@ public class MapDumperTest
 		Storage storage = store.getStorage();
 		Index index = store.getIndex(IndexType.MAPS);
 		XteaKeyManager keyManager = new XteaKeyManager();
-		keyManager.loadKeys();
 
 		for (int i = 0; i < MAX_REGIONS; ++i)
 		{
@@ -143,10 +140,9 @@ public class MapDumperTest
 			MapDefinition mapDef = new MapLoader().load(x, y, data);
 			LocationsDefinition locDef = null;
 
-			Integer[] keysTmp = keyManager.getKeys(i);
-			if (keysTmp != null)
+			int[] keys = keyManager.getKey(i);
+			if (keys != null)
 			{
-				int[] keys = {keysTmp[0], keysTmp[1], keysTmp[2], keysTmp[3]};
 				try
 				{
 					data = land.decompress(storage.loadArchive(land), keys);
