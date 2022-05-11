@@ -7,7 +7,7 @@
  */
 package com.openosrs.injector.injectors.raw;
 
-import com.openosrs.injector.InjectUtil;
+//import com.openosrs.injector.InjectUtil;
 import com.openosrs.injector.injection.InjectData;
 import com.openosrs.injector.injectors.AbstractInjector;
 import java.util.List;
@@ -40,7 +40,7 @@ public class RuneliteMenuEntry extends AbstractInjector
 	{
 		addInvoke("newRuneliteMenuEntry", true);
 		addInvoke("newBareRuneliteMenuEntry", false);
-		addSwap(InjectUtil.findMethod(inject, "incrementMenuEntries"));
+		//addSwap(InjectUtil.findMethod(inject, "incrementMenuEntries"));
 	}
 
 	private void addInvoke(String methodName, boolean iload)
