@@ -1,263 +1,167 @@
-import java.util.AbstractQueue;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mn")
-public class class342 extends AbstractQueue {
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "[Lmk;"
-	)
-	class340[] field4104;
-	@ObfuscatedName("c")
-	Map field4105;
-	@ObfuscatedName("i")
+@ObfuscatedName("ml")
+public class class342 {
+	@ObfuscatedName("o")
+	static char[] field4158;
+	@ObfuscatedName("q")
+	static char[] field4161;
+	@ObfuscatedName("l")
+	static char[] field4160;
+	@ObfuscatedName("k")
+	static int[] field4159;
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = -609081385
+		intValue = -1886529381
 	)
-	int field4106;
-	@ObfuscatedName("f")
-	final Comparator field4107;
-	@ObfuscatedName("b")
-	@ObfuscatedGetter(
-		intValue = -1292007073
-	)
-	int field4108;
+	static int field4162;
 
-	public class342(int var1, Comparator var2) {
-		this.field4108 = 0; // L: 10
-		this.field4104 = new class340[var1]; // L: 17
-		this.field4105 = new HashMap(); // L: 18
-		this.field4107 = var2; // L: 19
-	} // L: 20
+	static {
+		field4158 = new char[64]; // L: 7
 
-	public class342(int var1) {
-		this(var1, (Comparator)null); // L: 13
-	} // L: 14
+		int var0;
+		for (var0 = 0; var0 < 26; ++var0) { // L: 8
+			field4158[var0] = (char)(var0 + 65);
+		}
 
-	@ObfuscatedName("v")
+		for (var0 = 26; var0 < 52; ++var0) { // L: 9
+			field4158[var0] = (char)(var0 + 97 - 26);
+		}
+
+		for (var0 = 52; var0 < 62; ++var0) { // L: 10
+			field4158[var0] = (char)(var0 + 48 - 52);
+		}
+
+		field4158[62] = '+'; // L: 11
+		field4158[63] = '/'; // L: 12
+		field4161 = new char[64]; // L: 18
+
+		for (var0 = 0; var0 < 26; ++var0) { // L: 19
+			field4161[var0] = (char)(var0 + 65);
+		}
+
+		for (var0 = 26; var0 < 52; ++var0) { // L: 20
+			field4161[var0] = (char)(var0 + 97 - 26);
+		}
+
+		for (var0 = 52; var0 < 62; ++var0) { // L: 21
+			field4161[var0] = (char)(var0 + 48 - 52);
+		}
+
+		field4161[62] = '*'; // L: 22
+		field4161[63] = '-'; // L: 23
+		field4160 = new char[64]; // L: 29
+
+		for (var0 = 0; var0 < 26; ++var0) { // L: 30
+			field4160[var0] = (char)(var0 + 65);
+		}
+
+		for (var0 = 26; var0 < 52; ++var0) { // L: 31
+			field4160[var0] = (char)(var0 + 97 - 26);
+		}
+
+		for (var0 = 52; var0 < 62; ++var0) { // L: 32
+			field4160[var0] = (char)(var0 + 48 - 52);
+		}
+
+		field4160[62] = '-'; // L: 33
+		field4160[63] = '_'; // L: 34
+		field4159 = new int[128]; // L: 40
+
+		for (var0 = 0; var0 < field4159.length; ++var0) { // L: 41
+			field4159[var0] = -1;
+		}
+
+		for (var0 = 65; var0 <= 90; ++var0) { // L: 42
+			field4159[var0] = var0 - 65;
+		}
+
+		for (var0 = 97; var0 <= 122; ++var0) { // L: 43
+			field4159[var0] = var0 - 97 + 26;
+		}
+
+		for (var0 = 48; var0 <= 57; ++var0) { // L: 44
+			field4159[var0] = var0 - 48 + 52;
+		}
+
+		int[] var2 = field4159; // L: 45
+		field4159[43] = 62; // L: 46
+		var2[42] = 62; // L: 47
+		int[] var1 = field4159; // L: 48
+		field4159[47] = 63; // L: 49
+		var1[45] = 63; // L: 50
+	} // L: 51
+
+	@ObfuscatedName("kh")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1379999236"
+		descriptor = "([Lki;II)V",
+		garbageValue = "-1118405651"
 	)
-	void method6297() {
-		int var1 = (this.field4104.length << 1) + 1; // L: 23
-		this.field4104 = (class340[])((class340[])Arrays.copyOf(this.field4104, var1)); // L: 24
-	} // L: 25
+	@Export("drawModelComponents")
+	static final void drawModelComponents(Widget[] var0, int var1) {
+		for (int var2 = 0; var2 < var0.length; ++var2) { // L: 11985
+			Widget var3 = var0[var2]; // L: 11986
+			if (var3 != null && var3.parentId == var1 && (!var3.isIf3 || !class434.isComponentHidden(var3))) { // L: 11987 11988 11989
+				int var5;
+				if (var3.type == 0) { // L: 11990
+					if (!var3.isIf3 && class434.isComponentHidden(var3) && var3 != class144.mousedOverWidgetIf1) { // L: 11991
+						continue;
+					}
 
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "-54903220"
-	)
-	void method6285(int var1) {
-		class340 var2;
-		int var3;
-		for (var2 = this.field4104[var1]; var1 > 0; var1 = var3) { // L: 89 90 101
-			var3 = var1 - 1 >>> 1; // L: 91
-			class340 var4 = this.field4104[var3]; // L: 92
-			if (this.field4107 != null) { // L: 93
-				if (this.field4107.compare(var2.field4096, var4.field4096) >= 0) { // L: 94
-					break;
-				}
-			} else if (((Comparable)var2.field4096).compareTo(var4.field4096) >= 0) { // L: 97
-				break;
-			}
+					drawModelComponents(var0, var3.id); // L: 11992
+					if (var3.children != null) { // L: 11993
+						drawModelComponents(var3.children, var3.id);
+					}
 
-			this.field4104[var1] = var4; // L: 99
-			this.field4104[var1].field4095 = var1; // L: 100
-		}
-
-		this.field4104[var1] = var2; // L: 103
-		this.field4104[var1].field4095 = var1; // L: 104
-	} // L: 105
-
-	@ObfuscatedName("i")
-	@ObfuscatedSignature(
-		descriptor = "(IB)V",
-		garbageValue = "45"
-	)
-	void method6309(int var1) {
-		class340 var2 = this.field4104[var1]; // L: 108
-
-		int var8;
-		for (int var3 = this.field4106 >>> 1; var1 < var3; var1 = var8) { // L: 109 110 132
-			int var4 = (var1 << 1) + 1; // L: 111
-			class340 var5 = this.field4104[var4]; // L: 112
-			int var6 = (var1 << 1) + 2; // L: 113
-			class340 var7 = this.field4104[var6]; // L: 114
-			if (this.field4107 != null) { // L: 116
-				if (var6 < this.field4106 && this.field4107.compare(var5.field4096, var7.field4096) > 0) { // L: 117
-					var8 = var6;
-				} else {
-					var8 = var4; // L: 118
-				}
-			} else if (var6 < this.field4106 && ((Comparable)var5.field4096).compareTo(var7.field4096) > 0) { // L: 121
-				var8 = var6;
-			} else {
-				var8 = var4; // L: 122
-			}
-
-			if (this.field4107 != null) { // L: 124
-				if (this.field4107.compare(var2.field4096, this.field4104[var8].field4096) <= 0) { // L: 125
-					break;
-				}
-			} else if (((Comparable)var2.field4096).compareTo(this.field4104[var8].field4096) <= 0) { // L: 128
-				break;
-			}
-
-			this.field4104[var1] = this.field4104[var8]; // L: 130
-			this.field4104[var1].field4095 = var1; // L: 131
-		}
-
-		this.field4104[var1] = var2; // L: 134
-		this.field4104[var1].field4095 = var1; // L: 135
-	} // L: 136
-
-	public boolean remove(Object var1) {
-		class340 var2 = (class340)this.field4105.remove(var1); // L: 71
-		if (var2 == null) { // L: 72
-			return false;
-		} else {
-			++this.field4108; // L: 73
-			--this.field4106; // L: 74
-			if (var2.field4095 == this.field4106) { // L: 75
-				this.field4104[this.field4106] = null; // L: 76
-				return true; // L: 77
-			} else {
-				class340 var3 = this.field4104[this.field4106]; // L: 79
-				this.field4104[this.field4106] = null; // L: 80
-				this.field4104[var2.field4095] = var3; // L: 81
-				this.field4104[var2.field4095].field4095 = var2.field4095; // L: 82
-				this.method6309(var2.field4095); // L: 83
-				if (var3 == this.field4104[var2.field4095]) { // L: 84
-					this.method6285(var2.field4095);
+					InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var3.id); // L: 11994
+					if (var4 != null) { // L: 11995
+						var5 = var4.group; // L: 11996
+						if (WorldMapDecoration.loadInterface(var5)) { // L: 11998
+							drawModelComponents(NetSocket.Widget_interfaceComponents[var5], -1); // L: 11999
+						}
+					}
 				}
 
-				return true; // L: 85
-			}
-		}
-	}
+				if (var3.type == 6) { // L: 12003
+					if (var3.sequenceId != -1 || var3.sequenceId2 != -1) { // L: 12004
+						boolean var7 = class401.runCs1(var3); // L: 12005
+						if (var7) { // L: 12007
+							var5 = var3.sequenceId2;
+						} else {
+							var5 = var3.sequenceId; // L: 12008
+						}
 
-	public Object peek() {
-		return this.field4106 == 0 ? null : this.field4104[0].field4096; // L: 50 51
-	}
+						if (var5 != -1) { // L: 12009
+							SequenceDefinition var6 = class114.SequenceDefinition_get(var5); // L: 12010
 
-	public Object[] toArray() {
-		Object[] var1 = super.toArray(); // L: 143
-		if (this.field4107 != null) {
-			Arrays.sort(var1, this.field4107); // L: 144
-		} else {
-			Arrays.sort(var1); // L: 145
-		}
+							for (var3.modelFrameCycle += Client.field727; var3.modelFrameCycle > var6.frameLengths[var3.modelFrame]; GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3)) { // L: 12011 12012 12019
+								var3.modelFrameCycle -= var6.frameLengths[var3.modelFrame]; // L: 12013
+								++var3.modelFrame; // L: 12014
+								if (var3.modelFrame >= var6.frameIds.length) { // L: 12015
+									var3.modelFrame -= var6.frameCount; // L: 12016
+									if (var3.modelFrame < 0 || var3.modelFrame >= var6.frameIds.length) { // L: 12017
+										var3.modelFrame = 0;
+									}
+								}
+							}
+						}
+					}
 
-		return var1; // L: 146
-	}
-
-	public Object poll() {
-		if (this.field4106 == 0) { // L: 55
-			return null;
-		} else {
-			++this.field4108; // L: 56
-			Object var1 = this.field4104[0].field4096; // L: 57
-			this.field4105.remove(var1); // L: 58
-			--this.field4106; // L: 59
-			if (this.field4106 == 0) {
-				this.field4104[this.field4106] = null; // L: 60
-			} else {
-				this.field4104[0] = this.field4104[this.field4106]; // L: 62
-				this.field4104[0].field4095 = 0; // L: 63
-				this.field4104[this.field4106] = null; // L: 64
-				this.method6309(0); // L: 65
-			}
-
-			return var1; // L: 67
-		}
-	}
-
-	public int size() {
-		return this.field4106; // L: 28
-	}
-
-	public Iterator iterator() {
-		return new class341(this); // L: 150
-	}
-
-	public boolean offer(Object var1) {
-		if (this.field4105.containsKey(var1)) { // L: 32
-			throw new IllegalArgumentException("");
-		} else {
-			++this.field4108; // L: 33
-			int var2 = this.field4106; // L: 34
-			if (var2 >= this.field4104.length) { // L: 35
-				this.method6297();
-			}
-
-			++this.field4106; // L: 36
-			if (var2 == 0) { // L: 37
-				this.field4104[0] = new class340(var1, 0); // L: 38
-				this.field4105.put(var1, this.field4104[0]); // L: 39
-			} else {
-				this.field4104[var2] = new class340(var1, var2); // L: 42
-				this.field4105.put(var1, this.field4104[var2]); // L: 43
-				this.method6285(var2); // L: 44
-			}
-
-			return true; // L: 46
-		}
-	}
-
-	public boolean contains(Object var1) {
-		return this.field4105.containsKey(var1); // L: 139
-	}
-
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		descriptor = "(II)Ldo;",
-		garbageValue = "901392143"
-	)
-	static class122 method6314(int var0) {
-		class122 var1 = (class122)SequenceDefinition.SequenceDefinition_cachedModel.get((long)var0); // L: 339
-		if (var1 != null) { // L: 340
-			return var1;
-		} else {
-			AbstractArchive var3 = SequenceDefinition.SequenceDefinition_animationsArchive; // L: 342
-			AbstractArchive var4 = SequenceDefinition.SequenceDefinition_skeletonsArchive; // L: 343
-			boolean var5 = true; // L: 345
-			byte[] var6 = var3.takeFile(var0 >> 16 & 65535, var0 & 65535); // L: 346
-			class122 var2;
-			if (var6 == null) { // L: 347
-				var5 = false; // L: 348
-				var2 = null; // L: 349
-			} else {
-				int var7 = (var6[1] & 255) << 8 | var6[2] & 255; // L: 352
-				byte[] var8 = var4.getFile(var7, 0); // L: 355
-				if (var8 == null) { // L: 356
-					var5 = false;
-				}
-
-				if (!var5) { // L: 357
-					var2 = null; // L: 358
-				} else {
-					try {
-						var2 = new class122(var3, var4, var0, false); // L: 362
-					} catch (Exception var10) { // L: 364
-						var2 = null; // L: 365
+					if (var3.field3451 != 0 && !var3.isIf3) { // L: 12023
+						int var8 = var3.field3451 >> 16; // L: 12024
+						var5 = var3.field3451 << 16 >> 16; // L: 12025
+						var8 *= Client.field727; // L: 12026
+						var5 *= Client.field727; // L: 12027
+						var3.modelAngleX = var8 + var3.modelAngleX & 2047; // L: 12028
+						var3.modelAngleY = var5 + var3.modelAngleY & 2047; // L: 12029
+						GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 12030
 					}
 				}
 			}
-
-			if (var2 != null) { // L: 369
-				SequenceDefinition.SequenceDefinition_cachedModel.put(var2, (long)var0);
-			}
-
-			return var2; // L: 370
 		}
-	}
+
+	} // L: 12034
 }

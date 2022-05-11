@@ -1,135 +1,133 @@
-import java.lang.management.GarbageCollectorMXBean;
-import java.lang.management.ManagementFactory;
-import java.util.Iterator;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("hu")
+@ObfuscatedName("gn")
 @Implements("Tile")
 public final class Tile extends Node {
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 554063901
+		intValue = 887186055
 	)
 	@Export("plane")
 	int plane;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -1735268707
+		intValue = 719692751
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("i")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 1320451453
+		intValue = 2070822957
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("f")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 409854947
+		intValue = -1571348595
 	)
 	@Export("originalPlane")
 	int originalPlane;
-	@ObfuscatedName("b")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "Liv;"
+		descriptor = "Lhr;"
 	)
 	@Export("paint")
 	SceneTilePaint paint;
-	@ObfuscatedName("n")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Lik;"
+		descriptor = "Lhu;"
 	)
 	@Export("model")
 	SceneTileModel model;
-	@ObfuscatedName("s")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "Lij;"
+		descriptor = "Lhc;"
 	)
 	@Export("boundaryObject")
 	BoundaryObject boundaryObject;
-	@ObfuscatedName("l")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Lio;"
+		descriptor = "Lhf;"
 	)
 	@Export("wallDecoration")
 	WallDecoration wallDecoration;
-	@ObfuscatedName("q")
+	@ObfuscatedName("r")
 	@ObfuscatedSignature(
-		descriptor = "Lhp;"
+		descriptor = "Lga;"
 	)
 	@Export("floorDecoration")
 	FloorDecoration floorDecoration;
-	@ObfuscatedName("o")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lhy;"
+		descriptor = "Lgz;"
 	)
 	@Export("itemLayer")
 	ItemLayer itemLayer;
-	@ObfuscatedName("r")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 888964959
+		intValue = -1697073381
 	)
 	@Export("gameObjectsCount")
 	int gameObjectsCount;
-	@ObfuscatedName("p")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "[Liy;"
+		descriptor = "[Lhx;"
 	)
 	@Export("gameObjects")
 	GameObject[] gameObjects;
 	@ObfuscatedName("w")
 	@Export("gameObjectEdgeMasks")
 	int[] gameObjectEdgeMasks;
-	@ObfuscatedName("k")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = -1954145803
+		intValue = -344605411
 	)
 	@Export("gameObjectsEdgeMask")
 	int gameObjectsEdgeMask;
-	@ObfuscatedName("d")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 1615665333
+		intValue = -1026469489
 	)
 	@Export("minPlane")
 	int minPlane;
-	@ObfuscatedName("m")
+	@ObfuscatedName("g")
 	@Export("drawPrimary")
 	boolean drawPrimary;
-	@ObfuscatedName("u")
+	@ObfuscatedName("x")
 	@Export("drawSecondary")
 	boolean drawSecondary;
-	@ObfuscatedName("t")
+	@ObfuscatedName("n")
 	@Export("drawGameObjects")
 	boolean drawGameObjects;
-	@ObfuscatedName("g")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 1788944153
+		intValue = -1027035127
 	)
 	@Export("drawGameObjectEdges")
 	int drawGameObjectEdges;
-	@ObfuscatedName("x")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = -1042074251
+		intValue = 1807728235
 	)
-	int field2544;
-	@ObfuscatedName("a")
+	int field2372;
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -147563717
+		intValue = -588428605
 	)
-	int field2545;
-	@ObfuscatedName("y")
+	int field2373;
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = 1316845431
+		intValue = -720858367
 	)
-	int field2546;
+	int field2374;
 	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "Lhu;"
+		descriptor = "Lgn;"
 	)
 	@Export("linkedBelowTile")
 	Tile linkedBelowTile;
@@ -138,59 +136,100 @@ public final class Tile extends Node {
 		this.gameObjects = new GameObject[5]; // L: 17
 		this.gameObjectEdgeMasks = new int[5]; // L: 18
 		this.gameObjectsEdgeMask = 0; // L: 19
-		this.originalPlane = this.plane = var1; // L: 31
+		this.originalPlane = this.plane = var1;
 		this.x = var2; // L: 32
 		this.y = var3; // L: 33
 	} // L: 34
 
-	@ObfuscatedName("al")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "1950958863"
+		descriptor = "(S)Lnw;",
+		garbageValue = "-23548"
 	)
-	@Export("getGcDuration")
-	protected static int getGcDuration() {
-		int var0 = 0; // L: 574
-		if (PcmPlayer.garbageCollector == null || !PcmPlayer.garbageCollector.isValid()) { // L: 575
-			try {
-				Iterator var1 = ManagementFactory.getGarbageCollectorMXBeans().iterator(); // L: 577
-
-				while (var1.hasNext()) {
-					GarbageCollectorMXBean var2 = (GarbageCollectorMXBean)var1.next(); // L: 578
-					if (var2.isValid()) { // L: 580
-						PcmPlayer.garbageCollector = var2; // L: 581
-						GameEngine.garbageCollectorLastCheckTimeMs = -1L; // L: 582
-						GameEngine.garbageCollectorLastCollectionTime = -1L; // L: 583
-					}
-				}
-			} catch (Throwable var11) { // L: 588
+	public static class388 method3904() {
+		synchronized(class388.field4402) { // L: 27
+			if (class388.field4401 == 0) { // L: 28
+				return new class388();
+			} else {
+				class388.field4402[--class388.field4401].method6861(); // L: 30
+				return class388.field4402[class388.field4401]; // L: 31
 			}
 		}
-
-		if (PcmPlayer.garbageCollector != null) { // L: 590
-			long var9 = class136.method2931(); // L: 591
-			long var3 = PcmPlayer.garbageCollector.getCollectionTime(); // L: 592
-			if (-1L != GameEngine.garbageCollectorLastCollectionTime) { // L: 593
-				long var5 = var3 - GameEngine.garbageCollectorLastCollectionTime; // L: 594
-				long var7 = var9 - GameEngine.garbageCollectorLastCheckTimeMs; // L: 595
-				if (var7 != 0L) { // L: 596
-					var0 = (int)(var5 * 100L / var7);
-				}
-			}
-
-			GameEngine.garbageCollectorLastCollectionTime = var3; // L: 598
-			GameEngine.garbageCollectorLastCheckTimeMs = var9; // L: 599
-		}
-
-		return var0; // L: 601
 	}
 
-	@ObfuscatedName("lk")
+	@ObfuscatedName("h")
 	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "418213211"
+		descriptor = "(ILbb;ZB)I",
+		garbageValue = "1"
 	)
-	static void method4603(int var0) {
-		Client.oculusOrbState = var0; // L: 12603
-	} // L: 12604
+	static int method3903(int var0, Script var1, boolean var2) {
+		Widget var3 = class92.getWidget(Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize]); // L: 1312
+		if (var0 == ScriptOpcodes.IF_GETX) { // L: 1313
+			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.x; // L: 1314
+			return 1; // L: 1315
+		} else if (var0 == ScriptOpcodes.IF_GETY) { // L: 1317
+			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.y; // L: 1318
+			return 1; // L: 1319
+		} else if (var0 == ScriptOpcodes.IF_GETWIDTH) { // L: 1321
+			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.width; // L: 1322
+			return 1; // L: 1323
+		} else if (var0 == ScriptOpcodes.IF_GETHEIGHT) { // L: 1325
+			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.height; // L: 1326
+			return 1; // L: 1327
+		} else if (var0 == ScriptOpcodes.IF_GETHIDE) { // L: 1329
+			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.isHidden ? 1 : 0; // L: 1330
+			return 1; // L: 1331
+		} else if (var0 == ScriptOpcodes.IF_GETLAYER) { // L: 1333
+			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.parentId; // L: 1334
+			return 1; // L: 1335
+		} else {
+			return 2; // L: 1337
+		}
+	}
+
+	@ObfuscatedName("ay")
+	@ObfuscatedSignature(
+		descriptor = "(ILbb;ZB)I",
+		garbageValue = "-61"
+	)
+	static int method3902(int var0, Script var1, boolean var2) {
+		if (var0 == 7100) { // L: 4592
+			++class12.Interpreter_intStackSize; // L: 4593
+			return 1; // L: 4594
+		} else if (var0 == 7101) { // L: 4596
+			class9.Interpreter_stringStackSize += 2; // L: 4597
+			return 1; // L: 4598
+		} else if (var0 != 7102 && var0 != 7103 && var0 != 7104 && var0 != 7105 && var0 != 7109) { // L: 4600
+			if (var0 == 7106) { // L: 4604
+				++class12.Interpreter_intStackSize; // L: 4605
+				return 1; // L: 4606
+			} else if (var0 == 7107) { // L: 4608
+				++class12.Interpreter_intStackSize; // L: 4609
+				return 1; // L: 4610
+			} else if (var0 == 7108) { // L: 4612
+				Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = CollisionMap.method3788() ? 1 : 0; // L: 4613
+				return 1; // L: 4614
+			} else if (var0 == 7110) { // L: 4616
+				Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = 0; // L: 4617
+				return 1; // L: 4618
+			} else if (var0 == 7120) { // L: 4620
+				--class12.Interpreter_intStackSize; // L: 4621
+				Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = 0; // L: 4622
+				return 1; // L: 4623
+			} else if (var0 == 7121) { // L: 4625
+				class12.Interpreter_intStackSize -= 2; // L: 4626
+				Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = -1; // L: 4627
+				return 1; // L: 4628
+			} else if (var0 == 7122) { // L: 4630
+				class12.Interpreter_intStackSize -= 2; // L: 4631
+				Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = 0; // L: 4632
+				return 1; // L: 4633
+			} else {
+				return 2; // L: 4635
+			}
+		} else {
+			++class12.Interpreter_intStackSize; // L: 4601
+			return 1; // L: 4602
+		}
+	}
 }

@@ -4,62 +4,51 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bd")
+@ObfuscatedName("bb")
 @Implements("Script")
 public class Script extends DualNode {
-	@ObfuscatedName("sv")
-	@ObfuscatedGetter(
-		intValue = 1540125023
-	)
-	static int field955;
-	@ObfuscatedName("ud")
-	@ObfuscatedGetter(
-		intValue = 1431517737
-	)
-	@Export("foundItemIdCount")
-	static int foundItemIdCount;
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Lig;"
+		descriptor = "Lir;"
 	)
 	@Export("Script_cached")
 	static EvictingDualNodeHashTable Script_cached;
-	@ObfuscatedName("c")
-	String field954;
-	@ObfuscatedName("i")
+	@ObfuscatedName("q")
+	String field949;
+	@ObfuscatedName("l")
 	@Export("opcodes")
 	int[] opcodes;
-	@ObfuscatedName("f")
+	@ObfuscatedName("k")
 	@Export("intOperands")
 	int[] intOperands;
-	@ObfuscatedName("b")
+	@ObfuscatedName("a")
 	@Export("stringOperands")
 	String[] stringOperands;
-	@ObfuscatedName("n")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -61904285
+		intValue = -1638738709
 	)
 	@Export("localIntCount")
 	int localIntCount;
-	@ObfuscatedName("s")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -166989853
+		intValue = 2011225427
 	)
 	@Export("localStringCount")
 	int localStringCount;
-	@ObfuscatedName("l")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = 2085074269
+		intValue = -1425203371
 	)
 	@Export("intArgumentCount")
 	int intArgumentCount;
-	@ObfuscatedName("q")
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = 832856221
+		intValue = 2038288745
 	)
 	@Export("stringArgumentCount")
 	int stringArgumentCount;
-	@ObfuscatedName("o")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
 		descriptor = "[Lpt;"
 	)
@@ -67,111 +56,59 @@ public class Script extends DualNode {
 	IterableNodeHashTable[] switches;
 
 	static {
-		Script_cached = new EvictingDualNodeHashTable(128);
+		Script_cached = new EvictingDualNodeHashTable(128); // L: 12
 	}
 
 	Script() {
-	}
+	} // L: 23
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(II)[Lpt;",
-		garbageValue = "1023486381"
+		descriptor = "(IB)[Lpt;",
+		garbageValue = "0"
 	)
 	@Export("newIterableNodeHashTable")
 	IterableNodeHashTable[] newIterableNodeHashTable(int var1) {
-		return new IterableNodeHashTable[var1]; // L: 122
+		return new IterableNodeHashTable[var1]; // L: 155
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(II)Ljava/lang/String;",
-		garbageValue = "-881844017"
+		descriptor = "(II)Lfb;",
+		garbageValue = "16711680"
 	)
-	static String method1990(int var0) {
-		return "<img=" + var0 + ">"; // L: 18
-	}
-
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "(IIII)I",
-		garbageValue = "108796867"
-	)
-	public static int method1996(int var0, int var1, int var2) {
-		var2 &= 3; // L: 9
-		if (var2 == 0) { // L: 10
-			return var0;
-		} else if (var2 == 1) { // L: 11
+	@Export("KitDefinition_get")
+	public static KitDefinition KitDefinition_get(int var0) {
+		KitDefinition var1 = (KitDefinition)KitDefinition.KitDefinition_cached.get((long)var0); // L: 33
+		if (var1 != null) { // L: 34
 			return var1;
 		} else {
-			return var2 == 2 ? 7 - var0 : 7 - var1; // L: 12 13
-		}
-	}
-
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		descriptor = "(II)Lfl;",
-		garbageValue = "2129001923"
-	)
-	@Export("getInvDefinition")
-	public static InvDefinition getInvDefinition(int var0) {
-		InvDefinition var1 = (InvDefinition)InvDefinition.InvDefinition_cached.get((long)var0); // L: 21
-		if (var1 != null) { // L: 22
-			return var1;
-		} else {
-			byte[] var2 = InvDefinition.InvDefinition_archive.takeFile(5, var0); // L: 23
-			var1 = new InvDefinition(); // L: 24
-			if (var2 != null) { // L: 25
+			byte[] var2 = class18.KitDefinition_archive.takeFile(3, var0); // L: 35
+			var1 = new KitDefinition(); // L: 36
+			if (var2 != null) { // L: 37
 				var1.decode(new Buffer(var2));
 			}
 
-			InvDefinition.InvDefinition_cached.put(var1, (long)var0); // L: 26
-			return var1; // L: 27
+			KitDefinition.KitDefinition_cached.put(var1, (long)var0); // L: 38
+			return var1; // L: 39
 		}
 	}
 
-	@ObfuscatedName("kd")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "(Lcc;ZS)V",
-		garbageValue = "7462"
+		descriptor = "(Lki;IB)V",
+		garbageValue = "11"
 	)
-	@Export("closeInterface")
-	static final void closeInterface(InterfaceParent var0, boolean var1) {
-		int var2 = var0.group; // L: 12167
-		int var3 = (int)var0.key; // L: 12168
-		var0.remove(); // L: 12169
-		if (var1 && var2 != -1 && WorldMapSectionType.Widget_loadedInterfaces[var2]) { // L: 12170 12171 12172
-			Widget.Widget_archive.clearFilesGroup(var2); // L: 12173
-			if (Widget.Widget_interfaceComponents[var2] != null) { // L: 12174
-				boolean var4 = true; // L: 12175
-
-				for (int var5 = 0; var5 < Widget.Widget_interfaceComponents[var2].length; ++var5) { // L: 12176
-					if (Widget.Widget_interfaceComponents[var2][var5] != null) { // L: 12177
-						if (Widget.Widget_interfaceComponents[var2][var5].type != 2) { // L: 12178
-							Widget.Widget_interfaceComponents[var2][var5] = null;
-						} else {
-							var4 = false; // L: 12179
-						}
-					}
-				}
-
-				if (var4) { // L: 12182
-					Widget.Widget_interfaceComponents[var2] = null;
-				}
-
-				WorldMapSectionType.Widget_loadedInterfaces[var2] = false; // L: 12183
+	@Export("Widget_setKeyIgnoreHeld")
+	static final void Widget_setKeyIgnoreHeld(Widget var0, int var1) {
+		if (var0.field3474 == null) { // L: 1020
+			throw new RuntimeException(); // L: 1021
+		} else {
+			if (var0.field3527 == null) { // L: 1023
+				var0.field3527 = new int[var0.field3474.length]; // L: 1024
 			}
-		}
 
-		class29.method403(var2); // L: 12185
-		Widget var6 = class127.getWidget(var3); // L: 12186
-		if (var6 != null) { // L: 12187
-			class346.invalidateWidget(var6);
+			var0.field3527[var1] = Integer.MAX_VALUE; // L: 1026
 		}
-
-		if (Client.rootInterface != -1) { // L: 12188
-			MouseRecorder.runIntfCloseListeners(Client.rootInterface, 1);
-		}
-
-	} // L: 12189
+	} // L: 1027
 }

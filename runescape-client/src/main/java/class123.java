@@ -3,99 +3,91 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("dw")
+@ObfuscatedName("dt")
 public enum class123 implements MouseWheel {
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Ldw;"
+		descriptor = "Ldt;"
 	)
-	field1483(0, 0),
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		descriptor = "Ldw;"
-	)
-	field1492(1, 1),
-	@ObfuscatedName("i")
-	@ObfuscatedSignature(
-		descriptor = "Ldw;"
-	)
-	field1486(2, 2),
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "Ldw;"
-	)
-	field1482(3, 3),
-	@ObfuscatedName("b")
-	@ObfuscatedSignature(
-		descriptor = "Ldw;"
-	)
-	field1481(4, 4),
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "Ldw;"
-	)
-	field1484(5, 5),
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "Ldw;"
-	)
-	field1487(6, 6),
-	@ObfuscatedName("l")
-	@ObfuscatedSignature(
-		descriptor = "Ldw;"
-	)
-	field1488(7, 7),
+	field1550(0, 0),
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Ldw;"
+		descriptor = "Ldt;"
 	)
-	field1489(8, 8);
-
-	@ObfuscatedName("o")
-	@ObfuscatedGetter(
-		intValue = 1942889575
+	field1545(1, 1),
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		descriptor = "Ldt;"
 	)
-	final int field1490;
+	field1540(2, 2),
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		descriptor = "Ldt;"
+	)
+	field1542(3, 3),
+	@ObfuscatedName("a")
+	@ObfuscatedSignature(
+		descriptor = "Ldt;"
+	)
+	field1543(4, 4),
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		descriptor = "Ldt;"
+	)
+	field1539(5, 5),
+	@ObfuscatedName("p")
+	@ObfuscatedSignature(
+		descriptor = "Ldt;"
+	)
+	field1541(6, 6),
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		descriptor = "Ldt;"
+	)
+	field1546(7, 7),
 	@ObfuscatedName("r")
-	@ObfuscatedGetter(
-		intValue = -315171815
+	@ObfuscatedSignature(
+		descriptor = "Ldt;"
 	)
-	final int field1491;
-
-	class123(int var3, int var4) {
-		this.field1490 = var3; // L: 110
-		this.field1491 = var4; // L: 111
-	} // L: 112
+	field1547(8, 8);
 
 	@ObfuscatedName("v")
+	@ObfuscatedGetter(
+		intValue = -1024399329
+	)
+	final int field1548;
+	@ObfuscatedName("y")
+	@ObfuscatedGetter(
+		intValue = -44674933
+	)
+	final int field1549;
+
+	class123(int var3, int var4) {
+		this.field1548 = var3; // L: 107
+		this.field1549 = var4; // L: 108
+	} // L: 109
+
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "(B)I",
-		garbageValue = "16"
+		garbageValue = "30"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field1491; // L: 115
+		return this.field1549; // L: 112
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("lh")
 	@ObfuscatedSignature(
-		descriptor = "(II)Lfk;",
-		garbageValue = "2122696884"
+		descriptor = "(IIIZB)V",
+		garbageValue = "16"
 	)
-	public static FloorUnderlayDefinition method2806(int var0) {
-		FloorUnderlayDefinition var1 = (FloorUnderlayDefinition)FloorUnderlayDefinition.FloorUnderlayDefinition_cached.get((long)var0); // L: 21
-		if (var1 != null) { // L: 22
-			return var1;
-		} else {
-			byte[] var2 = FloorUnderlayDefinition.FloorUnderlayDefinition_archive.takeFile(1, var0); // L: 23
-			var1 = new FloorUnderlayDefinition(); // L: 24
-			if (var2 != null) { // L: 25
-				var1.decode(new Buffer(var2), var0);
-			}
-
-			var1.postDecode(); // L: 26
-			FloorUnderlayDefinition.FloorUnderlayDefinition_cached.put(var1, (long)var0); // L: 27
-			return var1; // L: 28
-		}
-	}
+	public static void method2781(int var0, int var1, int var2, boolean var3) {
+		PacketBufferNode var4 = WallDecoration.getPacketBufferNode(ClientPacket.field2955, Client.packetWriter.isaacCipher); // L: 12656
+		var4.packetBuffer.method7551(var1); // L: 12657
+		var4.packetBuffer.method7550(var0); // L: 12658
+		var4.packetBuffer.method7596(var2); // L: 12659
+		var4.packetBuffer.writeIntME(var3 ? Client.field482 * -1673751255 * 1079039769 : 0); // L: 12660
+		Client.packetWriter.addNode(var4); // L: 12661
+	} // L: 12662
 }

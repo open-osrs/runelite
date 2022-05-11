@@ -4,48 +4,48 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("gy")
+@ObfuscatedName("hb")
 @Implements("WorldMapIcon_1")
 public class WorldMapIcon_1 extends AbstractWorldMapIcon {
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1439678685
+		intValue = 51181617
 	)
 	@Export("objectDefId")
 	final int objectDefId;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Lgd;"
+		descriptor = "Lhd;"
 	)
 	@Export("region")
 	final WorldMapRegion region;
-	@ObfuscatedName("i")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 1837597233
+		intValue = -351714887
 	)
 	@Export("element")
 	int element;
-	@ObfuscatedName("f")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "Lho;"
+		descriptor = "Lip;"
 	)
 	@Export("label")
 	WorldMapLabel label;
-	@ObfuscatedName("b")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = 129612535
+		intValue = 1557282329
 	)
 	@Export("subWidth")
 	int subWidth;
-	@ObfuscatedName("n")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 325263315
+		intValue = 1198695651
 	)
 	@Export("subHeight")
 	int subHeight;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lks;Lks;ILgd;)V"
+		descriptor = "(Lkd;Lkd;ILhd;)V"
 	)
 	WorldMapIcon_1(Coord var1, Coord var2, int var3, WorldMapRegion var4) {
 		super(var1, var2); // L: 17
@@ -54,16 +54,16 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 		this.init(); // L: 20
 	} // L: 21
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-1679326087"
+		garbageValue = "-760266737"
 	)
 	@Export("init")
 	void init() {
-		this.element = class146.getObjectDefinition(this.objectDefId).transform().mapIconId; // L: 24
-		this.label = this.region.createMapLabel(UserComparator7.WorldMapElement_get(this.element)); // L: 25
-		WorldMapElement var1 = UserComparator7.WorldMapElement_get(this.getElement()); // L: 26
+		this.element = class82.getObjectDefinition(this.objectDefId).transform().mapIconId; // L: 24
+		this.label = this.region.createMapLabel(class120.WorldMapElement_get(this.element)); // L: 25
+		WorldMapElement var1 = class120.WorldMapElement_get(this.getElement()); // L: 26
 		SpritePixels var2 = var1.getSpriteBool(false); // L: 27
 		if (var2 != null) { // L: 28
 			this.subWidth = var2.subWidth; // L: 29
@@ -75,64 +75,43 @@ public class WorldMapIcon_1 extends AbstractWorldMapIcon {
 
 	} // L: 36
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "364835409"
+		descriptor = "(B)I",
+		garbageValue = "16"
 	)
 	@Export("getElement")
 	public int getElement() {
-		return this.element; // L: 39
+		return this.element; // L: 40
 	}
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(B)Lho;",
-		garbageValue = "-32"
+		descriptor = "(I)Lip;",
+		garbageValue = "1420245554"
 	)
 	@Export("getLabel")
 	WorldMapLabel getLabel() {
-		return this.label; // L: 43
+		return this.label; // L: 45
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-915724910"
+		descriptor = "(B)I",
+		garbageValue = "102"
 	)
 	@Export("getSubWidth")
 	int getSubWidth() {
-		return this.subWidth; // L: 47
+		return this.subWidth; // L: 50
 	}
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "1982860019"
+		garbageValue = "-1663406998"
 	)
 	@Export("getSubHeight")
 	int getSubHeight() {
-		return this.subHeight; // L: 51
-	}
-
-	@ObfuscatedName("i")
-	@ObfuscatedSignature(
-		descriptor = "(Lpi;IB)Ljava/lang/String;",
-		garbageValue = "50"
-	)
-	static String method3933(Buffer var0, int var1) {
-		try {
-			int var2 = var0.readUShortSmart(); // L: 65
-			if (var2 > var1) { // L: 66
-				var2 = var1;
-			}
-
-			byte[] var3 = new byte[var2]; // L: 67
-			var0.offset += class282.huffman.decompress(var0.array, var0.offset, var3, 0, var2); // L: 68
-			String var4 = class118.decodeStringCp1252(var3, 0, var2); // L: 69
-			return var4; // L: 70
-		} catch (Exception var6) { // L: 72
-			return "Cabbage"; // L: 73
-		}
+		return this.subHeight; // L: 55
 	}
 }

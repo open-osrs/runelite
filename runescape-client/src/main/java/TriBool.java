@@ -4,33 +4,32 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ni")
+@ObfuscatedName("nq")
 @Implements("TriBool")
 public class TriBool {
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Lni;"
+		descriptor = "Lnq;"
 	)
 	@Export("TriBool_unknown")
 	public static final TriBool TriBool_unknown;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Lni;"
+		descriptor = "Lnq;"
 	)
 	@Export("TriBool_true")
 	public static final TriBool TriBool_true;
-	@ObfuscatedName("i")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lni;"
+		descriptor = "Lnq;"
 	)
 	@Export("TriBool_false")
 	public static final TriBool TriBool_false;
-	@ObfuscatedName("s")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 355454995
+		intValue = 1003527319
 	)
-	@Export("gameCyclesToDo")
-	static int gameCyclesToDo;
+	static int field4339;
 
 	static {
 		TriBool_unknown = new TriBool(); // L: 4
@@ -41,38 +40,17 @@ public class TriBool {
 	TriBool() {
 	} // L: 8
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("la")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Lfc;",
-		garbageValue = "-12"
+		descriptor = "(Lki;B)Ljava/lang/String;",
+		garbageValue = "-92"
 	)
-	public static VarcInt method6839(int var0) {
-		VarcInt var1 = (VarcInt)VarcInt.VarcInt_cached.get((long)var0); // L: 17
-		if (var1 != null) { // L: 18
-			return var1;
+	@Export("Widget_getSpellActionName")
+	static String Widget_getSpellActionName(Widget var0) {
+		if (WorldMapSection1.Widget_unpackTargetMask(UrlRequester.getWidgetFlags(var0)) == 0) { // L: 12521
+			return null;
 		} else {
-			byte[] var2 = class384.VarcInt_archive.takeFile(19, var0); // L: 19
-			var1 = new VarcInt(); // L: 20
-			if (var2 != null) { // L: 21
-				var1.method3414(new Buffer(var2));
-			}
-
-			VarcInt.VarcInt_cached.put(var1, (long)var0); // L: 22
-			return var1; // L: 23
+			return var0.spellActionName != null && var0.spellActionName.trim().length() != 0 ? var0.spellActionName : null; // L: 12522 12523 12525
 		}
-	}
-
-	@ObfuscatedName("b")
-	@ObfuscatedSignature(
-		descriptor = "(II)Ldf;",
-		garbageValue = "-468677079"
-	)
-	static class118 method6838(int var0) {
-		class118 var1 = (class118)MusicPatchPcmStream.findEnumerated(class18.method258(), var0); // L: 35
-		if (var1 == null) {
-			var1 = class118.field1433; // L: 36
-		}
-
-		return var1; // L: 37
 	}
 }

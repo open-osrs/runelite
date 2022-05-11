@@ -1,22 +1,26 @@
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("kg")
+@ObfuscatedName("kn")
 @Implements("Varps")
 public class Varps {
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@Export("Varps_masks")
 	static int[] Varps_masks;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@Export("Varps_temp")
 	public static int[] Varps_temp;
-	@ObfuscatedName("i")
+	@ObfuscatedName("l")
 	@Export("Varps_main")
 	public static int[] Varps_main;
+	@ObfuscatedName("a")
+	@ObfuscatedGetter(
+		intValue = -995653473
+	)
+	public static int field3348;
 
 	static {
 		Varps_masks = new int[32]; // L: 6
@@ -31,48 +35,27 @@ public class Varps {
 		Varps_main = new int[4000]; // L: 17
 	}
 
-	@ObfuscatedName("j")
+	@ObfuscatedName("kj")
 	@ObfuscatedSignature(
-		descriptor = "(Lff;III)Lay;",
-		garbageValue = "-1753293698"
+		descriptor = "(I)V",
+		garbageValue = "-20299938"
 	)
-	public static final PcmPlayer method5523(TaskHandler var0, int var1, int var2) {
-		if (var1 >= 0 && var1 < 2) { // L: 53
-			if (var2 < 256) { // L: 54
-				var2 = 256;
+	static final void method5366() {
+		PacketBufferNode var0 = WallDecoration.getPacketBufferNode(ClientPacket.field3001, Client.packetWriter.isaacCipher); // L: 12197
+		Client.packetWriter.addNode(var0); // L: 12198
+		Interpreter.field833 = true; // L: 12199
+
+		for (InterfaceParent var1 = (InterfaceParent)Client.interfaceParents.first(); var1 != null; var1 = (InterfaceParent)Client.interfaceParents.next()) { // L: 12200
+			if (var1.type == 0 || var1.type == 3) { // L: 12201
+				NetSocket.closeInterface(var1, true);
 			}
-
-			try {
-				PcmPlayer var3 = class384.pcmPlayerProvider.player(); // L: 56
-				var3.samples = new int[(PcmPlayer.PcmPlayer_stereo ? 2 : 1) * 256]; // L: 57
-				var3.field289 = var2; // L: 58
-				var3.init(); // L: 59
-				var3.capacity = (var2 & -1024) + 1024; // L: 60
-				if (var3.capacity > 16384) { // L: 61
-					var3.capacity = 16384;
-				}
-
-				var3.open(var3.capacity); // L: 62
-				if (PcmPlayer.field295 > 0 && class6.soundSystem == null) { // L: 63
-					class6.soundSystem = new SoundSystem(); // L: 64
-					WorldMapSection1.soundSystemExecutor = Executors.newScheduledThreadPool(1); // L: 65
-					WorldMapSection1.soundSystemExecutor.scheduleAtFixedRate(class6.soundSystem, 0L, 10L, TimeUnit.MILLISECONDS); // L: 66
-				}
-
-				if (class6.soundSystem != null) { // L: 68
-					if (class6.soundSystem.players[var1] != null) { // L: 69
-						throw new IllegalArgumentException();
-					}
-
-					class6.soundSystem.players[var1] = var3; // L: 70
-				}
-
-				return var3; // L: 72
-			} catch (Throwable var4) { // L: 74
-				return new PcmPlayer(); // L: 75
-			}
-		} else {
-			throw new IllegalArgumentException();
 		}
-	}
+
+		if (Client.meslayerContinueWidget != null) { // L: 12203
+			GrandExchangeOfferTotalQuantityComparator.invalidateWidget(Client.meslayerContinueWidget); // L: 12204
+			Client.meslayerContinueWidget = null; // L: 12205
+		}
+
+		Interpreter.field833 = false; // L: 12207
+	} // L: 12208
 }

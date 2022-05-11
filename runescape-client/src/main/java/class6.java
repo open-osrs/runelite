@@ -3,91 +3,101 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("s")
+@ObfuscatedName("p")
 public enum class6 implements MouseWheel {
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Ls;"
+		descriptor = "Lp;"
 	)
-	field14(0, 0);
+	field16(0, 0);
+
+	@ObfuscatedName("i")
+	@Export("BZip2Decompressor_block")
+	static int[] BZip2Decompressor_block;
+	@ObfuscatedName("q")
+	@ObfuscatedGetter(
+		intValue = 2103814257
+	)
+	public final int field11;
+	@ObfuscatedName("l")
+	@ObfuscatedGetter(
+		intValue = 23593839
+	)
+	final int field15;
+
+	class6(int var3, int var4) {
+		this.field11 = var3; // L: 12
+		this.field15 = var4; // L: 13
+	} // L: 14
 
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Lah;"
-	)
-	@Export("soundSystem")
-	static SoundSystem soundSystem;
-	@ObfuscatedName("c")
-	@ObfuscatedGetter(
-		intValue = -758443575
-	)
-	public final int field12;
-	@ObfuscatedName("i")
-	@ObfuscatedGetter(
-		intValue = 834021789
-	)
-	final int field13;
-
-	class6(int var3, int var4) {
-		this.field12 = var3; // L: 12
-		this.field13 = var4; // L: 13
-	} // L: 14
-
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
 		descriptor = "(B)I",
-		garbageValue = "16"
+		garbageValue = "30"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field13; // L: 17
+		return this.field15; // L: 18
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(Lln;III)Lqi;",
-		garbageValue = "-1027602960"
+		descriptor = "(III)I",
+		garbageValue = "-918039654"
 	)
-	@Export("SpriteBuffer_getSprite")
-	public static SpritePixels SpriteBuffer_getSprite(AbstractArchive var0, int var1, int var2) {
-		byte[] var4 = var0.takeFile(var1, var2); // L: 40
-		boolean var3;
-		if (var4 == null) { // L: 41
-			var3 = false; // L: 42
+	static int method45(int var0, int var1) {
+		long var2 = (long)((var0 << 16) + var1); // L: 164
+		return WorldMapIcon_0.NetCache_currentResponse != null && var2 == WorldMapIcon_0.NetCache_currentResponse.key ? class357.NetCache_responseArchiveBuffer.offset * 99 / (class357.NetCache_responseArchiveBuffer.array.length - WorldMapIcon_0.NetCache_currentResponse.padding) + 1 : 0; // L: 165 166
+	}
+
+	@ObfuscatedName("t")
+	@ObfuscatedSignature(
+		descriptor = "(CB)Z",
+		garbageValue = "-55"
+	)
+	@Export("isCharPrintable")
+	public static boolean isCharPrintable(char var0) {
+		if (var0 >= ' ' && var0 <= '~') { // L: 187
+			return true;
+		} else if (var0 >= 160 && var0 <= 255) {
+			return true; // L: 188
 		} else {
-			WorldMapArea.SpriteBuffer_decode(var4); // L: 45
-			var3 = true; // L: 46
+			return var0 == 8364 || var0 == 338 || var0 == 8212 || var0 == 339 || var0 == 376; // L: 189
 		}
+	}
 
-		if (!var3) { // L: 48
-			return null;
-		} else {
-			SpritePixels var5 = new SpritePixels(); // L: 51
-			var5.width = class451.SpriteBuffer_spriteWidth; // L: 52
-			var5.height = class451.SpriteBuffer_spriteHeight; // L: 53
-			var5.xOffset = class451.SpriteBuffer_xOffsets[0]; // L: 54
-			var5.yOffset = class271.SpriteBuffer_yOffsets[0]; // L: 55
-			var5.subWidth = class451.SpriteBuffer_spriteWidths[0]; // L: 56
-			var5.subHeight = class451.SpriteBuffer_spriteHeights[0]; // L: 57
-			int var6 = var5.subWidth * var5.subHeight; // L: 58
-			byte[] var7 = FriendLoginUpdate.SpriteBuffer_pixels[0]; // L: 59
-			var5.pixels = new int[var6]; // L: 60
-
-			for (int var8 = 0; var8 < var6; ++var8) { // L: 61
-				var5.pixels[var8] = NetFileRequest.SpriteBuffer_spritePalette[var7[var8] & 255];
+	@ObfuscatedName("ah")
+	@ObfuscatedSignature(
+		descriptor = "(ILbb;ZI)I",
+		garbageValue = "1816581663"
+	)
+	static int method47(int var0, Script var1, boolean var2) {
+		if (var0 != 6700 && var0 != 6702 && var0 != 6704 && var0 != 6706 && var0 != 6708) { // L: 4484
+			if (var0 != 6701 && var0 != 6703 && var0 != 6705 && var0 != 6707 && var0 != 6709) { // L: 4489
+				if (var0 == 6750) { // L: 4493
+					Interpreter.Interpreter_stringStack[++class9.Interpreter_stringStackSize - 1] = ""; // L: 4494
+					return 1; // L: 4495
+				} else if (var0 != 6751 && var0 != 6752 && var0 != 6753) { // L: 4497
+					if (var0 == 6754) { // L: 4501
+						int var3 = Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize]; // L: 4502
+						NPCComposition var4 = WorldMapSectionType.getNpcDefinition(var3); // L: 4503
+						Interpreter.Interpreter_stringStack[++class9.Interpreter_stringStackSize - 1] = var4 != null ? var4.name : ""; // L: 4504
+						return 1; // L: 4505
+					} else {
+						return 2; // L: 4507
+					}
+				} else {
+					Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = -1; // L: 4498
+					return 1; // L: 4499
+				}
+			} else {
+				--class12.Interpreter_intStackSize; // L: 4490
+				return 1; // L: 4491
 			}
-
-			ArchiveDiskActionHandler.method5813(); // L: 62
-			return var5; // L: 65
+		} else {
+			class12.Interpreter_intStackSize -= 2; // L: 4485
+			--class9.Interpreter_stringStackSize; // L: 4486
+			return 1; // L: 4487
 		}
-	}
-
-	@ObfuscatedName("hn")
-	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "144596898"
-	)
-	static boolean method36() {
-		return (Client.drawPlayerNames & 8) != 0; // L: 4857
 	}
 }

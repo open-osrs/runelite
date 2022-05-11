@@ -4,26 +4,25 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("js")
+@ObfuscatedName("jl")
 @Implements("DirectByteArrayCopier")
 public class DirectByteArrayCopier extends AbstractByteArrayCopier {
-	@ObfuscatedName("pf")
+	@ObfuscatedName("gx")
 	@ObfuscatedSignature(
-		descriptor = "Lpj;"
+		descriptor = "Lnf;"
 	)
-	@Export("HitSplatDefinition_cached")
-	static class426 HitSplatDefinition_cached;
-	@ObfuscatedName("v")
+	static AbstractSocket field3337;
+	@ObfuscatedName("o")
 	@Export("directBuffer")
 	ByteBuffer directBuffer;
 
 	DirectByteArrayCopier() {
 	} // L: 10
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(I)[B",
-		garbageValue = "2035077648"
+		descriptor = "(B)[B",
+		garbageValue = "70"
 	)
 	@Export("get")
 	byte[] get() {
@@ -33,24 +32,37 @@ public class DirectByteArrayCopier extends AbstractByteArrayCopier {
 		return var1; // L: 16
 	}
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
 		descriptor = "([BI)V",
-		garbageValue = "-1279201457"
+		garbageValue = "-362326915"
 	)
 	@Export("set")
 	void set(byte[] var1) {
-		this.directBuffer = ByteBuffer.allocateDirect(var1.length); // L: 20
-		this.directBuffer.position(0); // L: 21
-		this.directBuffer.put(var1); // L: 22
-	} // L: 23
+		this.directBuffer = ByteBuffer.allocateDirect(var1.length);
+		this.directBuffer.position(0);
+		this.directBuffer.put(var1);
+	}
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(II)Z",
-		garbageValue = "1117680233"
+		descriptor = "(IB)Lft;",
+		garbageValue = "12"
 	)
-	public static boolean method5516(int var0) {
-		return (var0 >> 20 & 1) != 0; // L: 17
+	@Export("getInvDefinition")
+	public static InvDefinition getInvDefinition(int var0) {
+		InvDefinition var1 = (InvDefinition)InvDefinition.InvDefinition_cached.get((long)var0); // L: 17
+		if (var1 != null) { // L: 18
+			return var1;
+		} else {
+			byte[] var2 = InvDefinition.InvDefinition_archive.takeFile(5, var0); // L: 19
+			var1 = new InvDefinition(); // L: 20
+			if (var2 != null) { // L: 21
+				var1.decode(new Buffer(var2));
+			}
+
+			InvDefinition.InvDefinition_cached.put(var1, (long)var0); // L: 22
+			return var1; // L: 23
+		}
 	}
 }

@@ -3,28 +3,21 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ge")
+@ObfuscatedName("hz")
 @Implements("WorldMapData_0")
 public class WorldMapData_0 extends AbstractWorldMapData {
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		descriptor = "Lln;"
-	)
-	@Export("ObjectDefinition_archive")
-	public static AbstractArchive ObjectDefinition_archive;
-
 	WorldMapData_0() {
 	} // L: 6
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(Lpi;S)V",
-		garbageValue = "-2625"
+		descriptor = "(Lpx;I)V",
+		garbageValue = "-2029115050"
 	)
 	@Export("init")
 	void init(Buffer var1) {
 		int var2 = var1.readUnsignedByte(); // L: 9
-		if (var2 != WorldMapID.field2383.value) { // L: 10
+		if (var2 != WorldMapID.field2879.value) { // L: 10
 			throw new IllegalStateException(""); // L: 11
 		} else {
 			super.minPlane = var1.readUnsignedByte(); // L: 13
@@ -33,53 +26,53 @@ public class WorldMapData_0 extends AbstractWorldMapData {
 			super.regionYLow = var1.readUnsignedShort(); // L: 16
 			super.regionX = var1.readUnsignedShort(); // L: 17
 			super.regionY = var1.readUnsignedShort(); // L: 18
-			super.groupId = var1.method7692(); // L: 19
-			super.fileId = var1.method7692(); // L: 20
+			super.groupId = var1.method7532(); // L: 19
+			super.fileId = var1.method7532(); // L: 20
 		}
 	} // L: 21
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(Lpi;I)V",
-		garbageValue = "169222990"
+		descriptor = "(Lpx;I)V",
+		garbageValue = "933342926"
 	)
 	@Export("readGeography")
 	void readGeography(Buffer var1) {
-		super.planes = Math.min(super.planes, 4); // L: 24
-		super.floorUnderlayIds = new short[1][64][64]; // L: 25
-		super.floorOverlayIds = new short[super.planes][64][64]; // L: 26
-		super.field2334 = new byte[super.planes][64][64]; // L: 27
-		super.field2342 = new byte[super.planes][64][64]; // L: 28
-		super.decorations = new WorldMapDecoration[super.planes][64][64][]; // L: 29
-		int var2 = var1.readUnsignedByte(); // L: 30
-		if (var2 != class214.field2380.value) { // L: 31
-			throw new IllegalStateException(""); // L: 32
+		super.planes = Math.min(super.planes, 4); // L: 25
+		super.floorUnderlayIds = new short[1][64][64]; // L: 26
+		super.floorOverlayIds = new short[super.planes][64][64]; // L: 27
+		super.field2845 = new byte[super.planes][64][64]; // L: 28
+		super.field2847 = new byte[super.planes][64][64]; // L: 29
+		super.decorations = new WorldMapDecoration[super.planes][64][64][]; // L: 30
+		int var2 = var1.readUnsignedByte(); // L: 31
+		if (var2 != class239.field2875.value) { // L: 32
+			throw new IllegalStateException(""); // L: 33
 		} else {
-			int var3 = var1.readUnsignedByte(); // L: 34
-			int var4 = var1.readUnsignedByte(); // L: 35
-			if (var3 == super.regionX && var4 == super.regionY) { // L: 36
-				for (int var5 = 0; var5 < 64; ++var5) { // L: 39
-					for (int var6 = 0; var6 < 64; ++var6) { // L: 40
-						this.readTile(var5, var6, var1); // L: 41
+			int var3 = var1.readUnsignedByte(); // L: 35
+			int var4 = var1.readUnsignedByte(); // L: 36
+			if (var3 == super.regionX && var4 == super.regionY) { // L: 37
+				for (int var5 = 0; var5 < 64; ++var5) { // L: 40
+					for (int var6 = 0; var6 < 64; ++var6) { // L: 41
+						this.readTile(var5, var6, var1); // L: 42
 					}
 				}
 
 			} else {
-				throw new IllegalStateException(""); // L: 37
+				throw new IllegalStateException(""); // L: 38
 			}
 		}
-	} // L: 44
-
-	public int hashCode() {
-		return super.regionX | super.regionY << 8; // L: 55
-	}
+	} // L: 45
 
 	public boolean equals(Object var1) {
-		if (!(var1 instanceof WorldMapData_0)) { // L: 47
-			return false; // L: 48
+		if (!(var1 instanceof WorldMapData_0)) { // L: 49
+			return false; // L: 50
 		} else {
-			WorldMapData_0 var2 = (WorldMapData_0)var1; // L: 50
-			return var2.regionX == super.regionX && super.regionY == var2.regionY; // L: 51
+			WorldMapData_0 var2 = (WorldMapData_0)var1; // L: 52
+			return super.regionX == var2.regionX && var2.regionY == super.regionY; // L: 53
 		}
+	}
+
+	public int hashCode() {
+		return super.regionX | super.regionY << 8; // L: 58
 	}
 }

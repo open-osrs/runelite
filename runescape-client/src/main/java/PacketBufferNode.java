@@ -4,42 +4,47 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("jd")
+@ObfuscatedName("jm")
 @Implements("PacketBufferNode")
 public class PacketBufferNode extends Node {
-	@ObfuscatedName("b")
+	@ObfuscatedName("tc")
+	@ObfuscatedGetter(
+		intValue = -1437445359
+	)
+	static int field3083;
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "[Ljd;"
+		descriptor = "[Ljm;"
 	)
 	@Export("PacketBufferNode_packetBufferNodes")
-	public static PacketBufferNode[] PacketBufferNode_packetBufferNodes;
-	@ObfuscatedName("n")
+	static PacketBufferNode[] PacketBufferNode_packetBufferNodes;
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 294123919
+		intValue = 1074664569
 	)
 	@Export("PacketBufferNode_packetBufferNodeCount")
-	public static int PacketBufferNode_packetBufferNodeCount;
-	@ObfuscatedName("v")
+	static int PacketBufferNode_packetBufferNodeCount;
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Ljl;"
+		descriptor = "Ljj;"
 	)
 	@Export("clientPacket")
-	public ClientPacket clientPacket;
-	@ObfuscatedName("c")
+	ClientPacket clientPacket;
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -147579925
+		intValue = 974252711
 	)
 	@Export("clientPacketLength")
-	public int clientPacketLength;
-	@ObfuscatedName("i")
+	int clientPacketLength;
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lpz;"
+		descriptor = "Lpc;"
 	)
 	@Export("packetBuffer")
 	public PacketBuffer packetBuffer;
-	@ObfuscatedName("f")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 843582305
+		intValue = 1838555649
 	)
 	@Export("index")
 	public int index;
@@ -49,45 +54,49 @@ public class PacketBufferNode extends Node {
 		PacketBufferNode_packetBufferNodeCount = 0; // L: 14
 	}
 
-	@ObfuscatedName("c")
+	PacketBufferNode() {
+	} // L: 19
+
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "2142638680"
+		descriptor = "(S)V",
+		garbageValue = "11589"
 	)
 	@Export("release")
 	public void release() {
-		if (PacketBufferNode_packetBufferNodeCount < PacketBufferNode_packetBufferNodes.length) { // L: 45
-			PacketBufferNode_packetBufferNodes[++PacketBufferNode_packetBufferNodeCount - 1] = this; // L: 46
+		if (PacketBufferNode_packetBufferNodeCount < PacketBufferNode_packetBufferNodes.length) { // L: 50
+			PacketBufferNode_packetBufferNodes[++PacketBufferNode_packetBufferNodeCount - 1] = this; // L: 51
 		}
-	} // L: 47
+	} // L: 52
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(II)Z",
-		garbageValue = "-1834860972"
+		descriptor = "([BIIII[Lgh;I)V",
+		garbageValue = "-148866965"
 	)
-	public static boolean method5187(int var0) {
-		return var0 >= 0 && var0 < 112 ? KeyHandler.KeyHandler_pressedKeys[var0] : false; // L: 241 242
-	}
-
-	@ObfuscatedName("ho")
-	@ObfuscatedSignature(
-		descriptor = "(Lcz;I)Z",
-		garbageValue = "71882365"
-	)
-	static boolean method5188(Player var0) {
-		if (Client.drawPlayerNames == 0) { // L: 4861
-			return false;
-		} else if (GrandExchangeEvents.localPlayer == var0) { // L: 4862
-			return class6.method36(); // L: 4873
-		} else {
-			boolean var1 = NPCComposition.method3531() || Varcs.method2441() && var0.isFriend(); // L: 4863
-			if (!var1) { // L: 4864
-				boolean var2 = (Client.drawPlayerNames & 2) != 0; // L: 4867
-				var1 = var2 && var0.isFriendsChatMember(); // L: 4869
+	static final void method5009(byte[] var0, int var1, int var2, int var3, int var4, CollisionMap[] var5) {
+		int var7;
+		int var8;
+		for (int var6 = 0; var6 < 4; ++var6) { // L: 93
+			for (var7 = 0; var7 < 64; ++var7) { // L: 94
+				for (var8 = 0; var8 < 64; ++var8) { // L: 95
+					if (var7 + var1 > 0 && var7 + var1 < 103 && var8 + var2 > 0 && var8 + var2 < 103) { // L: 96
+						int[] var10000 = var5[var6].flags[var7 + var1];
+						var10000[var8 + var2] &= -16777217;
+					}
+				}
 			}
-
-			return var1; // L: 4871
 		}
-	}
+
+		Buffer var10 = new Buffer(var0); // L: 100
+
+		for (var7 = 0; var7 < 4; ++var7) { // L: 101
+			for (var8 = 0; var8 < 64; ++var8) { // L: 102
+				for (int var9 = 0; var9 < 64; ++var9) { // L: 103
+					class67.loadTerrain(var10, var7, var8 + var1, var9 + var2, var3, var4, 0); // L: 104
+				}
+			}
+		}
+
+	} // L: 108
 }

@@ -1,95 +1,127 @@
 import java.util.Comparator;
 import java.util.Map.Entry;
 import net.runelite.mapping.Export;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("g")
+@ObfuscatedName("e")
 class class18 implements Comparator {
 	@ObfuscatedName("o")
-	@ObfuscatedGetter(
-		intValue = 1555742103
+	@ObfuscatedSignature(
+		descriptor = "Llp;"
 	)
-	static int field95;
-	@ObfuscatedName("lw")
-	@ObfuscatedGetter(
-		intValue = -1798104043
-	)
-	@Export("Client_plane")
-	static int Client_plane;
+	@Export("KitDefinition_archive")
+	static AbstractArchive KitDefinition_archive;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lr;"
+		descriptor = "Ly;"
 	)
 	final class10 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lr;)V"
+		descriptor = "(Ly;)V"
 	)
 	class18(class10 var1) {
-		this.this$0 = var1;
+		this.this$0 = var1; // L: 40
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "(Ljava/util/Map$Entry;Ljava/util/Map$Entry;B)I",
-		garbageValue = "14"
+		garbageValue = "105"
 	)
-	int method257(Entry var1, Entry var2) {
-		return ((Float)var2.getValue()).compareTo((Float)var1.getValue());
+	int method239(Entry var1, Entry var2) {
+		return ((Float)var2.getValue()).compareTo((Float)var1.getValue()); // L: 42
 	}
 
 	public int compare(Object var1, Object var2) {
-		return this.method257((Entry)var1, (Entry)var2);
+		return this.method239((Entry)var1, (Entry)var2); // L: 46
 	}
 
 	public boolean equals(Object var1) {
 		return super.equals(var1); // L: 50
 	}
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(Lln;IIIZB)V",
-		garbageValue = "0"
+		descriptor = "(IB)I",
+		garbageValue = "-106"
 	)
-	public static void method266(AbstractArchive var0, int var1, int var2, int var3, boolean var4) {
-		class273.musicPlayerStatus = 1; // L: 40
-		class273.musicTrackArchive = var0; // L: 41
-		AccessFile.musicTrackGroupId = var1; // L: 42
-		class273.musicTrackFileId = var2; // L: 43
-		class273.musicTrackVolume = var3; // L: 44
-		class17.musicTrackBoolean = var4; // L: 45
-		class273.pcmSampleLength = 10000; // L: 46
-	} // L: 47
-
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "(I)[Ldf;",
-		garbageValue = "1077936192"
-	)
-	static class118[] method258() {
-		return new class118[]{class118.field1433, class118.field1430, class118.field1431, class118.field1432, class118.field1434, class118.field1429}; // L: 25
+	@Export("getVarbit")
+	public static int getVarbit(int var0) {
+		VarbitComposition var1 = class1.method9(var0);
+		int var2 = var1.baseVar; // L: 25
+		int var3 = var1.startBit;
+		int var4 = var1.endBit;
+		int var5 = Varps.Varps_masks[var4 - var3];
+		return Varps.Varps_main[var2] >> var3 & var5;
 	}
 
-	@ObfuscatedName("ll")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(IIS)V",
-		garbageValue = "-14104"
+		descriptor = "(IIB)I",
+		garbageValue = "87"
 	)
-	static final void method264(int var0, int var1) {
-		if (Client.currentClanChannels[var0] != null) { // L: 12423
-			if (var1 >= 0 && var1 < Client.currentClanChannels[var0].method3119()) { // L: 12424
-				ClanChannelMember var2 = (ClanChannelMember)Client.currentClanChannels[var0].members.get(var1); // L: 12425
-				if (var2.rank == -1) { // L: 12426
-					PacketBufferNode var3 = WorldMapSprite.getPacketBufferNode(ClientPacket.field2953, Client.packetWriter.isaacCipher); // L: 12427
-					var3.packetBuffer.writeByte(3 + class425.stringCp1252NullTerminatedByteSize(var2.username.getName())); // L: 12428
-					var3.packetBuffer.writeByte(var0); // L: 12429
-					var3.packetBuffer.writeShort(var1); // L: 12430
-					var3.packetBuffer.writeStringCp1252NullTerminated(var2.username.getName()); // L: 12431
-					Client.packetWriter.addNode(var3); // L: 12432
-				}
+	static int method243(int var0, int var1) {
+		if (var0 == -2) { // L: 15
+			return 12345678;
+		} else if (var0 == -1) { // L: 16
+			if (var1 < 0) { // L: 17
+				var1 = 0; // L: 18
+			} else if (var1 > 127) { // L: 20
+				var1 = 127; // L: 21
 			}
+
+			var1 = 127 - var1; // L: 23
+			return var1; // L: 24
+		} else {
+			var1 = (var0 & 127) * var1 / 128; // L: 26
+			if (var1 < 2) { // L: 27
+				var1 = 2;
+			} else if (var1 > 126) { // L: 28
+				var1 = 126;
+			}
+
+			return (var0 & 65408) + var1; // L: 29
 		}
-	} // L: 12433
+	}
+
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		descriptor = "(Lpc;I)I",
+		garbageValue = "-1204366603"
+	)
+	static int method249(PacketBuffer var0) {
+		int var1 = var0.readBits(2); // L: 187
+		int var2;
+		if (var1 == 0) { // L: 189
+			var2 = 0;
+		} else if (var1 == 1) {
+			var2 = var0.readBits(5); // L: 190
+		} else if (var1 == 2) { // L: 191
+			var2 = var0.readBits(8);
+		} else {
+			var2 = var0.readBits(11); // L: 192
+		}
+
+		return var2; // L: 193
+	}
+
+	@ObfuscatedName("kt")
+	@ObfuscatedSignature(
+		descriptor = "(Lki;IIIB)V",
+		garbageValue = "-44"
+	)
+	@Export("drawCompass")
+	static final void drawCompass(Widget var0, int var1, int var2, int var3) {
+		SpriteMask var4 = var0.getSpriteMask(false); // L: 12373
+		if (var4 != null) { // L: 12374
+			if (Client.minimapState < 3) { // L: 12375
+				SoundSystem.compass.drawRotatedMaskedCenteredAround(var1, var2, var4.width, var4.height, 25, 25, Client.camAngleY, 256, var4.xStarts, var4.xWidths);
+			} else {
+				Rasterizer2D.Rasterizer2D_fillMaskedRectangle(var1, var2, 0, var4.xStarts, var4.xWidths); // L: 12376
+			}
+
+		}
+	} // L: 12377
 }

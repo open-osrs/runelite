@@ -1,64 +1,60 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ej")
+@ObfuscatedName("en")
 public class class133 extends class128 {
-	@ObfuscatedName("hh")
-	@Export("regionLandArchiveIds")
-	static int[] regionLandArchiveIds;
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 432924361
+		intValue = 1372494639
 	)
-	int field1556;
-	@ObfuscatedName("c")
+	int field1605;
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -2115932519
+		intValue = -923115207
 	)
-	int field1555;
-	@ObfuscatedName("i")
+	int field1602;
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 117330729
+		intValue = 81969821
 	)
-	int field1552;
-	@ObfuscatedName("f")
+	int field1603;
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = -850318401
+		intValue = 1344220301
 	)
-	int field1550;
+	int field1604;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Les;"
+		descriptor = "Leh;"
 	)
 	final class131 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Les;)V"
+		descriptor = "(Leh;)V"
 	)
 	class133(class131 var1) {
 		this.this$0 = var1; // L: 289
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(Lpi;I)V",
-		garbageValue = "-413979452"
+		descriptor = "(Lpx;I)V",
+		garbageValue = "-611912046"
 	)
-	void vmethod3168(Buffer var1) {
-		this.field1556 = var1.readInt(); // L: 292
-		this.field1550 = var1.readInt(); // L: 293
-		this.field1555 = var1.readUnsignedByte(); // L: 294
-		this.field1552 = var1.readUnsignedByte(); // L: 295
+	void vmethod3040(Buffer var1) {
+		this.field1605 = var1.readInt(); // L: 292
+		this.field1604 = var1.readInt(); // L: 293
+		this.field1602 = var1.readUnsignedByte(); // L: 294
+		this.field1603 = var1.readUnsignedByte(); // L: 295
 	} // L: 296
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(Lex;S)V",
-		garbageValue = "-10316"
+		descriptor = "(Lek;B)V",
+		garbageValue = "-73"
 	)
-	void vmethod3162(ClanSettings var1) {
-		var1.method2969(this.field1556, this.field1550, this.field1555, this.field1552); // L: 299
+	void vmethod3041(ClanSettings var1) {
+		var1.method2898(this.field1605, this.field1604, this.field1602, this.field1603); // L: 299
 	} // L: 300
 }

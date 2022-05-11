@@ -3,47 +3,47 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("es")
+@ObfuscatedName("eh")
 public class class131 {
-	@ObfuscatedName("uh")
-	@ObfuscatedSignature(
-		descriptor = "Lca;"
-	)
-	@Export("clientPreferences")
-	static ClientPreferences clientPreferences;
-	@ObfuscatedName("v")
+	@ObfuscatedName("a")
+	@Export("ArchiveDiskActionHandler_thread")
+	static Thread ArchiveDiskActionHandler_thread;
+	@ObfuscatedName("e")
+	@Export("ByteArrayPool_arrays")
+	static byte[][][] ByteArrayPool_arrays;
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		longValue = -5200207434161239507L
+		longValue = 8236093129399313125L
 	)
-	long field1539;
-	@ObfuscatedName("c")
+	long field1588;
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = 1578407985
+		intValue = 1513231141
 	)
-	int field1535;
-	@ObfuscatedName("i")
+	int field1587;
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Llk;"
+		descriptor = "Llo;"
 	)
-	IterableNodeDeque field1536;
+	IterableNodeDeque field1589;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lpi;)V"
+		descriptor = "(Lpx;)V"
 	)
 	public class131(Buffer var1) {
-		this.field1535 = -1; // L: 9
-		this.field1536 = new IterableNodeDeque(); // L: 10
-		this.method2872(var1); // L: 28
+		this.field1587 = -1; // L: 9
+		this.field1589 = new IterableNodeDeque(); // L: 10
+		this.method2827(var1); // L: 28
 	} // L: 29
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(Lpi;I)V",
-		garbageValue = "-2070939911"
+		descriptor = "(Lpx;I)V",
+		garbageValue = "-1779541187"
 	)
-	void method2872(Buffer var1) {
-		this.field1539 = var1.readLong(); // L: 32
-		this.field1535 = var1.readInt(); // L: 33
+	void method2827(Buffer var1) {
+		this.field1588 = var1.readLong(); // L: 32
+		this.field1587 = var1.readInt(); // L: 33
 
 		for (int var2 = var1.readUnsignedByte(); var2 != 0; var2 = var1.readUnsignedByte()) { // L: 34 35 55
 			Object var3;
@@ -83,89 +83,39 @@ public class class131 {
 				var3 = new class147(this);
 			}
 
-			((class128)var3).vmethod3168(var1); // L: 53
-			this.field1536.addFirst((Node)var3); // L: 54
+			((class128)var3).vmethod3040(var1); // L: 53
+			this.field1589.addFirst((Node)var3); // L: 54
 		}
 
 	} // L: 57
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(Lex;I)V",
-		garbageValue = "-1644962091"
+		descriptor = "(Lek;I)V",
+		garbageValue = "-1989711462"
 	)
-	public void method2873(ClanSettings var1) {
-		if (this.field1539 == var1.field1586 && this.field1535 == var1.field1583) { // L: 60
-			for (class128 var2 = (class128)this.field1536.last(); var2 != null; var2 = (class128)this.field1536.previous()) { // L: 61
-				var2.vmethod3162(var1); // L: 62
+	public void method2822(ClanSettings var1) {
+		if (var1.field1635 == this.field1588 && this.field1587 == var1.field1636) { // L: 60
+			for (class128 var2 = (class128)this.field1589.last(); var2 != null; var2 = (class128)this.field1589.previous()) { // L: 61
+				var2.vmethod3041(var1); // L: 62
 			}
 
-			++var1.field1583; // L: 64
+			++var1.field1636; // L: 64
 		} else {
 			throw new RuntimeException("");
 		}
 	} // L: 65
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(CI)Z",
-		garbageValue = "-583434867"
+		descriptor = "(Ljava/lang/String;I)I",
+		garbageValue = "-2088063820"
 	)
-	@Export("isAlphaNumeric")
-	public static boolean isAlphaNumeric(char var0) {
-		return var0 >= '0' && var0 <= '9' || var0 >= 'A' && var0 <= 'Z' || var0 >= 'a' && var0 <= 'z'; // L: 146
+	static int method2828(String var0) {
+		if (var0.equals("centre")) { // L: 297
+			return 1; // L: 298
+		} else {
+			return !var0.equals("bottom") && !var0.equals("right") ? 0 : 2; // L: 300 301 303
+		}
 	}
-
-	@ObfuscatedName("gp")
-	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "1041289778"
-	)
-	@Export("setWindowedMode")
-	static void setWindowedMode(int var0) {
-		Client.field601 = 0L; // L: 4263
-		if (var0 >= 2) { // L: 4264
-			Client.isResizable = true;
-		} else {
-			Client.isResizable = false; // L: 4265
-		}
-
-		if (Client.getWindowedMode() == 1) { // L: 4266
-			class127.client.setMaxCanvasSize(765, 503); // L: 4267
-		} else {
-			class127.client.setMaxCanvasSize(7680, 2160); // L: 4270
-		}
-
-		if (Client.gameState >= 25) { // L: 4272
-			class4.method17();
-		}
-
-	} // L: 4273
-
-	@ObfuscatedName("jl")
-	@ObfuscatedSignature(
-		descriptor = "(IIIIIIIII)V",
-		garbageValue = "1296688270"
-	)
-	@Export("drawWidgets")
-	static final void drawWidgets(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
-		if (class155.loadInterface(var0)) { // L: 10214
-			class307.field3585 = null; // L: 10221
-			class268.drawInterface(Widget.Widget_interfaceComponents[var0], -1, var1, var2, var3, var4, var5, var6, var7); // L: 10222
-			if (class307.field3585 != null) { // L: 10223
-				class268.drawInterface(class307.field3585, -1412584499, var1, var2, var3, var4, class93.field1252, ItemContainer.field1013, var7); // L: 10224
-				class307.field3585 = null; // L: 10225
-			}
-
-		} else {
-			if (var7 != -1) { // L: 10215
-				Client.field715[var7] = true;
-			} else {
-				for (int var8 = 0; var8 < 100; ++var8) { // L: 10217
-					Client.field715[var8] = true;
-				}
-			}
-
-		}
-	} // L: 10219 10227
 }

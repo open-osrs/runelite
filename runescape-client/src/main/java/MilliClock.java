@@ -4,134 +4,138 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fn")
+@ObfuscatedName("fz")
 @Implements("MilliClock")
 public class MilliClock extends Clock {
-	@ObfuscatedName("v")
-	long[] field1767;
-	@ObfuscatedName("c")
+	@ObfuscatedName("o")
+	long[] field1817;
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -2105737199
+		intValue = -613728771
 	)
-	int field1769;
-	@ObfuscatedName("i")
+	int field1815;
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -626928133
+		intValue = -2030028533
 	)
-	int field1768;
-	@ObfuscatedName("f")
+	int field1816;
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		longValue = 4722522205761016929L
+		longValue = 6860375109753774457L
 	)
-	long field1766;
-	@ObfuscatedName("b")
+	long field1814;
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = -186041197
+		intValue = 101342221
 	)
-	int field1770;
-	@ObfuscatedName("n")
+	int field1818;
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -1637603131
+		intValue = 578259899
 	)
-	int field1771;
+	int field1819;
 
-	public MilliClock() {
-		this.field1767 = new long[10]; // L: 7
-		this.field1769 = 256; // L: 15
-		this.field1768 = 1; // L: 16
-		this.field1770 = 0; // L: 17
-		this.field1766 = class136.method2931(); // L: 18
+	MilliClock() {
+		this.field1817 = new long[10]; // L: 7
+		this.field1815 = 256; // L: 15
+		this.field1816 = 1; // L: 16
+		this.field1818 = 0; // L: 17
+		this.field1814 = class113.method2624(); // L: 18
 
 		for (int var1 = 0; var1 < 10; ++var1) { // L: 19
-			this.field1767[var1] = this.field1766; // L: 20
+			this.field1817[var1] = this.field1814; // L: 20
 		}
 
-	} // L: 22
+	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "1350330504"
+		garbageValue = "-1993169750"
 	)
 	@Export("mark")
 	public void mark() {
 		for (int var1 = 0; var1 < 10; ++var1) { // L: 25
-			this.field1767[var1] = 0L; // L: 26
+			this.field1817[var1] = 0L; // L: 26
 		}
 
 	} // L: 28
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
 		descriptor = "(III)I",
-		garbageValue = "2026134141"
+		garbageValue = "1389334721"
 	)
 	@Export("wait")
 	public int wait(int var1, int var2) {
-		int var3 = this.field1769; // L: 31
-		int var4 = this.field1768; // L: 32
-		this.field1769 = 300; // L: 33
-		this.field1768 = 1; // L: 34
-		this.field1766 = class136.method2931(); // L: 35
-		if (this.field1767[this.field1771] == 0L) { // L: 36
-			this.field1769 = var3; // L: 37
-			this.field1768 = var4; // L: 38
-		} else if (this.field1766 > this.field1767[this.field1771]) { // L: 40
-			this.field1769 = (int)((long)(var1 * 2560) / (this.field1766 - this.field1767[this.field1771]));
+		int var3 = this.field1815; // L: 31
+		int var4 = this.field1816; // L: 32
+		this.field1815 = 300; // L: 33
+		this.field1816 = 1; // L: 34
+		this.field1814 = class113.method2624(); // L: 35
+		if (0L == this.field1817[this.field1819]) { // L: 36
+			this.field1815 = var3; // L: 37
+			this.field1816 = var4; // L: 38
+		} else if (this.field1814 > this.field1817[this.field1819]) { // L: 40
+			this.field1815 = (int)((long)(var1 * 2560) / (this.field1814 - this.field1817[this.field1819]));
 		}
 
-		if (this.field1769 < 25) { // L: 41
-			this.field1769 = 25;
+		if (this.field1815 < 25) { // L: 41
+			this.field1815 = 25;
 		}
 
-		if (this.field1769 > 256) { // L: 42
-			this.field1769 = 256; // L: 43
-			this.field1768 = (int)((long)var1 - (this.field1766 - this.field1767[this.field1771]) / 10L); // L: 44
+		if (this.field1815 > 256) { // L: 42
+			this.field1815 = 256; // L: 43
+			this.field1816 = (int)((long)var1 - (this.field1814 - this.field1817[this.field1819]) / 10L); // L: 44
 		}
 
-		if (this.field1768 > var1) { // L: 46
-			this.field1768 = var1;
+		if (this.field1816 > var1) { // L: 46
+			this.field1816 = var1;
 		}
 
-		this.field1767[this.field1771] = this.field1766; // L: 47
-		this.field1771 = (this.field1771 + 1) % 10; // L: 48
+		this.field1817[this.field1819] = this.field1814; // L: 47
+		this.field1819 = (this.field1819 + 1) % 10; // L: 48
 		int var5;
-		if (this.field1768 > 1) { // L: 49
+		if (this.field1816 > 1) { // L: 49
 			for (var5 = 0; var5 < 10; ++var5) { // L: 50
-				if (0L != this.field1767[var5]) { // L: 51
-					this.field1767[var5] += (long)this.field1768;
+				if (0L != this.field1817[var5]) { // L: 51
+					this.field1817[var5] += (long)this.field1816;
 				}
 			}
 		}
 
-		if (this.field1768 < var2) { // L: 54
-			this.field1768 = var2;
+		if (this.field1816 < var2) { // L: 54
+			this.field1816 = var2;
 		}
 
-		class93.method2384((long)this.field1768); // L: 55
+		class241.method4815((long)this.field1816); // L: 55
 
-		for (var5 = 0; this.field1770 < 256; this.field1770 += this.field1769) { // L: 56
-			++var5;
+		for (var5 = 0; this.field1818 < 256; this.field1818 += this.field1815) { // L: 56 57 59
+			++var5; // L: 58
 		}
 
-		this.field1770 &= 255;
-		return var5;
+		this.field1818 &= 255; // L: 61
+		return var5; // L: 62
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/Throwable;Ljava/lang/String;)Lqo;"
+		descriptor = "(II)V",
+		garbageValue = "1996215175"
 	)
-	@Export("newRunException")
-	public static RunException newRunException(Throwable var0, String var1) {
-		RunException var2;
-		if (var0 instanceof RunException) { // L: 57
-			var2 = (RunException)var0; // L: 58
-			var2.message = var2.message + ' ' + var1; // L: 59
-		} else {
-			var2 = new RunException(var0, var1); // L: 61
-		}
+	static void method3219(int var0) {
+		GrandExchangeOfferTotalQuantityComparator.field4069 = var0; // L: 21
+		class388.field4402 = new class388[var0]; // L: 22
+		class388.field4401 = 0; // L: 23
+	} // L: 24
 
-		return var2; // L: 62
+	@ObfuscatedName("ey")
+	@ObfuscatedSignature(
+		descriptor = "(I)Lop;",
+		garbageValue = "-973548519"
+	)
+	@Export("getWorldMap")
+	static WorldMap getWorldMap() {
+		return ServerPacket.worldMap; // L: 679
 	}
 }

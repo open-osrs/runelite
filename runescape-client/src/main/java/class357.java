@@ -1,9 +1,18 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
+import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("mm")
+@ObfuscatedName("mb")
 public class class357 {
-	@ObfuscatedName("w")
-	@Export("Tiles_hueMultiplier")
-	static int[] Tiles_hueMultiplier;
+	@ObfuscatedName("g")
+	@ObfuscatedSignature(
+		descriptor = "Lpx;"
+	)
+	@Export("NetCache_responseArchiveBuffer")
+	public static Buffer NetCache_responseArchiveBuffer;
+
+	@ObfuscatedName("r")
+	static int method6392(long var0) {
+		return (int)(var0 >>> 14 & 3L); // L: 76
+	}
 }

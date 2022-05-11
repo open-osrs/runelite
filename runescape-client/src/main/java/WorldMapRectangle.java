@@ -4,57 +4,43 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hj")
+@ObfuscatedName("ig")
 @Implements("WorldMapRectangle")
 public final class WorldMapRectangle {
-	@ObfuscatedName("si")
-	@ObfuscatedSignature(
-		descriptor = "Las;"
-	)
-	@Export("decimator")
-	static Decimator decimator;
-	@ObfuscatedName("p")
-	public static short[][] field2356;
-	@ObfuscatedName("eu")
-	@ObfuscatedSignature(
-		descriptor = "Llx;"
-	)
-	@Export("archive18")
-	static Archive archive18;
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -916427651
+		intValue = 10914297
 	)
 	@Export("width")
 	int width;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = 34585137
+		intValue = 1439555673
 	)
 	@Export("height")
 	int height;
-	@ObfuscatedName("i")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -504322827
+		intValue = -959506253
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("f")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = -1729721737
+		intValue = -1518441747
 	)
 	@Export("y")
 	int y;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Lgq;"
+		descriptor = "Lhp;"
 	)
 	final WorldMapManager this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lgq;)V"
+		descriptor = "(Lhp;)V"
 	)
 	WorldMapRectangle(WorldMapManager var1) {
-		this.this$0 = var1; // L: 303
+		this.this$0 = var1; // L: 305
 	}
 }

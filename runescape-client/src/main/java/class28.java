@@ -1,61 +1,87 @@
-import java.io.File;
 import javax.imageio.ImageIO;
 import net.runelite.mapping.Export;
+import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("aw")
+@ObfuscatedName("am")
 public class class28 {
-	@ObfuscatedName("f")
-	@Export("JagexCache_locationFile")
-	static File JagexCache_locationFile;
-	@ObfuscatedName("ee")
+	@ObfuscatedName("ez")
 	@ObfuscatedSignature(
-		descriptor = "Llx;"
+		descriptor = "Lnu;"
 	)
-	@Export("archive15")
-	static Archive archive15;
+	@Export("spriteIds")
+	static GraphicsDefaults spriteIds;
+	@ObfuscatedName("jy")
+	@ObfuscatedGetter(
+		intValue = -428607811
+	)
+	@Export("oculusOrbFocalPointY")
+	static int oculusOrbFocalPointY;
 
 	static {
 		ImageIO.setUseCache(false); // L: 12
 	} // L: 13
 
-	@ObfuscatedName("hu")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1511751941"
+		descriptor = "(Llp;IS)Z",
+		garbageValue = "6502"
 	)
-	static final void method390() {
-		for (PendingSpawn var0 = (PendingSpawn)Client.pendingSpawns.last(); var0 != null; var0 = (PendingSpawn)Client.pendingSpawns.previous()) { // L: 7719 7720 7726
-			if (var0.hitpoints == -1) { // L: 7721
-				var0.delay = 0; // L: 7722
-				class163.method3315(var0); // L: 7723
-			} else {
-				var0.remove(); // L: 7725
+	static boolean method374(AbstractArchive var0, int var1) {
+		byte[] var2 = var0.takeFileFlat(var1); // L: 172
+		if (var2 == null) { // L: 173
+			return false;
+		} else {
+			RouteStrategy.SpriteBuffer_decode(var2); // L: 174
+			return true; // L: 175
+		}
+	}
+
+	@ObfuscatedName("lj")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;ZB)V",
+		garbageValue = "-55"
+	)
+	@Export("findItemDefinitions")
+	static void findItemDefinitions(String var0, boolean var1) {
+		var0 = var0.toLowerCase(); // L: 12576
+		short[] var2 = new short[16]; // L: 12577
+		int var3 = 0; // L: 12578
+
+		for (int var4 = 0; var4 < ItemContainer.ItemDefinition_fileCount; ++var4) { // L: 12579
+			ItemComposition var9 = FileSystem.ItemDefinition_get(var4); // L: 12580
+			if ((!var1 || var9.isTradable) && var9.noteTemplate == -1 && var9.name.toLowerCase().indexOf(var0) != -1) { // L: 12581 12582 12583
+				if (var3 >= 250) { // L: 12584
+					UserComparator9.foundItemIdCount = -1; // L: 12585
+					class182.foundItemIds = null; // L: 12586
+					return; // L: 12587
+				}
+
+				if (var3 >= var2.length) { // L: 12589
+					short[] var6 = new short[var2.length * 2]; // L: 12590
+
+					for (int var7 = 0; var7 < var3; ++var7) { // L: 12591
+						var6[var7] = var2[var7];
+					}
+
+					var2 = var6; // L: 12592
+				}
+
+				var2[var3++] = (short)var4; // L: 12594
 			}
 		}
 
-	} // L: 7728
+		class182.foundItemIds = var2; // L: 12596
+		Coord.foundItemIndex = 0; // L: 12597
+		UserComparator9.foundItemIdCount = var3; // L: 12598
+		String[] var8 = new String[UserComparator9.foundItemIdCount]; // L: 12599
 
-	@ObfuscatedName("ig")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Ljava/lang/String;IIIIZI)V",
-		garbageValue = "157439460"
-	)
-	@Export("insertMenuItem")
-	static final void insertMenuItem(String var0, String var1, int var2, int var3, int var4, int var5, boolean var6) {
-		if (!Client.isMenuOpen) { // L: 9830
-			if (Client.menuOptionsCount < 500) { // L: 9831
-				Client.menuActions[Client.menuOptionsCount] = var0; // L: 9832
-				Client.menuTargets[Client.menuOptionsCount] = var1; // L: 9833
-				Client.menuOpcodes[Client.menuOptionsCount] = var2; // L: 9834
-				Client.menuIdentifiers[Client.menuOptionsCount] = var3; // L: 9835
-				Client.menuArguments1[Client.menuOptionsCount] = var4; // L: 9836
-				Client.menuArguments2[Client.menuOptionsCount] = var5; // L: 9837
-				Client.menuShiftClick[Client.menuOptionsCount] = var6; // L: 9838
-				++Client.menuOptionsCount; // L: 9839
-			}
-
+		for (int var5 = 0; var5 < UserComparator9.foundItemIdCount; ++var5) { // L: 12600
+			var8[var5] = FileSystem.ItemDefinition_get(var2[var5]).name;
 		}
-	} // L: 9841
+
+		short[] var10 = class182.foundItemIds; // L: 12601
+		Occluder.sortItemsByName(var8, var10, 0, var8.length - 1); // L: 12603
+	} // L: 12605
 }

@@ -1,131 +1,132 @@
-import java.util.Date;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import netscape.javascript.JSObject;
 
-@ObfuscatedName("dk")
+@ObfuscatedName("da")
 public class class119 implements MouseWheel {
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "Ldk;"
-	)
-	static final class119 field1449;
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		descriptor = "Ldk;"
-	)
-	static final class119 field1439;
-	@ObfuscatedName("i")
-	@ObfuscatedSignature(
-		descriptor = "Ldk;"
-	)
-	static final class119 field1440;
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "Ldk;"
-	)
-	static final class119 field1441;
-	@ObfuscatedName("b")
-	@ObfuscatedSignature(
-		descriptor = "Ldk;"
-	)
-	static final class119 field1442;
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "Ldk;"
-	)
-	static final class119 field1446;
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "Ldk;"
-	)
-	static final class119 field1444;
-	@ObfuscatedName("l")
-	@ObfuscatedSignature(
-		descriptor = "Ldk;"
-	)
-	static final class119 field1443;
-	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		descriptor = "Ldk;"
-	)
-	static final class119 field1455;
 	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Ldk;"
+		descriptor = "Lda;"
 	)
-	static final class119 field1447;
-	@ObfuscatedName("r")
+	static final class119 field1508;
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Ldk;"
+		descriptor = "Lda;"
 	)
-	static final class119 field1448;
-	@ObfuscatedName("p")
+	static final class119 field1512;
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Ldk;"
+		descriptor = "Lda;"
 	)
-	static final class119 field1451;
-	@ObfuscatedName("w")
-	@ObfuscatedSignature(
-		descriptor = "Ldk;"
-	)
-	static final class119 field1450;
+	static final class119 field1502;
 	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "Ldk;"
+		descriptor = "Lda;"
 	)
-	static final class119 field1445;
-	@ObfuscatedName("d")
+	static final class119 field1516;
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "Ldk;"
+		descriptor = "Lda;"
 	)
-	static final class119 field1457;
+	static final class119 field1518;
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Ldk;"
+		descriptor = "Lda;"
 	)
-	static final class119 field1452;
-	@ObfuscatedName("u")
+	static final class119 field1521;
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "Ldk;"
+		descriptor = "Lda;"
 	)
-	static final class119 field1454;
+	static final class119 field1506;
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		descriptor = "Lda;"
+	)
+	static final class119 field1507;
+	@ObfuscatedName("r")
+	@ObfuscatedSignature(
+		descriptor = "Lda;"
+	)
+	static final class119 field1500;
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "Lda;"
+	)
+	static final class119 field1509;
+	@ObfuscatedName("y")
+	@ObfuscatedSignature(
+		descriptor = "Lda;"
+	)
+	static final class119 field1510;
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "Lda;"
+	)
+	static final class119 field1511;
+	@ObfuscatedName("w")
+	@ObfuscatedSignature(
+		descriptor = "Lda;"
+	)
+	static final class119 field1503;
+	@ObfuscatedName("b")
+	@ObfuscatedSignature(
+		descriptor = "Lda;"
+	)
+	static final class119 field1513;
 	@ObfuscatedName("t")
-	@ObfuscatedGetter(
-		intValue = -1189647423
+	@ObfuscatedSignature(
+		descriptor = "Lda;"
 	)
-	final int field1438;
+	static final class119 field1514;
 	@ObfuscatedName("g")
-	@ObfuscatedGetter(
-		intValue = 590424235
+	@ObfuscatedSignature(
+		descriptor = "Lda;"
 	)
-	final int field1456;
+	static final class119 field1515;
 	@ObfuscatedName("x")
-	@ObfuscatedGetter(
-		intValue = -1848047837
+	@ObfuscatedSignature(
+		descriptor = "Lda;"
 	)
-	final int field1453;
+	static final class119 field1504;
+	@ObfuscatedName("ac")
+	@Export("fontHelvetica13")
+	static java.awt.Font fontHelvetica13;
+	@ObfuscatedName("n")
+	@ObfuscatedGetter(
+		intValue = 1636917821
+	)
+	final int field1517;
+	@ObfuscatedName("e")
+	@ObfuscatedGetter(
+		intValue = -1474083167
+	)
+	final int field1505;
+	@ObfuscatedName("h")
+	@ObfuscatedGetter(
+		intValue = 1038102121
+	)
+	final int field1519;
 
 	static {
-		field1449 = new class119(0, 0, (String)null, -1, -1); // L: 51
-		field1439 = new class119(1, 1, (String)null, 0, 2); // L: 52
-		field1440 = new class119(2, 2, (String)null, 1, 2); // L: 53
-		field1441 = new class119(3, 3, (String)null, 2, 2); // L: 54
-		field1442 = new class119(4, 4, (String)null, 3, 1); // L: 55
-		field1446 = new class119(5, 5, (String)null, 4, 1); // L: 56
-		field1444 = new class119(6, 6, (String)null, 5, 1); // L: 57
-		field1443 = new class119(7, 7, (String)null, 6, 3); // L: 58
-		field1455 = new class119(8, 8, (String)null, 7, 3); // L: 59
-		field1447 = new class119(9, 9, (String)null, 8, 3); // L: 60
-		field1448 = new class119(10, 10, (String)null, 0, 7); // L: 61
-		field1451 = new class119(11, 11, (String)null, 1, 7); // L: 62
-		field1450 = new class119(12, 12, (String)null, 2, 7); // L: 63
-		field1445 = new class119(13, 13, (String)null, 3, 7); // L: 64
-		field1457 = new class119(14, 14, (String)null, 4, 7); // L: 65
-		field1452 = new class119(15, 15, (String)null, 5, 7); // L: 66
-		field1454 = new class119(16, 16, (String)null, 0, 5); // L: 67
+		field1508 = new class119(0, 0, (String)null, -1, -1); // L: 52
+		field1512 = new class119(1, 1, (String)null, 0, 2); // L: 53
+		field1502 = new class119(2, 2, (String)null, 1, 2); // L: 54
+		field1516 = new class119(3, 3, (String)null, 2, 2); // L: 55
+		field1518 = new class119(4, 4, (String)null, 3, 1); // L: 56
+		field1521 = new class119(5, 5, (String)null, 4, 1); // L: 57
+		field1506 = new class119(6, 6, (String)null, 5, 1); // L: 58
+		field1507 = new class119(7, 7, (String)null, 6, 3);
+		field1500 = new class119(8, 8, (String)null, 7, 3); // L: 60
+		field1509 = new class119(9, 9, (String)null, 8, 3);
+		field1510 = new class119(10, 10, (String)null, 0, 7);
+		field1511 = new class119(11, 11, (String)null, 1, 7);
+		field1503 = new class119(12, 12, (String)null, 2, 7);
+		field1513 = new class119(13, 13, (String)null, 3, 7);
+		field1514 = new class119(14, 14, (String)null, 4, 7);
+		field1515 = new class119(15, 15, (String)null, 5, 7);
+		field1504 = new class119(16, 16, (String)null, 0, 5);
 	}
 
 	@ObfuscatedSignature(
@@ -133,132 +134,141 @@ public class class119 implements MouseWheel {
 		garbageValue = "-1"
 	)
 	class119(int var1, int var2, String var3, int var4, int var5) {
-		this.field1438 = var1; // L: 77
-		this.field1456 = var2; // L: 78
-		this.field1453 = var4; // L: 79
-	} // L: 80
+		this.field1517 = var1;
+		this.field1505 = var2; // L: 79
+		this.field1519 = var4; // L: 80
+	} // L: 81
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "(B)I",
-		garbageValue = "16"
+		garbageValue = "30"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field1456; // L: 83
+		return this.field1505; // L: 84
 	}
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "1943929497"
+		descriptor = "(B)I",
+		garbageValue = "1"
 	)
-	int method2751() {
-		return this.field1453; // L: 87
+	int method2738() {
+		return this.field1519; // L: 88
 	}
 
-	@ObfuscatedName("kc")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "([Lky;II)V",
-		garbageValue = "-908944822"
+		descriptor = "([BB)Ljava/lang/String;",
+		garbageValue = "-27"
 	)
-	@Export("drawModelComponents")
-	static final void drawModelComponents(Widget[] var0, int var1) {
-		for (int var2 = 0; var2 < var0.length; ++var2) { // L: 11941
-			Widget var3 = var0[var2]; // L: 11942
-			if (var3 != null && var3.parentId == var1 && (!var3.isIf3 || !class1.isComponentHidden(var3))) { // L: 11943 11944 11945
-				if (var3.type == 0) { // L: 11946
-					if (!var3.isIf3 && class1.isComponentHidden(var3) && var3 != DevicePcmPlayerProvider.mousedOverWidgetIf1) { // L: 11947
-						continue;
-					}
+	public static String method2745(byte[] var0) {
+		int var2 = var0.length; // L: 59
+		StringBuilder var3 = new StringBuilder(); // L: 61
 
-					drawModelComponents(var0, var3.id); // L: 11948
-					if (var3.children != null) { // L: 11949
-						drawModelComponents(var3.children, var3.id);
-					}
-
-					InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var3.id); // L: 11950
-					if (var4 != null) { // L: 11951
-						class115.method2680(var4.group);
-					}
+		for (int var4 = 0; var4 < var2 + 0; var4 += 3) { // L: 62
+			int var5 = var0[var4] & 255; // L: 63
+			var3.append(class342.field4158[var5 >>> 2]); // L: 64
+			if (var4 < var2 - 1) { // L: 65
+				int var6 = var0[var4 + 1] & 255; // L: 66
+				var3.append(class342.field4158[(var5 & 3) << 4 | var6 >>> 4]); // L: 67
+				if (var4 < var2 - 2) { // L: 68
+					int var7 = var0[var4 + 2] & 255; // L: 69
+					var3.append(class342.field4158[(var6 & 15) << 2 | var7 >>> 6]).append(class342.field4158[var7 & 63]); // L: 70
+				} else {
+					var3.append(class342.field4158[(var6 & 15) << 2]).append("="); // L: 72
 				}
-
-				if (var3.type == 6) { // L: 11953
-					int var5;
-					if (var3.sequenceId != -1 || var3.sequenceId2 != -1) { // L: 11954
-						boolean var7 = Skills.runCs1(var3); // L: 11955
-						if (var7) { // L: 11957
-							var5 = var3.sequenceId2;
-						} else {
-							var5 = var3.sequenceId; // L: 11958
-						}
-
-						if (var5 != -1) { // L: 11959
-							SequenceDefinition var6 = class163.SequenceDefinition_get(var5); // L: 11960
-
-							for (var3.modelFrameCycle += Client.field556; var3.modelFrameCycle > var6.frameLengths[var3.modelFrame]; class346.invalidateWidget(var3)) { // L: 11961 11962 11969
-								var3.modelFrameCycle -= var6.frameLengths[var3.modelFrame]; // L: 11963
-								++var3.modelFrame; // L: 11964
-								if (var3.modelFrame >= var6.frameIds.length) { // L: 11965
-									var3.modelFrame -= var6.frameCount; // L: 11966
-									if (var3.modelFrame < 0 || var3.modelFrame >= var6.frameIds.length) { // L: 11967
-										var3.modelFrame = 0;
-									}
-								}
-							}
-						}
-					}
-
-					if (var3.field3392 != 0 && !var3.isIf3) { // L: 11973
-						int var8 = var3.field3392 >> 16; // L: 11974
-						var5 = var3.field3392 << 16 >> 16; // L: 11975
-						var8 *= Client.field556; // L: 11976
-						var5 *= Client.field556; // L: 11977
-						var3.modelAngleX = var8 + var3.modelAngleX & 2047; // L: 11978
-						var3.modelAngleY = var5 + var3.modelAngleY & 2047; // L: 11979
-						class346.invalidateWidget(var3); // L: 11980
-					}
-				}
-			}
-		}
-
-	} // L: 11984
-
-	@ObfuscatedName("lm")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;I)V",
-		garbageValue = "1036888479"
-	)
-	static void method2760(String var0) {
-		class65.field868 = var0; // L: 12501
-
-		try {
-			String var1 = class127.client.getParameter(Integer.toString(18)); // L: 12503
-			String var2 = class127.client.getParameter(Integer.toString(13)); // L: 12504
-			String var3 = var1 + "settings=" + var0 + "; version=1; path=/; domain=" + var2; // L: 12505
-			String var5;
-			if (var0.length() == 0) { // L: 12506
-				var3 = var3 + "; Expires=Thu, 01-Jan-1970 00:00:00 GMT; Max-Age=0";
 			} else {
-				String var4 = var3 + "; Expires="; // L: 12508
-				long var6 = class136.method2931() + 94608000000L; // L: 12510
-				Calendar.Calendar_calendar.setTime(new Date(var6)); // L: 12512
-				int var8 = Calendar.Calendar_calendar.get(7); // L: 12513
-				int var9 = Calendar.Calendar_calendar.get(5); // L: 12514
-				int var10 = Calendar.Calendar_calendar.get(2); // L: 12515
-				int var11 = Calendar.Calendar_calendar.get(1); // L: 12516
-				int var12 = Calendar.Calendar_calendar.get(11); // L: 12517
-				int var13 = Calendar.Calendar_calendar.get(12); // L: 12518
-				int var14 = Calendar.Calendar_calendar.get(13); // L: 12519
-				var5 = Calendar.DAYS_OF_THE_WEEK[var8 - 1] + ", " + var9 / 10 + var9 % 10 + "-" + Calendar.MONTH_NAMES_ENGLISH_GERMAN[0][var10] + "-" + var11 + " " + var12 / 10 + var12 % 10 + ":" + var13 / 10 + var13 % 10 + ":" + var14 / 10 + var14 % 10 + " GMT"; // L: 12520
-				var3 = var4 + var5 + "; Max-Age=" + 94608000L; // L: 12522
+				var3.append(class342.field4158[(var5 & 3) << 4]).append("=="); // L: 74
 			}
-
-			Client var16 = class127.client; // L: 12524
-			var5 = "document.cookie=\"" + var3 + "\""; // L: 12525
-			JSObject.getWindow(var16).eval(var5); // L: 12528
-		} catch (Throwable var15) { // L: 12531
 		}
 
-	} // L: 12532
+		String var1 = var3.toString(); // L: 76
+		return var1; // L: 78
+	}
+
+	@ObfuscatedName("iw")
+	@ObfuscatedSignature(
+		descriptor = "(III)V",
+		garbageValue = "-197494883"
+	)
+	static void method2739(int var0, int var1) {
+		int var2 = ChatChannel.fontBold12.stringWidth("Choose Option"); // L: 8871
+
+		int var3;
+		for (var3 = 0; var3 < Client.menuOptionsCount; ++var3) { // L: 8872
+			Font var7 = ChatChannel.fontBold12; // L: 8873
+			String var8;
+			if (var3 < 0) { // L: 8876
+				var8 = ""; // L: 8877
+			} else if (Client.menuTargets[var3].length() > 0) { // L: 8880
+				var8 = Client.menuActions[var3] + " " + Client.menuTargets[var3];
+			} else {
+				var8 = Client.menuActions[var3]; // L: 8881
+			}
+
+			int var6 = var7.stringWidth(var8); // L: 8883
+			if (var6 > var2) { // L: 8884
+				var2 = var6;
+			}
+		}
+
+		var2 += 8; // L: 8886
+		var3 = Client.menuOptionsCount * 15 + 22; // L: 8887
+		int var4 = var0 - var2 / 2; // L: 8888
+		if (var2 + var4 > GraphicsObject.canvasWidth) { // L: 8889
+			var4 = GraphicsObject.canvasWidth - var2;
+		}
+
+		if (var4 < 0) { // L: 8890
+			var4 = 0;
+		}
+
+		int var5 = var1; // L: 8891
+		if (var1 + var3 > class433.canvasHeight) { // L: 8892
+			var5 = class433.canvasHeight - var3;
+		}
+
+		if (var5 < 0) { // L: 8893
+			var5 = 0;
+		}
+
+		BuddyRankComparator.menuX = var4; // L: 8894
+		FontName.menuY = var5; // L: 8895
+		KeyHandler.menuWidth = var2; // L: 8896
+		class7.menuHeight = Client.menuOptionsCount * 15 + 22; // L: 8897
+	} // L: 8898
+
+	@ObfuscatedName("ka")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "-58"
+	)
+	static void method2737() {
+		for (InterfaceParent var0 = (InterfaceParent)Client.interfaceParents.first(); var0 != null; var0 = (InterfaceParent)Client.interfaceParents.next()) { // L: 11925
+			int var1 = var0.group; // L: 11926
+			if (WorldMapDecoration.loadInterface(var1)) { // L: 11927
+				boolean var2 = true; // L: 11928
+				Widget[] var3 = NetSocket.Widget_interfaceComponents[var1]; // L: 11929
+
+				int var4;
+				for (var4 = 0; var4 < var3.length; ++var4) { // L: 11930
+					if (var3[var4] != null) { // L: 11931
+						var2 = var3[var4].isIf3; // L: 11932
+						break;
+					}
+				}
+
+				if (!var2) { // L: 11936
+					var4 = (int)var0.key; // L: 11937
+					Widget var5 = class92.getWidget(var4); // L: 11938
+					if (var5 != null) { // L: 11939
+						GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var5);
+					}
+				}
+			}
+		}
+
+	} // L: 11943
 }

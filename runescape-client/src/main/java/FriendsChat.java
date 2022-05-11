@@ -4,282 +4,209 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ns")
+@ObfuscatedName("nx")
 @Implements("FriendsChat")
 public class FriendsChat extends UserList {
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Lpe;"
+		descriptor = "Lpj;"
 	)
 	@Export("loginType")
 	final LoginType loginType;
-	@ObfuscatedName("i")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lnp;"
+		descriptor = "Lnj;"
 	)
 	@Export("localUser")
 	final Usernamed localUser;
-	@ObfuscatedName("f")
+	@ObfuscatedName("k")
 	@Export("name")
 	public String name;
-	@ObfuscatedName("b")
+	@ObfuscatedName("a")
 	@Export("owner")
 	public String owner;
-	@ObfuscatedName("n")
+	@ObfuscatedName("m")
 	@Export("minKick")
 	public byte minKick;
-	@ObfuscatedName("s")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = -1273194957
+		intValue = -546532963
 	)
 	@Export("rank")
 	public int rank;
-	@ObfuscatedName("l")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = 923261223
+		intValue = -335963343
 	)
-	int field4244;
+	int field4309;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lpe;Lnp;)V"
+		descriptor = "(Lpj;Lnj;)V"
 	)
 	public FriendsChat(LoginType var1, Usernamed var2) {
 		super(100); // L: 19
 		this.name = null; // L: 12
 		this.owner = null; // L: 13
-		this.field4244 = 1; // L: 16
+		this.field4309 = 1; // L: 16
 		this.loginType = var1; // L: 20
 		this.localUser = var2; // L: 21
 	} // L: 22
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lnn;",
-		garbageValue = "-2105397576"
+		descriptor = "(I)Lnb;",
+		garbageValue = "-1695844600"
 	)
 	@Export("newInstance")
 	User newInstance() {
-		return new ClanMate(); // L: 25
+		return new ClanMate(); // L: 26
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(II)[Lnn;",
-		garbageValue = "1888809026"
+		descriptor = "(II)[Lnb;",
+		garbageValue = "1788836658"
 	)
 	@Export("newTypedArray")
 	User[] newTypedArray(int var1) {
-		return new ClanMate[var1]; // L: 29
+		return new ClanMate[var1]; // L: 31
 	}
-
-	@ObfuscatedName("i")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;I)V",
-		garbageValue = "106117795"
-	)
-	@Export("readName")
-	final void readName(String var1) {
-		long var5 = 0L; // L: 37
-		int var7 = var1.length(); // L: 38
-
-		for (int var8 = 0; var8 < var7; ++var8) { // L: 39
-			var5 *= 37L; // L: 40
-			char var9 = var1.charAt(var8); // L: 41
-			if (var9 >= 'A' && var9 <= 'Z') { // L: 42
-				var5 += (long)(var9 + 1 - 65);
-			} else if (var9 >= 'a' && var9 <= 'z') { // L: 43
-				var5 += (long)(var9 + 1 - 97);
-			} else if (var9 >= '0' && var9 <= '9') {
-				var5 += (long)(var9 + 27 - 48); // L: 44
-			}
-
-			if (var5 >= 177917621779460413L) { // L: 45
-				break;
-			}
-		}
-
-		while (var5 % 37L == 0L && var5 != 0L) { // L: 47
-			var5 /= 37L;
-		}
-
-		String var10 = class82.base37DecodeLong(var5); // L: 50
-		if (var10 == null) { // L: 51
-			var10 = "";
-		}
-
-		this.name = var10; // L: 54
-	} // L: 55
-
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;I)V",
-		garbageValue = "-1333219984"
-	)
-	@Export("setOwner")
-	final void setOwner(String var1) {
-		long var5 = 0L; // L: 62
-		int var7 = var1.length(); // L: 63
-
-		for (int var8 = 0; var8 < var7; ++var8) { // L: 64
-			var5 *= 37L; // L: 65
-			char var9 = var1.charAt(var8); // L: 66
-			if (var9 >= 'A' && var9 <= 'Z') { // L: 67
-				var5 += (long)(var9 + 1 - 65);
-			} else if (var9 >= 'a' && var9 <= 'z') { // L: 68
-				var5 += (long)(var9 + 1 - 97);
-			} else if (var9 >= '0' && var9 <= '9') {
-				var5 += (long)(var9 + 27 - 48); // L: 69
-			}
-
-			if (var5 >= 177917621779460413L) { // L: 70
-				break;
-			}
-		}
-
-		while (0L == var5 % 37L && 0L != var5) { // L: 72
-			var5 /= 37L;
-		}
-
-		String var10 = class82.base37DecodeLong(var5); // L: 75
-		if (var10 == null) { // L: 76
-			var10 = "";
-		}
-
-		this.owner = var10; // L: 79
-	} // L: 80
-
-	@ObfuscatedName("s")
-	@ObfuscatedSignature(
-		descriptor = "(Lpi;I)V",
-		garbageValue = "-896267822"
-	)
-	@Export("readUpdate")
-	public final void readUpdate(Buffer var1) {
-		this.setOwner(var1.readStringCp1252NullTerminated()); // L: 83
-		long var2 = var1.readLong(); // L: 84
-		long var5 = var2; // L: 86
-		String var4;
-		int var7;
-		if (var2 > 0L && var2 < 6582952005840035281L) { // L: 88
-			if (0L == var2 % 37L) { // L: 92
-				var4 = null; // L: 93
-			} else {
-				var7 = 0; // L: 96
-
-				for (long var8 = var2; var8 != 0L; var8 /= 37L) { // L: 97 98 100
-					++var7; // L: 99
-				}
-
-				StringBuilder var10 = new StringBuilder(var7); // L: 102
-
-				while (0L != var5) { // L: 103
-					long var11 = var5; // L: 104
-					var5 /= 37L; // L: 105
-					var10.append(class349.base37Table[(int)(var11 - var5 * 37L)]); // L: 106
-				}
-
-				var4 = var10.reverse().toString(); // L: 108
-			}
-		} else {
-			var4 = null; // L: 89
-		}
-
-		this.readName(var4); // L: 110
-		this.minKick = var1.readByte(); // L: 111
-		var7 = var1.readUnsignedByte(); // L: 112
-		if (var7 != 255) { // L: 113
-			this.clear(); // L: 114
-
-			for (int var13 = 0; var13 < var7; ++var13) { // L: 115
-				ClanMate var9 = (ClanMate)this.addLastNoPreviousUsername(new Username(var1.readStringCp1252NullTerminated(), this.loginType)); // L: 116
-				int var14 = var1.readUnsignedShort(); // L: 117
-				var9.set(var14, ++this.field4244 - 1); // L: 118
-				var9.rank = var1.readByte(); // L: 119
-				var1.readStringCp1252NullTerminated(); // L: 120
-				this.isLocalPlayer(var9); // L: 121
-			}
-
-		}
-	} // L: 123
 
 	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Lpi;I)V",
-		garbageValue = "-432033095"
+		descriptor = "(Ljava/lang/String;I)V",
+		garbageValue = "1717144210"
 	)
-	public final void method6661(Buffer var1) {
-		Username var2 = new Username(var1.readStringCp1252NullTerminated(), this.loginType); // L: 126
-		int var3 = var1.readUnsignedShort(); // L: 127
-		byte var4 = var1.readByte(); // L: 128
-		boolean var5 = false; // L: 129
-		if (var4 == -128) { // L: 130
+	@Export("readName")
+	final void readName(String var1) {
+		String var3 = class263.base37DecodeLong(class114.method2626(var1)); // L: 37
+		if (var3 == null) {
+			var3 = ""; // L: 38
+		}
+
+		this.name = var3; // L: 41
+	} // L: 42
+
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;I)V",
+		garbageValue = "-1165437728"
+	)
+	@Export("setOwner")
+	final void setOwner(String var1) {
+		String var3 = class263.base37DecodeLong(class114.method2626(var1)); // L: 47
+		if (var3 == null) {
+			var3 = ""; // L: 48
+		}
+
+		this.owner = var3; // L: 51
+	} // L: 52
+
+	@ObfuscatedName("r")
+	@ObfuscatedSignature(
+		descriptor = "(Lpx;B)V",
+		garbageValue = "-38"
+	)
+	@Export("readUpdate")
+	public final void readUpdate(Buffer var1) {
+		this.setOwner(var1.readStringCp1252NullTerminated()); // L: 55
+		long var2 = var1.readLong(); // L: 56
+		this.readName(class293.method5431(var2)); // L: 57
+		this.minKick = var1.readByte(); // L: 58
+		int var4 = var1.readUnsignedByte(); // L: 59
+		if (var4 != 255) { // L: 60
+			this.clear(); // L: 61
+
+			for (int var5 = 0; var5 < var4; ++var5) { // L: 62
+				ClanMate var6 = (ClanMate)this.addLastNoPreviousUsername(new Username(var1.readStringCp1252NullTerminated(), this.loginType)); // L: 63
+				int var7 = var1.readUnsignedShort(); // L: 64
+				var6.set(var7, ++this.field4309 - 1); // L: 65
+				var6.rank = var1.readByte(); // L: 66
+				var1.readStringCp1252NullTerminated(); // L: 67
+				this.isLocalPlayer(var6); // L: 68
+			}
+
+		}
+	} // L: 70
+
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "(Lpx;B)V",
+		garbageValue = "2"
+	)
+	public final void method6463(Buffer var1) {
+		Username var2 = new Username(var1.readStringCp1252NullTerminated(), this.loginType); // L: 73
+		int var3 = var1.readUnsignedShort(); // L: 74
+		byte var4 = var1.readByte(); // L: 75
+		boolean var5 = false; // L: 76
+		if (var4 == -128) { // L: 77
 			var5 = true;
 		}
 
 		ClanMate var6;
-		if (var5) { // L: 131
-			if (this.getSize() == 0) { // L: 132
+		if (var5) { // L: 78
+			if (this.getSize() == 0) { // L: 79
 				return;
 			}
 
-			var6 = (ClanMate)this.getByCurrentUsername(var2); // L: 133
-			if (var6 != null && var6.getWorld() == var3) { // L: 134
-				this.remove(var6); // L: 135
+			var6 = (ClanMate)this.getByCurrentUsername(var2); // L: 80
+			if (var6 != null && var6.getWorld() == var3) { // L: 81
+				this.remove(var6); // L: 82
 			}
 		} else {
-			var1.readStringCp1252NullTerminated(); // L: 139
-			var6 = (ClanMate)this.getByCurrentUsername(var2); // L: 140
-			if (var6 == null) { // L: 141
-				if (this.getSize() > super.capacity) { // L: 142
+			var1.readStringCp1252NullTerminated(); // L: 86
+			var6 = (ClanMate)this.getByCurrentUsername(var2); // L: 87
+			if (var6 == null) { // L: 88
+				if (this.getSize() > super.capacity) { // L: 89
 					return;
 				}
 
-				var6 = (ClanMate)this.addLastNoPreviousUsername(var2); // L: 143
+				var6 = (ClanMate)this.addLastNoPreviousUsername(var2); // L: 90
 			}
 
-			var6.set(var3, ++this.field4244 - 1); // L: 145
-			var6.rank = var4; // L: 146
-			this.isLocalPlayer(var6); // L: 147
+			var6.set(var3, ++this.field4309 - 1); // L: 92
+			var6.rank = var4; // L: 93
+			this.isLocalPlayer(var6); // L: 94
 		}
 
-	} // L: 149
+	} // L: 96
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-990148862"
+		garbageValue = "-570861245"
 	)
 	@Export("clearFriends")
 	public final void clearFriends() {
-		for (int var1 = 0; var1 < this.getSize(); ++var1) { // L: 152
-			((ClanMate)this.get(var1)).clearIsFriend(); // L: 153
+		for (int var1 = 0; var1 < this.getSize(); ++var1) { // L: 99
+			((ClanMate)this.get(var1)).clearIsFriend(); // L: 100
 		}
 
-	} // L: 155
+	} // L: 102
 
-	@ObfuscatedName("r")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "1742976679"
+		garbageValue = "-295246975"
 	)
 	@Export("invalidateIgnoreds")
 	public final void invalidateIgnoreds() {
-		for (int var1 = 0; var1 < this.getSize(); ++var1) { // L: 158
-			((ClanMate)this.get(var1)).clearIsIgnored(); // L: 159
+		for (int var1 = 0; var1 < this.getSize(); ++var1) { // L: 105
+			((ClanMate)this.get(var1)).clearIsIgnored(); // L: 106
 		}
 
-	} // L: 161
+	} // L: 108
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "(Lne;I)V",
-		garbageValue = "-103692595"
+		descriptor = "(Lnm;I)V",
+		garbageValue = "402509546"
 	)
 	@Export("isLocalPlayer")
 	final void isLocalPlayer(ClanMate var1) {
-		if (var1.getUsername().equals(this.localUser.username())) { // L: 164
+		if (var1.getUsername().equals(this.localUser.username())) { // L: 111
 			this.rank = var1.rank;
 		}
 
-	} // L: 165
+	} // L: 112
 }

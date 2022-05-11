@@ -1,49 +1,47 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("er")
+@ObfuscatedName("ee")
 public class class145 {
-	@ObfuscatedName("eq")
-	@ObfuscatedSignature(
-		descriptor = "Llx;"
-	)
-	@Export("archive8")
-	static Archive archive8;
-	@ObfuscatedName("v")
+	@ObfuscatedName("ik")
 	@ObfuscatedGetter(
-		longValue = -8660248817658951919L
+		intValue = -627241765
 	)
-	long field1633;
-	@ObfuscatedName("c")
+	static int field1690;
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		longValue = 945677273558696457L
+		longValue = -4087609161665050259L
 	)
-	long field1635;
-	@ObfuscatedName("i")
+	long field1683;
+	@ObfuscatedName("q")
+	@ObfuscatedGetter(
+		longValue = 1088515563671951847L
+	)
+	long field1688;
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Llk;"
+		descriptor = "Llo;"
 	)
-	IterableNodeDeque field1632;
+	IterableNodeDeque field1685;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lpi;)V"
+		descriptor = "(Lpx;)V"
 	)
 	public class145(Buffer var1) {
-		this.field1635 = -1L; // L: 10
-		this.field1632 = new IterableNodeDeque(); // L: 11
-		this.method3084(var1); // L: 19
+		this.field1688 = -1L; // L: 10
+		this.field1685 = new IterableNodeDeque(); // L: 11
+		this.method2985(var1); // L: 19
 	} // L: 20
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(Lpi;I)V",
-		garbageValue = "1488842408"
+		descriptor = "(Lpx;B)V",
+		garbageValue = "-84"
 	)
-	void method3084(Buffer var1) {
-		this.field1633 = var1.readLong(); // L: 23
-		this.field1635 = var1.readLong(); // L: 24
+	void method2985(Buffer var1) {
+		this.field1683 = var1.readLong(); // L: 23
+		this.field1688 = var1.readLong(); // L: 24
 
 		for (int var2 = var1.readUnsignedByte(); var2 != 0; var2 = var1.readUnsignedByte()) { // L: 25 26 36
 			Object var3;
@@ -63,88 +61,41 @@ public class class145 {
 				var3 = new class141(this);
 			}
 
-			((class144)var3).vmethod3152(var1); // L: 34
-			this.field1632.addFirst((Node)var3); // L: 35
+			((class144)var3).vmethod3037(var1); // L: 34
+			this.field1685.addFirst((Node)var3); // L: 35
 		}
 
 	} // L: 38
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(Lea;I)V",
-		garbageValue = "1969966641"
+		descriptor = "(Let;I)V",
+		garbageValue = "1678529975"
 	)
-	public void method3086(ClanChannel var1) {
-		if (var1.key == this.field1633 && var1.field1656 == this.field1635) { // L: 41
-			for (class144 var2 = (class144)this.field1632.last(); var2 != null; var2 = (class144)this.field1632.previous()) { // L: 42
-				var2.vmethod3153(var1); // L: 43
+	public void method2987(ClanChannel var1) {
+		if (this.field1683 == var1.key && var1.field1709 == this.field1688) { // L: 41
+			for (class144 var2 = (class144)this.field1685.last(); var2 != null; var2 = (class144)this.field1685.previous()) { // L: 42
+				var2.vmethod3032(var1); // L: 43
 			}
 
-			++var1.field1656; // L: 45
+			++var1.field1709; // L: 45
 		} else {
 			throw new RuntimeException("");
 		}
 	} // L: 46
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("js")
 	@ObfuscatedSignature(
-		descriptor = "(IIZI)Ljava/lang/String;",
-		garbageValue = "803323107"
+		descriptor = "(II)Z",
+		garbageValue = "708009599"
 	)
-	static String method3085(int var0, int var1, boolean var2) {
-		if (var1 >= 2 && var1 <= 36) { // L: 110
-			if (var2 && var0 >= 0) { // L: 111
-				int var3 = 2; // L: 112
-
-				for (int var4 = var0 / var1; var4 != 0; ++var3) { // L: 113 114 116
-					var4 /= var1; // L: 115
-				}
-
-				char[] var5 = new char[var3]; // L: 118
-				var5[0] = '+'; // L: 119
-
-				for (int var6 = var3 - 1; var6 > 0; --var6) { // L: 120
-					int var7 = var0; // L: 121
-					var0 /= var1; // L: 122
-					int var8 = var7 - var0 * var1; // L: 123
-					if (var8 >= 10) { // L: 124
-						var5[var6] = (char)(var8 + 87);
-					} else {
-						var5[var6] = (char)(var8 + 48); // L: 125
-					}
-				}
-
-				return new String(var5); // L: 127
-			} else {
-				return Integer.toString(var0, var1);
+	static boolean method2991(int var0) {
+		for (int var1 = 0; var1 < Client.field719; ++var1) { // L: 11734
+			if (Client.field721[var1] == var0) { // L: 11735
+				return true;
 			}
-		} else {
-			throw new IllegalArgumentException("" + var1);
 		}
+
+		return false; // L: 11737
 	}
-
-	@ObfuscatedName("aa")
-	@ObfuscatedSignature(
-		descriptor = "(IB)V",
-		garbageValue = "-62"
-	)
-	@Export("runWidgetOnLoadListener")
-	static void runWidgetOnLoadListener(int var0) {
-		if (var0 != -1) { // L: 4722
-			if (class155.loadInterface(var0)) { // L: 4723
-				Widget[] var1 = Widget.Widget_interfaceComponents[var0]; // L: 4724
-
-				for (int var2 = 0; var2 < var1.length; ++var2) { // L: 4725
-					Widget var3 = var1[var2]; // L: 4726
-					if (var3.onLoad != null) { // L: 4727
-						ScriptEvent var4 = new ScriptEvent(); // L: 4728
-						var4.widget = var3; // L: 4729
-						var4.args = var3.onLoad; // L: 4730
-						Interpreter.runScript(var4, 5000000, 0); // L: 4731
-					}
-				}
-
-			}
-		}
-	} // L: 4734
 }
