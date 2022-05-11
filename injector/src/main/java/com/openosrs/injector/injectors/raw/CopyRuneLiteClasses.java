@@ -93,11 +93,6 @@ public class CopyRuneLiteClasses extends AbstractInjector
 
 				for (Method method : runeLiteDeob.getMethods())
 				{
-					if (className.equals("RuneLiteMenuEntry") && (method.getName().equals("getItemId") || method.getName().equals("getWidget") || method.getName().equals("getItemOp")))
-					{
-						continue;
-					}
-
 					transformMethod(method);
 					runeliteObjectVanilla.addMethod(method);
 				}
