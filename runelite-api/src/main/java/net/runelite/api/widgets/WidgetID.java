@@ -527,6 +527,8 @@ public final class WidgetID
 		static final int MAGIC_ICON = 71;
 		static final int INTERFACE_CONTAINER = 72;
 		static final int INVENTORY_CONTAINER = 78;
+		static final int CHATBOX_PARENT = 94;
+		static final int INVENTORY_PARENT = 95;
 	}
 
 	static class ResizableViewportBottomLine
@@ -554,6 +556,10 @@ public final class WidgetID
 		static final int MAGIC_ICON = 64;
 		static final int INTERFACE_CONTAINER = 69;
 		static final int INVENTORY_CONTAINER = 75;
+		static final int CHATBOX_PARENT = 91;
+		static final int TABS1 = 92;
+		static final int TABS2 = 93;
+		static final int INVENTORY_PARENT = 94;
 	}
 
 	static class Chatbox
