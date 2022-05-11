@@ -1,28 +1,32 @@
-import java.net.URL;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cu")
+@ObfuscatedName("cg")
 @Implements("TileItem")
 public final class TileItem extends Renderable {
-	@ObfuscatedName("cv")
-	@ObfuscatedSignature(
-		descriptor = "[Lqq;"
-	)
-	@Export("worldSelectStars")
-	static IndexedSprite[] worldSelectStars;
-	@ObfuscatedName("v")
+	@ObfuscatedName("sb")
 	@ObfuscatedGetter(
-		intValue = -1512550431
+		intValue = -1684889403
+	)
+	static int field1292;
+	@ObfuscatedName("ev")
+	@ObfuscatedSignature(
+		descriptor = "Lle;"
+	)
+	@Export("archive9")
+	static Archive archive9;
+	@ObfuscatedName("o")
+	@ObfuscatedGetter(
+		intValue = -2046412949
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = 1689491185
+		intValue = 129863863
 	)
 	@Export("quantity")
 	int quantity;
@@ -30,90 +34,26 @@ public final class TileItem extends Renderable {
 	TileItem() {
 	} // L: 11
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(B)Liq;",
-		garbageValue = "103"
+		descriptor = "(I)Lhv;",
+		garbageValue = "-238822980"
 	)
 	@Export("getModel")
 	protected final Model getModel() {
-		return class19.ItemDefinition_get(this.id).getModel(this.quantity); // L: 14
+		return FileSystem.ItemDefinition_get(this.id).getModel(this.quantity); // L: 14
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("fk")
 	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "-1886709718"
+		descriptor = "(Lgq;IIIB)V",
+		garbageValue = "11"
 	)
-	@Export("loadWorlds")
-	static boolean loadWorlds() {
-		try {
-			if (class293.World_request == null) { // L: 31
-				class293.World_request = VerticalAlignment.urlRequester.request(new URL(WorldMapElement.field1836));
-			} else if (class293.World_request.isDone()) { // L: 33
-				byte[] var0 = class293.World_request.getResponse(); // L: 34
-				Buffer var1 = new Buffer(var0); // L: 35
-				var1.readInt();
-				World.World_count = var1.readUnsignedShort();
-				DevicePcmPlayerProvider.World_worlds = new World[World.World_count];
-
-				World var3;
-				for (int var2 = 0; var2 < World.World_count; var3.index = var2++) { // L: 47
-					var3 = DevicePcmPlayerProvider.World_worlds[var2] = new World();
-					var3.id = var1.readUnsignedShort();
-					var3.properties = var1.readInt(); // L: 42
-					var3.host = var1.readStringCp1252NullTerminated();
-					var3.activity = var1.readStringCp1252NullTerminated(); // L: 44
-					var3.location = var1.readUnsignedByte();
-					var3.population = var1.readShort(); // L: 46
-				}
-
-				class127.sortWorlds(DevicePcmPlayerProvider.World_worlds, 0, DevicePcmPlayerProvider.World_worlds.length - 1, World.World_sortOption1, World.World_sortOption2); // L: 49
-				class293.World_request = null; // L: 50
-				return true; // L: 51
+	static void method2407(SequenceDefinition var0, int var1, int var2, int var3) {
+		if (Client.soundEffectCount < 50 && class12.clientPreferences.method2239() != 0) { // L: 3768
+			if (var0.field2209 != null && var0.field2209.containsKey(var1)) { // L: 3769
+				MouseHandler.method588((Integer)var0.field2209.get(var1), var2, var3); // L: 3770
 			}
-		} catch (Exception var4) { // L: 55
-			var4.printStackTrace(); // L: 56
-			class293.World_request = null; // L: 57
 		}
-
-		return false; // L: 59
-	}
-
-	@ObfuscatedName("v")
-	@ObfuscatedSignature(
-		descriptor = "(IIS)I",
-		garbageValue = "-26385"
-	)
-	public static int method2393(int var0, int var1) {
-		return (var0 << 8) + var1; // L: 13
-	}
-
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1980901442"
-	)
-	static void method2395() {
-		synchronized(ArchiveDiskActionHandler.ArchiveDiskActionHandler_lock) { // L: 36
-			if (ArchiveDiskActionHandler.field3945 == 0) { // L: 37
-				ArchiveDiskActionHandler.ArchiveDiskActionHandler_thread = new Thread(new ArchiveDiskActionHandler()); // L: 38
-				ArchiveDiskActionHandler.ArchiveDiskActionHandler_thread.setDaemon(true); // L: 39
-				ArchiveDiskActionHandler.ArchiveDiskActionHandler_thread.start();
-				ArchiveDiskActionHandler.ArchiveDiskActionHandler_thread.setPriority(5); // L: 41
-			}
-
-			ArchiveDiskActionHandler.field3945 = 600; // L: 43
-		}
-	} // L: 45
-
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "(II)Lbe;",
-		garbageValue = "-99479259"
-	)
-	@Export("Messages_getMessage")
-	static Message Messages_getMessage(int var0) {
-		return (Message)Messages.Messages_hashTable.get((long)var0); // L: 40
-	}
+	} // L: 3771
 }

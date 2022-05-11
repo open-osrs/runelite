@@ -4,21 +4,27 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ec")
+@ObfuscatedName("em")
 @Implements("ClanChannelMember")
 public class ClanChannelMember {
-	@ObfuscatedName("v")
+	@ObfuscatedName("m")
+	@ObfuscatedSignature(
+		descriptor = "Llp;"
+	)
+	@Export("musicTrackArchive")
+	public static AbstractArchive musicTrackArchive;
+	@ObfuscatedName("o")
 	@Export("rank")
 	public byte rank;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -113610011
+		intValue = -594954787
 	)
 	@Export("world")
 	public int world;
-	@ObfuscatedName("i")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lqb;"
+		descriptor = "Lqv;"
 	)
 	@Export("username")
 	public Username username;
@@ -26,53 +32,22 @@ public class ClanChannelMember {
 	ClanChannelMember() {
 	} // L: 10
 
-	@ObfuscatedName("c")
-	@ObfuscatedSignature(
-		descriptor = "(IB)Lfv;",
-		garbageValue = "111"
-	)
-	public static HealthBarDefinition method2870(int var0) {
-		HealthBarDefinition var1 = (HealthBarDefinition)HealthBarDefinition.HealthBarDefinition_cached.get((long)var0); // L: 37
-		if (var1 != null) { // L: 38
-			return var1;
-		} else {
-			byte[] var2 = HealthBarDefinition.HealthBarDefinition_archive.takeFile(33, var0); // L: 39
-			var1 = new HealthBarDefinition(); // L: 40
-			if (var2 != null) { // L: 41
-				var1.decode(new Buffer(var2));
-			}
-
-			HealthBarDefinition.HealthBarDefinition_cached.put(var1, (long)var0); // L: 42
-			return var1; // L: 43
-		}
-	}
-
 	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "-704026744"
+		descriptor = "(IB)I",
+		garbageValue = "98"
 	)
-	public static int method2869(int var0) {
-		if (var0 > 0) { // L: 182
-			return 1;
-		} else {
-			return var0 < 0 ? -1 : 0; // L: 183 184
-		}
+	public static int method2819(int var0) {
+		return ScriptEvent.method2085(ViewportMouse.ViewportMouse_entityTags[var0]); // L: 64
 	}
 
-	@ObfuscatedName("fc")
+	@ObfuscatedName("gc")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "0"
+		descriptor = "(B)I",
+		garbageValue = "-113"
 	)
-	static final void method2868() {
-		if (Client.logoutTimer > 0) { // L: 2967
-			ItemLayer.logOut(); // L: 2968
-		} else {
-			Client.timer.method6562(); // L: 2971
-			Decimator.updateGameState(40); // L: 2972
-			ModeWhere.field4073 = Client.packetWriter.getSocket(); // L: 2973
-			Client.packetWriter.removeSocket(); // L: 2974
-		}
-	} // L: 2969 2975
+	@Export("getWindowedMode")
+	static int getWindowedMode() {
+		return Client.isResizable ? 2 : 1; // L: 4341
+	}
 }

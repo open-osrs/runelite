@@ -4,73 +4,74 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ch")
+@ObfuscatedName("cr")
 @Implements("ScriptEvent")
 public class ScriptEvent extends Node {
-	@ObfuscatedName("hr")
-	@ObfuscatedGetter(
-		intValue = -1925838321
+	@ObfuscatedName("ic")
+	@ObfuscatedSignature(
+		descriptor = "[Lqd;"
 	)
-	static int field1042;
-	@ObfuscatedName("v")
+	@Export("modIconSprites")
+	static IndexedSprite[] modIconSprites;
+	@ObfuscatedName("o")
 	@Export("args")
 	Object[] args;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@Export("isMouseInputEvent")
 	boolean isMouseInputEvent;
-	@ObfuscatedName("i")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lky;"
+		descriptor = "Lki;"
 	)
 	@Export("widget")
 	Widget widget;
-	@ObfuscatedName("f")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = 736658407
+		intValue = 1486957431
 	)
 	@Export("mouseX")
 	int mouseX;
-	@ObfuscatedName("b")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = 1446872253
+		intValue = -2142202081
 	)
 	@Export("mouseY")
 	int mouseY;
-	@ObfuscatedName("n")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -2054800039
+		intValue = 19118051
 	)
 	@Export("opIndex")
 	int opIndex;
-	@ObfuscatedName("s")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "Lky;"
+		descriptor = "Lki;"
 	)
 	@Export("dragTarget")
 	Widget dragTarget;
-	@ObfuscatedName("l")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = -2138407541
+		intValue = -337661445
 	)
 	@Export("keyTyped")
 	int keyTyped;
-	@ObfuscatedName("q")
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = 606437039
+		intValue = -2123703635
 	)
 	@Export("keyPressed")
 	int keyPressed;
-	@ObfuscatedName("o")
+	@ObfuscatedName("v")
 	@Export("targetName")
 	String targetName;
-	@ObfuscatedName("r")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -2094030297
+		intValue = 702616363
 	)
-	int field1031;
-	@ObfuscatedName("p")
+	int field1054;
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -2085929869
+		intValue = -394904135
 	)
 	@Export("type")
 	int type;
@@ -79,37 +80,67 @@ public class ScriptEvent extends Node {
 		this.type = 76; // L: 19
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "([Ljava/lang/Object;I)V",
-		garbageValue = "-578941506"
+		descriptor = "([Ljava/lang/Object;B)V",
+		garbageValue = "3"
 	)
 	@Export("setArgs")
 	public void setArgs(Object[] var1) {
 		this.args = var1; // L: 22
 	} // L: 23
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
 		descriptor = "(II)V",
-		garbageValue = "551800403"
+		garbageValue = "1156737002"
 	)
 	@Export("setType")
 	public void setType(int var1) {
-		this.type = var1; // L: 26
-	} // L: 27
+		this.type = var1;
+	}
 
-	@ObfuscatedName("iv")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(IIIIS)V",
-		garbageValue = "-6716"
+		descriptor = "(I)V",
+		garbageValue = "520194545"
 	)
-	static final void method2092(int var0, int var1, int var2, int var3) {
-		for (int var4 = 0; var4 < Client.rootWidgetCount; ++var4) { // L: 8661
-			if (Client.rootWidgetWidths[var4] + Client.rootWidgetXs[var4] > var0 && Client.rootWidgetXs[var4] < var0 + var2 && Client.rootWidgetYs[var4] + Client.rootWidgetHeights[var4] > var1 && Client.rootWidgetYs[var4] < var3 + var1) { // L: 8662
-				Client.field716[var4] = true;
+	static void method2074() {
+		class82.field1072 = new int[2000]; // L: 25
+		int var0 = 0; // L: 26
+		int var1 = 240;
+
+		int var3;
+		for (byte var2 = 12; var0 < 16; var1 -= var2) {
+			var3 = class127.method2805((double)((float)var1 / 360.0F), 0.9998999834060669D, (double)(0.075F + (float)var0 * 0.425F / 16.0F)); // L: 30
+			class82.field1072[var0] = var3; // L: 31
+			++var0; // L: 29
+		}
+
+		var1 = 48; // L: 33
+
+		for (int var5 = var1 / 6; var0 < class82.field1072.length; var1 -= var5) { // L: 34 35 41
+			var3 = var0 * 2; // L: 36
+
+			for (int var4 = class127.method2805((double)((float)var1 / 360.0F), 0.9998999834060669D, 0.5D); var0 < var3 && var0 < class82.field1072.length; ++var0) { // L: 37 38
+				class82.field1072[var0] = var4; // L: 39
 			}
 		}
 
-	} // L: 8664
+	} // L: 43
+
+	@ObfuscatedName("q")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;ZZI)V",
+		garbageValue = "-1817866678"
+	)
+	@Export("openURL")
+	public static void openURL(String var0, boolean var1, boolean var2) {
+		World.method1663(var0, var1, "openjs", var2); // L: 27
+	} // L: 28
+
+	@ObfuscatedName("p")
+	public static int method2085(long var0) {
+		return (int)(var0 >>> 7 & 127L); // L: 68
+	}
 }

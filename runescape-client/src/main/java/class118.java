@@ -3,138 +3,131 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("df")
+@ObfuscatedName("dl")
 public class class118 implements MouseWheel {
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Ldf;"
+		descriptor = "Ldl;"
 	)
-	static final class118 field1433;
-	@ObfuscatedName("c")
+	static final class118 field1498;
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Ldf;"
+		descriptor = "Ldl;"
 	)
-	static final class118 field1430;
-	@ObfuscatedName("i")
+	static final class118 field1491;
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Ldf;"
+		descriptor = "Ldl;"
 	)
-	static final class118 field1431;
-	@ObfuscatedName("f")
+	static final class118 field1492;
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "Ldf;"
+		descriptor = "Ldl;"
 	)
-	static final class118 field1432;
-	@ObfuscatedName("b")
+	static final class118 field1499;
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "Ldf;"
+		descriptor = "Ldl;"
 	)
-	static final class118 field1434;
-	@ObfuscatedName("n")
+	static final class118 field1490;
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Ldf;"
+		descriptor = "Ldl;"
 	)
-	static final class118 field1429;
+	static final class118 field1495;
+	@ObfuscatedName("p")
+	@ObfuscatedGetter(
+		intValue = -733991275
+	)
+	final int field1496;
 	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = 1756960623
+		intValue = 1625780091
 	)
-	final int field1437;
-	@ObfuscatedName("l")
+	final int field1497;
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = 1872311517
+		intValue = -808605415
 	)
-	final int field1436;
-	@ObfuscatedName("q")
-	@ObfuscatedGetter(
-		intValue = -2109677301
-	)
-	final int field1435;
+	final int field1493;
 
 	static {
-		field1433 = new class118(0, 0, (String)null, 0); // L: 14
-		field1430 = new class118(1, 1, (String)null, 9); // L: 15
-		field1431 = new class118(2, 2, (String)null, 3); // L: 16
-		field1432 = new class118(3, 3, (String)null, 6); // L: 17
-		field1434 = new class118(4, 4, (String)null, 1); // L: 18
-		field1429 = new class118(5, 5, (String)null, 3); // L: 19
+		field1498 = new class118(0, 0, (String)null, 0); // L: 14
+		field1491 = new class118(1, 1, (String)null, 9); // L: 15
+		field1492 = new class118(2, 2, (String)null, 3); // L: 16
+		field1499 = new class118(3, 3, (String)null, 6); // L: 17
+		field1490 = new class118(4, 4, (String)null, 1); // L: 18
+		field1495 = new class118(5, 5, (String)null, 3); // L: 19
 	}
 
 	class118(int var1, int var2, String var3, int var4) {
-		this.field1437 = var1; // L: 29
-		this.field1436 = var2; // L: 30
-		this.field1435 = var4; // L: 31
+		this.field1496 = var1;
+		this.field1497 = var2; // L: 30
+		this.field1493 = var4; // L: 31
 	} // L: 32
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "(B)I",
-		garbageValue = "16"
+		garbageValue = "30"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field1436; // L: 45
+		return this.field1497; // L: 46
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		descriptor = "(I)I",
-		garbageValue = "-1895809881"
+		garbageValue = "-1599057614"
 	)
-	int method2739() {
-		return this.field1435; // L: 41
+	int method2732() {
+		return this.field1493; // L: 41
 	}
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "([BIII)Ljava/lang/String;",
-		garbageValue = "1410693926"
+		descriptor = "(Llp;Ljava/lang/String;Ljava/lang/String;IZI)V",
+		garbageValue = "-898838791"
 	)
-	@Export("decodeStringCp1252")
-	public static String decodeStringCp1252(byte[] var0, int var1, int var2) {
-		char[] var3 = new char[var2]; // L: 132
-		int var4 = 0; // L: 133
+	public static void method2733(AbstractArchive var0, String var1, String var2, int var3, boolean var4) {
+		int var5 = var0.getGroupId(var1); // L: 26
+		int var6 = var0.getFileId(var5, var2); // L: 27
+		UserComparator8.method2574(var0, var5, var6, var3, var4); // L: 28
+	} // L: 29
 
-		for (int var5 = 0; var5 < var2; ++var5) { // L: 134
-			int var6 = var0[var5 + var1] & 255; // L: 135
-			if (var6 != 0) { // L: 136
-				if (var6 >= 128 && var6 < 160) { // L: 137
-					char var7 = class345.cp1252AsciiExtension[var6 - 128]; // L: 138
-					if (var7 == 0) { // L: 139
-						var7 = '?';
-					}
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		descriptor = "(I)[Lkg;",
+		garbageValue = "-495384223"
+	)
+	@Export("PlayerType_values")
+	public static PlayerType[] PlayerType_values() {
+		return new PlayerType[]{PlayerType.field3989, PlayerType.PlayerType_ironman, PlayerType.field3984, PlayerType.PlayerType_jagexModerator, PlayerType.PlayerType_hardcoreIronman, PlayerType.PlayerType_normal, PlayerType.PlayerType_playerModerator, PlayerType.PlayerType_ultimateIronman, PlayerType.field3990}; // L: 22
+	}
 
-					var6 = var7; // L: 140
-				}
-
-				var3[var4++] = (char)var6; // L: 142
-			}
+	@ObfuscatedName("ht")
+	@ObfuscatedSignature(
+		descriptor = "(Lca;I)Z",
+		garbageValue = "1081302246"
+	)
+	static boolean method2720(Player var0) {
+		if (Client.drawPlayerNames == 0) { // L: 5020
+			return false;
+		} else if (ModelData0.localPlayer != var0) { // L: 5021
+			boolean var1 = (Client.drawPlayerNames & 4) != 0; // L: 5024
+			return var1 || SoundSystem.method779() && var0.isFriend() || class116.method2685() && var0.isFriendsChatMember(); // L: 5026
+		} else {
+			return class21.method274(); // L: 5028
 		}
-
-		return new String(var3, 0, var4); // L: 144
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("lx")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-1500949037"
+		descriptor = "(S)Z",
+		garbageValue = "5517"
 	)
-	static final int method2747() {
-		return ViewportMouse.ViewportMouse_y; // L: 84
-	}
-
-	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		descriptor = "(I)[I",
-		garbageValue = "1898368305"
-	)
-	public static int[] method2748() {
-		int[] var0 = new int[KeyHandler.field132]; // L: 259
-
-		for (int var1 = 0; var1 < KeyHandler.field132; ++var1) { // L: 260
-			var0[var1] = KeyHandler.field139[var1]; // L: 261
-		}
-
-		return var0; // L: 263
+	static boolean method2721() {
+		return class12.clientPreferences.method2243() >= Client.field484; // L: 12710
 	}
 }

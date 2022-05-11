@@ -14,13 +14,13 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ak")
+@ObfuscatedName("ab")
 @Implements("RasterProvider")
 public final class RasterProvider extends AbstractRasterProvider {
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@Export("component")
 	Component component;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@Export("image")
 	Image image;
 
@@ -36,66 +36,66 @@ public final class RasterProvider extends AbstractRasterProvider {
 		this.apply(); // L: 31
 	} // L: 32
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "(Ljava/awt/Component;B)V",
-		garbageValue = "13"
+		garbageValue = "-88"
 	)
 	@Export("setComponent")
 	final void setComponent(Component var1) {
 		this.component = var1; // L: 35
 	} // L: 36
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(IIS)V",
-		garbageValue = "131"
+		descriptor = "(III)V",
+		garbageValue = "1511692839"
 	)
 	@Export("drawFull")
 	public final void drawFull(int var1, int var2) {
-		this.drawFull0(this.component.getGraphics(), var1, var2); // L: 39
-	} // L: 40
+		this.drawFull0(this.component.getGraphics(), var1, var2); // L: 40
+	} // L: 41
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "(IIIII)V",
-		garbageValue = "-1598391098"
+		garbageValue = "-1899949578"
 	)
 	@Export("draw")
 	public final void draw(int var1, int var2, int var3, int var4) {
-		this.draw0(this.component.getGraphics(), var1, var2, var3, var4); // L: 43
-	} // L: 44
+		this.draw0(this.component.getGraphics(), var1, var2, var3, var4); // L: 45
+	} // L: 46
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/awt/Graphics;III)V",
-		garbageValue = "-1968025029"
+		descriptor = "(Ljava/awt/Graphics;IIB)V",
+		garbageValue = "-56"
 	)
 	@Export("drawFull0")
 	final void drawFull0(Graphics var1, int var2, int var3) {
 		try {
-			var1.drawImage(this.image, var2, var3, this.component); // L: 48
-		} catch (Exception var5) { // L: 50
-			this.component.repaint(); // L: 51
+			var1.drawImage(this.image, var2, var3, this.component); // L: 50
+		} catch (Exception var5) { // L: 52
+			this.component.repaint(); // L: 53
 		}
 
-	} // L: 53
+	} // L: 55
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
 		descriptor = "(Ljava/awt/Graphics;IIIII)V",
-		garbageValue = "-1773855404"
+		garbageValue = "-1218744296"
 	)
 	@Export("draw0")
 	final void draw0(Graphics var1, int var2, int var3, int var4, int var5) {
 		try {
-			Shape var6 = var1.getClip(); // L: 57
-			var1.clipRect(var2, var3, var4, var5); // L: 58
-			var1.drawImage(this.image, 0, 0, this.component); // L: 59
-			var1.setClip(var6); // L: 60
-		} catch (Exception var7) { // L: 62
-			this.component.repaint(); // L: 63
+			Shape var6 = var1.getClip(); // L: 59
+			var1.clipRect(var2, var3, var4, var5); // L: 60
+			var1.drawImage(this.image, 0, 0, this.component); // L: 61
+			var1.setClip(var6); // L: 62
+		} catch (Exception var7) { // L: 64
+			this.component.repaint(); // L: 65
 		}
 
-	} // L: 65
+	} // L: 67
 }

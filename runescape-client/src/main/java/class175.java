@@ -2,121 +2,107 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fz")
+@ObfuscatedName("fu")
 public class class175 {
-	@ObfuscatedName("b")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(Lpz;II)Z",
-		garbageValue = "-1279876475"
+		descriptor = "Llp;"
 	)
-	@Export("updateExternalPlayer")
-	static boolean updateExternalPlayer(PacketBuffer var0, int var1) {
-		int var2 = var0.readBits(2); // L: 376
-		int var3;
-		int var4;
-		int var7;
-		int var8;
-		int var9;
-		int var10;
-		if (var2 == 0) { // L: 377
-			if (var0.readBits(1) != 0) { // L: 378
-				updateExternalPlayer(var0, var1);
-			}
+	@Export("SpotAnimationDefinition_modelArchive")
+	public static AbstractArchive SpotAnimationDefinition_modelArchive;
+	@ObfuscatedName("ib")
+	@ObfuscatedSignature(
+		descriptor = "Lgm;"
+	)
+	@Export("scene")
+	static Scene scene;
 
-			var3 = var0.readBits(13); // L: 379
-			var4 = var0.readBits(13); // L: 380
-			boolean var12 = var0.readBits(1) == 1; // L: 381
-			if (var12) { // L: 382
-				Players.Players_pendingUpdateIndices[++Players.Players_pendingUpdateCount - 1] = var1;
-			}
+	@ObfuscatedName("q")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "2044568477"
+	)
+	public static void method3380() {
+		WorldMapRegion.WorldMapRegion_cachedSprites.demote(5); // L: 47
+	} // L: 48
 
-			if (Client.players[var1] != null) { // L: 383
-				throw new RuntimeException(); // L: 384
-			} else {
-				Player var11 = Client.players[var1] = new Player(); // L: 386
-				var11.index = var1; // L: 387
-				if (Players.field1276[var1] != null) { // L: 388
-					var11.read(Players.field1276[var1]);
-				}
-
-				var11.orientation = Players.Players_orientations[var1]; // L: 389
-				var11.targetIndex = Players.Players_targetIndices[var1]; // L: 390
-				var7 = Players.Players_regions[var1]; // L: 391
-				var8 = var7 >> 28; // L: 392
-				var9 = var7 >> 14 & 255; // L: 393
-				var10 = var7 & 255; // L: 394
-				var11.pathTraversed[0] = Players.field1286[var1]; // L: 395
-				var11.plane = (byte)var8; // L: 396
-				var11.resetPath((var9 << 13) + var3 - GrandExchangeOfferOwnWorldComparator.baseX, (var10 << 13) + var4 - VarcInt.baseY); // L: 397
-				var11.field1070 = false; // L: 398
-				return true; // L: 399
-			}
-		} else if (var2 == 1) { // L: 401
-			var3 = var0.readBits(2); // L: 402
-			var4 = Players.Players_regions[var1]; // L: 403
-			Players.Players_regions[var1] = (((var4 >> 28) + var3 & 3) << 28) + (var4 & 268435455); // L: 404
-			return false; // L: 405
-		} else {
-			int var5;
-			int var6;
-			if (var2 == 2) { // L: 407
-				var3 = var0.readBits(5); // L: 408
-				var4 = var3 >> 3; // L: 409
-				var5 = var3 & 7; // L: 410
-				var6 = Players.Players_regions[var1]; // L: 411
-				var7 = (var6 >> 28) + var4 & 3; // L: 412
-				var8 = var6 >> 14 & 255; // L: 413
-				var9 = var6 & 255; // L: 414
-				if (var5 == 0) { // L: 415
-					--var8; // L: 416
-					--var9; // L: 417
-				}
-
-				if (var5 == 1) { // L: 419
-					--var9;
-				}
-
-				if (var5 == 2) { // L: 420
-					++var8; // L: 421
-					--var9; // L: 422
-				}
-
-				if (var5 == 3) { // L: 424
-					--var8;
-				}
-
-				if (var5 == 4) { // L: 425
-					++var8;
-				}
-
-				if (var5 == 5) { // L: 426
-					--var8; // L: 427
-					++var9; // L: 428
-				}
-
-				if (var5 == 6) { // L: 430
-					++var9;
-				}
-
-				if (var5 == 7) { // L: 431
-					++var8; // L: 432
-					++var9; // L: 433
-				}
-
-				Players.Players_regions[var1] = (var8 << 14) + var9 + (var7 << 28); // L: 435
-				return false; // L: 436
-			} else {
-				var3 = var0.readBits(18); // L: 438
-				var4 = var3 >> 16; // L: 439
-				var5 = var3 >> 8 & 255; // L: 440
-				var6 = var3 & 255; // L: 441
-				var7 = Players.Players_regions[var1]; // L: 442
-				var8 = (var7 >> 28) + var4 & 3; // L: 443
-				var9 = var5 + (var7 >> 14) & 255; // L: 444
-				var10 = var6 + var7 & 255; // L: 445
-				Players.Players_regions[var1] = (var9 << 14) + var10 + (var8 << 28); // L: 446
-				return false; // L: 447
-			}
-		}
+	@ObfuscatedName("l")
+	@ObfuscatedSignature(
+		descriptor = "(III)Lbo;",
+		garbageValue = "-586854513"
+	)
+	@Export("Messages_getByChannelAndID")
+	static Message Messages_getByChannelAndID(int var0, int var1) {
+		ChatChannel var2 = (ChatChannel)Messages.Messages_channels.get(var0); // L: 35
+		return var2.getMessage(var1); // L: 36
 	}
+
+	@ObfuscatedName("a")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-482569171"
+	)
+	public static void method3379() {
+		HealthBarDefinition.HealthBarDefinition_cached.clear(); // L: 77
+		HealthBarDefinition.HealthBarDefinition_cachedSprites.clear(); // L: 78
+	} // L: 79
+
+	@ObfuscatedName("iu")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;Ljava/lang/String;IIIIZI)V",
+		garbageValue = "1857595187"
+	)
+	@Export("insertMenuItem")
+	static final void insertMenuItem(String var0, String var1, int var2, int var3, int var4, int var5, boolean var6) {
+		if (!Client.isMenuOpen) { // L: 9911
+			if (Client.menuOptionsCount < 500) { // L: 9912
+				Client.menuActions[Client.menuOptionsCount] = var0; // L: 9913
+				Client.menuTargets[Client.menuOptionsCount] = var1; // L: 9914
+				Client.menuOpcodes[Client.menuOptionsCount] = var2; // L: 9915
+				Client.menuIdentifiers[Client.menuOptionsCount] = var3; // L: 9916
+				Client.menuArguments1[Client.menuOptionsCount] = var4; // L: 9917
+				Client.menuArguments2[Client.menuOptionsCount] = var5; // L: 9918
+				Client.menuShiftClick[Client.menuOptionsCount] = var6; // L: 9919
+				++Client.menuOptionsCount; // L: 9920
+			}
+
+		}
+	} // L: 9922
+
+	@ObfuscatedName("im")
+	@ObfuscatedSignature(
+		descriptor = "(IIIIIIIIB)V",
+		garbageValue = "0"
+	)
+	@Export("drawWidgets")
+	static final void drawWidgets(int var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7) {
+		if (WorldMapDecoration.loadInterface(var0)) { // L: 10200
+			BuddyRankComparator.field1408 = null; // L: 10207
+			ViewportMouse.drawInterface(NetSocket.Widget_interfaceComponents[var0], -1, var1, var2, var3, var4, var5, var6, var7); // L: 10208
+			if (BuddyRankComparator.field1408 != null) { // L: 10209
+				ViewportMouse.drawInterface(BuddyRankComparator.field1408, -1412584499, var1, var2, var3, var4, class151.field1729, class162.field1810, var7); // L: 10210
+				BuddyRankComparator.field1408 = null; // L: 10211
+			}
+
+		} else {
+			if (var7 != -1) { // L: 10201
+				Client.field652[var7] = true;
+			} else {
+				for (int var8 = 0; var8 < 100; ++var8) { // L: 10203
+					Client.field652[var8] = true;
+				}
+			}
+
+		}
+	} // L: 10205 10213
+
+	@ObfuscatedName("km")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "1703551260"
+	)
+	static final void method3373() {
+		Client.field691 = Client.cycleCntr; // L: 12434
+		Tiles.field997 = true; // L: 12435
+	} // L: 12436
 }

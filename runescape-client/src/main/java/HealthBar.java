@@ -3,37 +3,34 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ci")
+@ObfuscatedName("ct")
 @Implements("HealthBar")
 public class HealthBar extends Node {
-	@ObfuscatedName("bc")
-	@Export("otp")
-	static String otp;
-	@ObfuscatedName("i")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Lfv;"
+		descriptor = "Lfr;"
 	)
 	@Export("definition")
 	HealthBarDefinition definition;
-	@ObfuscatedName("f")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "Llk;"
+		descriptor = "Llo;"
 	)
 	@Export("updates")
 	IterableNodeDeque updates;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lfv;)V"
+		descriptor = "(Lfr;)V"
 	)
 	HealthBar(HealthBarDefinition var1) {
 		this.updates = new IterableNodeDeque(); // L: 12
 		this.definition = var1; // L: 15
 	} // L: 16
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(IIIIB)V",
-		garbageValue = "-72"
+		descriptor = "(IIIII)V",
+		garbageValue = "-1281629783"
 	)
 	@Export("put")
 	void put(int var1, int var2, int var3, int var4) {
@@ -44,11 +41,11 @@ public class HealthBar extends Node {
 			++var6; // L: 22
 			if (var7.cycle == var1) { // L: 23
 				var7.set(var1, var2, var3, var4); // L: 24
-				return; // L: 25
+				return;
 			}
 
-			if (var7.cycle <= var1) { // L: 27
-				var5 = var7;
+			if (var7.cycle <= var1) {
+				var5 = var7; // L: 27
 			}
 		}
 
@@ -66,10 +63,10 @@ public class HealthBar extends Node {
 		}
 	} // L: 31 35
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(II)Lcp;",
-		garbageValue = "675782761"
+		descriptor = "(IB)Lcn;",
+		garbageValue = "79"
 	)
 	@Export("get")
 	HealthBarUpdate get(int var1) {
@@ -91,87 +88,60 @@ public class HealthBar extends Node {
 		}
 	}
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
 		descriptor = "(B)Z",
-		garbageValue = "-107"
+		garbageValue = "127"
 	)
 	@Export("isEmpty")
 	boolean isEmpty() {
-		return this.updates.method6164(); // L: 55
+		return this.updates.method5986(); // L: 55
 	}
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(IB)I",
-		garbageValue = "-31"
+		descriptor = "(I)[Ldl;",
+		garbageValue = "-95794784"
 	)
-	public static int method2344(int var0) {
-		return class400.field4389[var0 & 16383]; // L: 28
+	static class118[] method2333() {
+		return new class118[]{class118.field1498, class118.field1491, class118.field1492, class118.field1499, class118.field1490, class118.field1495}; // L: 25
 	}
 
-	@ObfuscatedName("ai")
+	@ObfuscatedName("fv")
 	@ObfuscatedSignature(
-		descriptor = "(ILbd;ZI)I",
-		garbageValue = "1491549945"
+		descriptor = "(Lle;Ljava/lang/String;I)V",
+		garbageValue = "757631192"
 	)
-	static int method2343(int var0, Script var1, boolean var2) {
-		if (var0 == 6800) { // L: 4511
-			Interpreter.Interpreter_stringStack[++class122.Interpreter_stringStackSize - 1] = ""; // L: 4512
-			return 1; // L: 4513
-		} else if (var0 != 6801 && var0 != 6802) { // L: 4515
-			if (var0 == 6850) { // L: 4519
-				Interpreter.Interpreter_stringStack[++class122.Interpreter_stringStackSize - 1] = ""; // L: 4520
-				return 1; // L: 4521
-			} else if (var0 != 6851 && var0 != 6852) { // L: 4523
-				if (var0 == 6853) { // L: 4527
-					Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = 0; // L: 4528
-					return 1; // L: 4529
-				} else {
-					return 2; // L: 4531
-				}
-			} else {
-				Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = -1; // L: 4524
-				return 1; // L: 4525
-			}
-		} else {
-			Interpreter.Interpreter_intStack[++Interpreter.Interpreter_intStackSize - 1] = -1; // L: 4516
-			return 1; // L: 4517
-		}
-	}
+	static void method2335(Archive var0, String var1) {
+		ArchiveLoader var2 = new ArchiveLoader(var0, var1); // L: 1475
+		Client.archiveLoaders.add(var2); // L: 1476
+		Client.field770 += var2.groupCount; // L: 1477
+	} // L: 1478
 
-	@ObfuscatedName("il")
+	@ObfuscatedName("gp")
 	@ObfuscatedSignature(
-		descriptor = "(IIIII)V",
-		garbageValue = "-1357746428"
+		descriptor = "(B)V",
+		garbageValue = "85"
 	)
-	static final void method2330(int var0, int var1, int var2, int var3) {
-		for (int var4 = 0; var4 < Client.rootWidgetCount; ++var4) { // L: 8655
-			if (Client.rootWidgetWidths[var4] + Client.rootWidgetXs[var4] > var0 && Client.rootWidgetXs[var4] < var0 + var2 && Client.rootWidgetHeights[var4] + Client.rootWidgetYs[var4] > var1 && Client.rootWidgetYs[var4] < var3 + var1) { // L: 8656
-				Client.field715[var4] = true;
+	static final void method2334() {
+		if (Tiles.field997) { // L: 3842
+			for (int var0 = 0; var0 < Players.Players_count; ++var0) { // L: 3844
+				Player var1 = Client.players[Players.Players_indices[var0]]; // L: 3845
+				var1.method2114(); // L: 3846
 			}
+
+			Tiles.field997 = false; // L: 3849
 		}
 
-	} // L: 8658
+	} // L: 3851
 
-	@ObfuscatedName("lq")
+	@ObfuscatedName("ig")
 	@ObfuscatedSignature(
-		descriptor = "(IIB)V",
-		garbageValue = "-66"
+		descriptor = "(I)V",
+		garbageValue = "2108689548"
 	)
-	static final void method2328(int var0, int var1) {
-		ClanChannel var2 = var0 >= 0 ? Client.currentClanChannels[var0] : class21.guestClanChannel; // L: 12409
-		if (var2 != null && var1 >= 0 && var1 < var2.method3119()) { // L: 12410
-			ClanChannelMember var3 = (ClanChannelMember)var2.members.get(var1); // L: 12411
-			if (var3.rank == -1) {
-				String var4 = var3.username.getName(); // L: 12413
-				PacketBufferNode var5 = WorldMapSprite.getPacketBufferNode(ClientPacket.field2900, Client.packetWriter.isaacCipher); // L: 12414
-				var5.packetBuffer.writeByte(3 + class425.stringCp1252NullTerminatedByteSize(var4)); // L: 12415
-				var5.packetBuffer.writeByte(var0); // L: 12416
-				var5.packetBuffer.writeShort(var1); // L: 12417
-				var5.packetBuffer.writeStringCp1252NullTerminated(var4); // L: 12418
-				Client.packetWriter.addNode(var5); // L: 12419
-			}
-		}
-	} // L: 12412 12420
+	static void method2336() {
+		Client.menuOptionsCount = 0; // L: 8697
+		Client.isMenuOpen = false; // L: 8698
+	} // L: 8699
 }

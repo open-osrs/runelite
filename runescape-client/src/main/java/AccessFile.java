@@ -9,33 +9,27 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ph")
+@ObfuscatedName("pu")
 @Implements("AccessFile")
 public final class AccessFile {
-	@ObfuscatedName("s")
-	@ObfuscatedGetter(
-		intValue = -104839557
-	)
-	@Export("musicTrackGroupId")
-	public static int musicTrackGroupId;
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@Export("file")
 	RandomAccessFile file;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		longValue = -766606768005877029L
+		longValue = -3826011990097739857L
 	)
 	@Export("maxSize")
 	final long maxSize;
-	@ObfuscatedName("i")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		longValue = 6664878474339586353L
+		longValue = -459654609599987919L
 	)
 	@Export("offset")
 	long offset;
 
 	public AccessFile(File var1, String var2, long var3) throws IOException {
-		if (var3 == -1L) { // L: 11
+		if (-1L == var3) { // L: 11
 			var3 = Long.MAX_VALUE;
 		}
 
@@ -55,17 +49,17 @@ public final class AccessFile {
 		this.file.seek(0L); // L: 23
 	} // L: 24
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@Export("seek")
 	final void seek(long var1) throws IOException {
 		this.file.seek(var1); // L: 27
 		this.offset = var1; // L: 28
 	} // L: 29
 
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
 		descriptor = "([BIII)V",
-		garbageValue = "-26128943"
+		garbageValue = "133309999"
 	)
 	@Export("write")
 	public final void write(byte[] var1, int var2, int var3) throws IOException {
@@ -79,20 +73,20 @@ public final class AccessFile {
 		}
 	} // L: 39
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1730487128"
+		descriptor = "(B)V",
+		garbageValue = "-16"
 	)
 	@Export("close")
 	public final void close() throws IOException {
 		this.closeSync(false); // L: 42
 	} // L: 43
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(ZI)V",
-		garbageValue = "-1333706766"
+		descriptor = "(ZB)V",
+		garbageValue = "76"
 	)
 	@Export("closeSync")
 	public final void closeSync(boolean var1) throws IOException {
@@ -110,20 +104,20 @@ public final class AccessFile {
 
 	} // L: 56
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
 		descriptor = "(I)J",
-		garbageValue = "1939570997"
+		garbageValue = "1020700652"
 	)
 	@Export("length")
 	public final long length() throws IOException {
 		return this.file.length(); // L: 59
 	}
 
-	@ObfuscatedName("n")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
 		descriptor = "([BIIB)I",
-		garbageValue = "-22"
+		garbageValue = "10"
 	)
 	@Export("read")
 	public final int read(byte[] var1, int var2, int var3) throws IOException {

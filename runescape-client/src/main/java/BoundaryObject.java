@@ -4,63 +4,60 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ij")
+@ObfuscatedName("hc")
 @Implements("BoundaryObject")
 public final class BoundaryObject {
-	@ObfuscatedName("g")
-	@Export("ByteArrayPool_arrays")
-	static byte[][][] ByteArrayPool_arrays;
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = -1523942229
+		intValue = 1657313425
 	)
 	@Export("z")
 	int z;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -361735633
+		intValue = -1880399519
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("i")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 436509427
+		intValue = -1024241781
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("f")
+	@ObfuscatedName("k")
 	@ObfuscatedGetter(
-		intValue = -1245875017
+		intValue = 291661833
 	)
 	@Export("orientationA")
 	int orientationA;
-	@ObfuscatedName("b")
+	@ObfuscatedName("a")
 	@ObfuscatedGetter(
-		intValue = 1804141061
+		intValue = -40246503
 	)
 	@Export("orientationB")
 	int orientationB;
-	@ObfuscatedName("n")
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "Lix;"
+		descriptor = "Lgx;"
 	)
 	@Export("renderable1")
 	public Renderable renderable1;
-	@ObfuscatedName("s")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "Lix;"
+		descriptor = "Lgx;"
 	)
 	@Export("renderable2")
 	public Renderable renderable2;
-	@ObfuscatedName("l")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		longValue = -3781054410051402755L
+		longValue = 5476522096528305987L
 	)
 	@Export("tag")
 	public long tag;
-	@ObfuscatedName("q")
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = 2053587143
+		intValue = -214248861
 	)
 	@Export("flags")
 	int flags;

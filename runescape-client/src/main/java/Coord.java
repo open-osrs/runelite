@@ -4,32 +4,38 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ks")
+@ObfuscatedName("kd")
 @Implements("Coord")
 public class Coord {
-	@ObfuscatedName("w")
-	public static boolean field3289;
-	@ObfuscatedName("v")
+	@ObfuscatedName("ui")
 	@ObfuscatedGetter(
-		intValue = 1984638055
+		intValue = 98471251
+	)
+	@Export("foundItemIndex")
+	static int foundItemIndex;
+	@ObfuscatedName("r")
+	public static short[] field3352;
+	@ObfuscatedName("o")
+	@ObfuscatedGetter(
+		intValue = 1023382847
 	)
 	@Export("plane")
 	public int plane;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -1078309335
+		intValue = 1531148769
 	)
 	@Export("x")
 	public int x;
-	@ObfuscatedName("i")
+	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = -585894477
+		intValue = -991712687
 	)
 	@Export("y")
 	public int y;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lks;)V"
+		descriptor = "(Lkd;)V"
 	)
 	public Coord(Coord var1) {
 		this.plane = var1.plane; // L: 15
@@ -54,86 +60,78 @@ public class Coord {
 
 	} // L: 27
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "(B)I",
-		garbageValue = "-78"
+		garbageValue = "60"
 	)
 	@Export("packed")
 	public int packed() {
-		return class341.method6280(this.plane, this.x, this.y); // L: 30
+		int var2 = this.plane; // L: 31
+		int var3 = this.x; // L: 32
+		int var4 = this.y; // L: 33
+		int var1 = var2 << 28 | var3 << 14 | var4; // L: 35
+		return var1; // L: 37
 	}
 
-	@ObfuscatedName("i")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(Lks;B)Z",
-		garbageValue = "53"
+		descriptor = "(Lkd;I)Z",
+		garbageValue = "-95969340"
 	)
 	@Export("equalsCoord")
 	boolean equalsCoord(Coord var1) {
-		if (this.plane != var1.plane) { // L: 44
+		if (this.plane != var1.plane) { // L: 48
 			return false;
-		} else if (this.x != var1.x) { // L: 45
+		} else if (this.x != var1.x) { // L: 49
 			return false;
 		} else {
-			return this.y == var1.y; // L: 46
+			return this.y == var1.y; // L: 50
 		}
 	}
 
-	@ObfuscatedName("f")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;B)Ljava/lang/String;",
-		garbageValue = "74"
+		descriptor = "(Ljava/lang/String;I)Ljava/lang/String;",
+		garbageValue = "959391461"
 	)
 	@Export("toString")
 	String toString(String var1) {
-		return this.plane + var1 + (this.x >> 6) + var1 + (this.y >> 6) + var1 + (this.x & 63) + var1 + (this.y & 63); // L: 59
+		return this.plane + var1 + (this.x >> 6) + var1 + (this.y >> 6) + var1 + (this.x & 63) + var1 + (this.y & 63); // L: 64
 	}
 
 	public boolean equals(Object var1) {
-		if (this == var1) { // L: 38
+		if (this == var1) { // L: 42
 			return true;
 		} else {
-			return !(var1 instanceof Coord) ? false : this.equalsCoord((Coord)var1); // L: 39 40
+			return !(var1 instanceof Coord) ? false : this.equalsCoord((Coord)var1); // L: 43 44
 		}
-	}
-
-	public int hashCode() {
-		return this.packed(); // L: 51
 	}
 
 	public String toString() {
-		return this.toString(","); // L: 55
+		return this.toString(","); // L: 60
 	}
 
-	@ObfuscatedName("iq")
+	public int hashCode() {
+		return this.packed(); // L: 56
+	}
+
+	@ObfuscatedName("m")
 	@ObfuscatedSignature(
-		descriptor = "(B)V",
-		garbageValue = "1"
+		descriptor = "(I)Z",
+		garbageValue = "474672865"
 	)
-	static final void method5531() {
-		int var0 = class138.menuX; // L: 8630
-		int var1 = class1.menuY; // L: 8631
-		int var2 = ItemComposition.menuWidth; // L: 8632
-		int var3 = ByteArrayPool.menuHeight; // L: 8633
-		int var4 = 6116423; // L: 8634
-		Rasterizer2D.Rasterizer2D_fillRectangle(var0, var1, var2, var3, var4); // L: 8635
-		Rasterizer2D.Rasterizer2D_fillRectangle(var0 + 1, var1 + 1, var2 - 2, 16, 0); // L: 8636
-		Rasterizer2D.Rasterizer2D_drawRectangle(var0 + 1, var1 + 18, var2 - 2, var3 - 19, 0); // L: 8637
-		RouteStrategy.fontBold12.draw("Choose Option", var0 + 3, var1 + 14, var4, -1); // L: 8638
-		int var5 = MouseHandler.MouseHandler_x; // L: 8639
-		int var6 = MouseHandler.MouseHandler_y; // L: 8640
+	public static boolean method5370() {
+		return class273.musicPlayerStatus != 0 ? true : class273.midiPcmStream.isReady(); // L: 68 69
+	}
 
-		for (int var7 = 0; var7 < Client.menuOptionsCount; ++var7) { // L: 8641
-			int var8 = (Client.menuOptionsCount - 1 - var7) * 15 + var1 + 31; // L: 8642
-			int var9 = 16777215; // L: 8643
-			if (var5 > var0 && var5 < var2 + var0 && var6 > var8 - 13 && var6 < var8 + 3) { // L: 8644
-				var9 = 16776960;
-			}
-
-			RouteStrategy.fontBold12.draw(AbstractUserComparator.method6736(var7), var0 + 3, var8, var9, 0); // L: 8645
-		}
-
-		ScriptEvent.method2092(class138.menuX, class1.menuY, ItemComposition.menuWidth, ByteArrayPool.menuHeight); // L: 8647
-	} // L: 8648
+	@ObfuscatedName("c")
+	@ObfuscatedSignature(
+		descriptor = "(CI)Z",
+		garbageValue = "1630457870"
+	)
+	@Export("isDigit")
+	public static boolean isDigit(char var0) {
+		return var0 >= '0' && var0 <= '9'; // L: 150
+	}
 }

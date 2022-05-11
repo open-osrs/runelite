@@ -4,30 +4,30 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ms")
+@ObfuscatedName("mj")
 @Implements("IterableDualNodeQueueIterator")
 public class IterableDualNodeQueueIterator implements Iterator {
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Lmr;"
+		descriptor = "Lma;"
 	)
 	@Export("queue")
 	IterableDualNodeQueue queue;
-	@ObfuscatedName("c")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Loz;"
+		descriptor = "Loq;"
 	)
 	@Export("head")
 	DualNode head;
-	@ObfuscatedName("i")
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Loz;"
+		descriptor = "Loq;"
 	)
 	@Export("last")
 	DualNode last;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lmr;)V"
+		descriptor = "(Lma;)V"
 	)
 	IterableDualNodeQueueIterator(IterableDualNodeQueue var1) {
 		this.last = null; // L: 9
@@ -37,28 +37,28 @@ public class IterableDualNodeQueueIterator implements Iterator {
 	} // L: 15
 
 	public void remove() {
-		if (this.last == null) { // L: 33
+		if (this.last == null) { // L: 34
 			throw new IllegalStateException();
 		} else {
-			this.last.removeDual(); // L: 34
-			this.last = null; // L: 35
+			this.last.removeDual(); // L: 35
+			this.last = null; // L: 36
 		}
-	} // L: 36
-
-	public Object next() {
-		DualNode var1 = this.head; // L: 18
-		if (var1 == this.queue.sentinel) { // L: 19
-			var1 = null; // L: 20
-			this.head = null; // L: 21
-		} else {
-			this.head = var1.previousDual; // L: 23
-		}
-
-		this.last = var1; // L: 24
-		return var1; // L: 25
-	}
+	} // L: 37
 
 	public boolean hasNext() {
-		return this.queue.sentinel != this.head; // L: 29
+		return this.queue.sentinel != this.head; // L: 30
+	}
+
+	public Object next() {
+		DualNode var1 = this.head; // L: 19
+		if (var1 == this.queue.sentinel) { // L: 20
+			var1 = null; // L: 21
+			this.head = null; // L: 22
+		} else {
+			this.head = var1.previousDual; // L: 24
+		}
+
+		this.last = var1; // L: 25
+		return var1; // L: 26
 	}
 }

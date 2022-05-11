@@ -3,91 +3,101 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("di")
+@ObfuscatedName("dn")
 public enum class116 implements MouseWheel {
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "Ldi;"
+		descriptor = "Ldn;"
 	)
-	field1403(0, 0),
-	@ObfuscatedName("c")
+	field1470(0, 0),
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Ldi;"
+		descriptor = "Ldn;"
 	)
-	field1399(1, 1),
-	@ObfuscatedName("i")
+	field1465(1, 1),
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "Ldi;"
+		descriptor = "Ldn;"
 	)
-	field1400(2, 2),
-	@ObfuscatedName("f")
+	field1464(2, 2),
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "Ldi;"
+		descriptor = "Ldn;"
 	)
-	field1406(3, 3),
-	@ObfuscatedName("b")
+	field1466(3, 3),
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "Ldi;"
+		descriptor = "Ldn;"
 	)
-	field1401(4, 4);
+	field1468(4, 4);
 
-	@ObfuscatedName("r")
-	@Export("Tiles_saturation")
-	static int[] Tiles_saturation;
-	@ObfuscatedName("n")
-	@ObfuscatedGetter(
-		intValue = 322402379
+	@ObfuscatedName("nl")
+	@ObfuscatedSignature(
+		descriptor = "Lbv;"
 	)
-	final int field1398;
-	@ObfuscatedName("s")
+	@Export("tempMenuAction")
+	static MenuAction tempMenuAction;
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = -314756427
+		intValue = -611288391
 	)
-	final int field1404;
+	final int field1469;
+	@ObfuscatedName("p")
+	@ObfuscatedGetter(
+		intValue = 79441713
+	)
+	final int field1467;
 
 	class116(int var3, int var4) {
-		this.field1398 = var3; // L: 134
-		this.field1404 = var4; // L: 135
-	} // L: 136
+		this.field1469 = var3; // L: 137
+		this.field1467 = var4; // L: 138
+	} // L: 139
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
 		descriptor = "(B)I",
-		garbageValue = "16"
+		garbageValue = "30"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field1404; // L: 139
+		return this.field1467; // L: 142
 	}
 
-	@ObfuscatedName("v")
+	@ObfuscatedName("o")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1031484167"
+		descriptor = "(II)Lqb;",
+		garbageValue = "650575371"
 	)
-	public static void method2705() {
-		if (MouseHandler.MouseHandler_instance != null) { // L: 37
-			synchronized(MouseHandler.MouseHandler_instance) { // L: 38
-				MouseHandler.MouseHandler_instance = null; // L: 39
-			} // L: 40
+	public static PrivateChatMode method2686(int var0) {
+		PrivateChatMode[] var1 = new PrivateChatMode[]{PrivateChatMode.field4794, PrivateChatMode.field4793, PrivateChatMode.field4795}; // L: 18
+		PrivateChatMode[] var2 = var1; // L: 20
+
+		for (int var3 = 0; var3 < var2.length; ++var3) { // L: 21
+			PrivateChatMode var4 = var2[var3]; // L: 22
+			if (var0 == var4.field4796) { // L: 24
+				return var4;
+			}
 		}
 
-	} // L: 42
+		return null; // L: 28
+	}
 
-	@ObfuscatedName("fz")
+	@ObfuscatedName("k")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-2133644638"
+		descriptor = "(IB)[B",
+		garbageValue = "20"
 	)
-	@Export("playPcmPlayers")
-	static final void playPcmPlayers() {
-		if (ViewportMouse.pcmPlayer1 != null) { // L: 3488
-			ViewportMouse.pcmPlayer1.run();
-		}
+	@Export("ByteArrayPool_getArray")
+	public static synchronized byte[] ByteArrayPool_getArray(int var0) {
+		return ByteArrayPool.ByteArrayPool_getArrayBool(var0, false); // L: 112
+	}
 
-		if (KeyHandler.pcmPlayer0 != null) { // L: 3489
-			KeyHandler.pcmPlayer0.run();
-		}
-
-	} // L: 3490
+	@ObfuscatedName("gt")
+	@ObfuscatedSignature(
+		descriptor = "(I)Z",
+		garbageValue = "1727484940"
+	)
+	static boolean method2685() {
+		return (Client.drawPlayerNames & 2) != 0; // L: 5012
+	}
 }

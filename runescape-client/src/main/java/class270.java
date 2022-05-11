@@ -1,44 +1,66 @@
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("jf")
+@ObfuscatedName("jr")
 public class class270 {
-	@ObfuscatedName("v")
+	@ObfuscatedName("w")
+	public static boolean field3218;
+
+	@ObfuscatedName("l")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/CharSequence;B)Ljava/lang/String;",
-		garbageValue = "-20"
+		descriptor = "(I)V",
+		garbageValue = "2072054162"
 	)
-	public static String method5206(CharSequence var0) {
-		int var1 = var0.length(); // L: 11
-		StringBuilder var2 = new StringBuilder(var1); // L: 12
+	@Export("savePreferences")
+	static void savePreferences() {
+		AccessFile var0 = null; // L: 112
 
-		for (int var3 = 0; var3 < var1; ++var3) { // L: 13
-			char var4 = var0.charAt(var3); // L: 14
-			if ((var4 < 'a' || var4 > 'z') && (var4 < 'A' || var4 > 'Z') && (var4 < '0' || var4 > '9') && var4 != '.' && var4 != '-' && var4 != '*' && var4 != '_') { // L: 15
-				if (var4 == ' ') { // L: 16
-					var2.append('+');
-				} else {
-					byte var5 = class327.charToByteCp1252(var4); // L: 18
-					var2.append('%'); // L: 19
-					int var6 = var5 >> 4 & 15; // L: 20
-					if (var6 >= 10) { // L: 21
-						var2.append((char)(var6 + 55));
-					} else {
-						var2.append((char)(var6 + 48)); // L: 22
-					}
-
-					var6 = var5 & 15; // L: 23
-					if (var6 >= 10) { // L: 24
-						var2.append((char)(var6 + 55));
-					} else {
-						var2.append((char)(var6 + 48));
-					}
-				}
-			} else {
-				var2.append(var4); // L: 25
-			}
+		try {
+			var0 = UserComparator3.getPreferencesFile("", ApproximateRouteStrategy.field473.name, true); // L: 114
+			Buffer var1 = class12.clientPreferences.toBuffer(); // L: 115
+			var0.write(var1.array, 0, var1.offset); // L: 116
+		} catch (Exception var3) { // L: 118
 		}
 
-		return var2.toString(); // L: 28
+		try {
+			if (var0 != null) { // L: 120
+				var0.closeSync(true); // L: 121
+			}
+		} catch (Exception var2) { // L: 124
+		}
+
+	} // L: 125
+
+	@ObfuscatedName("t")
+	@ObfuscatedSignature(
+		descriptor = "(ILbb;ZI)I",
+		garbageValue = "416370156"
+	)
+	static int method5036(int var0, Script var1, boolean var2) {
+		Widget var3 = var2 ? Interpreter.scriptDotWidget : KeyHandler.scriptActiveWidget; // L: 1199
+		if (var0 == ScriptOpcodes.CC_GETINVOBJECT) { // L: 1200
+			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.itemId; // L: 1201
+			return 1; // L: 1202
+		} else if (var0 == ScriptOpcodes.CC_GETINVCOUNT) { // L: 1204
+			if (var3.itemId != -1) { // L: 1205
+				Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.itemQuantity;
+			} else {
+				Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = 0; // L: 1206
+			}
+
+			return 1; // L: 1207
+		} else if (var0 == ScriptOpcodes.CC_GETID) { // L: 1209
+			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.childIndex; // L: 1210
+			return 1; // L: 1211
+		} else if (var0 == 1707) { // L: 1213
+			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.method5498() ? 1 : 0; // L: 1214
+			return 1; // L: 1215
+		} else if (var0 == 1708) { // L: 1217
+			return class293.method5430(var3); // L: 1218
+		} else {
+			return var0 == 1708 ? class20.method269(var3) : 2; // L: 1220 1221 1223
+		}
 	}
 }
