@@ -30,7 +30,8 @@ public final class Client extends GameEngine implements Usernamed, OAuthApi {
 	)
 	public static int field779;
 	@ObfuscatedName("ss")
-	static boolean field746;
+	@Export("playingJingle")
+	static boolean playingJingle;
 	@ObfuscatedName("tz")
 	@ObfuscatedGetter(
 		intValue = 599158567
@@ -1583,7 +1584,7 @@ public final class Client extends GameEngine implements Usernamed, OAuthApi {
 		destinationY = 0; // L: 571
 		minimapState = 0; // L: 578
 		currentTrackGroupId = -1; // L: 579
-		field746 = false; // L: 580
+		playingJingle = false; // L: 580
 		soundEffectCount = 0; // L: 586
 		soundEffectIds = new int[50]; // L: 587
 		queuedSoundEffectLoops = new int[50]; // L: 588
@@ -1850,7 +1851,7 @@ public final class Client extends GameEngine implements Usernamed, OAuthApi {
 			var2 = false; // L: 993
 		}
 
-		if (var2 && field746 && KeyHandler.pcmPlayer0 != null) { // L: 996 997
+		if (var2 && playingJingle && KeyHandler.pcmPlayer0 != null) { // L: 996 997
 			KeyHandler.pcmPlayer0.tryDiscard();
 		}
 

@@ -1366,6 +1366,12 @@ public interface RSClient extends RSGameEngine, Client
 	@Import("meslayerContinueWidget")
 	Widget getMessageContinueWidget();
 
+	@Import("playingJingle")
+	boolean isPlayingJingle();
+
+	@Import("musicTrackGroupId")
+	int getMusicCurrentTrackId();
+
 	@Import("musicPlayerStatus")
 	void setMusicPlayerStatus(int var0);
 
@@ -1578,6 +1584,9 @@ public interface RSClient extends RSGameEngine, Client
 
 	@Import("ObjectDefinition_cached")
 	RSEvictingDualNodeHashTable getObjectDefinitionCache();
+
+	@Import("ObjectDefinition_cached")
+	RSEvictingDualNodeHashTable getObjectCompositionCache();
 
 	@Import("ObjectDefinition_cachedModelData")
 	RSEvictingDualNodeHashTable getObjectDefinitionModelDataCache();

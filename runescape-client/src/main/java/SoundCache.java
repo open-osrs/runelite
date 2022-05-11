@@ -214,11 +214,11 @@ public class SoundCache {
 	)
 	@Export("playSong")
 	static void playSong(int var0) {
-		if (var0 == -1 && !Client.field746) { // L: 3608
+		if (var0 == -1 && !Client.playingJingle) { // L: 3608
 			class273.midiPcmStream.clear(); // L: 3610
 			class273.musicPlayerStatus = 1; // L: 3611
 			class273.musicTrackArchive = null; // L: 3612
-		} else if (var0 != -1 && var0 != Client.currentTrackGroupId && class131.clientPreferences.method2321() != 0 && !Client.field746) { // L: 3615
+		} else if (var0 != -1 && var0 != Client.currentTrackGroupId && class131.clientPreferences.method2321() != 0 && !Client.playingJingle) { // L: 3615
 			NPCComposition.method3530(2, class16.archive6, var0, 0, class131.clientPreferences.method2321(), false); // L: 3616
 		}
 

@@ -96,12 +96,12 @@ public class class1 implements Callable {
 		if (var0 != class131.clientPreferences.method2321()) { // L: 12009
 			if (class131.clientPreferences.method2321() == 0 && Client.currentTrackGroupId != -1) { // L: 12010
 				class18.method266(class16.archive6, Client.currentTrackGroupId, 0, var0, false); // L: 12011
-				Client.field746 = false; // L: 12012
+				Client.playingJingle = false; // L: 12012
 			} else if (var0 == 0) { // L: 12014
 				class273.midiPcmStream.clear(); // L: 12016
 				class273.musicPlayerStatus = 1; // L: 12017
 				class273.musicTrackArchive = null; // L: 12018
-				Client.field746 = false; // L: 12020
+				Client.playingJingle = false; // L: 12020
 			} else if (class273.musicPlayerStatus != 0) { // L: 12023
 				class273.musicTrackVolume = var0;
 			} else {

@@ -139,12 +139,12 @@ public class class136 extends class144 {
 			}
 		}
 
-		if (Client.field746 && !class307.method5789()) { // L: 3546
+		if (Client.playingJingle && !class307.method5789()) { // L: 3546
 			if (class131.clientPreferences.method2321() != 0 && Client.currentTrackGroupId != -1) { // L: 3547
 				class18.method266(class16.archive6, Client.currentTrackGroupId, 0, class131.clientPreferences.method2321(), false);
 			}
 
-			Client.field746 = false; // L: 3548
+			Client.playingJingle = false; // L: 3548
 		}
 
 	} // L: 3550
