@@ -280,6 +280,10 @@ open class BootstrapTask @Inject constructor(@Input val type: String) : DefaultT
             File(bootstrapDir, "bootstrap-openosrs.json").printWriter().use { out ->
                 out.println(prettyJson)
             }
+
+            File(bootstrapDir, "bootstrap-staging.json").printWriter().use { out ->
+                out.println(prettyJson)
+            }
         }
 
         File(bootstrapDir, "bootstrap-${type}.json").printWriter().use { out ->
