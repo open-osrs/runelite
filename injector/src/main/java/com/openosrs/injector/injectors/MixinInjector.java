@@ -457,17 +457,22 @@ public class MixinInjector extends AbstractInjector
 						}
 					}*/
 
-					Method copy = new Method(targetClass, mixinMethod.getName(), mixinMethod.getDescriptor());
-					moveCode(copy, mixinMethod.getCode());
-					copy.setAccessFlags(mixinMethod.getAccessFlags());
-					copy.setPublic();
+					Method method = targetClass.findMethod(mixinMethod.getName(), mixinMethod.getDescriptor());
+
+					if (method == null)
+					{
+						method = new Method(targetClass, mixinMethod.getName(), mixinMethod.getDescriptor());
+						targetClass.addMethod(method);
+					}
+
+					moveCode(method, mixinMethod.getCode());
+					method.setAccessFlags(mixinMethod.getAccessFlags());
+					method.setPublic();
 					assert mixinMethod.getExceptions().getExceptions().isEmpty();
 
-					setOwnersToTargetClass(mixinClass, targetClass, copy, copiedMethods);
+					setOwnersToTargetClass(mixinClass, targetClass, method, copiedMethods);
 
-					targetClass.addMethod(copy);
-
-					log.debug("[DEBUG] Injected mixin method {} to {}", copy, targetClass);
+					log.debug("[DEBUG] Injected mixin method {} to {}", method, targetClass);
 					++injected;
 				}
 				else if (mixinMethod.findAnnotation(REPLACE) != null)

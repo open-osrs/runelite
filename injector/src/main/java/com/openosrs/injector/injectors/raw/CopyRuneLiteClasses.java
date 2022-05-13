@@ -10,8 +10,10 @@ package com.openosrs.injector.injectors.raw;
 import com.openosrs.injector.InjectUtil;
 import com.openosrs.injector.injection.InjectData;
 import com.openosrs.injector.injectors.AbstractInjector;
+import java.util.HashSet;
 import java.util.List;
 import java.util.ListIterator;
+import java.util.Set;
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.Field;
 import net.runelite.asm.Method;
@@ -43,6 +45,9 @@ public class CopyRuneLiteClasses extends AbstractInjector
 		"RuneLiteObject"
 	);
 
+
+	private final Set<Type> shadowFields = new HashSet<>();
+
 	public CopyRuneLiteClasses(InjectData inject)
 	{
 		super(inject);
@@ -52,6 +57,8 @@ public class CopyRuneLiteClasses extends AbstractInjector
 	{
 		for (String className : RUNELITE_OBJECTS)
 		{
+			shadowFields.clear();
+
 			ClassFile runeliteObjectVanilla = inject.vanilla.findClass(className);
 
 			final ClassFile runeLiteDeob = inject.getDeobfuscated()
@@ -85,21 +92,21 @@ public class CopyRuneLiteClasses extends AbstractInjector
 					runeliteObjectVanilla.getInterfaces().addInterface(interfaze);
 				}
 
-				for (Field field : runeLiteDeob.getFields())
-				{
-					field.setType(InjectUtil.deobToVanilla(inject, field.getType()));
-					runeliteObjectVanilla.addField(field);
-				}
-
 				for (Method method : runeLiteDeob.getMethods())
 				{
-					if (className.equals("RuneLiteMenuEntry") && (method.getName().equals("getItemId") || method.getName().equals("getWidget") || method.getName().equals("getItemOp")))
+					transformMethod(method);
+					runeliteObjectVanilla.addMethod(method);
+				}
+
+				for (Field field : runeLiteDeob.getFields())
+				{
+					if (shadowFields.contains(field.getType()))
 					{
 						continue;
 					}
 
-					transformMethod(method);
-					runeliteObjectVanilla.addMethod(method);
+					field.setType(InjectUtil.deobToVanilla(inject, field.getType()));
+					runeliteObjectVanilla.addField(field);
 				}
 
 				inject.vanilla.addClass(runeliteObjectVanilla);
@@ -170,7 +177,16 @@ public class CopyRuneLiteClasses extends AbstractInjector
 					net.runelite.asm.pool.Field field = ((GetStatic) i).getField();
 					Field vanilla = findField(field);
 
-					if (vanilla != null)
+					if (method.getClassFile().getName().equals(field.getClazz().getName()) && field.getType().toString().contains("Lnet/runelite/rs/api/RS"))
+					{
+						shadowFields.add(field.getType());
+
+						String fieldName = field.getType().toString().replace("Lnet/runelite/rs/api/RS", "").replace(";", "");
+						final Field deobTargetField = InjectUtil.findStaticField(inject, fieldName.substring(0, 1).toLowerCase() + fieldName.substring(1), null, InjectUtil.apiToDeob(inject, field.getType()));
+
+						iterator.set(new GetStatic(ins, inject.toVanilla(deobTargetField)));
+					}
+					else if (vanilla != null)
 					{
 						iterator.set(new GetStatic(ins, vanilla));
 					}
