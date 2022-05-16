@@ -1771,8 +1771,6 @@ public abstract class RSClientMixin implements RSClient
 			client.getLogger().trace("Menu click op {} targ {} action {} id {} p0 {} p1 {}", option, target, opcode, id, param0, param1);
 			event = new MenuOptionClicked(menuEntry);
 
-			client.getCallbacks().post(event);
-
 			if (menuEntry.getConsumer() != null)
 			{
 				try
@@ -1785,11 +1783,15 @@ public abstract class RSClientMixin implements RSClient
 				}
 			}
 
-			if (event.isConsumed())
-			{
-				return;
-			}
 		}
+
+		client.getCallbacks().post(event);
+
+		if (event.isConsumed())
+		{
+			return;
+		}
+
 
 		/*
 		 * The RuneScape client may deprioritize an action in the menu by incrementing the opcode with 2000,
