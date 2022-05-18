@@ -57,7 +57,10 @@ public class ItemStatsDumper
 
 		final Map<Integer, ItemStats> itemStats = new TreeMap<>();
 		final Collection<ItemDefinition> items = itemManager.getItems();
-		final Stream<ItemDefinition> itemDefinitionStream = items.parallelStream();
+
+		log.info("{}", items.size());
+
+		final Stream<ItemDefinition> itemDefinitionStream = items.stream();
 
 		itemDefinitionStream.forEach(item ->
 		{
@@ -109,6 +112,12 @@ public class ItemStatsDumper
 					continue;
 				}
 
+				itemStat.wiki(wiki.getBase().newBuilder()
+					.addPathSegment("w")
+					.addPathSegment("Special:Lookup")
+					.addQueryParameter("type", "item")
+					.addQueryParameter("id", String.valueOf(item.id))
+					.build().toString());
 				itemStat.name(getVarString(base, "name", offset) == null ? getVarString(base, "name1", offset) : getVarString(base, "name", offset));
 				itemStat.quest(getVarBoolean(base, "quest", offset));
 				itemStat.equipable(getVarBoolean(base, "equipable", offset) == null
@@ -347,6 +356,7 @@ public class ItemStatsDumper
 	{
 		static final ItemStats DEFAULT = ItemStats.builder().build();
 
+		private final String wiki;
 		private final String name;
 		private final Boolean quest;
 		private final Boolean equipable;
