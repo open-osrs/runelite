@@ -27,6 +27,8 @@ import java.io.UnsupportedEncodingException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Map;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 import net.runelite.data.App;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -34,7 +36,10 @@ import okhttp3.Request;
 import okhttp3.Response;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import okhttp3.ResponseBody;
+import org.apache.commons.lang3.tuple.Pair;
 
+@Slf4j
 public class MediaWiki
 {
 	private static final class WikiInnerResponse
@@ -53,6 +58,7 @@ public class MediaWiki
 		.followSslRedirects(false)
 		.build();
 
+	@Getter
 	private final HttpUrl base;
 
 	public MediaWiki(final String base)
@@ -60,7 +66,7 @@ public class MediaWiki
 		this.base = HttpUrl.parse(base);
 	}
 
-	public String getSpecialLookupData(final String type, final int id, final int section)
+	public Pair<String, String> getSpecialLookupData(final String type, final int id, final int section)
 	{
 		final HttpUrl url = base.newBuilder()
 			.addPathSegment("w")
@@ -77,20 +83,39 @@ public class MediaWiki
 		{
 			if (response.isRedirect())
 			{
-				final String page = response.header("Location")
+				String responseHeaderLocation = response.header("Location");
+
+				if (responseHeaderLocation == null)
+				{
+					return null;
+				}
+
+				final String page = responseHeaderLocation
 					.replace(base.newBuilder().addPathSegment("w").build().toString() + "/", "");
+
 				return getPageData(page, section);
+			}
+			else
+			{
+				log.info("unsuccessful: {}", response.code());
+
+				if (response.code() == 429)
+				{
+					Thread.sleep(2500);
+					return getSpecialLookupData(type, id, section);
+				}
 			}
 		}
 		catch (Exception e)
 		{
-			return "";
+			log.info("exception: {}", e.getMessage());
+			return null;
 		}
 
-		return "";
+		return null;
 	}
 
-	public String getPageData(String page, int section)
+	public Pair<String, String> getPageData(String page, int section)
 	{
 		// decode html encoded page name
 		// ex: Mage%27s book -> Mage's_book
@@ -126,15 +151,33 @@ public class MediaWiki
 		{
 			if (response.isSuccessful())
 			{
-				final InputStream in = response.body().byteStream();
-				return App.GSON.fromJson(new InputStreamReader(in), WikiResponse.class).parse.wikitext.get("*");
+				ResponseBody responseBody = response.body();
+
+				if (responseBody == null)
+				{
+					return null;
+				}
+
+				final InputStream in = responseBody.byteStream();
+				return Pair.of(page.replaceAll(" ", "_"), App.GSON.fromJson(new InputStreamReader(in), WikiResponse.class).parse.wikitext.get("*"));
+			}
+			else
+			{
+				log.info("page data unsuccessful: {}", response.code());
+
+				if (response.code() == 429)
+				{
+					Thread.sleep(2500);
+					return getPageData(page, section);
+				}
 			}
 		}
 		catch (Exception e)
 		{
-			return "";
+			log.info("exception page data: {}", e.getMessage());
+			return null;
 		}
 
-		return "";
+		return null;
 	}
 }

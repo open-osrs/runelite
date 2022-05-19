@@ -43,6 +43,7 @@ import net.runelite.cache.util.Namer;
 import net.runelite.data.App;
 import net.runelite.data.dump.MediaWiki;
 import net.runelite.data.dump.MediaWikiTemplate;
+import org.apache.commons.lang3.tuple.Pair;
 
 @Slf4j
 public class ItemLimitsDumper
@@ -88,7 +89,14 @@ public class ItemLimitsDumper
 				return;
 			}
 
-			String data = wiki.getPageData("Module:Exchange/" + name, -1);
+			Pair<String, String> pageData = wiki.getPageData("Module:Exchange/" + name, -1);
+
+			if (pageData == null)
+			{
+				return;
+			}
+
+			String data = pageData.getRight();
 
 			if (Strings.isNullOrEmpty(data))
 			{

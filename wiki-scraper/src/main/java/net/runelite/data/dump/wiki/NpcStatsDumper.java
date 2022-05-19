@@ -47,6 +47,7 @@ import net.runelite.cache.util.Namer;
 import net.runelite.data.App;
 import net.runelite.data.dump.MediaWiki;
 import net.runelite.data.dump.MediaWikiTemplate;
+import org.apache.commons.lang3.tuple.Pair;
 
 @Slf4j
 public class NpcStatsDumper
@@ -56,6 +57,8 @@ public class NpcStatsDumper
 	private static final class NpcStats
 	{
 		private String name;
+		private String wiki;
+
 		private final Integer hitpoints;
 		private final Integer hitpoints1;
 		private final Integer combatLevel;
@@ -87,10 +90,23 @@ public class NpcStatsDumper
 
 		private final Boolean poisonImmune;
 		private final Boolean venomImmune;
+		private final Boolean cannonImmune;
+		private final Boolean thrallImmune;
 
-		private final Boolean dragon;
 		private final Boolean demon;
+		private final Boolean dragon;
+		private final Boolean fiery;
+		private final Boolean kalphite;
+		private final Boolean leafy;
+		private final Boolean shade;
+		private final Boolean spectral;
 		private final Boolean undead;
+		private final Boolean vampyre1;
+		private final Boolean vampyre2;
+		private final Boolean vampyre3;
+		private final Boolean xerician;
+
+		private final Integer respawn;
 	}
 
 	private static final NpcStats DEFAULT = NpcStats.builder().build();
@@ -133,7 +149,10 @@ public class NpcStatsDumper
 
 		final Map<Integer, NpcStats> npcStats = new HashMap<>();
 		final Collection<NpcDefinition> definitions = npcManager.getNpcs();
-		final Stream<NpcDefinition> npcDefinitionStream = definitions.parallelStream();
+
+		log.info("{}", definitions.size());
+
+		final Stream<NpcDefinition> npcDefinitionStream = definitions.stream();
 
 		// Ensure variant names match cache as wiki isn't always correct
 		final Map<Integer, String> nameMap = new HashMap<>();
@@ -175,7 +194,15 @@ public class NpcStatsDumper
 				return;
 			}
 
-			final String data = wiki.getSpecialLookupData("npc", n.getId(), 0);
+			Pair<String, String> pageData = wiki.getSpecialLookupData("npc", n.getId(), 0);
+
+			if (pageData == null)
+			{
+				return;
+			}
+
+			String data = pageData.getRight();
+
 			if (Strings.isNullOrEmpty(data))
 			{
 				return;
@@ -232,6 +259,7 @@ public class NpcStatsDumper
 							// Update variant name or fall back to current name
 							final String curName = nameMap.get(curID);
 							stats.setName(curName == null ? stats.getName() : curName);
+							stats.setWiki(pageData.getLeft());
 
 							npcStats.put(curID, stats);
 							log.debug("Dumped npc stats for npc id: {}", curID);
@@ -319,38 +347,89 @@ public class NpcStatsDumper
 		stats.bonusRangeStrength(getInt("rngbns", variantKey, template));
 		stats.bonusMagicDamage(getInt("mbns", variantKey, template));
 
+		stats.respawn(getInt("respawn", variantKey, template));
+
 		final String keySuffix = getKeySuffix(variantKey);
-		boolean pImmune = "immune".equalsIgnoreCase(template.getValue("immunepoison" + keySuffix));
-		boolean vImmune = "immune".equalsIgnoreCase(template.getValue("immunevenom" + keySuffix));
 
-		stats.poisonImmune(!pImmune ? null : true);
-		stats.venomImmune(!vImmune ? null : true);
+		stats.poisonImmune(isImmune(template, keySuffix, "immunepoison"));
+		stats.venomImmune(isImmune(template, keySuffix, "immunevenom"));
+		stats.cannonImmune(isImmune(template, keySuffix, "immunecannon"));
+		stats.thrallImmune(isImmune(template, keySuffix, "immunethrall"));
 
-		final String weaknessValue = template.getValue("weakness");
-		if (weaknessValue != null)
+		final String attributesValues = template.getValue("attributes");
+		if (attributesValues != null)
 		{
-			final String[] values = weaknessValue.split(",");
+			final String[] values = attributesValues.split(",");
 			for (String value : values)
 			{
 				value = value.toLowerCase();
-				if (stats.dragon == null && (value.contains("dragonbane weapons")))
-				{
-					stats.dragon(true);
-				}
 
-				if (stats.demon == null && (value.contains("demonbane weapons") || value.contains("silverlight") || value.contains("arclight")))
+				if (stats.demon == null && containsString(value, "demon"))
 				{
 					stats.demon(true);
 				}
-
-				if (stats.undead == null && (value.contains("salve amulet") || value.contains("crumble undead")))
+				else if (stats.dragon == null && (containsString(value, "dragon") || containsString(value, "draconic")))
+				{
+					stats.dragon(true);
+				}
+				else if (stats.fiery == null && containsString(value, "fiery"))
+				{
+					stats.fiery(true);
+				}
+				else if (stats.kalphite == null && containsString(value, "kalphite"))
+				{
+					stats.kalphite(true);
+				}
+				else if (stats.leafy == null && containsString(value, "leafy"))
+				{
+					stats.leafy(true);
+				}
+				else if (stats.shade == null && containsString(value, "shade"))
+				{
+					stats.shade(true);
+				}
+				else if (stats.spectral == null && containsString(value, "spectral"))
+				{
+					stats.spectral(true);
+				}
+				else if (stats.undead == null && containsString(value, "undead"))
 				{
 					stats.undead(true);
+				}
+				else if (stats.vampyre1 == null && containsString(value, "vampyre1"))
+				{
+					stats.vampyre1(true);
+				}
+				else if (stats.vampyre2 == null && containsString(value, "vampyre2"))
+				{
+					stats.vampyre2(true);
+				}
+				else if (stats.vampyre3 == null && containsString(value, "vampyre3"))
+				{
+					stats.vampyre3(true);
+				}
+				else if (stats.xerician == null && containsString(value, "xerician"))
+				{
+					stats.xerician(true);
 				}
 			}
 		}
 
 		return stats.build();
+	}
+
+	private static boolean isImmune(final MediaWikiTemplate template, final String keySuffix, final String key)
+	{
+		if (!template.containsKey(key + keySuffix))
+		{
+			return false;
+		}
+		else
+		{
+			String immunevenom = template.getMap().get(key + keySuffix);
+
+			return immunevenom.equalsIgnoreCase("yes") || immunevenom.equalsIgnoreCase("immune");
+		}
 	}
 
 	static Integer getInt(final String mainKey, final Integer variation, final MediaWikiTemplate template)
@@ -391,4 +470,10 @@ public class NpcStatsDumper
 			return null;
 		}
 	}
+
+	public static boolean containsString(String left, String right)
+	{
+		return left.toLowerCase().contains(right.toLowerCase());
+	}
+
 }

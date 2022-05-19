@@ -42,6 +42,7 @@ import net.runelite.cache.util.Namer;
 import net.runelite.data.App;
 import net.runelite.data.dump.MediaWiki;
 import net.runelite.data.dump.MediaWikiTemplate;
+import org.apache.commons.lang3.tuple.Pair;
 
 @Slf4j
 public class ItemStatsDumper
@@ -57,7 +58,10 @@ public class ItemStatsDumper
 
 		final Map<Integer, ItemStats> itemStats = new TreeMap<>();
 		final Collection<ItemDefinition> items = itemManager.getItems();
-		final Stream<ItemDefinition> itemDefinitionStream = items.parallelStream();
+
+		log.info("{}", items.size());
+
+		final Stream<ItemDefinition> itemDefinitionStream = items.stream();
 
 		itemDefinitionStream.forEach(item ->
 		{
@@ -81,7 +85,14 @@ public class ItemStatsDumper
 				return;
 			}
 
-			String data = wiki.getSpecialLookupData("item", item.id, 0);
+			Pair<String, String> pageData = wiki.getSpecialLookupData("item", item.id, 0);
+
+			if (pageData == null)
+			{
+				return;
+			}
+
+			String data = pageData.getRight();
 
 			if (Strings.isNullOrEmpty(data))
 			{
@@ -109,6 +120,7 @@ public class ItemStatsDumper
 					continue;
 				}
 
+				itemStat.wiki(pageData.getLeft());
 				itemStat.name(getVarString(base, "name", offset) == null ? getVarString(base, "name1", offset) : getVarString(base, "name", offset));
 				itemStat.quest(getVarBoolean(base, "quest", offset));
 				itemStat.equipable(getVarBoolean(base, "equipable", offset) == null
@@ -122,7 +134,14 @@ public class ItemStatsDumper
 
 					if (stats == null)
 					{
-						data = wiki.getSpecialLookupData("item", item.id, 1);
+						pageData = wiki.getSpecialLookupData("item", item.id, 1);
+
+						if (pageData == null)
+						{
+							return;
+						}
+
+						data = pageData.getRight();
 
 						if (Strings.isNullOrEmpty(data))
 						{
@@ -156,7 +175,8 @@ public class ItemStatsDumper
 					equipmentStat.rstr(getVarInt(stats, "rstr", offset));
 					equipmentStat.mdmg(getVarInt(stats, "mdmg", offset));
 					equipmentStat.prayer(getVarInt(stats, "prayer", offset));
-					equipmentStat.aspeed(getVarInt(stats, "aspeed", offset));
+
+					equipmentStat.aspeed(getVarInt(stats, "speed", offset));
 
 					final ItemEquipmentStats builtEqStat = equipmentStat.build();
 
@@ -347,6 +367,7 @@ public class ItemStatsDumper
 	{
 		static final ItemStats DEFAULT = ItemStats.builder().build();
 
+		private final String wiki;
 		private final String name;
 		private final Boolean quest;
 		private final Boolean equipable;
