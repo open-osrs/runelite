@@ -67,10 +67,23 @@ public class NPCStats
 
 	private final boolean poisonImmune;
 	private final boolean venomImmune;
+	private final boolean cannonImmune;
+	private final boolean thrallImmune;
 
-	private final boolean dragon;
 	private final boolean demon;
+	private final boolean dragon;
+	private final boolean fiery;
+	private final boolean kalphite;
+	private final boolean leafy;
+	private final boolean shade;
+	private final boolean spectral;
 	private final boolean undead;
+	private final boolean vampyre1;
+	private final boolean vampyre2;
+	private final boolean vampyre3;
+	private final boolean xerician;
+
+	private final int respawn;
 
 	/**
 	 * Based off the formula found here: http://services.runescape.com/m=forum/c=PLuJ4cy6gtA/forums.ws?317,318,712,65587452,209,337584542#209
@@ -184,14 +197,50 @@ public class NPCStats
 					case "venomImmune":
 						builder.venomImmune(in.nextBoolean());
 						break;
-					case "dragon":
-						builder.dragon(in.nextBoolean());
+					case "cannonImmune":
+						builder.cannonImmune(in.nextBoolean());
+						break;
+					case "thrallImmune":
+						builder.thrallImmune(in.nextBoolean());
 						break;
 					case "demon":
 						builder.demon(in.nextBoolean());
 						break;
+					case "dragon":
+						builder.dragon(in.nextBoolean());
+						break;
+					case "fiery":
+						builder.fiery(in.nextBoolean());
+						break;
+					case "kalphite":
+						builder.kalphite(in.nextBoolean());
+						break;
+					case "leafy":
+						builder.leafy(in.nextBoolean());
+						break;
+					case "shade":
+						builder.shade(in.nextBoolean());
+						break;
+					case "spectral":
+						builder.spectral(in.nextBoolean());
+						break;
 					case "undead":
 						builder.undead(in.nextBoolean());
+						break;
+					case "vampyre1":
+						builder.vampyre1(in.nextBoolean());
+						break;
+					case "vampyre2":
+						builder.vampyre2(in.nextBoolean());
+						break;
+					case "vampyre3":
+						builder.vampyre3(in.nextBoolean());
+						break;
+					case "xerician":
+						builder.xerician(in.nextBoolean());
+						break;
+					case "respawn":
+						builder.respawn(in.nextInt());
 						break;
 				}
 			}

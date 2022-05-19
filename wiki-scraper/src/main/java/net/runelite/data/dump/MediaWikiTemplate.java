@@ -230,6 +230,11 @@ public class MediaWikiTemplate
 		this.map = map;
 	}
 
+	public Map<String, String> getMap()
+	{
+		return map;
+	}
+
 	public String getValue(final String key)
 	{
 		String val = map.get(key);

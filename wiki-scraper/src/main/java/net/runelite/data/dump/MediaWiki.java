@@ -27,7 +27,6 @@ import java.io.UnsupportedEncodingException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.runelite.data.App;
@@ -37,6 +36,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import okhttp3.ResponseBody;
+import org.apache.commons.lang3.tuple.Pair;
 
 @Slf4j
 public class MediaWiki
@@ -65,7 +66,7 @@ public class MediaWiki
 		this.base = HttpUrl.parse(base);
 	}
 
-	public String getSpecialLookupData(final String type, final int id, final int section)
+	public Pair<String, String> getSpecialLookupData(final String type, final int id, final int section)
 	{
 		final HttpUrl url = base.newBuilder()
 			.addPathSegment("w")
@@ -80,12 +81,18 @@ public class MediaWiki
 
 		try (final Response response = clientNoRedirect.newCall(request).execute())
 		{
-			log.info("original url: {}", url);
 			if (response.isRedirect())
 			{
-				final String page = response.header("Location")
+				String responseHeaderLocation = response.header("Location");
+
+				if (responseHeaderLocation == null)
+				{
+					return null;
+				}
+
+				final String page = responseHeaderLocation
 					.replace(base.newBuilder().addPathSegment("w").build().toString() + "/", "");
-				log.info("redirect url: {}", page);
+
 				return getPageData(page, section);
 			}
 			else
@@ -102,13 +109,13 @@ public class MediaWiki
 		catch (Exception e)
 		{
 			log.info("exception: {}", e.getMessage());
-			return "";
+			return null;
 		}
 
-		return "";
+		return null;
 	}
 
-	public String getPageData(String page, int section)
+	public Pair<String, String> getPageData(String page, int section)
 	{
 		// decode html encoded page name
 		// ex: Mage%27s book -> Mage's_book
@@ -127,7 +134,7 @@ public class MediaWiki
 			.addQueryParameter("format", "json")
 			.addQueryParameter("prop", "wikitext")
 			.addQueryParameter("redirects", "true")
-			.addQueryParameter("page", page.replaceAll(" ", "_"))
+			.addQueryParameter("page", page.replaceAll(" ", "_"));
 
 		if (section != -1)
 		{
@@ -144,8 +151,15 @@ public class MediaWiki
 		{
 			if (response.isSuccessful())
 			{
-				final InputStream in = response.body().byteStream();
-				return App.GSON.fromJson(new InputStreamReader(in), WikiResponse.class).parse.wikitext.get("*");
+				ResponseBody responseBody = response.body();
+
+				if (responseBody == null)
+				{
+					return null;
+				}
+
+				final InputStream in = responseBody.byteStream();
+				return Pair.of(page.replaceAll(" ", "_"), App.GSON.fromJson(new InputStreamReader(in), WikiResponse.class).parse.wikitext.get("*"));
 			}
 			else
 			{
@@ -161,9 +175,9 @@ public class MediaWiki
 		catch (Exception e)
 		{
 			log.info("exception page data: {}", e.getMessage());
-			return "";
+			return null;
 		}
 
-		return "";
+		return null;
 	}
 }
