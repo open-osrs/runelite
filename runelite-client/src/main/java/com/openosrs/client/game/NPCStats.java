@@ -36,6 +36,7 @@ import lombok.Value;
 public class NPCStats
 {
 	private final String name;
+	private final String wiki;
 
 	private final int hitpoints;
 	private final int combatLevel;
@@ -122,6 +123,9 @@ public class NPCStats
 			{
 				switch (in.nextName())
 				{
+					case "wiki":
+						builder.wiki(in.nextString());
+						break;
 					case "hitpoints":
 						builder.hitpoints(in.nextInt());
 						break;
