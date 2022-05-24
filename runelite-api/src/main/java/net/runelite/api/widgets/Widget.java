@@ -191,6 +191,9 @@ public interface Widget
 	 */
 	void setForcedPosition(int x, int y);
 
+	void setForcedX();
+	void setForcedY();
+
 	/**
 	 * Gets the text displayed on this widget.
 	 *

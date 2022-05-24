@@ -1089,13 +1089,6 @@ public abstract class RSClientMixin implements RSClient
 				client.getMenuTargets()[tmpOptionsCount] = "null";
 			}
 
-			String menuOption = client.getMenuOptions()[tmpOptionsCount];
-			String menuTarget = client.getMenuTargets()[tmpOptionsCount];
-			int menuOpcode = client.getMenuOpcodes()[tmpOptionsCount];
-			int menuIdentifier = client.getMenuIdentifiers()[tmpOptionsCount];
-			int menuArgument1 = client.getMenuArguments1()[tmpOptionsCount];
-			int menuArgument2 = client.getMenuArguments2()[tmpOptionsCount];
-
 			if (rl$menuEntries[tmpOptionsCount] == null)
 			{
 				rl$menuEntries[tmpOptionsCount] = newRuneliteMenuEntry(tmpOptionsCount);
@@ -1106,13 +1099,9 @@ public abstract class RSClientMixin implements RSClient
 			}
 
 			MenuEntryAdded menuEntryAdded = new MenuEntryAdded(
-				menuOption,
-				menuTarget,
-				menuOpcode,
-				menuIdentifier,
-				menuArgument1,
-				menuArgument2
+				rl$menuEntries[tmpOptionsCount]
 			);
+
 			client.getCallbacks().post(menuEntryAdded);
 
 			if (menuEntryAdded.isModified() && client.getMenuOptionCount() == optionCount)
