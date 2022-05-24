@@ -28,8 +28,11 @@ import java.util.function.Consumer;
 import javax.annotation.Nullable;
 import lombok.EqualsAndHashCode;
 import lombok.Setter;
+import net.runelite.api.Actor;
 import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.NPC;
+import net.runelite.api.Player;
 import net.runelite.api.widgets.Widget;
 
 @EqualsAndHashCode(callSuper = false)
@@ -48,6 +51,8 @@ public class TestMenuEntry implements MenuEntry
 	private int itemId = -1;
 	@Setter
 	private Widget widget;
+	@Setter
+	private Actor actor;
 
 	@Override
 	public String getOption()
@@ -238,5 +243,26 @@ public class TestMenuEntry implements MenuEntry
 	public Widget getWidget()
 	{
 		return widget;
+	}
+
+	@Nullable
+	@Override
+	public NPC getNpc()
+	{
+		return actor instanceof NPC ? (NPC) actor : null;
+	}
+
+	@Nullable
+	@Override
+	public Player getPlayer()
+	{
+		return actor instanceof Player ? (Player) actor : null;
+	}
+
+	@Nullable
+	@Override
+	public Actor getActor()
+	{
+		return actor;
 	}
 }
