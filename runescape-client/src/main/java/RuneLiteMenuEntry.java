@@ -1,8 +1,13 @@
 import java.util.function.Consumer;
+import net.runelite.api.Actor;
 import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
+import net.runelite.api.NPC;
+import net.runelite.api.Player;
+import net.runelite.api.events.NpcSpawned;
 import net.runelite.api.widgets.Widget;
 import net.runelite.rs.api.RSClient;
+import net.runelite.rs.api.RSNPC;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class RuneLiteMenuEntry implements MenuEntry
@@ -453,6 +458,82 @@ public class RuneLiteMenuEntry implements MenuEntry
 		}
 
 		return widget;
+	}
+
+	@Override
+	public NPC getNpc()
+	{
+		NPC[] npcs = client.getCachedNPCs();
+		NPC npc = null;
+
+		MenuAction menuAction = this.getType();
+
+		if (menuAction == MenuAction.NPC_FIRST_OPTION ||
+			menuAction == MenuAction.NPC_SECOND_OPTION ||
+			menuAction == MenuAction.NPC_THIRD_OPTION ||
+			menuAction == MenuAction.NPC_FOURTH_OPTION ||
+			menuAction == MenuAction.NPC_FIFTH_OPTION ||
+			menuAction == MenuAction.WIDGET_TARGET_ON_NPC)
+		{
+			int identifier = this.getIdentifier();
+
+			if (identifier >= 0 && identifier < npcs.length)
+			{
+				npc = npcs[identifier];
+			}
+		}
+
+		return npc;
+	}
+
+	@Override
+	public Player getPlayer()
+	{
+		Player[] players = client.getCachedPlayers();
+		Player player = null;
+
+		MenuAction menuAction = this.getType();
+
+		if (menuAction == MenuAction.PLAYER_FIRST_OPTION ||
+			menuAction == MenuAction.PLAYER_SECOND_OPTION ||
+			menuAction == MenuAction.PLAYER_THIRD_OPTION ||
+			menuAction == MenuAction.PLAYER_FOURTH_OPTION ||
+			menuAction == MenuAction.PLAYER_FIFTH_OPTION ||
+			menuAction == MenuAction.PLAYER_SIXTH_OPTION ||
+			menuAction == MenuAction.PLAYER_SEVENTH_OPTION ||
+			menuAction == MenuAction.PLAYER_EIGTH_OPTION ||
+			menuAction == MenuAction.WIDGET_TARGET_ON_PLAYER ||
+			menuAction == MenuAction.RUNELITE_PLAYER)
+		{
+			int identifier = this.getIdentifier();
+
+			if (identifier >= 0 && identifier < players.length)
+			{
+				player = players[identifier];
+			}
+		}
+
+		return player;
+	}
+
+	@Override
+	public Actor getActor()
+	{
+		NPC npc = getNpc();
+
+		if (npc != null)
+		{
+			return npc;
+		}
+
+		Player player = getPlayer();
+
+		if (player != null)
+		{
+			return player;
+		}
+
+		return null;
 	}
 
 	@Override

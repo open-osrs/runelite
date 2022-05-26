@@ -24,58 +24,77 @@
  */
 package net.runelite.api.events;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import net.runelite.api.MenuAction;
+import net.runelite.api.MenuEntry;
 
 /**
  * An event when a new entry is added to a right-click menu.
  */
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@ToString(onlyExplicitlyIncluded = true)
 public class MenuEntryAdded
 {
 	// Here for RuneLite compatibility (different parameter order)
-	public MenuEntryAdded(String option, String target, int type, int identifier, int actionParam0, int actionParam1)
+	public MenuEntryAdded(MenuEntry menuEntry)
 	{
-		this(option, target, identifier, type, actionParam0, actionParam1, false);
-	}
+		this.menuEntry = menuEntry;
 
-	public MenuEntryAdded(String option, String target, int identifier, int type, int param0, int param1, boolean forceLeftClick)
-	{
-		this.option = option;
-		this.target = target;
-		this.identifier = identifier;
-		this.type = type;
-		this.actionParam0 = param0;
-		this.actionParam1 = param1;
-		this.forceLeftClick = forceLeftClick;
+		this.option = menuEntry.getOption();
+		this.target = menuEntry.getTarget();
+		this.identifier = menuEntry.getIdentifier();
+		this.type = menuEntry.getType().getId();
+		this.actionParam0 = menuEntry.getParam0();
+		this.actionParam1 = menuEntry.getParam1();
+		this.forceLeftClick = false;
 	}
 
 	@Getter
+	private final MenuEntry menuEntry;
+
+	@Getter
 	@Setter
+	@EqualsAndHashCode.Include
+	@ToString.Include
 	private String option;
 
 	@Getter
 	@Setter
+	@EqualsAndHashCode.Include
+	@ToString.Include
 	private String target;
 
 	@Getter
 	@Setter
+	@EqualsAndHashCode.Include
+	@ToString.Include
 	private int type;
 
 	@Getter
 	@Setter
+	@EqualsAndHashCode.Include
+	@ToString.Include
 	private int identifier;
 
 	@Getter
 	@Setter
+	@EqualsAndHashCode.Include
+	@ToString.Include
 	private int actionParam0;
 
 	@Getter
 	@Setter
+	@EqualsAndHashCode.Include
+	@ToString.Include
 	private int actionParam1;
 
 	@Getter
 	@Setter
+	@EqualsAndHashCode.Include
+	@ToString.Include
 	private boolean forceLeftClick;
 
 	/**
@@ -87,6 +106,8 @@ public class MenuEntryAdded
 	 */
 	@Getter
 	@Setter
+	@EqualsAndHashCode.Include
+	@ToString.Include
 	private boolean modified;
 
 	public void setModified()
