@@ -1128,7 +1128,7 @@ public abstract class RSClientMixin implements RSClient
 		}
 		else if (target instanceof Player)
 		{
-			targetIndex = -(((Player) target).getPlayerId() + 1);
+			targetIndex = -(((Player) target).getId() + 1);
 		}
 
 		RSProjectile projectile = client.newProjectile(id, plane, startX, startY, startZ, startCycle, endCycle, slope, startHeight, targetIndex, endHeight);
@@ -1571,7 +1571,7 @@ public abstract class RSClientMixin implements RSClient
 			final Player p = client.getHintArrowPlayer();
 			if (p != null)
 			{
-				client.setLocalInteractingIndex(p.getPlayerId() & 2047);
+				client.setLocalInteractingIndex(p.getId() & 2047);
 			}
 		}
 	}
@@ -1626,7 +1626,7 @@ public abstract class RSClientMixin implements RSClient
 	public void setHintArrow(Player player)
 	{
 		client.setHintArrowTargetType(HintArrowType.PLAYER.getValue());
-		client.setHintArrowPlayerTargetIdx(((RSPlayer) player).getPlayerId());
+		client.setHintArrowPlayerTargetIdx(((RSPlayer) player).getId());
 		hintPlayerChanged(-1);
 	}
 

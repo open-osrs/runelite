@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2017, honeyhoney <https://github.com/honeyhoney>
+ * Copyright (c) 2016-2022, emerald000
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -22,31 +22,31 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package net.runelite.client.plugins.attackstyles;
+package net.runelite.client.plugins.itemstats.special;
 
-import lombok.Getter;
-import net.runelite.api.Skill;
+import net.runelite.api.Client;
+import net.runelite.client.plugins.itemstats.StatBoost;
+import static net.runelite.client.plugins.itemstats.stats.Stats.HITPOINTS;
 
-enum AttackStyle
+public class CaveNightshade extends StatBoost
 {
-	ACCURATE("Accurate", Skill.ATTACK),
-	AGGRESSIVE("Aggressive", Skill.STRENGTH),
-	DEFENSIVE("Defensive", Skill.DEFENCE),
-	CONTROLLED("Controlled", Skill.ATTACK, Skill.STRENGTH, Skill.DEFENCE),
-	RANGING("Ranging", Skill.RANGED),
-	LONGRANGE("Longrange", Skill.RANGED, Skill.DEFENCE),
-	CASTING("Casting", Skill.MAGIC),
-	DEFENSIVE_CASTING("Defensive Casting", Skill.MAGIC, Skill.DEFENCE),
-	OTHER("Other");
-
-	@Getter
-	private final String name;
-	@Getter
-	private final Skill[] skills;
-
-	AttackStyle(String name, Skill... skills)
+	public CaveNightshade()
 	{
-		this.name = name;
-		this.skills = skills;
+		super(HITPOINTS, false);
+	}
+
+	@Override
+	public int heals(Client client)
+	{
+		int currentHP = this.getStat().getValue(client);
+
+		if (currentHP < 20)
+		{
+			return -currentHP / 2;
+		}
+		else
+		{
+			return -15;
+		}
 	}
 }
