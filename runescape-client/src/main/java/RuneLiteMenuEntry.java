@@ -473,7 +473,8 @@ public class RuneLiteMenuEntry implements MenuEntry
 			menuAction == MenuAction.NPC_THIRD_OPTION ||
 			menuAction == MenuAction.NPC_FOURTH_OPTION ||
 			menuAction == MenuAction.NPC_FIFTH_OPTION ||
-			menuAction == MenuAction.WIDGET_TARGET_ON_NPC)
+			menuAction == MenuAction.WIDGET_TARGET_ON_NPC ||
+			menuAction == MenuAction.EXAMINE_NPC)
 		{
 			int identifier = this.getIdentifier();
 
