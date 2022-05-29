@@ -49,7 +49,7 @@ tasks {
         group = "openosrs"
 
         classpath = project.sourceSets.main.get().runtimeClasspath
-        main = "net.runelite.data.App"
+        mainClass.set("net.runelite.data.App")
         args(listOf("npcStats", rootProject.file("./runelite-client/src/main/resources/").absolutePath))
     }
 
@@ -57,7 +57,7 @@ tasks {
         group = "openosrs"
 
         classpath = project.sourceSets.main.get().runtimeClasspath
-        main = "net.runelite.data.App"
+        mainClass.set("net.runelite.data.App")
         args(listOf("itemStats", rootProject.file("./runelite-client/src/main/resources/").absolutePath))
     }
 
@@ -65,7 +65,7 @@ tasks {
         group = "openosrs"
 
         classpath = project.sourceSets.main.get().runtimeClasspath
-        main = "net.runelite.data.App"
+        mainClass.set("net.runelite.data.App")
         args(listOf("itemLimits", rootProject.file("./runelite-client/src/main/resources/").absolutePath))
     }
 }
