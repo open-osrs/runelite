@@ -42,13 +42,20 @@ tasks.register<JavaExec>("inject") {
 
     enableAssertions = true
 
-    main = "com.openosrs.injector.Injector"
+    classpath = project.sourceSets.main.get().runtimeClasspath
+    mainClass.set("com.openosrs.injector.Injector")
+
+    inputs.dir("${project.extra["rootPath"]}/runelite-mixins/src/main/java")
+    inputs.dir("${project.extra["rootPath"]}/runelite-api/src/main/java")
+    inputs.dir("${project.extra["rootPath"]}/runescape-api/src/main/java")
+    inputs.dir("${project.extra["rootPath"]}/runescape-client/src/main/java")
+
     val out = "${project.extra["rootPath"]}/runelite-client/build/injected/injected-client.oprs"
     outputs.file(out)
-    classpath = sourceSets["main"].runtimeClasspath
+    outputs.file("${project.extra["rootPath"]}/runelite-client/build/injected/client.hash")
+
+    outputs.cacheIf { true }
+
     args("--outmode", "jar", "--vanilla", vanillaDep.singleFile, "--version", openosrsVersion, "--output", out)
-    outputs.upToDateWhen {
-        false
-    }
 }
 

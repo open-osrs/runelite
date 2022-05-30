@@ -57,10 +57,6 @@ dependencies {
 
 tasks {
     processTestResources {
-        finalizedBy("filterTestResources")
-    }
-
-    register<Copy>("filterTestResources") {
         val tokens = mapOf(
                 "rs.version" to ProjectVersions.rsversion.toString(),
                 "cache.version" to ProjectVersions.cacheversion.toString()
@@ -68,12 +64,9 @@ tasks {
 
         inputs.properties(tokens)
 
-        from("src/test/resources") {
-            include("cache.properties")
+        filesMatching("cache.properties") {
+            filter(ReplaceTokens::class, "tokens" to tokens)
+            filteringCharset = "UTF-8"
         }
-        into("${buildDir}/resources/test")
-
-        filter(ReplaceTokens::class, "tokens" to tokens)
-        filteringCharset = "UTF-8"
     }
 }

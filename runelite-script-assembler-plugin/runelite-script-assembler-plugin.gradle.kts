@@ -48,7 +48,7 @@ tasks {
         outputs.dir(out)
 
         classpath = project.sourceSets.main.get().runtimeClasspath
-        main = "net.runelite.script.AssembleMojo"
+        mainClass.set("net.runelite.script.AssembleMojo")
         args(listOf(inp, out))
 
         doLast {

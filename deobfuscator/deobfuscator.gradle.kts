@@ -29,7 +29,11 @@ plugins {
     id("com.github.hauner.jarTest") version "1.0.1"
 }
 
-val deobjars = configurations.create("deobjars")
+val deobjars: Configuration = configurations.create("deobjars")
+
+configurations {
+    testImplementation.get().extendsFrom(deobjars)
+}
 
 dependencies {
     deobjars(group = "net.runelite.rs", name = "vanilla", version = ProjectVersions.rsversion.toString())
@@ -50,7 +54,6 @@ dependencies {
 
     runtimeOnly(group = "org.slf4j", name = "slf4j-simple", version = "1.7.32")
 
-    testImplementation(deobjars)
     testImplementation(group = "junit", name = "junit", version = "4.12")
     testImplementation(group = "org.mockito", name = "mockito-core", version = "3.1.0")
 }
@@ -63,49 +66,36 @@ tasks {
     )
 
     processResources {
-        finalizedBy("filterResources")
-    }
-
-    register<Copy>("filterResources") {
         inputs.properties(tokens)
 
-        from("src/main/resources") {
-            include("deob.properties")
+        filesMatching("deob.properties") {
+            filter(ReplaceTokens::class, "tokens" to tokens)
+            filteringCharset = "UTF-8"
         }
-        into("${buildDir}/resources/main")
-
-        filter(ReplaceTokens::class, "tokens" to tokens)
-        filteringCharset = "UTF-8"
     }
 
     processTestResources {
-        finalizedBy("filterTestResources")
-    }
-
-    register<Copy>("filterTestResources") {
         inputs.properties(tokens)
 
-        from("src/test/resources") {
-            include("deob-test.properties")
+        filesMatching("deob-test.properties") {
+            filter(ReplaceTokens::class, "tokens" to tokens)
+            filteringCharset = "UTF-8"
         }
-        into("${buildDir}/resources/test")
-
-        filter(ReplaceTokens::class, "tokens" to tokens)
-        filteringCharset = "UTF-8"
     }
+
     // TODO: Enable assertions on all 3
     register<JavaExec>("Downloader\$main()") {
         group = "gamepack"
 
         classpath = project.sourceSets.main.get().runtimeClasspath
-        main = "net.runelite.gamepack.Downloader"
+        mainClass.set("net.runelite.gamepack.Downloader")
     }
 
     register<JavaExec>("Deob\$main()") {
         group = "gamepack"
 
         classpath = project.sourceSets.main.get().runtimeClasspath
-        main = "net.runelite.deob.Deob"
+        mainClass.set("net.runelite.deob.Deob")
         args = listOf(tokens["vanilla.jar"], "$buildDir/libs/deobfuscated-$version.jar")
     }
 
@@ -113,7 +103,7 @@ tasks {
         group = "gamepack"
 
         classpath = project.sourceSets.main.get().runtimeClasspath
-        main = "net.runelite.deob.updater.UpdateMappings"
+        mainClass.set("net.runelite.deob.updater.UpdateMappings")
     }
 }
 
