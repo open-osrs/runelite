@@ -478,6 +478,7 @@ public interface Widget
 	 *
 	 * @return any items displayed, or null if there are no items
 	 */
+	@Deprecated
 	Collection<WidgetItem> getWidgetItems();
 
 	/**
@@ -488,6 +489,7 @@ public interface Widget
 	 * does not exist
 	 * @throws IndexOutOfBoundsException if the index is out of bounds
 	 */
+	@Deprecated
 	WidgetItem getWidgetItem(int index);
 
 	/**
