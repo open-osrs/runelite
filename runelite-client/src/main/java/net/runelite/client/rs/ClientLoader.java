@@ -495,7 +495,7 @@ public class ClientLoader implements Supplier<Applet>
 			}
 		}
 
-		try (HashingOutputStream hos = new HashingOutputStream(Hashing.sha512(), new FileOutputStream(PATCHED_CACHE));
+		try (HashingOutputStream hos = new HashingOutputStream(Hashing.sha512(), java.nio.file.Files.newOutputStream(PATCHED_CACHE.toPath()));
 			InputStream patch = ClientLoader.class.getResourceAsStream("/client.patch"))
 		{
 			new FileByFileV1DeltaApplier().applyDelta(VANILLA_CACHE, patch, hos);
