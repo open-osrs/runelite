@@ -435,6 +435,13 @@ public interface Client extends OAuthApi, GameEngine
 	ItemComposition getItemComposition(int id);
 
 	/**
+	 * Get the local player's follower, such as a pet
+	 * @return
+	 */
+	@Nullable
+	NPC getFollower();
+
+	/**
 	 * Gets the item composition corresponding to an items ID.
 	 *
 	 * @param id the item ID
@@ -1747,162 +1754,6 @@ public interface Client extends OAuthApi, GameEngine
 	 * @return the number of client ticks an item has been pressed
 	 */
 	int getItemPressedDuration();
-
-	/**
-	 * Sets whether the client is hiding entities.
-	 * <p>
-	 * This method does not itself hide any entities. It behaves as a master
-	 * switch for whether or not any of the related entities are hidden or
-	 * shown. If this method is set to false, changing the configurations for
-	 * specific entities will have no effect.
-	 *
-	 * @param state new entity hiding state
-	 */
-	void setIsHidingEntities(boolean state);
-
-	/**
-	 * Sets whether or not other players are hidden.
-	 *
-	 * @param state the new player hidden state
-	 */
-	void setOthersHidden(boolean state);
-
-	/**
-	 * Sets whether 2D sprites related to the other players are hidden.
-	 * (ie. overhead prayers, PK skull)
-	 *
-	 * @param state the new player 2D hidden state
-	 */
-	void setOthersHidden2D(boolean state);
-
-	/**
-	 * Sets whether or not friends are hidden.
-	 *
-	 * @param state the new friends hidden state
-	 */
-	void setFriendsHidden(boolean state);
-
-	/**
-	 * Sets whether or not friends chat members are hidden.
-	 *
-	 * @param state the new friends chat member hidden state
-	 */
-	void setFriendsChatMembersHidden(boolean state);
-
-	/**
-	 * Sets whether or not clan members are hidden.
-	 *
-	 * @param state the new clan chat member hidden state
-	 */
-	void setClanChatMembersHidden(boolean state);
-
-	/**
-	 * Sets whether or not ignored players are hidden.
-	 *
-	 * @param state the new ignored player hidden state
-	 */
-	void setIgnoresHidden(boolean state);
-
-	/**
-	 * Sets whether the local player is hidden.
-	 *
-	 * @param state new local player hidden state
-	 */
-	void setLocalPlayerHidden(boolean state);
-
-	/**
-	 * Sets whether 2D sprites related to the local player are hidden.
-	 * (ie. overhead prayers, PK skull)
-	 *
-	 * @param state new local player 2D hidden state
-	 */
-	void setLocalPlayerHidden2D(boolean state);
-
-	/**
-	 * Sets whether NPCs are hidden.
-	 *
-	 * @param state new NPC hidden state
-	 */
-	void setNPCsHidden(boolean state);
-
-	/**
-	 * Sets whether 2D sprites (ie. overhead prayers) related to
-	 * the NPCs are hidden.
-	 *
-	 * @param state new NPC 2D hidden state
-	 */
-	void setNPCsHidden2D(boolean state);
-
-	/**
-	 * Sets whether Pets from other players are hidden.
-	 *
-	 * @param state new pet hidden state
-	 */
-	void setPetsHidden(boolean state);
-
-	/**
-	 * Sets whether attacking players or NPCs are hidden.
-	 *
-	 * @param state new attacker hidden state
-	 */
-	void setAttackersHidden(boolean state);
-
-	/**
-	 * Hides players input here.
-	 *
-	 * @param names the names of the players
-	 */
-	void setHideSpecificPlayers(List<String> names);
-
-	/**
-	 * Get the list of NPC indices that are currently hidden
-	 *
-	 * @return all of the current hidden NPC Indices
-	 */
-	List<Integer> getHiddenNpcIndices();
-
-	/**
-	 * If an NPC index is in this List then do not render it
-	 *
-	 * @param npcIndices the npc indices to hide
-	 */
-	void setHiddenNpcIndices(List<Integer> npcIndices);
-
-	/**
-	 * Increments the counter for how many times this npc has been selected to be hidden
-	 *
-	 * @param name npc name
-	 */
-	void addHiddenNpcName(String name);
-
-	/**
-	 * Decrements the counter for how many times this npc has been selected to be hidden
-	 *
-	 * @param name npc name
-	 */
-	void removeHiddenNpcName(String name);
-
-	/**
-	 * Sets whether projectiles are hidden.
-	 *
-	 * @param state new projectile hidden state
-	 */
-	void setProjectilesHidden(boolean state);
-
-	/**
-	 * Sets whether dead NPCs are hidden.
-	 *
-	 * @param state new NPC hidden state
-	 */
-	void setDeadNPCsHidden(boolean state);
-
-	/**
-	 * The provided ids will not be hidden when the
-	 * entity-hider attempts to hide dead {@link NPC}'s.
-	 *
-	 * @param blacklist set of npc ids.
-	 */
-	void setBlacklistDeadNpcs(Set<Integer> blacklist);
 
 	/**
 	 * Adds a custom clientscript to the list of available clientscripts.
