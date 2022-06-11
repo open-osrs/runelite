@@ -12,6 +12,9 @@ public interface RSUserList<T extends Nameable> extends NameableContainer<T>
 	@Import("getSize")
 	int getCount();
 
+	@Import("capacity")
+	int getSize();
+
 	@Import("getByUsername")
 	T findByName(RSUsername name);
 

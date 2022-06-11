@@ -36,6 +36,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.VolatileImage;
+import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -111,6 +112,14 @@ public class Hooks implements Callbacks
 
 	private static MainBufferProvider lastMainBufferProvider;
 	private static Graphics2D lastGraphics;
+
+	@FunctionalInterface
+	public interface RenderableDrawListener
+	{
+		boolean draw(Renderable renderable, boolean ui);
+	}
+
+	private final List<RenderableDrawListener> renderableDrawListeners = new ArrayList<>();
 
 	/**
 	 * Get the Graphics2D for the MainBufferProvider image
@@ -219,7 +228,7 @@ public class Hooks implements Callbacks
 		}
 		catch (Exception ex)
 		{
-			log.warn("error during main loop tasks", ex);
+			log.error("error during main loop tasks", ex);
 		}
 	}
 
@@ -344,7 +353,7 @@ public class Hooks implements Callbacks
 		}
 		catch (Exception ex)
 		{
-			log.warn("Error during overlay rendering", ex);
+			log.error("Error during overlay rendering", ex);
 		}
 
 		notifier.processFlash(graphics2d);
@@ -439,7 +448,7 @@ public class Hooks implements Callbacks
 		}
 		catch (Exception ex)
 		{
-			log.warn("Error during overlay rendering", ex);
+			log.error("Error during overlay rendering", ex);
 		}
 	}
 
@@ -455,7 +464,7 @@ public class Hooks implements Callbacks
 		}
 		catch (Exception ex)
 		{
-			log.warn("Error during overlay rendering", ex);
+			log.error("Error during overlay rendering", ex);
 		}
 	}
 
@@ -507,7 +516,7 @@ public class Hooks implements Callbacks
 		}
 		catch (Exception ex)
 		{
-			log.warn("Error during overlay rendering", ex);
+			log.error("Error during overlay rendering", ex);
 		}
 	}
 
@@ -523,7 +532,7 @@ public class Hooks implements Callbacks
 		}
 		catch (Exception ex)
 		{
-			log.warn("Error during overlay rendering", ex);
+			log.error("Error during overlay rendering", ex);
 		}
 	}
 
@@ -549,7 +558,16 @@ public class Hooks implements Callbacks
 		eventBus.post(fakeXpDrop);
 	}
 
-	
+	public void registerRenderableDrawListener(RenderableDrawListener listener)
+	{
+		renderableDrawListeners.add(listener);
+	}
+
+	public void unregisterRenderableDrawListener(RenderableDrawListener listener)
+	{
+		renderableDrawListeners.remove(listener);
+	}
+
 	public static void clearColorBuffer(int x, int y, int width, int height, int color)
 	{
 		BufferProvider bp = client.getBufferProvider();
@@ -587,5 +605,25 @@ public class Hooks implements Callbacks
 		BeforeMenuRender event = new BeforeMenuRender();
 		client.getCallbacks().post(event);
 		return event.isConsumed();
+	}
+
+	@Override
+	public boolean draw(Renderable renderable, boolean drawingUi)
+	{
+		try
+		{
+			for (RenderableDrawListener renderableDrawListener : renderableDrawListeners)
+			{
+				if (!renderableDrawListener.draw(renderable, drawingUi))
+				{
+					return false;
+				}
+			}
+		}
+		catch (Exception ex)
+		{
+			log.error("exception from renderable draw listener", ex);
+		}
+		return true;
 	}
 }
