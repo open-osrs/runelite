@@ -12,13 +12,10 @@ import com.openosrs.injector.InjectException;
 import com.openosrs.injector.InjectUtil;
 import com.openosrs.injector.injection.InjectData;
 import com.openosrs.injector.injectors.AbstractInjector;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.ListIterator;
 import net.runelite.asm.Method;
 import net.runelite.asm.attributes.code.Instruction;
-import net.runelite.asm.attributes.code.InstructionType;
 import net.runelite.asm.attributes.code.Instructions;
 import net.runelite.asm.attributes.code.Label;
 import net.runelite.asm.attributes.code.instruction.types.ComparisonInstruction;
@@ -32,8 +29,6 @@ import net.runelite.asm.attributes.code.instructions.IfACmpNe;
 import net.runelite.asm.attributes.code.instructions.IfICmpNe;
 import net.runelite.asm.attributes.code.instructions.IfNe;
 import net.runelite.asm.attributes.code.instructions.InvokeStatic;
-import net.runelite.asm.attributes.code.instructions.LDC;
-import net.runelite.asm.attributes.code.instructions.Return;
 import net.runelite.asm.pool.Field;
 
 public class AddPlayerToMenu extends AbstractInjector
@@ -45,15 +40,15 @@ public class AddPlayerToMenu extends AbstractInjector
 
 	public void inject()
 	{
-		final Method addPlayerOptions = InjectUtil.findMethod(inject, "addPlayerToMenu");
+		final Method addPlayerOptions = inject.toVanilla(inject.getDeobfuscated().findClass("Scene")).findMethod("copy$addPlayerToMenu");
 		final net.runelite.asm.pool.Method shouldHideAttackOptionFor =
 			inject.getVanilla().findClass("client").findMethod("shouldHideAttackOptionFor").getPoolMethod();
-		final net.runelite.asm.pool.Method shouldDrawMethod =
-			inject.getVanilla().findStaticMethod("shouldDraw").getPoolMethod();
+//		final net.runelite.asm.pool.Method shouldDrawMethod =
+//			inject.getVanilla().findStaticMethod("shouldDraw").getPoolMethod();
 
 		try
 		{
-			injectSameTileFix(addPlayerOptions, shouldDrawMethod);
+			// injectSameTileFix(addPlayerOptions, shouldDrawMethod);
 			injectHideAttack(addPlayerOptions, shouldHideAttackOptionFor);
 			injectHideCast(addPlayerOptions, shouldHideAttackOptionFor);
 		}
@@ -63,32 +58,32 @@ public class AddPlayerToMenu extends AbstractInjector
 		}
 	}
 
-	private void injectSameTileFix(Method addPlayerOptions, net.runelite.asm.pool.Method shouldDrawMethod)
-	{
-		// ALOAD 0
-		// ICONST_0
-		// INVOKESTATIC Scene.shouldDraw
-		// IFNE CONTINUE_LABEL                     if returned true then jump to continue
-		// RETURN
-		// CONTINUE_LABEL
-		// REST OF METHOD GOES HERE
-		Instructions insns = addPlayerOptions.getCode().getInstructions();
-		Label CONTINUE_LABEL = new Label(insns);
-		List<Instruction> prependList = new ArrayList<>()
-		{{
-			add(new ALoad(insns, 0));
-			add(new LDC(insns, 0));
-			add(new InvokeStatic(insns, shouldDrawMethod));
-			add(new IfNe(insns, CONTINUE_LABEL));
-			add(new Return(insns, InstructionType.RETURN));
-			add(CONTINUE_LABEL);
-		}};
-		int i = 0;
-		for (Instruction instruction : prependList)
-		{
-			insns.addInstruction(i++, instruction);
-		}
-	}
+//	private void injectSameTileFix(Method addPlayerOptions, net.runelite.asm.pool.Method shouldDrawMethod)
+//	{
+//		// ALOAD 0
+//		// ICONST_0
+//		// INVOKESTATIC Scene.shouldDraw
+//		// IFNE CONTINUE_LABEL                     if returned true then jump to continue
+//		// RETURN
+//		// CONTINUE_LABEL
+//		// REST OF METHOD GOES HERE
+//		Instructions insns = addPlayerOptions.getCode().getInstructions();
+//		Label CONTINUE_LABEL = new Label(insns);
+//		List<Instruction> prependList = new ArrayList<>()
+//		{{
+//			add(new ALoad(insns, 0));
+//			add(new LDC(insns, 0));
+//			add(new InvokeStatic(insns, shouldDrawMethod));
+//			add(new IfNe(insns, CONTINUE_LABEL));
+//			add(new Return(insns, InstructionType.RETURN));
+//			add(CONTINUE_LABEL);
+//		}};
+//		int i = 0;
+//		for (Instruction instruction : prependList)
+//		{
+//			insns.addInstruction(i++, instruction);
+//		}
+//	}
 
 	private void injectHideAttack(Method addPlayerOptions, net.runelite.asm.pool.Method shouldHideAttackOptionFor)
 	{

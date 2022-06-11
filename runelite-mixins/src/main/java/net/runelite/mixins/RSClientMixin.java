@@ -3089,5 +3089,15 @@ public abstract class RSClientMixin implements RSClient
 			Arrays.fill(client.getBufferProvider().getPixels(), 0);
 		}
 	}
+
+	@Inject
+	@Override
+	@Nullable
+	public RSNPC getFollower()
+	{
+		int var1 = client.getFollowerIndex();
+		RSNPC[] var2 = this.getCachedNPCs();
+		return var1 >= 0 && var1 < var2.length ? var2[var1] : null;
+	}
 }
 
