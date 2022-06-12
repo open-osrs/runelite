@@ -13,6 +13,8 @@ import com.openosrs.injector.injection.InjectData;
 import com.openosrs.injector.rsapi.RSApi;
 import net.runelite.asm.ClassFile;
 import net.runelite.asm.ClassGroup;
+import net.runelite.asm.Method;
+import net.runelite.asm.signature.Signature;
 import net.runelite.deob.util.JarUtil;
 import org.junit.Test;
 
@@ -31,6 +33,9 @@ public class DrawMenuTest
 		deob.addClass(deobClient);
 
 		InjectData inject = new TestInjection(van, deob, new ClassGroup(), new RSApi());
+
+		addPhonyMethod(van);
+
 		inject.initToVanilla();
 		new DrawMenu(inject).inject();
 	}
@@ -48,7 +53,19 @@ public class DrawMenuTest
 		deob.addClass(deobClient);
 
 		InjectData inject = new TestInjection(van, deob, new ClassGroup(), new RSApi());
+
+		addPhonyMethod(van);
+
 		inject.initToVanilla();
 		new DrawMenu(inject).inject();
+	}
+
+	private void addPhonyMethod(ClassGroup vanilla)
+	{
+		final ClassFile c = vanilla.findClass("client");
+
+		final Method clientM = new Method(c, "drawMenu", new Signature("()Z"));
+		clientM.setStatic(true);
+		c.addMethod(clientM);
 	}
 }
