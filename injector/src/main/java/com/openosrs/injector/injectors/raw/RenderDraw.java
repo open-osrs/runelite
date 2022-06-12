@@ -17,17 +17,9 @@ import net.runelite.asm.attributes.code.Instruction;
 import net.runelite.asm.attributes.code.Instructions;
 import net.runelite.asm.attributes.code.instructions.InvokeStatic;
 import net.runelite.asm.attributes.code.instructions.InvokeVirtual;
-import net.runelite.asm.pool.Class;
-import net.runelite.asm.signature.Signature;
-import static com.openosrs.injector.injection.InjectData.HOOKS;
 
 public class RenderDraw extends AbstractInjector
 {
-	private static final net.runelite.asm.pool.Method RENDERDRAW = new net.runelite.asm.pool.Method(
-		new Class(HOOKS),
-		"renderDraw",
-		new Signature("(Lnet/runelite/api/Renderable;IIIIIIIIJ)V")
-	);
 	private static final int EXPECTED = 21;
 
 	public RenderDraw(InjectData inject)
@@ -38,6 +30,8 @@ public class RenderDraw extends AbstractInjector
 	@Override
 	public void inject()
 	{
+		final net.runelite.asm.pool.Method renderDraw = inject.toVanilla(inject.getDeobfuscated().findClass("Scene")).findMethod("renderDraw").getPoolMethod();
+
 		int replaced = 0;
 
 		/*
@@ -56,7 +50,7 @@ public class RenderDraw extends AbstractInjector
 			{
 				if (((InvokeVirtual) i).getMethod().equals(draw))
 				{
-					iterator.set(new InvokeStatic(ins, RENDERDRAW));
+					iterator.set(new InvokeStatic(ins, renderDraw));
 					log.debug("[DEBUG] Replaced method call at {}", i);
 					++replaced;
 				}
