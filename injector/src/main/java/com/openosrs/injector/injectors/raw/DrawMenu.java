@@ -24,19 +24,10 @@ import net.runelite.asm.attributes.code.instructions.InvokeStatic;
 import net.runelite.asm.execution.Execution;
 import net.runelite.asm.execution.InstructionContext;
 import net.runelite.asm.execution.MethodContext;
-import net.runelite.asm.pool.Class;
 import net.runelite.asm.pool.Field;
-import net.runelite.asm.signature.Signature;
-import static com.openosrs.injector.injection.InjectData.HOOKS;
 
 public class DrawMenu extends AbstractInjector
 {
-	private static final net.runelite.asm.pool.Method DRAWMENU = new net.runelite.asm.pool.Method(
-		new Class(HOOKS),
-		"drawMenu",
-		new Signature("()Z")
-	);
-
 	public DrawMenu(InjectData inject)
 	{
 		super(inject);
@@ -66,6 +57,7 @@ public class DrawMenu extends AbstractInjector
 		 * --------
 		 */
 
+		final net.runelite.asm.pool.Method drawMenu = inject.getVanilla().findClass("client").findMethod("drawMenu").getPoolMethod();
 		final Method drawLoggedIn = InjectUtil.findMethod(inject, "drawLoggedIn", "Client", null, true, false);
 		final Field gameDrawMode = InjectUtil.findField(inject, "gameDrawingMode", "Client").getPoolField();
 		final Field isMenuOpen = InjectUtil.findField(inject, "isMenuOpen", "Client").getPoolField();
@@ -135,7 +127,7 @@ public class DrawMenu extends AbstractInjector
 		final Instructions instrs = mc.getMethod().getCode().getInstructions();
 		int idx = instrs.getInstructions().indexOf(injectInvokeAfter);
 
-		instrs.addInstruction(++idx, new InvokeStatic(instrs, DRAWMENU));
+		instrs.addInstruction(++idx, new InvokeStatic(instrs, drawMenu));
 		instrs.addInstruction(++idx, new IfNe(instrs, labelToJumpTo));
 
 		log.info("[INFO] DrawMenu injected a method call at index {} in method {}. With a comparison jumping to {}", idx, drawLoggedIn, labelToJumpTo);

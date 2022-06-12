@@ -22,17 +22,9 @@ import net.runelite.asm.execution.Execution;
 import net.runelite.asm.execution.InstructionContext;
 import net.runelite.asm.execution.MethodContext;
 import net.runelite.asm.execution.StackContext;
-import net.runelite.asm.signature.Signature;
-import static com.openosrs.injector.injection.InjectData.HOOKS;
 
 public class ClearColorBuffer extends AbstractInjector
 {
-	private static final net.runelite.asm.pool.Method CLEARBUFFER = new net.runelite.asm.pool.Method(
-		new net.runelite.asm.pool.Class(HOOKS),
-		"clearColorBuffer",
-		new Signature("(IIIII)V")
-	);
-
 	public ClearColorBuffer(InjectData inject)
 	{
 		super(inject);
@@ -40,11 +32,13 @@ public class ClearColorBuffer extends AbstractInjector
 
 	public void inject()
 	{
+
 		/*
 		 * This class stops the client from basically painting everything black before the scene is drawn
 		 */
 		final Execution exec = new Execution(inject.getVanilla());
 
+		final net.runelite.asm.pool.Method clearBuffer = inject.getVanilla().findClass("client").findMethod("clearColorBuffer").getPoolMethod();
 		final net.runelite.asm.pool.Method fillRectPool = InjectUtil.findMethod(inject, "Rasterizer2D_fillRectangle", "Rasterizer2D", null).getPoolMethod();
 		final Method drawEntities = InjectUtil.findMethod(inject, "drawEntities"); // XXX: should prob be called drawViewport?
 
@@ -83,7 +77,7 @@ public class ClearColorBuffer extends AbstractInjector
 				}
 
 				Instructions ins = instr.getInstructions();
-				ins.replace(instr, new InvokeStatic(ins, CLEARBUFFER));
+				ins.replace(instr, new InvokeStatic(ins, clearBuffer));
 				log.debug("[DEBUG] Injected drawRectangle at {}", methodContext.getMethod().getPoolMethod());
 			}
 		}
