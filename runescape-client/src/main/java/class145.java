@@ -1,54 +1,59 @@
+import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ee")
+@ObfuscatedName("eu")
 public class class145 {
-	@ObfuscatedName("ik")
-	@ObfuscatedGetter(
-		intValue = -627241765
-	)
-	static int field1690;
-	@ObfuscatedName("o")
-	@ObfuscatedGetter(
-		longValue = -4087609161665050259L
-	)
-	long field1683;
-	@ObfuscatedName("q")
-	@ObfuscatedGetter(
-		longValue = 1088515563671951847L
-	)
-	long field1688;
-	@ObfuscatedName("l")
+	@ObfuscatedName("t")
 	@ObfuscatedSignature(
-		descriptor = "Llo;"
+		descriptor = "[Lqu;"
 	)
-	IterableNodeDeque field1685;
+	@Export("title_muteSprite")
+	static IndexedSprite[] title_muteSprite;
+	@ObfuscatedName("hd")
+	@Export("regionMapArchives")
+	static byte[][] regionMapArchives;
+	@ObfuscatedName("c")
+	@ObfuscatedGetter(
+		longValue = -5828286279618007477L
+	)
+	long field1675;
+	@ObfuscatedName("v")
+	@ObfuscatedGetter(
+		longValue = 4268736804944836751L
+	)
+	long field1673;
+	@ObfuscatedName("q")
+	@ObfuscatedSignature(
+		descriptor = "Llk;"
+	)
+	IterableNodeDeque field1676;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lpx;)V"
+		descriptor = "(Lqt;)V"
 	)
 	public class145(Buffer var1) {
-		this.field1688 = -1L; // L: 10
-		this.field1685 = new IterableNodeDeque(); // L: 11
-		this.method2985(var1); // L: 19
+		this.field1673 = -1L; // L: 10
+		this.field1676 = new IterableNodeDeque(); // L: 11
+		this.method3074(var1); // L: 19
 	} // L: 20
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lpx;B)V",
-		garbageValue = "-84"
+		descriptor = "(Lqt;B)V",
+		garbageValue = "-73"
 	)
-	void method2985(Buffer var1) {
-		this.field1683 = var1.readLong(); // L: 23
-		this.field1688 = var1.readLong(); // L: 24
+	void method3074(Buffer var1) {
+		this.field1675 = var1.readLong(); // L: 23
+		this.field1673 = var1.readLong(); // L: 24
 
 		for (int var2 = var1.readUnsignedByte(); var2 != 0; var2 = var1.readUnsignedByte()) { // L: 25 26 36
 			Object var3;
 			if (var2 == 1) { // L: 28
 				var3 = new class140(this);
-			} else if (var2 == 4) {
-				var3 = new class151(this); // L: 29
+			} else if (var2 == 4) { // L: 29
+				var3 = new class151(this);
 			} else if (var2 == 3) { // L: 30
 				var3 = new class136(this);
 			} else if (var2 == 2) { // L: 31
@@ -61,41 +66,44 @@ public class class145 {
 				var3 = new class141(this);
 			}
 
-			((class144)var3).vmethod3037(var1); // L: 34
-			this.field1685.addFirst((Node)var3); // L: 35
+			((class144)var3).vmethod3137(var1); // L: 34
+			this.field1676.addFirst((Node)var3); // L: 35
 		}
 
 	} // L: 38
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Let;I)V",
-		garbageValue = "1678529975"
+		descriptor = "(Lex;B)V",
+		garbageValue = "84"
 	)
-	public void method2987(ClanChannel var1) {
-		if (this.field1683 == var1.key && var1.field1709 == this.field1688) { // L: 41
-			for (class144 var2 = (class144)this.field1685.last(); var2 != null; var2 = (class144)this.field1685.previous()) { // L: 42
-				var2.vmethod3032(var1); // L: 43
+	public void method3075(ClanChannel var1) {
+		if (this.field1675 == var1.key && this.field1673 == var1.field1693) { // L: 41
+			for (class144 var2 = (class144)this.field1676.last(); var2 != null; var2 = (class144)this.field1676.previous()) { // L: 42
+				var2.vmethod3138(var1); // L: 43
 			}
 
-			++var1.field1709; // L: 45
+			++var1.field1693; // L: 45
 		} else {
 			throw new RuntimeException("");
 		}
 	} // L: 46
 
-	@ObfuscatedName("js")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "(II)Z",
-		garbageValue = "708009599"
+		descriptor = "(Lkb;II)V",
+		garbageValue = "-1531941035"
 	)
-	static boolean method2991(int var0) {
-		for (int var1 = 0; var1 < Client.field719; ++var1) { // L: 11734
-			if (Client.field721[var1] == var0) { // L: 11735
-				return true;
+	@Export("Widget_setKeyIgnoreHeld")
+	static final void Widget_setKeyIgnoreHeld(Widget var0, int var1) {
+		if (var0.field3448 == null) { // L: 1030
+			throw new RuntimeException(); // L: 1031
+		} else {
+			if (var0.field3517 == null) { // L: 1033
+				var0.field3517 = new int[var0.field3448.length]; // L: 1034
 			}
-		}
 
-		return false; // L: 11737
-	}
+			var0.field3517[var1] = Integer.MAX_VALUE; // L: 1036
+		}
+	} // L: 1037
 }

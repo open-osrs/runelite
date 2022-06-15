@@ -1,32 +1,37 @@
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("iq")
+@ObfuscatedName("iu")
 @Implements("WorldMapAreaData")
 public class WorldMapAreaData extends WorldMapArea {
-	@ObfuscatedName("w")
+	@ObfuscatedName("z")
 	@Export("worldMapData0Set")
 	HashSet worldMapData0Set;
-	@ObfuscatedName("b")
+	@ObfuscatedName("r")
 	@Export("worldMapData1Set")
 	HashSet worldMapData1Set;
-	@ObfuscatedName("t")
+	@ObfuscatedName("u")
 	@Export("iconList")
 	List iconList;
 
 	WorldMapAreaData() {
 	} // L: 14
 
-	@ObfuscatedName("bu")
+	@ObfuscatedName("bo")
 	@ObfuscatedSignature(
-		descriptor = "(Lpx;Lpx;IZI)V",
-		garbageValue = "696765491"
+		descriptor = "(Lqt;Lqt;IZI)V",
+		garbageValue = "-15216320"
 	)
 	@Export("init")
 	void init(Buffer var1, Buffer var2, int var3, boolean var4) {
@@ -54,250 +59,190 @@ public class WorldMapAreaData extends WorldMapArea {
 			WorldMapData_1 var8 = new WorldMapData_1(); // L: 33
 
 			try {
-				var8.init(var2); // L: 35
-			} catch (IllegalStateException var11) { // L: 37
-				continue; // L: 38
+				var8.init(var2);
+			} catch (IllegalStateException var11) {
+				continue;
 			}
 
-			this.worldMapData1Set.add(var8); // L: 40
+			this.worldMapData1Set.add(var8);
 		}
 
-		this.initIconsList(var2, var4); // L: 42
-	} // L: 43
+		this.initIconsList(var2, var4);
+	}
 
-	@ObfuscatedName("bq")
+	@ObfuscatedName("bx")
 	@ObfuscatedSignature(
-		descriptor = "(Lpx;ZI)V",
-		garbageValue = "-838366517"
+		descriptor = "(Lqt;ZI)V",
+		garbageValue = "-681546343"
 	)
 	@Export("initIconsList")
 	void initIconsList(Buffer var1, boolean var2) {
 		this.iconList = new LinkedList(); // L: 46
-		int var3 = var1.readUnsignedShort(); // L: 47
+		int var3 = var1.readUnsignedShort();
 
-		for (int var4 = 0; var4 < var3; ++var4) { // L: 48
-			int var5 = var1.method7532(); // L: 49
-			Coord var6 = new Coord(var1.readInt()); // L: 50
-			boolean var7 = var1.readUnsignedByte() == 1; // L: 51
-			if (var2 || !var7) { // L: 52
+		for (int var4 = 0; var4 < var3; ++var4) {
+			int var5 = var1.method7752();
+			Coord var6 = new Coord(var1.readInt());
+			boolean var7 = var1.readUnsignedByte() == 1;
+			if (var2 || !var7) {
 				this.iconList.add(new WorldMapIcon_0((Coord)null, var6, var5, (WorldMapLabel)null)); // L: 53
 			}
 		}
 
-	} // L: 56
-
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		descriptor = "(II)Z",
-		garbageValue = "676720431"
-	)
-	public static boolean method4880(int var0) {
-		return var0 >= 0 && var0 < 112 ? KeyHandler.field120[var0] : false; // L: 227 228
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(ILbb;ZI)I",
-		garbageValue = "782138310"
+		descriptor = "(JLjava/lang/String;I)I",
+		garbageValue = "-513053480"
 	)
-	static int method4887(int var0, Script var1, boolean var2) {
-		int var4 = -1; // L: 612
-		Widget var3;
-		if (var0 >= 2000) { // L: 613
-			var0 -= 1000; // L: 614
-			var4 = Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize]; // L: 615
-			var3 = class92.getWidget(var4); // L: 616
-		} else {
-			var3 = var2 ? Interpreter.scriptDotWidget : KeyHandler.scriptActiveWidget; // L: 618
+	static final int method5082(long var0, String var2) {
+		Random var3 = new Random(); // L: 35
+		Buffer var4 = new Buffer(128); // L: 36
+		Buffer var5 = new Buffer(128); // L: 37
+		int[] var6 = new int[]{var3.nextInt(), var3.nextInt(), (int)(var0 >> 32), (int)var0}; // L: 38 39 40 41 42
+		var4.writeByte(10); // L: 43
+
+		int var7;
+		for (var7 = 0; var7 < 4; ++var7) { // L: 44
+			var4.writeInt(var3.nextInt()); // L: 45
 		}
 
-		if (var0 == ScriptOpcodes.CC_SETSCROLLPOS) { // L: 619
-			class12.Interpreter_intStackSize -= 2; // L: 620
-			var3.scrollX = Interpreter.Interpreter_intStack[class12.Interpreter_intStackSize]; // L: 621
-			if (var3.scrollX > var3.scrollWidth - var3.width) { // L: 622
-				var3.scrollX = var3.scrollWidth - var3.width;
-			}
+		var4.writeInt(var6[0]); // L: 47
+		var4.writeInt(var6[1]); // L: 48
+		var4.writeLong(var0); // L: 49
+		var4.writeLong(0L); // L: 50
 
-			if (var3.scrollX < 0) { // L: 623
-				var3.scrollX = 0;
-			}
+		for (var7 = 0; var7 < 4; ++var7) { // L: 51
+			var4.writeInt(var3.nextInt()); // L: 52
+		}
 
-			var3.scrollY = Interpreter.Interpreter_intStack[class12.Interpreter_intStackSize + 1]; // L: 624
-			if (var3.scrollY > var3.scrollHeight - var3.height) { // L: 625
-				var3.scrollY = var3.scrollHeight - var3.height;
-			}
+		var4.encryptRsa(class65.field865, class65.field868); // L: 54
+		var5.writeByte(10); // L: 55
 
-			if (var3.scrollY < 0) { // L: 626
-				var3.scrollY = 0;
-			}
+		for (var7 = 0; var7 < 3; ++var7) { // L: 56
+			var5.writeInt(var3.nextInt()); // L: 57
+		}
 
-			GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 627
-			return 1; // L: 628
-		} else if (var0 == ScriptOpcodes.CC_SETCOLOUR) { // L: 630
-			var3.color = Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize]; // L: 631
-			GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 632
-			return 1; // L: 633
-		} else if (var0 == ScriptOpcodes.CC_SETFILL) { // L: 635
-			var3.fill = Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize] == 1; // L: 636
-			GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 637
-			return 1; // L: 638
-		} else if (var0 == ScriptOpcodes.CC_SETTRANS) { // L: 640
-			var3.transparencyTop = Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize]; // L: 641
-			GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 642
-			return 1; // L: 643
-		} else if (var0 == ScriptOpcodes.CC_SETLINEWID) { // L: 645
-			var3.lineWid = Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize]; // L: 646
-			GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 647
-			return 1; // L: 648
-		} else if (var0 == ScriptOpcodes.CC_SETGRAPHIC) { // L: 650
-			var3.spriteId2 = Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize]; // L: 651
-			GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 652
-			return 1; // L: 653
-		} else if (var0 == ScriptOpcodes.CC_SET2DANGLE) { // L: 655
-			var3.spriteAngle = Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize]; // L: 656
-			GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 657
-			return 1; // L: 658
-		} else if (var0 == ScriptOpcodes.CC_SETTILING) { // L: 660
-			var3.spriteTiling = Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize] == 1; // L: 661
-			GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 662
-			return 1; // L: 663
-		} else if (var0 == ScriptOpcodes.CC_SETMODEL) { // L: 665
-			var3.modelType = 1; // L: 666
-			var3.modelId = Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize]; // L: 667
-			GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 668
-			return 1; // L: 669
-		} else if (var0 == ScriptOpcodes.CC_SETMODELANGLE) { // L: 671
-			class12.Interpreter_intStackSize -= 6; // L: 672
-			var3.modelOffsetX = Interpreter.Interpreter_intStack[class12.Interpreter_intStackSize]; // L: 673
-			var3.modelOffsetY = Interpreter.Interpreter_intStack[class12.Interpreter_intStackSize + 1]; // L: 674
-			var3.modelAngleX = Interpreter.Interpreter_intStack[class12.Interpreter_intStackSize + 2]; // L: 675
-			var3.modelAngleY = Interpreter.Interpreter_intStack[class12.Interpreter_intStackSize + 3]; // L: 676
-			var3.modelAngleZ = Interpreter.Interpreter_intStack[class12.Interpreter_intStackSize + 4]; // L: 677
-			var3.modelZoom = Interpreter.Interpreter_intStack[class12.Interpreter_intStackSize + 5]; // L: 678
-			GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 679
-			return 1; // L: 680
+		var5.writeLong(var3.nextLong()); // L: 59
+		var5.writeLongMedium(var3.nextLong()); // L: 60
+		if (Client.randomDatData != null) { // L: 62
+			var5.writeBytes(Client.randomDatData, 0, Client.randomDatData.length); // L: 63
 		} else {
-			int var8;
-			if (var0 == ScriptOpcodes.CC_SETMODELANIM) { // L: 682
-				var8 = Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize]; // L: 683
-				if (var8 != var3.sequenceId) { // L: 684
-					var3.sequenceId = var8; // L: 685
-					var3.modelFrame = 0; // L: 686
-					var3.modelFrameCycle = 0; // L: 687
-					GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 688
-				}
+			byte[] var20 = ModeWhere.method6082(); // L: 66
+			var5.writeBytes(var20, 0, var20.length); // L: 67
+		}
 
-				return 1; // L: 690
-			} else if (var0 == ScriptOpcodes.CC_SETMODELORTHOG) { // L: 692
-				var3.modelOrthog = Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize] == 1; // L: 693
-				GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 694
-				return 1; // L: 695
-			} else if (var0 == ScriptOpcodes.CC_SETTEXT) { // L: 697
-				String var7 = Interpreter.Interpreter_stringStack[--class9.Interpreter_stringStackSize]; // L: 698
-				if (!var7.equals(var3.text)) { // L: 699
-					var3.text = var7; // L: 700
-					GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 701
-				}
+		var5.writeLong(var3.nextLong()); // L: 69
+		var5.encryptRsa(class65.field865, class65.field868); // L: 70
+		var7 = ScriptEvent.stringCp1252NullTerminatedByteSize(var2); // L: 71
+		if (var7 % 8 != 0) { // L: 72
+			var7 += 8 - var7 % 8;
+		}
 
-				return 1; // L: 703
-			} else if (var0 == ScriptOpcodes.CC_SETTEXTFONT) { // L: 705
-				var3.fontId = Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize]; // L: 706
-				GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 707
-				return 1; // L: 708
-			} else if (var0 == ScriptOpcodes.CC_SETTEXTALIGN) { // L: 710
-				class12.Interpreter_intStackSize -= 3; // L: 711
-				var3.textXAlignment = Interpreter.Interpreter_intStack[class12.Interpreter_intStackSize]; // L: 712
-				var3.textYAlignment = Interpreter.Interpreter_intStack[class12.Interpreter_intStackSize + 1]; // L: 713
-				var3.textLineHeight = Interpreter.Interpreter_intStack[class12.Interpreter_intStackSize + 2]; // L: 714
-				GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 715
-				return 1; // L: 716
-			} else if (var0 == ScriptOpcodes.CC_SETTEXTSHADOW) { // L: 718
-				var3.textShadowed = Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize] == 1; // L: 719
-				GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 720
-				return 1; // L: 721
-			} else if (var0 == ScriptOpcodes.CC_SETOUTLINE) { // L: 723
-				var3.outline = Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize]; // L: 724
-				GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 725
-				return 1; // L: 726
-			} else if (var0 == ScriptOpcodes.CC_SETGRAPHICSHADOW) { // L: 728
-				var3.spriteShadow = Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize]; // L: 729
-				GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 730
-				return 1; // L: 731
-			} else if (var0 == ScriptOpcodes.CC_SETVFLIP) { // L: 733
-				var3.spriteFlipV = Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize] == 1; // L: 734
-				GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 735
-				return 1; // L: 736
-			} else if (var0 == ScriptOpcodes.CC_SETHFLIP) { // L: 738
-				var3.spriteFlipH = Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize] == 1; // L: 739
-				GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 740
-				return 1; // L: 741
-			} else if (var0 == ScriptOpcodes.CC_SETSCROLLSIZE) { // L: 743
-				class12.Interpreter_intStackSize -= 2; // L: 744
-				var3.scrollWidth = Interpreter.Interpreter_intStack[class12.Interpreter_intStackSize]; // L: 745
-				var3.scrollHeight = Interpreter.Interpreter_intStack[class12.Interpreter_intStackSize + 1]; // L: 746
-				GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 747
-				if (var4 != -1 && var3.type == 0) { // L: 748
-					UserComparator8.revalidateWidgetScroll(NetSocket.Widget_interfaceComponents[var4 >> 16], var3, false);
-				}
+		Buffer var8 = new Buffer(var7); // L: 73
+		var8.writeStringCp1252NullTerminated(var2); // L: 74
+		var8.offset = var7; // L: 75
+		var8.xteaEncryptAll(var6); // L: 76
+		Buffer var9 = new Buffer(var4.offset + var5.offset + var8.offset + 5); // L: 77
+		var9.writeByte(2); // L: 78
+		var9.writeByte(var4.offset); // L: 79
+		var9.writeBytes(var4.array, 0, var4.offset); // L: 80
+		var9.writeByte(var5.offset); // L: 81
+		var9.writeBytes(var5.array, 0, var5.offset); // L: 82
+		var9.writeShort(var8.offset); // L: 83
+		var9.writeBytes(var8.array, 0, var8.offset); // L: 84
+		byte[] var11 = var9.array; // L: 86
+		int var13 = var11.length; // L: 89
+		StringBuilder var14 = new StringBuilder(); // L: 91
 
-				return 1; // L: 749
-			} else if (var0 == ScriptOpcodes.CC_RESUME_PAUSEBUTTON) { // L: 751
-				Skills.resumePauseWidget(var3.id, var3.childIndex); // L: 752
-				Client.meslayerContinueWidget = var3; // L: 753
-				GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 754
-				return 1; // L: 755
-			} else if (var0 == 1122) { // L: 757
-				var3.spriteId = Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize]; // L: 758
-				GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 759
-				return 1; // L: 760
-			} else if (var0 == ScriptOpcodes.CC_SETFILLCOLOUR) { // L: 762
-				var3.color2 = Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize]; // L: 763
-				GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 764
-				return 1; // L: 765
-			} else if (var0 == 1124) { // L: 767
-				var3.transparencyBot = Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize]; // L: 768
-				GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 769
-				return 1; // L: 770
-			} else if (var0 == 1125) { // L: 772
-				var8 = Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize]; // L: 773
-				FillMode var6 = (FillMode)class291.findEnumerated(WorldMapEvent.FillMode_values(), var8); // L: 774
-				if (var6 != null) { // L: 775
-					var3.fillMode = var6; // L: 776
-					GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 777
-				}
-
-				return 1; // L: 779
-			} else {
-				boolean var5;
-				if (var0 == ScriptOpcodes.CC_SETLINEDIRECTION) { // L: 781
-					var5 = Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize] == 1; // L: 782
-					var3.field3428 = var5; // L: 783
-					return 1; // L: 784
-				} else if (var0 == ScriptOpcodes.CC_SETMODELTRANSPARENT) { // L: 786
-					var5 = Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize] == 1; // L: 787
-					var3.modelTransparency = var5; // L: 788
-					return 1; // L: 789
-				} else if (var0 == 1128) { // L: 791
-					class12.Interpreter_intStackSize -= 2; // L: 792
-					return 1; // L: 793
-				} else if (var0 == 1129) { // L: 795
-					var3.field3431 = Interpreter.Interpreter_stringStack[--class9.Interpreter_stringStackSize]; // L: 796
-					GrandExchangeOfferTotalQuantityComparator.invalidateWidget(var3); // L: 797
-					return 1; // L: 798
-				} else if (var0 == 1130) { // L: 800
-					var3.method5449(Interpreter.Interpreter_stringStack[--class9.Interpreter_stringStackSize], UserComparator7.urlRequester, class92.method2374()); // L: 801
-					return 1; // L: 802
-				} else if (var0 == 1131) { // L: 804
-					class12.Interpreter_intStackSize -= 2; // L: 805
-					var3.method5451(Interpreter.Interpreter_intStack[class12.Interpreter_intStackSize], Interpreter.Interpreter_intStack[class12.Interpreter_intStackSize + 1]); // L: 806
-					return 1; // L: 807
-				} else if (var0 == 1132) { // L: 809
-					var3.method5468(Interpreter.Interpreter_stringStack[--class9.Interpreter_stringStackSize], Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize]); // L: 810
-					return 1; // L: 811
+		int var17;
+		for (int var15 = 0; var15 < var13 + 0; var15 += 3) { // L: 92
+			int var16 = var11[var15] & 255; // L: 93
+			var14.append(class341.field4146[var16 >>> 2]); // L: 94
+			if (var15 < var13 - 1) { // L: 95
+				var17 = var11[var15 + 1] & 255; // L: 96
+				var14.append(class341.field4146[(var16 & 3) << 4 | var17 >>> 4]); // L: 97
+				if (var15 < var13 - 2) { // L: 98
+					int var18 = var11[var15 + 2] & 255; // L: 99
+					var14.append(class341.field4146[(var17 & 15) << 2 | var18 >>> 6]).append(class341.field4146[var18 & 63]); // L: 100
 				} else {
-					return 2; // L: 813
+					var14.append(class341.field4146[(var17 & 15) << 2]).append("="); // L: 102
 				}
+			} else {
+				var14.append(class341.field4146[(var16 & 3) << 4]).append("=="); // L: 104
 			}
+		}
+
+		String var12 = var14.toString(); // L: 106
+		var12 = var12; // L: 110
+
+		try {
+			URL var21 = new URL(ModeWhere.method6080("services", false) + "m=accountappeal/login.ws"); // L: 112
+			URLConnection var27 = var21.openConnection(); // L: 113
+			var27.setDoInput(true); // L: 114
+			var27.setDoOutput(true); // L: 115
+			var27.setConnectTimeout(5000); // L: 116
+			OutputStreamWriter var22 = new OutputStreamWriter(var27.getOutputStream()); // L: 117
+			var22.write("data2=" + GrandExchangeOfferOwnWorldComparator.method1097(var12) + "&dest=" + GrandExchangeOfferOwnWorldComparator.method1097("passwordchoice.ws")); // L: 118
+			var22.flush(); // L: 119
+			InputStream var23 = var27.getInputStream(); // L: 120
+			var9 = new Buffer(new byte[1000]); // L: 121
+
+			do {
+				var17 = var23.read(var9.array, var9.offset, 1000 - var9.offset); // L: 123
+				if (var17 == -1) { // L: 124
+					var22.close(); // L: 130
+					var23.close(); // L: 131
+					String var24 = new String(var9.array); // L: 132
+					if (var24.startsWith("OFFLINE")) { // L: 133
+						return 4; // L: 134
+					} else if (var24.startsWith("WRONG")) { // L: 136
+						return 7; // L: 137
+					} else if (var24.startsWith("RELOAD")) { // L: 139
+						return 3; // L: 140
+					} else if (var24.startsWith("Not permitted for social network accounts.")) { // L: 142
+						return 6; // L: 143
+					} else {
+						var9.xteaDecryptAll(var6); // L: 145
+
+						while (var9.offset > 0 && var9.array[var9.offset - 1] == 0) { // L: 146
+							--var9.offset; // L: 147
+						}
+
+						var24 = new String(var9.array, 0, var9.offset); // L: 149
+						boolean var28;
+						if (var24 == null) { // L: 152
+							var28 = false; // L: 153
+						} else {
+							label107: {
+								try {
+									new URL(var24);
+								} catch (MalformedURLException var25) { // L: 159
+									var28 = false; // L: 160
+									break label107; // L: 161
+								}
+
+								var28 = true; // L: 163
+							}
+						}
+
+						if (var28) { // L: 165
+							class258.openURL(var24, true, false); // L: 166
+							return 2; // L: 167
+						} else {
+							return 5; // L: 169
+						}
+					}
+				}
+
+				var9.offset += var17; // L: 125
+			} while(var9.offset < 1000); // L: 126
+
+			return 5; // L: 127
+		} catch (Throwable var26) { // L: 171
+			var26.printStackTrace(); // L: 172
+			return 5; // L: 173
 		}
 	}
 }

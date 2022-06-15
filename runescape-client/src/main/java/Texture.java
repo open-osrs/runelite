@@ -3,46 +3,46 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("go")
+@ObfuscatedName("gd")
 @Implements("Texture")
 public class Texture extends Node {
-	@ObfuscatedName("t")
+	@ObfuscatedName("u")
 	@Export("Texture_animatedPixels")
 	static int[] Texture_animatedPixels;
-	@ObfuscatedName("a")
+	@ObfuscatedName("j")
 	@Export("averageRGB")
 	int averageRGB;
-	@ObfuscatedName("m")
-	boolean field2332;
-	@ObfuscatedName("p")
+	@ObfuscatedName("e")
+	boolean field2293;
+	@ObfuscatedName("g")
 	@Export("fileIds")
 	int[] fileIds;
-	@ObfuscatedName("s")
-	int[] field2334;
-	@ObfuscatedName("r")
-	int[] field2335;
-	@ObfuscatedName("v")
-	int[] field2329;
+	@ObfuscatedName("w")
+	int[] field2301;
 	@ObfuscatedName("y")
+	int[] field2296;
+	@ObfuscatedName("i")
+	int[] field2295;
+	@ObfuscatedName("s")
 	@Export("animationDirection")
 	int animationDirection;
-	@ObfuscatedName("c")
+	@ObfuscatedName("t")
 	@Export("animationSpeed")
 	int animationSpeed;
-	@ObfuscatedName("w")
+	@ObfuscatedName("z")
 	@Export("pixels")
 	int[] pixels;
-	@ObfuscatedName("b")
+	@ObfuscatedName("r")
 	@Export("isLoaded")
 	boolean isLoaded;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lpx;)V"
+		descriptor = "(Lqt;)V"
 	)
 	Texture(Buffer var1) {
 		this.isLoaded = false; // L: 25
 		this.averageRGB = var1.readUnsignedShort(); // L: 29
-		this.field2332 = var1.readUnsignedByte() == 1; // L: 30
+		this.field2293 = var1.readUnsignedByte() == 1; // L: 30
 		int var2 = var1.readUnsignedByte(); // L: 31
 		if (var2 >= 1 && var2 <= 4) { // L: 32
 			this.fileIds = new int[var2]; // L: 35
@@ -53,25 +53,25 @@ public class Texture extends Node {
 			}
 
 			if (var2 > 1) { // L: 37
-				this.field2334 = new int[var2 - 1]; // L: 38
+				this.field2301 = new int[var2 - 1]; // L: 38
 
 				for (var3 = 0; var3 < var2 - 1; ++var3) { // L: 39
-					this.field2334[var3] = var1.readUnsignedByte();
+					this.field2301[var3] = var1.readUnsignedByte();
 				}
 			}
 
 			if (var2 > 1) { // L: 41
-				this.field2335 = new int[var2 - 1]; // L: 42
+				this.field2296 = new int[var2 - 1]; // L: 42
 
 				for (var3 = 0; var3 < var2 - 1; ++var3) { // L: 43
-					this.field2335[var3] = var1.readUnsignedByte();
+					this.field2296[var3] = var1.readUnsignedByte();
 				}
 			}
 
-			this.field2329 = new int[var2]; // L: 45
+			this.field2295 = new int[var2]; // L: 45
 
 			for (var3 = 0; var3 < var2; ++var3) { // L: 46
-				this.field2329[var3] = var1.readInt();
+				this.field2295[var3] = var1.readInt();
 			}
 
 			this.animationDirection = var1.readUnsignedByte(); // L: 47
@@ -82,9 +82,9 @@ public class Texture extends Node {
 		}
 	} // L: 50
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(DILlp;)Z"
+		descriptor = "(DILlh;)Z"
 	)
 	@Export("load")
 	boolean load(double var1, int var3, AbstractArchive var4) {
@@ -99,11 +99,11 @@ public class Texture extends Node {
 		this.pixels = new int[var5]; // L: 57
 
 		for (int var6 = 0; var6 < this.fileIds.length; ++var6) { // L: 58
-			IndexedSprite var7 = class67.method1883(var4, this.fileIds[var6]); // L: 59
+			IndexedSprite var7 = AbstractSocket.method6819(var4, this.fileIds[var6]); // L: 59
 			var7.normalize(); // L: 60
 			byte[] var8 = var7.pixels; // L: 61
 			int[] var9 = var7.palette; // L: 62
-			int var10 = this.field2329[var6]; // L: 63
+			int var10 = this.field2295[var6]; // L: 63
 			if ((var10 & -16777216) == 16777216) { // L: 64
 			}
 
@@ -134,7 +134,7 @@ public class Texture extends Node {
 			if (var6 == 0) { // L: 79
 				var11 = 0;
 			} else {
-				var11 = this.field2334[var6 - 1]; // L: 80
+				var11 = this.field2301[var6 - 1]; // L: 80
 			}
 
 			if (var11 == 0) { // L: 81
@@ -178,13 +178,13 @@ public class Texture extends Node {
 		return true; // L: 105
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@Export("reset")
 	void reset() {
 		this.pixels = null; // L: 109
 	} // L: 110
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("q")
 	@Export("animate")
 	void animate(int var1) {
 		if (this.pixels != null) { // L: 113

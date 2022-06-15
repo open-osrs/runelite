@@ -7,31 +7,28 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fs")
+@ObfuscatedName("fr")
 @Implements("TaskHandler")
 public class TaskHandler implements Runnable {
-	@ObfuscatedName("o")
-	@Export("javaVendor")
-	public static String javaVendor;
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@Export("javaVersion")
 	public static String javaVersion;
-	@ObfuscatedName("l")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Lfl;"
+		descriptor = "Lfm;"
 	)
 	@Export("current")
 	Task current;
-	@ObfuscatedName("k")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lfl;"
+		descriptor = "Lfm;"
 	)
 	@Export("task")
 	Task task;
-	@ObfuscatedName("a")
+	@ObfuscatedName("j")
 	@Export("thread")
 	Thread thread;
-	@ObfuscatedName("m")
+	@ObfuscatedName("e")
 	@Export("isClosed")
 	boolean isClosed;
 
@@ -39,11 +36,11 @@ public class TaskHandler implements Runnable {
 		this.current = null; // L: 11
 		this.task = null; // L: 12
 		this.isClosed = false; // L: 14
-		javaVendor = "Unknown"; // L: 20
+		class360.javaVendor = "Unknown"; // L: 20
 		javaVersion = "1.6"; // L: 21
 
 		try {
-			javaVendor = System.getProperty("java.vendor"); // L: 23
+			class360.javaVendor = System.getProperty("java.vendor"); // L: 23
 			javaVersion = System.getProperty("java.version"); // L: 24
 		} catch (Exception var2) { // L: 26
 		}
@@ -55,10 +52,10 @@ public class TaskHandler implements Runnable {
 		this.thread.start(); // L: 31
 	} // L: 32
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "1440718962"
+		descriptor = "(B)V",
+		garbageValue = "64"
 	)
 	@Export("close")
 	public final void close() {
@@ -74,15 +71,15 @@ public class TaskHandler implements Runnable {
 
 	} // L: 43
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(IIILjava/lang/Object;I)Lfl;",
-		garbageValue = "1484642782"
+		descriptor = "(IIILjava/lang/Object;B)Lfm;",
+		garbageValue = "0"
 	)
 	@Export("newTask")
 	final Task newTask(int var1, int var2, int var3, Object var4) {
-		Task var5 = new Task(); // L: 90
-		var5.type = var1; // L: 91
+		Task var5 = new Task();
+		var5.type = var1;
 		var5.intArgument = var2; // L: 92
 		var5.objectArgument = var4; // L: 93
 		synchronized(this) { // L: 94
@@ -98,20 +95,20 @@ public class TaskHandler implements Runnable {
 		}
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;II)Lfl;",
-		garbageValue = "1024019511"
+		descriptor = "(Ljava/lang/String;IB)Lfm;",
+		garbageValue = "-14"
 	)
 	@Export("newSocketTask")
 	public final Task newSocketTask(String var1, int var2) {
 		return this.newTask(1, var2, 0, var1); // L: 108
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/Runnable;II)Lfl;",
-		garbageValue = "1474796416"
+		descriptor = "(Ljava/lang/Runnable;II)Lfm;",
+		garbageValue = "966743438"
 	)
 	@Export("newThreadTask")
 	public final Task newThreadTask(Runnable var1, int var2) {
@@ -137,7 +134,7 @@ public class TaskHandler implements Runnable {
 					}
 
 					try {
-						this.wait(); // L: 58
+						this.wait();
 					} catch (InterruptedException var8) { // L: 60
 					}
 				}
@@ -168,131 +165,77 @@ public class TaskHandler implements Runnable {
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "2007350025"
+		descriptor = "(Ljava/lang/CharSequence;I)Ljava/lang/String;",
+		garbageValue = "-443449853"
 	)
-	@Export("isKeyDown")
-	public static final boolean isKeyDown() {
-		synchronized(KeyHandler.KeyHandler_instance) { // L: 132
-			if (KeyHandler.field144 == KeyHandler.field142) { // L: 133
-				return false;
-			} else {
-				class12.field61 = KeyHandler.field122[KeyHandler.field142]; // L: 134
-				InvDefinition.field1850 = KeyHandler.field136[KeyHandler.field142]; // L: 135
-				KeyHandler.field142 = KeyHandler.field142 + 1 & 127; // L: 136
-				return true; // L: 137
-			}
+	public static String method3240(CharSequence var0) {
+		String var1 = class229.base37DecodeLong(class339.method6244(var0)); // L: 57
+		if (var1 == null) { // L: 58
+			var1 = "";
 		}
+
+		return var1; // L: 59
 	}
 
-	@ObfuscatedName("is")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "(IIIILjava/lang/String;I)V",
-		garbageValue = "87331600"
+		descriptor = "(IIIZII)J",
+		garbageValue = "608136618"
 	)
-	@Export("widgetDefaultMenuAction")
-	static void widgetDefaultMenuAction(int var0, int var1, int var2, int var3, String var4) {
-		Widget var5 = ApproximateRouteStrategy.getWidgetChild(var1, var2); // L: 9808
-		if (var5 != null) { // L: 9809
-			if (var5.onOp != null) { // L: 9810
-				ScriptEvent var6 = new ScriptEvent(); // L: 9811
-				var6.widget = var5; // L: 9812
-				var6.opIndex = var0; // L: 9813
-				var6.targetName = var4; // L: 9814
-				var6.args = var5.onOp; // L: 9815
-				class144.runScriptEvent(var6); // L: 9816
-			}
+	@Export("calculateTag")
+	public static long calculateTag(int var0, int var1, int var2, boolean var3, int var4) {
+		long var5 = (long)((var0 & 127) << 0 | (var1 & 127) << 7 | (var2 & 3) << 14) | ((long)var4 & 4294967295L) << 17; // L: 89
+		if (var3) { // L: 90
+			var5 |= 65536L;
+		}
 
-			boolean var8 = true; // L: 9818
-			if (var5.contentType > 0) { // L: 9819
-				var8 = ReflectionCheck.method599(var5);
-			}
+		return var5; // L: 91
+	}
 
-			if (var8) { // L: 9820
-				if (MenuAction.method1880(UrlRequester.getWidgetFlags(var5), var0 - 1)) { // L: 9821
-					PacketBufferNode var7;
-					if (var0 == 1) { // L: 9824
-						var7 = WallDecoration.getPacketBufferNode(ClientPacket.field3006, Client.packetWriter.isaacCipher); // L: 9826
-						var7.packetBuffer.writeInt(var1); // L: 9827
-						var7.packetBuffer.writeShort(var2); // L: 9828
-						var7.packetBuffer.writeShort(var3); // L: 9829
-						Client.packetWriter.addNode(var7); // L: 9830
+	@ObfuscatedName("jr")
+	@ObfuscatedSignature(
+		descriptor = "([Lkb;IB)V",
+		garbageValue = "79"
+	)
+	@Export("runComponentCloseListeners")
+	static final void runComponentCloseListeners(Widget[] var0, int var1) {
+		for (int var2 = 0; var2 < var0.length; ++var2) { // L: 11586
+			Widget var3 = var0[var2]; // L: 11587
+			if (var3 != null) { // L: 11588
+				if (var3.type == 0) { // L: 11589
+					if (var3.children != null) { // L: 11590
+						runComponentCloseListeners(var3.children, var1);
 					}
 
-					if (var0 == 2) { // L: 9832
-						var7 = WallDecoration.getPacketBufferNode(ClientPacket.field3032, Client.packetWriter.isaacCipher); // L: 9834
-						var7.packetBuffer.writeInt(var1); // L: 9835
-						var7.packetBuffer.writeShort(var2); // L: 9836
-						var7.packetBuffer.writeShort(var3); // L: 9837
-						Client.packetWriter.addNode(var7); // L: 9838
+					InterfaceParent var4 = (InterfaceParent)Client.interfaceParents.get((long)var3.id); // L: 11591
+					if (var4 != null) { // L: 11592
+						class7.runIntfCloseListeners(var4.group, var1);
+					}
+				}
+
+				ScriptEvent var5;
+				if (var1 == 0 && var3.onDialogAbort != null) { // L: 11594
+					var5 = new ScriptEvent(); // L: 11595
+					var5.widget = var3; // L: 11596
+					var5.args = var3.onDialogAbort; // L: 11597
+					BoundaryObject.runScriptEvent(var5); // L: 11598
+				}
+
+				if (var1 == 1 && var3.onSubChange != null) { // L: 11600
+					if (var3.childIndex >= 0) { // L: 11601
+						Widget var6 = class140.getWidget(var3.id); // L: 11602
+						if (var6 == null || var6.children == null || var3.childIndex >= var6.children.length || var3 != var6.children[var3.childIndex]) { // L: 11603
+							continue;
+						}
 					}
 
-					if (var0 == 3) { // L: 9840
-						var7 = WallDecoration.getPacketBufferNode(ClientPacket.field3011, Client.packetWriter.isaacCipher); // L: 9842
-						var7.packetBuffer.writeInt(var1); // L: 9843
-						var7.packetBuffer.writeShort(var2); // L: 9844
-						var7.packetBuffer.writeShort(var3); // L: 9845
-						Client.packetWriter.addNode(var7); // L: 9846
-					}
-
-					if (var0 == 4) { // L: 9848
-						var7 = WallDecoration.getPacketBufferNode(ClientPacket.field2956, Client.packetWriter.isaacCipher); // L: 9850
-						var7.packetBuffer.writeInt(var1); // L: 9851
-						var7.packetBuffer.writeShort(var2); // L: 9852
-						var7.packetBuffer.writeShort(var3); // L: 9853
-						Client.packetWriter.addNode(var7); // L: 9854
-					}
-
-					if (var0 == 5) { // L: 9856
-						var7 = WallDecoration.getPacketBufferNode(ClientPacket.field2960, Client.packetWriter.isaacCipher); // L: 9858
-						var7.packetBuffer.writeInt(var1); // L: 9859
-						var7.packetBuffer.writeShort(var2); // L: 9860
-						var7.packetBuffer.writeShort(var3); // L: 9861
-						Client.packetWriter.addNode(var7); // L: 9862
-					}
-
-					if (var0 == 6) { // L: 9864
-						var7 = WallDecoration.getPacketBufferNode(ClientPacket.field2968, Client.packetWriter.isaacCipher); // L: 9866
-						var7.packetBuffer.writeInt(var1); // L: 9867
-						var7.packetBuffer.writeShort(var2); // L: 9868
-						var7.packetBuffer.writeShort(var3); // L: 9869
-						Client.packetWriter.addNode(var7); // L: 9870
-					}
-
-					if (var0 == 7) { // L: 9872
-						var7 = WallDecoration.getPacketBufferNode(ClientPacket.field3002, Client.packetWriter.isaacCipher); // L: 9874
-						var7.packetBuffer.writeInt(var1); // L: 9875
-						var7.packetBuffer.writeShort(var2); // L: 9876
-						var7.packetBuffer.writeShort(var3); // L: 9877
-						Client.packetWriter.addNode(var7); // L: 9878
-					}
-
-					if (var0 == 8) { // L: 9880
-						var7 = WallDecoration.getPacketBufferNode(ClientPacket.field2989, Client.packetWriter.isaacCipher); // L: 9882
-						var7.packetBuffer.writeInt(var1); // L: 9883
-						var7.packetBuffer.writeShort(var2); // L: 9884
-						var7.packetBuffer.writeShort(var3); // L: 9885
-						Client.packetWriter.addNode(var7); // L: 9886
-					}
-
-					if (var0 == 9) { // L: 9888
-						var7 = WallDecoration.getPacketBufferNode(ClientPacket.field3015, Client.packetWriter.isaacCipher); // L: 9890
-						var7.packetBuffer.writeInt(var1); // L: 9891
-						var7.packetBuffer.writeShort(var2); // L: 9892
-						var7.packetBuffer.writeShort(var3); // L: 9893
-						Client.packetWriter.addNode(var7); // L: 9894
-					}
-
-					if (var0 == 10) { // L: 9896
-						var7 = WallDecoration.getPacketBufferNode(ClientPacket.field3043, Client.packetWriter.isaacCipher); // L: 9898
-						var7.packetBuffer.writeInt(var1); // L: 9899
-						var7.packetBuffer.writeShort(var2); // L: 9900
-						var7.packetBuffer.writeShort(var3); // L: 9901
-						Client.packetWriter.addNode(var7); // L: 9902
-					}
-
+					var5 = new ScriptEvent(); // L: 11607
+					var5.widget = var3; // L: 11608
+					var5.args = var3.onSubChange; // L: 11609
+					BoundaryObject.runScriptEvent(var5); // L: 11610
 				}
 			}
 		}
-	} // L: 9822 9904
+
+	} // L: 11613
 }

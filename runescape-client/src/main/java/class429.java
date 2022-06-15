@@ -1,19 +1,32 @@
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("pb")
-public interface class429 {
-	@ObfuscatedName("o")
+@ObfuscatedName("pz")
+final class class429 implements class428 {
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/Object;Lpx;I)V",
-		garbageValue = "-2139027116"
+		descriptor = "(Ljava/lang/Object;Lqt;B)V",
+		garbageValue = "-51"
 	)
-	void vmethod7440(Object var1, Buffer var2);
+	public void vmethod7583(Object var1, Buffer var2) {
+		this.method7543((Integer)var1, var2); // L: 21
+	} // L: 22
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lpx;I)Ljava/lang/Object;",
-		garbageValue = "352015354"
+		descriptor = "(Lqt;I)Ljava/lang/Object;",
+		garbageValue = "-261873850"
 	)
-	Object vmethod7436(Buffer var1);
+	public Object vmethod7580(Buffer var1) {
+		return var1.readInt(); // L: 17
+	}
+
+	@ObfuscatedName("w")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/Integer;Lqt;I)V",
+		garbageValue = "-97266206"
+	)
+	void method7543(Integer var1, Buffer var2) {
+		var2.writeInt(var1); // L: 12
+	} // L: 13
 }

@@ -4,135 +4,132 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("bq")
+@ObfuscatedName("bu")
 @Implements("Projectile")
 public final class Projectile extends Renderable {
-	@ObfuscatedName("is")
-	@ObfuscatedSignature(
-		descriptor = "[Lqr;"
-	)
-	@Export("crossSprites")
-	static SpritePixels[] crossSprites;
-	@ObfuscatedName("o")
+	@ObfuscatedName("rp")
+	@Export("ClanChat_inClanChat")
+	static boolean ClanChat_inClanChat;
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -1270230427
+		intValue = -630035333
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -2041826239
+		intValue = -753482197
 	)
 	@Export("plane")
 	int plane;
-	@ObfuscatedName("l")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -1745093525
+		intValue = -1909485103
 	)
 	@Export("sourceX")
 	int sourceX;
-	@ObfuscatedName("k")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -1313084137
+		intValue = -867044193
 	)
 	@Export("sourceY")
 	int sourceY;
-	@ObfuscatedName("a")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -771723281
+		intValue = 1371453553
 	)
 	@Export("sourceZ")
 	int sourceZ;
-	@ObfuscatedName("m")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 1417687011
+		intValue = 1478366795
 	)
 	@Export("endHeight")
 	int endHeight;
-	@ObfuscatedName("p")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 1939828539
+		intValue = 1542338147
 	)
 	@Export("cycleStart")
 	int cycleStart;
-	@ObfuscatedName("s")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -269487725
+		intValue = 981154783
 	)
 	@Export("cycleEnd")
 	int cycleEnd;
-	@ObfuscatedName("r")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = -1305552491
+		intValue = -1247849497
 	)
 	@Export("slope")
 	int slope;
-	@ObfuscatedName("v")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = -717216545
+		intValue = -1919042303
 	)
 	@Export("startHeight")
 	int startHeight;
-	@ObfuscatedName("y")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = -2047363817
+		intValue = -1467854933
 	)
 	@Export("targetIndex")
 	int targetIndex;
-	@ObfuscatedName("c")
+	@ObfuscatedName("t")
 	@Export("isMoving")
 	boolean isMoving;
-	@ObfuscatedName("w")
+	@ObfuscatedName("z")
 	@Export("x")
 	double x;
-	@ObfuscatedName("b")
+	@ObfuscatedName("r")
 	@Export("y")
 	double y;
-	@ObfuscatedName("t")
+	@ObfuscatedName("u")
 	@Export("z")
 	double z;
-	@ObfuscatedName("g")
+	@ObfuscatedName("k")
 	@Export("speedX")
 	double speedX;
-	@ObfuscatedName("x")
+	@ObfuscatedName("h")
 	@Export("speedY")
 	double speedY;
-	@ObfuscatedName("n")
+	@ObfuscatedName("x")
 	@Export("speed")
 	double speed;
-	@ObfuscatedName("e")
+	@ObfuscatedName("l")
 	@Export("speedZ")
 	double speedZ;
-	@ObfuscatedName("h")
+	@ObfuscatedName("a")
 	@Export("accelerationZ")
 	double accelerationZ;
-	@ObfuscatedName("f")
+	@ObfuscatedName("p")
 	@ObfuscatedGetter(
-		intValue = 1944098901
+		intValue = 262224371
 	)
 	@Export("yaw")
 	int yaw;
-	@ObfuscatedName("d")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = 932506569
+		intValue = -703855763
 	)
 	@Export("pitch")
 	int pitch;
-	@ObfuscatedName("j")
+	@ObfuscatedName("n")
 	@ObfuscatedSignature(
-		descriptor = "Lgq;"
+		descriptor = "Lgc;"
 	)
 	@Export("sequenceDefinition")
 	SequenceDefinition sequenceDefinition;
-	@ObfuscatedName("z")
+	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 804241453
+		intValue = -100465905
 	)
 	@Export("frame")
 	int frame;
-	@ObfuscatedName("i")
+	@ObfuscatedName("m")
 	@ObfuscatedGetter(
-		intValue = 1940243561
+		intValue = 784173733
 	)
 	@Export("frameCycle")
 	int frameCycle;
@@ -153,19 +150,19 @@ public final class Projectile extends Renderable {
 		this.targetIndex = var10; // L: 45
 		this.endHeight = var11; // L: 46
 		this.isMoving = false; // L: 47
-		int var12 = class136.SpotAnimationDefinition_get(this.id).sequence; // L: 48
+		int var12 = ObjectSound.SpotAnimationDefinition_get(this.id).sequence; // L: 48
 		if (var12 != -1) { // L: 49
-			this.sequenceDefinition = class114.SequenceDefinition_get(var12);
+			this.sequenceDefinition = ScriptFrame.SequenceDefinition_get(var12);
 		} else {
 			this.sequenceDefinition = null; // L: 50
 		}
 
 	} // L: 51
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(IIIII)V",
-		garbageValue = "253345363"
+		garbageValue = "-1811806599"
 	)
 	@Export("setDestination")
 	final void setDestination(int var1, int var2, int var3, int var4) {
@@ -175,29 +172,29 @@ public final class Projectile extends Renderable {
 			double var7 = (double)(var2 - this.sourceY); // L: 56
 			double var9 = Math.sqrt(var5 * var5 + var7 * var7); // L: 57
 			this.x = (double)this.startHeight * var5 / var9 + (double)this.sourceX; // L: 58
-			this.y = (double)this.startHeight * var7 / var9 + (double)this.sourceY; // L: 59
+			this.y = var7 * (double)this.startHeight / var9 + (double)this.sourceY; // L: 59
 			this.z = (double)this.sourceZ; // L: 60
 		}
 
 		var5 = (double)(this.cycleEnd + 1 - var4); // L: 62
 		this.speedX = ((double)var1 - this.x) / var5; // L: 63
 		this.speedY = ((double)var2 - this.y) / var5; // L: 64
-		this.speed = Math.sqrt(this.speedY * this.speedY + this.speedX * this.speedX); // L: 65
+		this.speed = Math.sqrt(this.speedX * this.speedX + this.speedY * this.speedY); // L: 65
 		if (!this.isMoving) { // L: 66
-			this.speedZ = -this.speed * Math.tan(0.02454369D * (double)this.slope);
+			this.speedZ = -this.speed * Math.tan((double)this.slope * 0.02454369D);
 		}
 
-		this.accelerationZ = ((double)var3 - this.z - this.speedZ * var5) * 2.0D / (var5 * var5); // L: 67
+		this.accelerationZ = 2.0D * ((double)var3 - this.z - var5 * this.speedZ) / (var5 * var5); // L: 67
 	} // L: 68
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lhv;",
-		garbageValue = "-238822980"
+		descriptor = "(I)Lhy;",
+		garbageValue = "1081110576"
 	)
 	@Export("getModel")
 	protected final Model getModel() {
-		SpotAnimationDefinition var1 = class136.SpotAnimationDefinition_get(this.id); // L: 101
+		SpotAnimationDefinition var1 = ObjectSound.SpotAnimationDefinition_get(this.id); // L: 101
 		Model var2 = var1.getModel(this.frame); // L: 102
 		if (var2 == null) { // L: 103
 			return null;
@@ -207,15 +204,15 @@ public final class Projectile extends Renderable {
 		}
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "1804737749"
+		descriptor = "(IB)V",
+		garbageValue = "-99"
 	)
 	@Export("advance")
 	final void advance(int var1) {
 		this.isMoving = true; // L: 71
-		this.x += (double)var1 * this.speedX; // L: 72
+		this.x += this.speedX * (double)var1; // L: 72
 		this.y += (double)var1 * this.speedY; // L: 73
 		this.z += (double)var1 * this.speedZ + (double)var1 * this.accelerationZ * 0.5D * (double)var1; // L: 74
 		this.speedZ += this.accelerationZ * (double)var1; // L: 75
@@ -243,7 +240,7 @@ public final class Projectile extends Renderable {
 				}
 			} else {
 				this.frame += var1; // L: 91
-				int var2 = this.sequenceDefinition.method3729(); // L: 92
+				int var2 = this.sequenceDefinition.method3835(); // L: 92
 				if (this.frame >= var2) { // L: 93
 					this.frame = var2 - this.sequenceDefinition.frameCount; // L: 94
 				}
@@ -252,13 +249,81 @@ public final class Projectile extends Renderable {
 
 	}
 
-	@ObfuscatedName("ia")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Ljava/lang/String;IIIII)V",
-		garbageValue = "1000139939"
+		descriptor = "(Ljava/lang/CharSequence;I)I",
+		garbageValue = "-1805196162"
 	)
-	@Export("insertMenuItemNoShift")
-	public static final void insertMenuItemNoShift(String var0, String var1, int var2, int var3, int var4, int var5) {
-		class175.insertMenuItem(var0, var1, var2, var3, var4, var5, false); // L: 9907
-	} // L: 9908
+	public static int method1950(CharSequence var0) {
+		int var1 = var0.length(); // L: 148
+		int var2 = 0; // L: 149
+
+		for (int var3 = 0; var3 < var1; ++var3) { // L: 150
+			var2 = (var2 << 5) - var2 + var0.charAt(var3);
+		}
+
+		return var2; // L: 151
+	}
+
+	@ObfuscatedName("b")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "72"
+	)
+	public static void method1959() {
+		ItemComposition.ItemDefinition_cachedSprites.clear(); // L: 569
+	} // L: 570
+
+	@ObfuscatedName("fa")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "1050216582"
+	)
+	static final void method1961() {
+		FloorOverlayDefinition.FloorOverlayDefinition_cached.clear(); // L: 2950
+		NPC.method2379(); // L: 2952
+		Widget.method5711(); // L: 2953
+		class141.method3047(); // L: 2954
+		PacketBufferNode.method5194(); // L: 2955
+		ObjectSound.method1702(); // L: 2956
+		SequenceDefinition.SequenceDefinition_cached.clear(); // L: 2958
+		SequenceDefinition.SequenceDefinition_cachedFrames.clear(); // L: 2959
+		SequenceDefinition.SequenceDefinition_cachedModel.clear(); // L: 2960
+		FileSystem.method3282(); // L: 2962
+		VarbitComposition.VarbitDefinition_cached.clear(); // L: 2964
+		VarpDefinition.VarpDefinition_cached.clear(); // L: 2967
+		AbstractWorldMapData.HitSplatDefinition_cachedSprites.method7525(); // L: 2969
+		ModeWhere.HitSplatDefinition_cached.method7525(); // L: 2970
+		HitSplatDefinition.HitSplatDefinition_cached.clear(); // L: 2972
+		HitSplatDefinition.HitSplatDefinition_cachedSprites.clear(); // L: 2973
+		HitSplatDefinition.HitSplatDefinition_cachedFonts.clear(); // L: 2974
+		class92.method2389(); // L: 2976
+		Interpreter.method1868(); // L: 2977
+		class67.method1886(); // L: 2978
+		SoundCache.method763(); // L: 2979
+		MilliClock.method3301(); // L: 2980
+		class67.method1887(); // L: 2981
+		Client.Widget_cachedModels.clear(); // L: 2982
+		Client.Widget_cachedFonts.clear(); // L: 2983
+		class14.method148(); // L: 2984
+		Widget.field3360.clear(); // L: 2986
+		Widget.field3361.clear(); // L: 2987
+		Widget.archive0.clear(); // L: 2988
+		Widget.archive1.clear(); // L: 2989
+		((TextureProvider)Rasterizer3D.Rasterizer3D_textureLoader).clear(); // L: 2991
+		Script.Script_cached.clear(); // L: 2992
+		Varcs.archive5.clearFiles(); // L: 2993
+		WorldMapEvent.field2882.clearFiles(); // L: 2994
+		class341.archive7.clearFiles(); // L: 2995
+		Client.archive4.clearFiles(); // L: 2996
+		WorldMapSectionType.archive9.clearFiles(); // L: 2997
+		class121.archive6.clearFiles(); // L: 2998
+		class10.archive11.clearFiles(); // L: 2999
+		class304.archive8.clearFiles(); // L: 3000
+		Language.field4098.clearFiles(); // L: 3001
+		ApproximateRouteStrategy.archive10.clearFiles(); // L: 3002
+		UserComparator7.field1383.clearFiles(); // L: 3003
+		class267.archive12.clearFiles(); // L: 3004
+		class132.field1588.clearFiles(); // L: 3005
+	} // L: 3006
 }

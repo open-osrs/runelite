@@ -2,33 +2,23 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ex")
+@ObfuscatedName("ey")
 public class class149 {
-	@ObfuscatedName("hr")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lmx;"
+		descriptor = "(IIIB)Lbi;",
+		garbageValue = "-90"
 	)
-	@Export("fontPlain12")
-	static Font fontPlain12;
-
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-1924718791"
-	)
-	static void method3024() {
-		Tiles.Tiles_minPlane = 99; // L: 48
-		Tiles.Tiles_underlays = new byte[4][104][104]; // L: 49
-		Tiles.Tiles_overlays = new byte[4][104][104]; // L: 50
-		Tiles.Tiles_shapes = new byte[4][104][104]; // L: 51
-		RunException.field4812 = new byte[4][104][104]; // L: 52
-		VerticalAlignment.field1993 = new int[4][105][105]; // L: 53
-		NPC.field1259 = new byte[4][105][105]; // L: 54
-		Interpreter.field839 = new int[105][105]; // L: 55
-		class154.Tiles_hue = new int[104]; // L: 56
-		MusicPatch.Tiles_saturation = new int[104]; // L: 57
-		WallDecoration.Tiles_lightness = new int[104]; // L: 58
-		Tiles.Tiles_hueMultiplier = new int[104]; // L: 59
-		MenuAction.field866 = new int[104]; // L: 60
-	} // L: 61
+	@Export("getWorldMapScript")
+	static Script getWorldMapScript(int var0, int var1, int var2) {
+		int var3 = (var1 << 8) + var0; // L: 40
+		Script var5 = Huffman.method5480(var3, var0); // L: 43
+		if (var5 != null) { // L: 44
+			return var5; // L: 45
+		} else {
+			int var6 = (-3 - var2 << 8) + var0; // L: 49
+			var5 = Huffman.method5480(var6, var0); // L: 52
+			return var5 != null ? var5 : null; // L: 53 56
+		}
+	}
 }

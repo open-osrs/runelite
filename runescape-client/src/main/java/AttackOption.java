@@ -4,97 +4,77 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cq")
+@ObfuscatedName("ce")
 @Implements("AttackOption")
 public enum AttackOption implements MouseWheel {
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lcq;"
+		descriptor = "Lce;"
 	)
 	@Export("AttackOption_dependsOnCombatLevels")
 	AttackOption_dependsOnCombatLevels(0),
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lcq;"
+		descriptor = "Lce;"
 	)
 	@Export("AttackOption_alwaysRightClick")
 	AttackOption_alwaysRightClick(1),
-	@ObfuscatedName("l")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Lcq;"
+		descriptor = "Lce;"
 	)
-	field1285(2),
-	@ObfuscatedName("k")
+	field1288(2),
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lcq;"
+		descriptor = "Lce;"
 	)
 	@Export("AttackOption_hidden")
 	AttackOption_hidden(3),
-	@ObfuscatedName("a")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "Lcq;"
+		descriptor = "Lce;"
 	)
-	field1283(4);
+	field1294(4);
 
-	@ObfuscatedName("fn")
-	@ObfuscatedGetter(
-		intValue = 1045451155
+	@ObfuscatedName("sx")
+	@ObfuscatedSignature(
+		descriptor = "Lar;"
 	)
-	static int field1290;
-	@ObfuscatedName("m")
+	@Export("pcmPlayer0")
+	static PcmPlayer pcmPlayer0;
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 1694685345
+		intValue = 1078797137
 	)
 	@Export("id")
 	final int id;
 
 	AttackOption(int var3) {
-		this.id = var3; // L: 12733
-	} // L: 12734
+		this.id = var3; // L: 12508
+	} // L: 12509
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(B)I",
-		garbageValue = "30"
+		garbageValue = "-100"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.id; // L: 12738
+		return this.id; // L: 12513
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(IIB)I",
-		garbageValue = "-59"
+		descriptor = "(Llh;IIIZI)V",
+		garbageValue = "-2127504965"
 	)
-	public static int method2401(int var0, int var1) {
-		int var2;
-		for (var2 = 1; var1 > 1; var1 >>= 1) { // L: 24 25 28
-			if ((var1 & 1) != 0) { // L: 26
-				var2 = var0 * var2;
-			}
-
-			var0 *= var0; // L: 27
-		}
-
-		if (var1 == 1) { // L: 30
-			return var0 * var2;
-		} else {
-			return var2; // L: 31
-		}
-	}
-
-	@ObfuscatedName("l")
-	@ObfuscatedSignature(
-		descriptor = "(Lpt;ILjava/lang/String;I)Ljava/lang/String;",
-		garbageValue = "-1761568873"
-	)
-	static String method2393(IterableNodeHashTable var0, int var1, String var2) {
-		if (var0 == null) { // L: 41
-			return var2;
-		} else {
-			ObjectNode var3 = (ObjectNode)var0.get((long)var1); // L: 42
-			return var3 == null ? var2 : (String)var3.obj; // L: 43 44
-		}
-	}
+	public static void method2410(AbstractArchive var0, int var1, int var2, int var3, boolean var4) {
+		class272.musicPlayerStatus = 1; // L: 26
+		class272.musicTrackArchive = var0; // L: 27
+		class272.musicTrackGroupId = var1; // L: 28
+		class151.musicTrackFileId = var2; // L: 29
+		class272.musicTrackVolume = var3; // L: 30
+		class11.musicTrackBoolean = var4; // L: 31
+		class272.pcmSampleLength = 10000; // L: 32
+	} // L: 33
 }

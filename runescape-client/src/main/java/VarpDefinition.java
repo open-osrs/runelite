@@ -1,142 +1,100 @@
-import java.io.File;
-import java.io.RandomAccessFile;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fi")
+@ObfuscatedName("fp")
 @Implements("VarpDefinition")
 public class VarpDefinition extends DualNode {
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Llp;"
+		descriptor = "Llh;"
 	)
 	@Export("VarpDefinition_archive")
 	public static AbstractArchive VarpDefinition_archive;
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -230043691
+		intValue = 486330385
 	)
-	@Export("VarpDefinition_fileCount")
-	public static int VarpDefinition_fileCount;
-	@ObfuscatedName("l")
+	public static int field1822;
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Lir;"
+		descriptor = "Lii;"
 	)
 	@Export("VarpDefinition_cached")
 	public static EvictingDualNodeHashTable VarpDefinition_cached;
-	@ObfuscatedName("ex")
-	@ObfuscatedSignature(
-		descriptor = "Lle;"
-	)
-	@Export("archive19")
-	static Archive archive19;
-	@ObfuscatedName("k")
+	@ObfuscatedName("ct")
+	static boolean field1821;
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 1780230935
+		intValue = -737478807
 	)
 	@Export("type")
 	public int type;
 
 	static {
-		VarpDefinition_cached = new EvictingDualNodeHashTable(64);
+		VarpDefinition_cached = new EvictingDualNodeHashTable(64); // L: 12
 	}
 
 	VarpDefinition() {
 		this.type = 0; // L: 13
 	} // L: 15
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lpx;B)V",
-		garbageValue = "-125"
+		descriptor = "(Lqt;I)V",
+		garbageValue = "-1095475514"
 	)
 	@Export("decode")
 	void decode(Buffer var1) {
 		while (true) {
-			int var2 = var1.readUnsignedByte();
-			if (var2 == 0) {
+			int var2 = var1.readUnsignedByte(); // L: 29
+			if (var2 == 0) { // L: 30
 				return; // L: 33
 			}
 
-			this.decodeNext(var1, var2);
+			this.decodeNext(var1, var2); // L: 31
 		}
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(Lpx;IB)V",
-		garbageValue = "29"
+		descriptor = "(Lqt;II)V",
+		garbageValue = "1370423223"
 	)
 	@Export("decodeNext")
 	void decodeNext(Buffer var1, int var2) {
-		if (var2 == 5) {
+		if (var2 == 5) { // L: 36
 			this.type = var1.readUnsignedShort();
 		}
 
 	} // L: 38
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;I)Ljava/io/File;",
-		garbageValue = "1012009903"
+		descriptor = "(II)I",
+		garbageValue = "1678307117"
 	)
-	@Export("getFile")
-	static File getFile(String var0) {
-		if (!FileSystem.FileSystem_hasPermissions) { // L: 16
-			throw new RuntimeException("");
-		} else {
-			File var1 = (File)FileSystem.FileSystem_cacheFiles.get(var0); // L: 17
-			if (var1 != null) { // L: 18
-				return var1;
-			} else {
-				File var2 = new File(FileSystem.FileSystem_cacheDir, var0); // L: 19
-				RandomAccessFile var3 = null; // L: 20
-
-				try {
-					File var4 = new File(var2.getParent()); // L: 22
-					if (!var4.exists()) { // L: 23
-						throw new RuntimeException("");
-					} else {
-						var3 = new RandomAccessFile(var2, "rw"); // L: 24
-						int var5 = var3.read(); // L: 25
-						var3.seek(0L); // L: 26
-						var3.write(var5); // L: 27
-						var3.seek(0L); // L: 28
-						var3.close(); // L: 29
-						FileSystem.FileSystem_cacheFiles.put(var0, var2); // L: 30
-						return var2; // L: 31
-					}
-				} catch (Exception var8) {
-					try {
-						if (var3 != null) { // L: 35
-							var3.close(); // L: 36
-							var3 = null; // L: 37
-						}
-					} catch (Exception var7) { // L: 40
-					}
-
-					throw new RuntimeException(); // L: 42
-				}
-			}
-		}
+	public static int method3374(int var0) {
+		return class270.field3179[var0]; // L: 24
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("iy")
 	@ObfuscatedSignature(
-		descriptor = "(IIII)I",
-		garbageValue = "-1753178254"
+		descriptor = "(II)Z",
+		garbageValue = "1226531684"
 	)
-	public static int method3273(int var0, int var1, int var2) {
-		var2 &= 3; // L: 9
-		if (var2 == 0) { // L: 10
-			return var1;
-		} else if (var2 == 1) { // L: 11
-			return 7 - var0;
+	static final boolean method3373(int var0) {
+		if (var0 < 0) { // L: 8693
+			return false;
 		} else {
-			return var2 == 2 ? 7 - var1 : var0; // L: 12
+			int var1 = Client.menuOpcodes[var0]; // L: 8694
+			if (var1 >= 2000) { // L: 8695
+				var1 -= 2000;
+			}
+
+			return var1 == 1007; // L: 8696
 		}
 	}
 }

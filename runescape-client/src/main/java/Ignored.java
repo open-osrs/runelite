@@ -4,12 +4,12 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("nz")
+@ObfuscatedName("nb")
 @Implements("Ignored")
 public class Ignored extends User {
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 157062685
+		intValue = -1766830117
 	)
 	@Export("id")
 	int id;
@@ -17,20 +17,20 @@ public class Ignored extends User {
 	Ignored() {
 	} // L: 6
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lnz;B)I",
-		garbageValue = "0"
+		descriptor = "(Lnb;I)I",
+		garbageValue = "-1083429285"
 	)
 	@Export("compareTo_ignored")
 	int compareTo_ignored(Ignored var1) {
 		return this.id - var1.id; // L: 9
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lnb;I)I",
-		garbageValue = "434999779"
+		descriptor = "(Lne;B)I",
+		garbageValue = "-81"
 	)
 	@Export("compareTo_user")
 	public int compareTo_user(User var1) {
@@ -41,18 +41,37 @@ public class Ignored extends User {
 		return this.compareTo_ignored((Ignored)var1); // L: 17
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "([FIFI)F",
-		garbageValue = "-1881391939"
+		descriptor = "(IB)Lqg;",
+		garbageValue = "-15"
 	)
-	static float method6616(float[] var0, int var1, float var2) {
-		float var3 = var0[var1]; // L: 108
+	public static PrivateChatMode method6780(int var0) {
+		PrivateChatMode[] var1 = new PrivateChatMode[]{PrivateChatMode.field4818, PrivateChatMode.field4817, PrivateChatMode.field4819}; // L: 18
+		PrivateChatMode[] var2 = var1; // L: 20
 
-		for (int var4 = var1 - 1; var4 >= 0; --var4) { // L: 109
-			var3 = var2 * var3 + var0[var4]; // L: 110
+		for (int var3 = 0; var3 < var2.length; ++var3) { // L: 21
+			PrivateChatMode var4 = var2[var3]; // L: 22
+			if (var0 == var4.field4820) { // L: 24
+				return var4;
+			}
 		}
 
-		return var3; // L: 112
+		return null; // L: 28
+	}
+
+	@ObfuscatedName("y")
+	@ObfuscatedSignature(
+		descriptor = "(Llh;IIB)Z",
+		garbageValue = "-50"
+	)
+	public static boolean method6774(AbstractArchive var0, int var1, int var2) {
+		byte[] var3 = var0.takeFile(var1, var2); // L: 176
+		if (var3 == null) { // L: 177
+			return false;
+		} else {
+			ChatChannel.SpriteBuffer_decode(var3); // L: 178
+			return true; // L: 179
+		}
 	}
 }

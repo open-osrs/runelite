@@ -5,114 +5,130 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("lc")
+@ObfuscatedName("lt")
 @Implements("NetCache")
 public class NetCache {
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lnf;"
+		descriptor = "Lnl;"
 	)
 	@Export("NetCache_socket")
 	public static AbstractSocket NetCache_socket;
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 570239275
+		intValue = -1449190645
 	)
 	@Export("NetCache_loadTime")
 	public static int NetCache_loadTime;
-	@ObfuscatedName("l")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		longValue = -3511910326709006749L
+		longValue = 2643126664749175459L
 	)
-	public static long field4041;
-	@ObfuscatedName("k")
+	public static long field4029;
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "Lpv;"
+		descriptor = "Lpm;"
 	)
 	@Export("NetCache_pendingPriorityWrites")
 	public static NodeHashTable NetCache_pendingPriorityWrites;
-	@ObfuscatedName("a")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = 974242219
+		intValue = -318837229
 	)
 	@Export("NetCache_pendingPriorityWritesCount")
 	public static int NetCache_pendingPriorityWritesCount;
-	@ObfuscatedName("m")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "Lpv;"
+		descriptor = "Lpm;"
 	)
 	@Export("NetCache_pendingPriorityResponses")
 	public static NodeHashTable NetCache_pendingPriorityResponses;
-	@ObfuscatedName("p")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 2115840371
+		intValue = -524738317
 	)
 	@Export("NetCache_pendingPriorityResponsesCount")
 	public static int NetCache_pendingPriorityResponsesCount;
-	@ObfuscatedName("s")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
 		descriptor = "Llr;"
 	)
 	@Export("NetCache_pendingWritesQueue")
 	public static DualNodeDeque NetCache_pendingWritesQueue;
-	@ObfuscatedName("r")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "Lpv;"
+		descriptor = "Lpm;"
 	)
 	@Export("NetCache_pendingWrites")
-	static NodeHashTable NetCache_pendingWrites;
-	@ObfuscatedName("v")
+	public static NodeHashTable NetCache_pendingWrites;
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 122834193
+		intValue = -1780049053
 	)
 	@Export("NetCache_pendingWritesCount")
 	public static int NetCache_pendingWritesCount;
-	@ObfuscatedName("y")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "Lpv;"
+		descriptor = "Lpm;"
 	)
 	@Export("NetCache_pendingResponses")
 	public static NodeHashTable NetCache_pendingResponses;
-	@ObfuscatedName("c")
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = 903629059
+		intValue = 1884264021
 	)
 	@Export("NetCache_pendingResponsesCount")
 	public static int NetCache_pendingResponsesCount;
-	@ObfuscatedName("t")
+	@ObfuscatedName("u")
 	@ObfuscatedSignature(
-		descriptor = "Lpx;"
+		descriptor = "Lqt;"
 	)
 	@Export("NetCache_responseHeaderBuffer")
 	public static Buffer NetCache_responseHeaderBuffer;
-	@ObfuscatedName("x")
+	@ObfuscatedName("h")
 	@ObfuscatedGetter(
-		intValue = -557211503
+		intValue = -29686833
 	)
-	public static int field4052;
-	@ObfuscatedName("e")
+	public static int field4027;
+	@ObfuscatedName("l")
 	@Export("NetCache_crc")
 	public static CRC32 NetCache_crc;
-	@ObfuscatedName("f")
+	@ObfuscatedName("p")
 	@ObfuscatedSignature(
-		descriptor = "[Lle;"
+		descriptor = "[Llc;"
 	)
 	@Export("NetCache_archives")
 	public static Archive[] NetCache_archives;
-	@ObfuscatedName("d")
-	public static byte field4043;
-	@ObfuscatedName("j")
+	@ObfuscatedName("b")
 	@ObfuscatedGetter(
-		intValue = 738633419
+		intValue = 294807501
+	)
+	static int field4031;
+	@ObfuscatedName("n")
+	@ObfuscatedGetter(
+		intValue = -1367817673
+	)
+	static int field4032;
+	@ObfuscatedName("o")
+	public static byte field4033;
+	@ObfuscatedName("m")
+	@ObfuscatedGetter(
+		intValue = -1326647825
 	)
 	@Export("NetCache_crcMismatches")
 	public static int NetCache_crcMismatches;
-	@ObfuscatedName("z")
+	@ObfuscatedName("d")
 	@ObfuscatedGetter(
-		intValue = 1292218169
+		intValue = 1616448373
 	)
 	@Export("NetCache_ioExceptions")
 	public static int NetCache_ioExceptions;
+	@ObfuscatedName("na")
+	@ObfuscatedGetter(
+		intValue = -1436839649
+	)
+	@Export("selectedSpellWidget")
+	static int selectedSpellWidget;
 
 	static {
 		NetCache_loadTime = 0; // L: 13
@@ -126,11 +142,30 @@ public class NetCache {
 		NetCache_pendingResponses = new NodeHashTable(4096); // L: 22
 		NetCache_pendingResponsesCount = 0; // L: 23
 		NetCache_responseHeaderBuffer = new Buffer(8); // L: 26
-		field4052 = 0; // L: 28
+		field4027 = 0; // L: 28
 		NetCache_crc = new CRC32(); // L: 30
 		NetCache_archives = new Archive[256]; // L: 32
-		field4043 = 0; // L: 33
-		NetCache_crcMismatches = 0; // L: 34
-		NetCache_ioExceptions = 0; // L: 35
+		field4031 = -1; // L: 33
+		field4032 = 255; // L: 34
+		field4033 = 0; // L: 35
+		NetCache_crcMismatches = 0; // L: 36
+		NetCache_ioExceptions = 0; // L: 37
+	}
+
+	@ObfuscatedName("r")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/CharSequence;I)Ljava/lang/String;",
+		garbageValue = "140433559"
+	)
+	public static String method5952(CharSequence var0) {
+		int var2 = var0.length(); // L: 187
+		char[] var3 = new char[var2]; // L: 189
+
+		for (int var4 = 0; var4 < var2; ++var4) { // L: 190
+			var3[var4] = '*';
+		}
+
+		String var1 = new String(var3); // L: 191
+		return var1; // L: 193
 	}
 }

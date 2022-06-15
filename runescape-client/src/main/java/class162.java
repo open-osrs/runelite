@@ -1,142 +1,111 @@
+import java.awt.Image;
+import java.lang.management.GarbageCollectorMXBean;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("fv")
-public class class162 {
-	@ObfuscatedName("j")
-	@ObfuscatedSignature(
-		descriptor = "Llp;"
-	)
-	@Export("Widget_modelsArchive")
-	static AbstractArchive Widget_modelsArchive;
-	@ObfuscatedName("pt")
+@ObfuscatedName("fl")
+public class class162 extends class165 {
+	@ObfuscatedName("aj")
+	static Image field1781;
+	@ObfuscatedName("av")
+	@Export("garbageCollector")
+	static GarbageCollectorMXBean garbageCollector;
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = 415868235
+		intValue = -454332877
 	)
-	static int field1810;
-	@ObfuscatedName("k")
-	public String field1803;
-	@ObfuscatedName("a")
-	public float[] field1804;
-	@ObfuscatedName("m")
-	@ObfuscatedGetter(
-		intValue = -1916139913
-	)
-	public int field1811;
-	@ObfuscatedName("p")
-	@ObfuscatedGetter(
-		intValue = 311501729
-	)
-	public int field1806;
-	@ObfuscatedName("s")
-	@ObfuscatedGetter(
-		intValue = 1324402861
-	)
-	public int field1807;
+	int field1784;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Leq;"
+		descriptor = "Les;"
 	)
 	final class155 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Leq;)V"
+		descriptor = "(Les;Ljava/lang/String;I)V"
 	)
-	class162(class155 var1) {
-		this.this$0 = var1;
-		this.field1804 = new float[4]; // L: 318
-		this.field1811 = 1; // L: 319
-		this.field1806 = 1; // L: 320
-		this.field1807 = 0; // L: 321
-	} // L: 323
+	class162(class155 var1, String var2, int var3) {
+		super(var1, var2); // L: 372
+		this.this$0 = var1; // L: 371
+		this.field1784 = var3; // L: 373
+	} // L: 374
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-734766672"
+		descriptor = "(B)I",
+		garbageValue = "-118"
 	)
-	public static void method3209() {
-		if (KeyHandler.KeyHandler_instance != null) { // L: 124
-			synchronized(KeyHandler.KeyHandler_instance) { // L: 125
-				KeyHandler.KeyHandler_instance = null; // L: 126
-			} // L: 127
-		}
-
-	} // L: 129
-
-	@ObfuscatedName("l")
-	@ObfuscatedSignature(
-		descriptor = "(B)Ljm;",
-		garbageValue = "124"
-	)
-	public static PacketBufferNode method3208() {
-		PacketBufferNode var0 = FloorOverlayDefinition.method3700();
-		var0.clientPacket = null;
-		var0.clientPacketLength = 0;
-		var0.packetBuffer = new PacketBuffer(5000);
-		return var0;
+	public int vmethod3314() {
+		return 0; // L: 377
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/CharSequence;IZB)Z",
-		garbageValue = "-8"
+		descriptor = "(I)I",
+		garbageValue = "16777215"
 	)
-	static boolean method3207(CharSequence var0, int var1, boolean var2) {
-		if (var1 >= 2 && var1 <= 36) { // L: 39
-			boolean var3 = false; // L: 40
-			boolean var4 = false; // L: 41
-			int var5 = 0; // L: 42
-			int var6 = var0.length(); // L: 43
+	public int vmethod3318() {
+		return this.field1784; // L: 382
+	}
 
-			for (int var7 = 0; var7 < var6; ++var7) { // L: 44
-				char var8 = var0.charAt(var7); // L: 45
-				if (var7 == 0) { // L: 46
-					if (var8 == '-') { // L: 47
-						var3 = true; // L: 48
-						continue;
-					}
-
-					if (var8 == '+') { // L: 51
-						continue;
-					}
-				}
-
-				int var10;
-				if (var8 >= '0' && var8 <= '9') { // L: 53
-					var10 = var8 - '0';
-				} else if (var8 >= 'A' && var8 <= 'Z') { // L: 54
-					var10 = var8 - '7';
-				} else {
-					if (var8 < 'a' || var8 > 'z') { // L: 55
-						return false; // L: 56
-					}
-
-					var10 = var8 - 'W';
-				}
-
-				if (var10 >= var1) { // L: 57
-					return false;
-				}
-
-				if (var3) { // L: 58
-					var10 = -var10;
-				}
-
-				int var9 = var10 + var5 * var1; // L: 59
-				if (var9 / var1 != var5) { // L: 60
-					return false;
-				}
-
-				var5 = var9; // L: 61
-				var4 = true; // L: 62
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "(II)Lgk;",
+		garbageValue = "540611824"
+	)
+	@Export("getObjectDefinition")
+	public static ObjectComposition getObjectDefinition(int var0) {
+		ObjectComposition var1 = (ObjectComposition)ObjectComposition.ObjectDefinition_cached.get((long)var0); // L: 79
+		if (var1 != null) { // L: 80
+			return var1;
+		} else {
+			byte[] var2 = class328.ObjectDefinition_archive.takeFile(6, var0); // L: 81
+			var1 = new ObjectComposition(); // L: 82
+			var1.id = var0; // L: 83
+			if (var2 != null) { // L: 84
+				var1.decode(new Buffer(var2));
 			}
 
-			return var4; // L: 64
+			var1.postDecode(); // L: 85
+			if (var1.isSolid) { // L: 86
+				var1.interactType = 0; // L: 87
+				var1.boolean1 = false; // L: 88
+			}
+
+			ObjectComposition.ObjectDefinition_cached.put(var1, (long)var0); // L: 90
+			return var1; // L: 91
+		}
+	}
+
+	@ObfuscatedName("az")
+	@ObfuscatedSignature(
+		descriptor = "(ILbi;ZI)I",
+		garbageValue = "1499243899"
+	)
+	static int method3298(int var0, Script var1, boolean var2) {
+		if (var0 == 6800) { // L: 4521
+			Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = ""; // L: 4522
+			return 1; // L: 4523
+		} else if (var0 != 6801 && var0 != 6802) { // L: 4525
+			if (var0 == 6850) { // L: 4529
+				Interpreter.Interpreter_stringStack[++Interpreter.Interpreter_stringStackSize - 1] = ""; // L: 4530
+				return 1; // L: 4531
+			} else if (var0 != 6851 && var0 != 6852) { // L: 4533
+				if (var0 == 6853) { // L: 4537
+					Interpreter.Interpreter_intStack[++class446.Interpreter_intStackSize - 1] = 0; // L: 4538
+					return 1; // L: 4539
+				} else {
+					return 2; // L: 4541
+				}
+			} else {
+				Interpreter.Interpreter_intStack[++class446.Interpreter_intStackSize - 1] = -1; // L: 4534
+				return 1; // L: 4535
+			}
 		} else {
-			throw new IllegalArgumentException("" + var1);
+			Interpreter.Interpreter_intStack[++class446.Interpreter_intStackSize - 1] = -1; // L: 4526
+			return 1; // L: 4527
 		}
 	}
 }

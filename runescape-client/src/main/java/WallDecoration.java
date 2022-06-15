@@ -4,81 +4,72 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hf")
+@ObfuscatedName("hr")
 @Implements("WallDecoration")
 public final class WallDecoration {
 	@ObfuscatedName("c")
-	@Export("Tiles_lightness")
-	static int[] Tiles_lightness;
-	@ObfuscatedName("ia")
-	@ObfuscatedSignature(
-		descriptor = "[Lqr;"
-	)
-	@Export("mapDotSprites")
-	static SpritePixels[] mapDotSprites;
-	@ObfuscatedName("o")
 	@ObfuscatedGetter(
-		intValue = 1133434607
+		intValue = 1818161665
 	)
 	@Export("z")
 	int z;
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -468638571
+		intValue = -394717143
 	)
 	@Export("x")
 	int x;
-	@ObfuscatedName("l")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -1248756677
+		intValue = -732373363
 	)
 	@Export("y")
 	int y;
-	@ObfuscatedName("k")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 1886236557
+		intValue = -568181089
 	)
 	@Export("orientation")
 	int orientation;
-	@ObfuscatedName("a")
+	@ObfuscatedName("j")
 	@ObfuscatedGetter(
-		intValue = -665264033
+		intValue = 1054718707
 	)
 	@Export("orientation2")
 	int orientation2;
-	@ObfuscatedName("m")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -884502203
+		intValue = -1599500981
 	)
 	@Export("xOffset")
 	int xOffset;
-	@ObfuscatedName("p")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = -553687171
+		intValue = -1858126929
 	)
 	@Export("yOffset")
 	int yOffset;
-	@ObfuscatedName("s")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "Lgx;"
+		descriptor = "Lgj;"
 	)
 	@Export("renderable1")
 	public Renderable renderable1;
-	@ObfuscatedName("r")
+	@ObfuscatedName("y")
 	@ObfuscatedSignature(
-		descriptor = "Lgx;"
+		descriptor = "Lgj;"
 	)
 	@Export("renderable2")
 	public Renderable renderable2;
-	@ObfuscatedName("v")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		longValue = -451444878306106685L
+		longValue = 1587928550129983111L
 	)
 	@Export("tag")
 	public long tag;
-	@ObfuscatedName("y")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = 1120239
+		intValue = 1186627599
 	)
 	@Export("flags")
 	int flags;
@@ -88,63 +79,12 @@ public final class WallDecoration {
 		this.flags = 0; // L: 14
 	} // L: 16
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(Ljj;Lqh;B)Ljm;",
-		garbageValue = "-72"
+		descriptor = "(IB)Z",
+		garbageValue = "106"
 	)
-	@Export("getPacketBufferNode")
-	public static PacketBufferNode getPacketBufferNode(ClientPacket var0, IsaacCipher var1) {
-		PacketBufferNode var2 = FloorOverlayDefinition.method3700(); // L: 27
-		var2.clientPacket = var0; // L: 28
-		var2.clientPacketLength = var0.length; // L: 29
-		if (var2.clientPacketLength == -1) { // L: 30
-			var2.packetBuffer = new PacketBuffer(260);
-		} else if (var2.clientPacketLength == -2) {
-			var2.packetBuffer = new PacketBuffer(10000); // L: 31
-		} else if (var2.clientPacketLength <= 18) { // L: 32
-			var2.packetBuffer = new PacketBuffer(20);
-		} else if (var2.clientPacketLength <= 98) { // L: 33
-			var2.packetBuffer = new PacketBuffer(100);
-		} else {
-			var2.packetBuffer = new PacketBuffer(260); // L: 34
-		}
-
-		var2.packetBuffer.setIsaacCipher(var1); // L: 35
-		var2.packetBuffer.writeByteIsaac(var2.clientPacket.id); // L: 36
-		var2.index = 0; // L: 37
-		return var2; // L: 38
-	}
-
-	@ObfuscatedName("t")
-	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-811937066"
-	)
-	static final int method4391() {
-		return ViewportMouse.ViewportMouse_y; // L: 106
-	}
-
-	@ObfuscatedName("n")
-	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;II)V",
-		garbageValue = "1555036135"
-	)
-	static final void method4392(String var0, int var1) {
-		PacketBufferNode var2 = getPacketBufferNode(ClientPacket.field3026, Client.packetWriter.isaacCipher); // L: 236
-		var2.packetBuffer.writeByte(class392.stringCp1252NullTerminatedByteSize(var0) + 1); // L: 237
-		var2.packetBuffer.method7542(var1); // L: 238
-		var2.packetBuffer.writeStringCp1252NullTerminated(var0); // L: 239
-		Client.packetWriter.addNode(var2); // L: 240
-	} // L: 241
-
-	@ObfuscatedName("jv")
-	@ObfuscatedSignature(
-		descriptor = "(S)Z",
-		garbageValue = "20695"
-	)
-	@Export("getTapToDrop")
-	static boolean getTapToDrop() {
-		return Client.tapToDrop; // L: 11200
+	public static boolean method4551(int var0) {
+		return (var0 >> 22 & 1) != 0; // L: 29
 	}
 }
