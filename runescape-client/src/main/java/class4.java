@@ -1,43 +1,79 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import netscape.javascript.JSObject;
 
-@ObfuscatedName("a")
+@ObfuscatedName("j")
 public final class class4 {
-	@ObfuscatedName("s")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "2109768845"
+		descriptor = "Llh;"
 	)
-	@Export("Messages_getLastChatID")
-	static int Messages_getLastChatID(int var0) {
-		Message var1 = (Message)Messages.Messages_hashTable.get((long)var0); // L: 64
-		if (var1 == null) { // L: 65
-			return -1;
-		} else {
-			return var1.previousDual == Messages.Messages_queue.sentinel ? -1 : ((Message)var1.previousDual).count; // L: 66 67
-		}
-	}
-
-	@ObfuscatedName("jy")
+	@Export("HitSplatDefinition_fontsArchive")
+	public static AbstractArchive HitSplatDefinition_fontsArchive;
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "(IIIIIIIB)V",
-		garbageValue = "-57"
+		descriptor = "Lqu;"
 	)
-	@Export("updateRootInterface")
-	static final void updateRootInterface(int var0, int var1, int var2, int var3, int var4, int var5, int var6) {
-		if (WorldMapDecoration.loadInterface(var0)) { // L: 11204
-			WorldMapRegion.updateInterface(NetSocket.Widget_interfaceComponents[var0], -1, var1, var2, var3, var4, var5, var6); // L: 11205
-		}
-	} // L: 11206
+	@Export("titleboxSprite")
+	static IndexedSprite titleboxSprite;
+	@ObfuscatedName("ee")
+	@ObfuscatedSignature(
+		descriptor = "Llc;"
+	)
+	@Export("archive20")
+	static Archive archive20;
 
-	@ObfuscatedName("lk")
+	@ObfuscatedName("hw")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "-924904180"
+		garbageValue = "-1151585250"
 	)
-	static void method22() {
-		Client.packetWriter.addNode(WallDecoration.getPacketBufferNode(ClientPacket.field3020, Client.packetWriter.isaacCipher)); // L: 12669
-		Client.oculusOrbState = 0; // L: 12670
-	} // L: 12671
+	static final void method11() {
+		for (PendingSpawn var0 = (PendingSpawn)Client.pendingSpawns.last(); var0 != null; var0 = (PendingSpawn)Client.pendingSpawns.previous()) { // L: 7783 7784 7790
+			if (var0.hitpoints == -1) { // L: 7785
+				var0.delay = 0; // L: 7786
+				class151.method3146(var0); // L: 7787
+			} else {
+				var0.remove(); // L: 7789
+			}
+		}
+
+	} // L: 7792
+
+	@ObfuscatedName("ii")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;Ljava/lang/String;IIIII)V",
+		garbageValue = "-1285432829"
+	)
+	@Export("insertMenuItemNoShift")
+	public static final void insertMenuItemNoShift(String var0, String var1, int var2, int var3, int var4, int var5) {
+		class268.insertMenuItem(var0, var1, var2, var3, var4, var5, false); // L: 9700
+	} // L: 9701
+
+	@ObfuscatedName("ly")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/String;I)V",
+		garbageValue = "-2033528269"
+	)
+	static void method12(String var0) {
+		GrandExchangeOfferTotalQuantityComparator.field4045 = var0; // L: 12343
+
+		try {
+			String var1 = class353.client.getParameter(Integer.toString(18)); // L: 12345
+			String var2 = class353.client.getParameter(Integer.toString(13)); // L: 12346
+			String var3 = var1 + "settings=" + var0 + "; version=1; path=/; domain=" + var2; // L: 12347
+			if (var0.length() == 0) { // L: 12348
+				var3 = var3 + "; Expires=Thu, 01-Jan-1970 00:00:00 GMT; Max-Age=0";
+			} else {
+				var3 = var3 + "; Expires=" + NPC.method2382(class115.method2692() + 94608000000L) + "; Max-Age=" + 94608000L; // L: 12349
+			}
+
+			Client var4 = class353.client; // L: 12350
+			String var5 = "document.cookie=\"" + var3 + "\""; // L: 12351
+			JSObject.getWindow(var4).eval(var5); // L: 12354
+		} catch (Throwable var6) { // L: 12357
+		}
+
+	} // L: 12358
 }

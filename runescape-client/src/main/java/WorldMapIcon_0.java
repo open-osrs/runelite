@@ -4,48 +4,48 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("hs")
+@ObfuscatedName("hz")
 @Implements("WorldMapIcon_0")
 public class WorldMapIcon_0 extends AbstractWorldMapIcon {
-	@ObfuscatedName("b")
-	@ObfuscatedSignature(
-		descriptor = "Lli;"
-	)
-	@Export("NetCache_currentResponse")
-	public static NetFileRequest NetCache_currentResponse;
-	@ObfuscatedName("o")
+	@ObfuscatedName("iz")
 	@ObfuscatedGetter(
-		intValue = -956371221
+		intValue = 2063269649
+	)
+	@Export("selectedItemId")
+	static int selectedItemId;
+	@ObfuscatedName("c")
+	@ObfuscatedGetter(
+		intValue = -717867737
 	)
 	@Export("element")
 	final int element;
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lip;"
+		descriptor = "Liz;"
 	)
 	@Export("label")
 	final WorldMapLabel label;
-	@ObfuscatedName("l")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = 2031981367
+		intValue = -466218723
 	)
 	@Export("subWidth")
 	final int subWidth;
-	@ObfuscatedName("k")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -1919685021
+		intValue = 1083440853
 	)
 	@Export("subHeight")
 	final int subHeight;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lkd;Lkd;ILip;)V"
+		descriptor = "(Lkd;Lkd;ILiz;)V"
 	)
 	WorldMapIcon_0(Coord var1, Coord var2, int var3, WorldMapLabel var4) {
 		super(var1, var2); // L: 14
 		this.element = var3; // L: 15
 		this.label = var4; // L: 16
-		WorldMapElement var5 = class120.WorldMapElement_get(this.getElement()); // L: 17
+		WorldMapElement var5 = class432.WorldMapElement_get(this.getElement()); // L: 17
 		SpritePixels var6 = var5.getSpriteBool(false); // L: 18
 		if (var6 != null) { // L: 19
 			this.subWidth = var6.subWidth; // L: 20
@@ -57,67 +57,57 @@ public class WorldMapIcon_0 extends AbstractWorldMapIcon {
 
 	} // L: 27
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "16"
+		descriptor = "(I)I",
+		garbageValue = "781292504"
 	)
 	@Export("getElement")
 	public int getElement() {
 		return this.element; // L: 31
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lip;",
-		garbageValue = "1420245554"
+		descriptor = "(I)Liz;",
+		garbageValue = "1473728"
 	)
 	@Export("getLabel")
 	WorldMapLabel getLabel() {
 		return this.label; // L: 36
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "102"
+		descriptor = "(I)I",
+		garbageValue = "-1263012412"
 	)
 	@Export("getSubWidth")
 	int getSubWidth() {
 		return this.subWidth; // L: 41
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-1663406998"
+		descriptor = "(B)I",
+		garbageValue = "-34"
 	)
 	@Export("getSubHeight")
 	int getSubHeight() {
 		return this.subHeight; // L: 46
 	}
 
-	@ObfuscatedName("gj")
+	@ObfuscatedName("lj")
 	@ObfuscatedSignature(
-		descriptor = "(II)V",
-		garbageValue = "-1424752711"
+		descriptor = "(Lkb;I)Ljava/lang/String;",
+		garbageValue = "-1970746569"
 	)
-	@Export("playSong")
-	static void playSong(int var0) {
-		if (var0 == -1 && !Client.playingJingle) { // L: 3800
-			ApproximateRouteStrategy.method1110(); // L: 3801
-		} else if (var0 != -1 && var0 != Client.currentTrackGroupId && class12.clientPreferences.method2248() != 0 && !Client.playingJingle) { // L: 3803
-			Archive var1 = AbstractUserComparator.archive6; // L: 3804
-			int var2 = class12.clientPreferences.method2248(); // L: 3805
-			class273.musicPlayerStatus = 1; // L: 3807
-			ClanChannelMember.musicTrackArchive = var1; // L: 3808
-			StructComposition.musicTrackGroupId = var0; // L: 3809
-			FriendsList.musicTrackFileId = 0; // L: 3810
-			Clock.musicTrackVolume = var2; // L: 3811
-			VertexNormal.musicTrackBoolean = false; // L: 3812
-			GrandExchangeEvent.pcmSampleLength = 2; // L: 3813
+	@Export("Widget_getSpellActionName")
+	static String Widget_getSpellActionName(Widget var0) {
+		if (WorldMapID.Widget_unpackTargetMask(class124.getWidgetFlags(var0)) == 0) { // L: 12322
+			return null;
+		} else {
+			return var0.spellActionName != null && var0.spellActionName.trim().length() != 0 ? var0.spellActionName : null; // L: 12323 12324 12326
 		}
-
-		Client.currentTrackGroupId = var0; // L: 3816
-	} // L: 3817
+	}
 }

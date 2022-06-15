@@ -4,32 +4,33 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("nq")
+@ObfuscatedName("nt")
 @Implements("TriBool")
 public class TriBool {
-	@ObfuscatedName("o")
+	@ObfuscatedName("uj")
+	@ObfuscatedGetter(
+		intValue = -1573630725
+	)
+	@Export("foundItemIndex")
+	static int foundItemIndex;
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lnq;"
+		descriptor = "Lnt;"
 	)
 	@Export("TriBool_unknown")
 	public static final TriBool TriBool_unknown;
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Lnq;"
+		descriptor = "Lnt;"
 	)
 	@Export("TriBool_true")
 	public static final TriBool TriBool_true;
-	@ObfuscatedName("l")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "Lnq;"
+		descriptor = "Lnt;"
 	)
 	@Export("TriBool_false")
 	public static final TriBool TriBool_false;
-	@ObfuscatedName("w")
-	@ObfuscatedGetter(
-		intValue = 1003527319
-	)
-	static int field4339;
 
 	static {
 		TriBool_unknown = new TriBool(); // L: 4
@@ -40,17 +41,17 @@ public class TriBool {
 	TriBool() {
 	} // L: 8
 
-	@ObfuscatedName("la")
+	@ObfuscatedName("fi")
 	@ObfuscatedSignature(
-		descriptor = "(Lki;B)Ljava/lang/String;",
-		garbageValue = "-92"
+		descriptor = "(ZI)V",
+		garbageValue = "114016538"
 	)
-	@Export("Widget_getSpellActionName")
-	static String Widget_getSpellActionName(Widget var0) {
-		if (WorldMapSection1.Widget_unpackTargetMask(UrlRequester.getWidgetFlags(var0)) == 0) { // L: 12521
-			return null;
+	static final void method6791(boolean var0) {
+		if (var0) { // L: 3020
+			Client.field515 = Login.field895 ? class124.field1544 : class124.field1550; // L: 3021
 		} else {
-			return var0.spellActionName != null && var0.spellActionName.trim().length() != 0 ? var0.spellActionName : null; // L: 12522 12523 12525
+			Client.field515 = class19.clientPreferences.parameters.containsKey(Projectile.method1950(Login.Login_username)) ? class124.field1546 : class124.field1543; // L: 3024
 		}
-	}
+
+	} // L: 3026
 }

@@ -3,62 +3,62 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("qv")
+@ObfuscatedName("qa")
 @Implements("Username")
 public class Username implements Comparable {
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@Export("name")
 	String name;
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@Export("cleanName")
 	String cleanName;
 
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/String;Lpj;)V"
+		descriptor = "(Ljava/lang/String;Lpe;)V"
 	)
 	public Username(String var1, LoginType var2) {
 		this.name = var1; // L: 16
-		this.cleanName = ArchiveDiskActionHandler.method5612(var1, var2); // L: 17
+		this.cleanName = UserComparator5.method2580(var1, var2); // L: 17
 	} // L: 18
 
 	public Username(String var1) {
 		this.name = var1; // L: 11
-		this.cleanName = ArchiveDiskActionHandler.method5612(var1, LoginType.oldscape); // L: 12
+		this.cleanName = UserComparator5.method2580(var1, LoginType.oldscape); // L: 12
 	} // L: 13
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(I)Ljava/lang/String;",
-		garbageValue = "523836369"
+		garbageValue = "1398829508"
 	)
 	@Export("getName")
 	public String getName() {
 		return this.name; // L: 21
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(B)Ljava/lang/String;",
-		garbageValue = "23"
+		descriptor = "(I)Ljava/lang/String;",
+		garbageValue = "1713644314"
 	)
-	public String method8148() {
+	public String method8320() {
 		return this.cleanName; // L: 25
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
 		descriptor = "(B)Z",
-		garbageValue = "27"
+		garbageValue = "-54"
 	)
 	@Export("hasCleanName")
 	public boolean hasCleanName() {
 		return this.cleanName != null; // L: 29
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(Lqv;I)I",
-		garbageValue = "1240776928"
+		descriptor = "(Lqa;I)I",
+		garbageValue = "113609215"
 	)
 	@Export("compareToTyped")
 	public int compareToTyped(Username var1) {
@@ -88,11 +88,11 @@ public class Username implements Comparable {
 		return this.cleanName == null ? 0 : this.cleanName.hashCode(); // L: 46 47
 	}
 
-	public int compareTo(Object var1) {
-		return this.compareToTyped((Username)var1); // L: 65
-	}
-
 	public String toString() {
 		return this.getName(); // L: 52
+	}
+
+	public int compareTo(Object var1) {
+		return this.compareToTyped((Username)var1); // L: 65
 	}
 }

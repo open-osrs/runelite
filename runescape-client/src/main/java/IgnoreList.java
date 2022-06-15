@@ -3,48 +3,53 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("nd")
+@ObfuscatedName("mi")
 @Implements("IgnoreList")
 public class IgnoreList extends UserList {
-	@ObfuscatedName("l")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
-		descriptor = "Lpj;"
+		descriptor = "Lqu;"
+	)
+	static IndexedSprite field4284;
+	@ObfuscatedName("q")
+	@ObfuscatedSignature(
+		descriptor = "Lpe;"
 	)
 	@Export("loginType")
 	final LoginType loginType;
 
 	@ObfuscatedSignature(
-		descriptor = "(Lpj;)V"
+		descriptor = "(Lpe;)V"
 	)
 	public IgnoreList(LoginType var1) {
 		super(400); // L: 13
 		this.loginType = var1; // L: 14
 	} // L: 15
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lnb;",
-		garbageValue = "-1695844600"
+		descriptor = "(S)Lne;",
+		garbageValue = "-7122"
 	)
 	@Export("newInstance")
 	User newInstance() {
 		return new Ignored(); // L: 19
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(II)[Lnb;",
-		garbageValue = "1788836658"
+		descriptor = "(II)[Lne;",
+		garbageValue = "77510907"
 	)
 	@Export("newTypedArray")
 	User[] newTypedArray(int var1) {
 		return new Ignored[var1]; // L: 24
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(Lpx;IB)V",
-		garbageValue = "0"
+		descriptor = "(Lqt;II)V",
+		garbageValue = "1241534529"
 	)
 	@Export("read")
 	public void read(Buffer var1, int var2) {
@@ -85,32 +90,6 @@ public class IgnoreList extends UserList {
 			}
 
 			return; // L: 57
-		}
-	}
-
-	@ObfuscatedName("il")
-	@ObfuscatedSignature(
-		descriptor = "(III)Ljava/lang/String;",
-		garbageValue = "1540266419"
-	)
-	static final String method6430(int var0, int var1) {
-		int var2 = var1 - var0; // L: 10187
-		if (var2 < -9) { // L: 10188
-			return class166.colorStartTag(16711680);
-		} else if (var2 < -6) { // L: 10189
-			return class166.colorStartTag(16723968);
-		} else if (var2 < -3) { // L: 10190
-			return class166.colorStartTag(16740352);
-		} else if (var2 < 0) { // L: 10191
-			return class166.colorStartTag(16756736);
-		} else if (var2 > 9) { // L: 10192
-			return class166.colorStartTag(65280);
-		} else if (var2 > 6) { // L: 10193
-			return class166.colorStartTag(4259584);
-		} else if (var2 > 3) { // L: 10194
-			return class166.colorStartTag(8453888);
-		} else {
-			return var2 > 0 ? class166.colorStartTag(12648192) : class166.colorStartTag(16776960); // L: 10195 10196
 		}
 	}
 }

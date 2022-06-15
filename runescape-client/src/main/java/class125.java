@@ -1,150 +1,120 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("dm")
+@ObfuscatedName("dk")
 public class class125 extends class128 {
-	@ObfuscatedName("px")
-	@ObfuscatedSignature(
-		descriptor = "Lcu;"
-	)
-	@Export("varcs")
-	static Varcs varcs;
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -887084095
+		intValue = -901358283
 	)
-	int field1561;
+	int field1557;
+	@ObfuscatedName("v")
+	@ObfuscatedGetter(
+		intValue = 963189529
+	)
+	int field1553;
 	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -1121955905
+		intValue = -1782830973
 	)
-	int field1559;
-	@ObfuscatedName("l")
+	int field1554;
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -263123509
+		intValue = -1564673701
 	)
-	int field1560;
-	@ObfuscatedName("k")
-	@ObfuscatedGetter(
-		intValue = -1343023729
-	)
-	int field1562;
+	int field1555;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Leh;"
+		descriptor = "Lej;"
 	)
 	final class131 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Leh;)V"
+		descriptor = "(Lej;)V"
 	)
 	class125(class131 var1) {
 		this.this$0 = var1;
-		this.field1561 = -1; // L: 158
+		this.field1557 = -1; // L: 158
 	} // L: 163
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lpx;I)V",
-		garbageValue = "-611912046"
+		descriptor = "(Lqt;B)V",
+		garbageValue = "5"
 	)
-	void vmethod3040(Buffer var1) {
-		this.field1561 = var1.readUnsignedShort(); // L: 166
-		this.field1559 = var1.readInt(); // L: 167
-		this.field1560 = var1.readUnsignedByte(); // L: 168
-		this.field1562 = var1.readUnsignedByte(); // L: 169
+	void vmethod3150(Buffer var1) {
+		this.field1557 = var1.readUnsignedShort(); // L: 166
+		this.field1553 = var1.readInt(); // L: 167
+		this.field1554 = var1.readUnsignedByte(); // L: 168
+		this.field1555 = var1.readUnsignedByte(); // L: 169
 	} // L: 170
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lek;B)V",
-		garbageValue = "-73"
+		descriptor = "(Len;I)V",
+		garbageValue = "-1718344311"
 	)
-	void vmethod3041(ClanSettings var1) {
-		var1.method2896(this.field1561, this.field1559, this.field1560, this.field1562); // L: 173
+	void vmethod3149(ClanSettings var1) {
+		var1.method2964(this.field1557, this.field1553, this.field1554, this.field1555); // L: 173
 	} // L: 174
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/Object;ZI)[B",
-		garbageValue = "1216365156"
+		descriptor = "(I)Ljava/lang/String;",
+		garbageValue = "2000471685"
 	)
-	public static byte[] method2791(Object var0, boolean var1) {
-		if (var0 == null) { // L: 21
-			return null;
-		} else if (var0 instanceof byte[]) { // L: 22
-			byte[] var3 = (byte[])((byte[])var0); // L: 23
-			return var1 ? UrlRequester.method2537(var3) : var3; // L: 24
-		} else if (var0 instanceof AbstractByteArrayCopier) { // L: 27
-			AbstractByteArrayCopier var2 = (AbstractByteArrayCopier)var0; // L: 28
-			return var2.get(); // L: 29
+	static String method2829() {
+		return class19.clientPreferences.method2247() ? NetCache.method5952(Login.Login_username) : Login.Login_username; // L: 272
+	}
+
+	@ObfuscatedName("g")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "718423512"
+	)
+	static void method2830() {
+		ItemContainer.itemContainers = new NodeHashTable(32); // L: 78
+	} // L: 79
+
+	@ObfuscatedName("z")
+	@ObfuscatedSignature(
+		descriptor = "(ILbi;ZB)I",
+		garbageValue = "-61"
+	)
+	static int method2821(int var0, Script var1, boolean var2) {
+		Widget var3 = var2 ? class124.scriptDotWidget : GrandExchangeOfferOwnWorldComparator.scriptActiveWidget; // L: 1111
+		if (var0 == ScriptOpcodes.CC_GETX) { // L: 1112
+			Interpreter.Interpreter_intStack[++class446.Interpreter_intStackSize - 1] = var3.x; // L: 1113
+			return 1; // L: 1114
+		} else if (var0 == ScriptOpcodes.CC_GETY) { // L: 1116
+			Interpreter.Interpreter_intStack[++class446.Interpreter_intStackSize - 1] = var3.y; // L: 1117
+			return 1; // L: 1118
+		} else if (var0 == ScriptOpcodes.CC_GETWIDTH) { // L: 1120
+			Interpreter.Interpreter_intStack[++class446.Interpreter_intStackSize - 1] = var3.width; // L: 1121
+			return 1; // L: 1122
+		} else if (var0 == ScriptOpcodes.CC_GETHEIGHT) { // L: 1124
+			Interpreter.Interpreter_intStack[++class446.Interpreter_intStackSize - 1] = var3.height; // L: 1125
+			return 1; // L: 1126
+		} else if (var0 == ScriptOpcodes.CC_GETHIDE) { // L: 1128
+			Interpreter.Interpreter_intStack[++class446.Interpreter_intStackSize - 1] = var3.isHidden ? 1 : 0; // L: 1129
+			return 1; // L: 1130
+		} else if (var0 == ScriptOpcodes.CC_GETLAYER) { // L: 1132
+			Interpreter.Interpreter_intStack[++class446.Interpreter_intStackSize - 1] = var3.parentId; // L: 1133
+			return 1; // L: 1134
 		} else {
-			throw new IllegalArgumentException(); // L: 31
+			return 2; // L: 1136
 		}
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("ie")
 	@ObfuscatedSignature(
-		descriptor = "(Lle;IB)V",
-		garbageValue = "1"
+		descriptor = "(B)V",
+		garbageValue = "-111"
 	)
-	static void method2796(Archive var0, int var1) {
-		if (class300.NetCache_reference != null) { // L: 110
-			class300.NetCache_reference.offset = var1 * 8 + 5;
-			int var2 = class300.NetCache_reference.readInt();
-			int var3 = class300.NetCache_reference.readInt();
-			var0.loadIndex(var2, var3); // L: 114
-		} else {
-			class250.requestNetFile((Archive)null, 255, 255, 0, (byte)0, true);
-			NetCache.NetCache_archives[var1] = var0;
-		}
-	} // L: 115
-
-	@ObfuscatedName("a")
-	@ObfuscatedSignature(
-		descriptor = "([BIIIIIII[Lgh;I)V",
-		garbageValue = "810433263"
-	)
-	static final void method2794(byte[] var0, int var1, int var2, int var3, int var4, int var5, int var6, int var7, CollisionMap[] var8) {
-		int var10;
-		for (int var9 = 0; var9 < 8; ++var9) { // L: 111
-			for (var10 = 0; var10 < 8; ++var10) { // L: 112
-				if (var9 + var2 > 0 && var9 + var2 < 103 && var3 + var10 > 0 && var3 + var10 < 103) { // L: 113
-					int[] var10000 = var8[var1].flags[var9 + var2];
-					var10000[var10 + var3] &= -16777217;
-				}
-			}
-		}
-
-		Buffer var20 = new Buffer(var0); // L: 116
-
-		for (var10 = 0; var10 < 4; ++var10) { // L: 117
-			for (int var11 = 0; var11 < 64; ++var11) { // L: 118
-				for (int var12 = 0; var12 < 64; ++var12) { // L: 119
-					if (var10 == var4 && var11 >= var5 && var11 < var5 + 8 && var12 >= var6 && var12 < var6 + 8) { // L: 120
-						int var17 = var11 & 7; // L: 125
-						int var18 = var12 & 7; // L: 126
-						int var19 = var7 & 3; // L: 129
-						int var16;
-						if (var19 == 0) { // L: 130
-							var16 = var17; // L: 131
-						} else if (var19 == 1) { // L: 134
-							var16 = var18; // L: 135
-						} else if (var19 == 2) { // L: 138
-							var16 = 7 - var17; // L: 139
-						} else {
-							var16 = 7 - var18; // L: 142
-						}
-
-						class67.loadTerrain(var20, var1, var2 + var16, var3 + VarpDefinition.method3273(var11 & 7, var12 & 7, var7), 0, 0, var7); // L: 144
-					} else {
-						class67.loadTerrain(var20, 0, -1, -1, 0, 0, 0); // L: 146
-					}
-				}
-			}
-		}
-
-	} // L: 150
+	static void method2824() {
+		Client.menuOptionsCount = 0; // L: 8423
+		Client.isMenuOpen = false; // L: 8424
+	} // L: 8425
 }

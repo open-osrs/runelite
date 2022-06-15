@@ -1,26 +1,20 @@
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
-import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("kn")
+@ObfuscatedName("kr")
 @Implements("Varps")
 public class Varps {
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@Export("Varps_masks")
 	static int[] Varps_masks;
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@Export("Varps_temp")
 	public static int[] Varps_temp;
-	@ObfuscatedName("l")
+	@ObfuscatedName("q")
 	@Export("Varps_main")
 	public static int[] Varps_main;
-	@ObfuscatedName("a")
-	@ObfuscatedGetter(
-		intValue = -995653473
-	)
-	public static int field3348;
 
 	static {
 		Varps_masks = new int[32]; // L: 6
@@ -35,27 +29,22 @@ public class Varps {
 		Varps_main = new int[4000]; // L: 17
 	}
 
-	@ObfuscatedName("kj")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "-20299938"
+		descriptor = "(Ljava/lang/Object;ZB)[B",
+		garbageValue = "74"
 	)
-	static final void method5366() {
-		PacketBufferNode var0 = WallDecoration.getPacketBufferNode(ClientPacket.field3001, Client.packetWriter.isaacCipher); // L: 12197
-		Client.packetWriter.addNode(var0); // L: 12198
-		Interpreter.field833 = true; // L: 12199
-
-		for (InterfaceParent var1 = (InterfaceParent)Client.interfaceParents.first(); var1 != null; var1 = (InterfaceParent)Client.interfaceParents.next()) { // L: 12200
-			if (var1.type == 0 || var1.type == 3) { // L: 12201
-				NetSocket.closeInterface(var1, true);
-			}
+	public static byte[] method5530(Object var0, boolean var1) {
+		if (var0 == null) { // L: 21
+			return null;
+		} else if (var0 instanceof byte[]) { // L: 22
+			byte[] var3 = (byte[])((byte[])var0); // L: 23
+			return var1 ? MusicPatch.method5432(var3) : var3; // L: 24
+		} else if (var0 instanceof AbstractByteArrayCopier) { // L: 27
+			AbstractByteArrayCopier var2 = (AbstractByteArrayCopier)var0; // L: 28
+			return var2.get(); // L: 29
+		} else {
+			throw new IllegalArgumentException(); // L: 31
 		}
-
-		if (Client.meslayerContinueWidget != null) { // L: 12203
-			GrandExchangeOfferTotalQuantityComparator.invalidateWidget(Client.meslayerContinueWidget); // L: 12204
-			Client.meslayerContinueWidget = null; // L: 12205
-		}
-
-		Interpreter.field833 = false; // L: 12207
-	} // L: 12208
+	}
 }

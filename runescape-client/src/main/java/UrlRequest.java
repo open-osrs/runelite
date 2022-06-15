@@ -1,58 +1,66 @@
 import java.net.URL;
+import java.util.List;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cb")
+@ObfuscatedName("ct")
 @Implements("UrlRequest")
 public class UrlRequest {
-	@ObfuscatedName("ef")
-	@ObfuscatedSignature(
-		descriptor = "Lle;"
-	)
-	@Export("archive11")
-	static Archive archive11;
-	@ObfuscatedName("o")
+	@ObfuscatedName("us")
+	static List field1373;
+	@ObfuscatedName("c")
 	@Export("url")
 	final URL url;
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@Export("isDone0")
 	volatile boolean isDone0;
-	@ObfuscatedName("l")
+	@ObfuscatedName("q")
 	@Export("response0")
 	volatile byte[] response0;
 
 	UrlRequest(URL var1) {
-		this.url = var1; // L: 115
-	} // L: 116
+		this.url = var1; // L: 118
+	} // L: 119
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(I)Z",
-		garbageValue = "1235200526"
+		descriptor = "(B)Z",
+		garbageValue = "-60"
 	)
 	@Export("isDone")
 	public boolean isDone() {
-		return this.isDone0; // L: 119
+		return this.isDone0; // L: 122
+	}
+
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "(I)[B",
+		garbageValue = "-1112773966"
+	)
+	@Export("getResponse")
+	public byte[] getResponse() {
+		return this.response0; // L: 126
 	}
 
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(I)[B",
-		garbageValue = "-1622605923"
+		descriptor = "(I)Ljava/lang/String;",
+		garbageValue = "-2136536725"
 	)
-	@Export("getResponse")
-	public byte[] getResponse() {
-		return this.response0; // L: 123
+	public String method2553() {
+		return this.url.toString(); // L: 130
 	}
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(B)Ljava/lang/String;",
-		garbageValue = "28"
+		descriptor = "(ZZI)I",
+		garbageValue = "-1626715483"
 	)
-	public String method2556() {
-		return this.url.toString(); // L: 127
+	public static int method2557(boolean var0, boolean var1) {
+		byte var2 = 0; // L: 143
+		int var3 = var2 + NetCache.NetCache_pendingPriorityWritesCount + NetCache.NetCache_pendingPriorityResponsesCount; // L: 144
+		return var3; // L: 145
 	}
 }

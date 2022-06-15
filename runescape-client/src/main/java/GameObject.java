@@ -1,92 +1,97 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
+import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("hx")
+@ObfuscatedName("hb")
 @Implements("GameObject")
 public final class GameObject {
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -942035955
+		intValue = 555755513
 	)
 	@Export("plane")
 	int plane;
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -97756121
+		intValue = 1199180827
 	)
 	@Export("z")
 	int z;
-	@ObfuscatedName("l")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = 174940337
+		intValue = 1171704683
 	)
 	@Export("centerX")
 	int centerX;
-	@ObfuscatedName("k")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = 474371985
+		intValue = -1998426191
 	)
 	@Export("centerY")
 	int centerY;
-	@ObfuscatedName("a")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "Lgx;"
+		descriptor = "Lgj;"
 	)
 	@Export("renderable")
 	public Renderable renderable;
-	@ObfuscatedName("m")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = -178209059
+		intValue = 2060742587
 	)
 	@Export("orientation")
 	int orientation;
-	@ObfuscatedName("p")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 1571383405
+		intValue = 780367115
 	)
 	@Export("startX")
 	int startX;
-	@ObfuscatedName("s")
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = -1260565151
+		intValue = -16124731
 	)
 	@Export("endX")
 	int endX;
-	@ObfuscatedName("r")
+	@ObfuscatedName("y")
 	@ObfuscatedGetter(
-		intValue = 1892090883
+		intValue = 1663298221
 	)
 	@Export("startY")
 	int startY;
-	@ObfuscatedName("v")
+	@ObfuscatedName("i")
 	@ObfuscatedGetter(
-		intValue = 1693444283
+		intValue = -2083887369
 	)
 	@Export("endY")
 	int endY;
-	@ObfuscatedName("y")
+	@ObfuscatedName("s")
 	@ObfuscatedGetter(
-		intValue = -986708627
+		intValue = -1662545459
 	)
-	int field2697;
-	@ObfuscatedName("c")
+	int field2655;
+	@ObfuscatedName("t")
 	@ObfuscatedGetter(
-		intValue = -24170279
+		intValue = 1055321127
 	)
 	@Export("lastDrawn")
 	int lastDrawn;
-	@ObfuscatedName("w")
+	@ObfuscatedName("z")
 	@ObfuscatedGetter(
-		longValue = 9002525375587932575L
+		longValue = -5445393225516942137L
 	)
 	@Export("tag")
 	public long tag;
-	@ObfuscatedName("b")
+	@ObfuscatedName("r")
 	@ObfuscatedGetter(
-		intValue = -304681645
+		intValue = -1409812671
 	)
 	@Export("flags")
 	int flags;
@@ -96,79 +101,59 @@ public final class GameObject {
 		this.flags = 0; // L: 17
 	} // L: 19
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("s")
 	@ObfuscatedSignature(
-		descriptor = "(IIIB)Lbb;",
-		garbageValue = "1"
+		descriptor = "(S)Ljava/util/Date;",
+		garbageValue = "206"
 	)
-	@Export("getWorldMapScript")
-	static Script getWorldMapScript(int var0, int var1, int var2) {
-		int var3 = PcmPlayer.method744(var1, var0); // L: 38
-		Script var5 = (Script)Script.Script_cached.get((long)(var3 << 16)); // L: 41
-		Script var4;
-		if (var5 != null) { // L: 42
-			var4 = var5; // L: 43
-		} else {
-			String var6 = String.valueOf(var3); // L: 46
-			int var7 = class115.archive12.getGroupId(var6); // L: 47
-			if (var7 == -1) { // L: 48
-				var4 = null; // L: 49
-			} else {
-				label59: {
-					byte[] var8 = class115.archive12.takeFileFlat(var7); // L: 52
-					if (var8 != null) { // L: 53
-						if (var8.length <= 1) { // L: 54
-							var4 = null; // L: 55
-							break label59; // L: 56
-						}
+	static Date method4552() throws ParseException {
+		SimpleDateFormat var0 = new SimpleDateFormat("ddMMyyyyHH", Locale.ENGLISH); // L: 1132
+		var0.setLenient(false); // L: 1133
+		StringBuilder var1 = new StringBuilder(); // L: 1134
+		String[] var2 = Login.field911; // L: 1136
 
-						var5 = PcmPlayer.newScript(var8); // L: 58
-						if (var5 != null) { // L: 59
-							Script.Script_cached.put(var5, (long)(var3 << 16)); // L: 60
-							var4 = var5; // L: 61
-							break label59; // L: 62
-						}
-					}
-
-					var4 = null; // L: 65
-				}
+		for (int var3 = 0; var3 < var2.length; ++var3) { // L: 1137
+			String var4 = var2[var3]; // L: 1138
+			if (var4 == null) { // L: 1140
+				GraphicsObject.method1877("Date not valid.", "Please ensure all characters are populated.", ""); // L: 1141
+				return null; // L: 1142
 			}
+
+			var1.append(var4); // L: 1144
 		}
 
-		if (var4 != null) { // L: 68
-			return var4; // L: 69
-		} else {
-			int var12 = (-3 - var2 << 8) + var0; // L: 73
-			Script var14 = (Script)Script.Script_cached.get((long)(var12 << 16)); // L: 78
-			Script var13;
-			if (var14 != null) { // L: 79
-				var13 = var14; // L: 80
+		var1.append("12"); // L: 1148
+		return var0.parse(var1.toString()); // L: 1149
+	}
+
+	@ObfuscatedName("u")
+	@ObfuscatedSignature(
+		descriptor = "(ILbi;ZI)I",
+		garbageValue = "-1762087173"
+	)
+	static int method4553(int var0, Script var1, boolean var2) {
+		Widget var3 = var2 ? class124.scriptDotWidget : GrandExchangeOfferOwnWorldComparator.scriptActiveWidget; // L: 1209
+		if (var0 == ScriptOpcodes.CC_GETINVOBJECT) { // L: 1210
+			Interpreter.Interpreter_intStack[++class446.Interpreter_intStackSize - 1] = var3.itemId; // L: 1211
+			return 1; // L: 1212
+		} else if (var0 == ScriptOpcodes.CC_GETINVCOUNT) { // L: 1214
+			if (var3.itemId != -1) { // L: 1215
+				Interpreter.Interpreter_intStack[++class446.Interpreter_intStackSize - 1] = var3.itemQuantity;
 			} else {
-				String var9 = String.valueOf(var12); // L: 83
-				int var10 = class115.archive12.getGroupId(var9); // L: 84
-				if (var10 == -1) { // L: 85
-					var13 = null; // L: 86
-				} else {
-					byte[] var11 = class115.archive12.takeFileFlat(var10); // L: 89
-					if (var11 != null) { // L: 90
-						if (var11.length <= 1) { // L: 91
-							var13 = null; // L: 92
-							return var13 != null ? var13 : null; // L: 105 108
-						}
-
-						var14 = PcmPlayer.newScript(var11); // L: 95
-						if (var14 != null) { // L: 96
-							Script.Script_cached.put(var14, (long)(var12 << 16)); // L: 97
-							var13 = var14; // L: 98
-							return var13 != null ? var13 : null;
-						}
-					}
-
-					var13 = null; // L: 102
-				}
+				Interpreter.Interpreter_intStack[++class446.Interpreter_intStackSize - 1] = 0; // L: 1216
 			}
 
-			return var13 != null ? var13 : null;
+			return 1; // L: 1217
+		} else if (var0 == ScriptOpcodes.CC_GETID) { // L: 1219
+			Interpreter.Interpreter_intStack[++class446.Interpreter_intStackSize - 1] = var3.childIndex; // L: 1220
+			return 1; // L: 1221
+		} else if (var0 == 1707) { // L: 1223
+			Interpreter.Interpreter_intStack[++class446.Interpreter_intStackSize - 1] = var3.method5680() ? 1 : 0; // L: 1224
+			return 1; // L: 1225
+		} else if (var0 == 1708) { // L: 1227
+			return class29.method363(var3); // L: 1228
+		} else {
+			return var0 == 1709 ? WorldMapSection0.method4947(var3) : 2; // L: 1230 1231 1233
 		}
 	}
 }

@@ -4,37 +4,56 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ik")
+@ObfuscatedName("il")
 @Implements("WorldMapID")
 public class WorldMapID {
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lik;"
+		descriptor = "Lil;"
 	)
-	static final WorldMapID field2879;
+	static final WorldMapID field2843;
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "Lil;"
+	)
+	static final WorldMapID field2840;
+	@ObfuscatedName("k")
+	@ObfuscatedSignature(
+		descriptor = "Len;"
+	)
+	static ClanSettings field2842;
 	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		descriptor = "Lik;"
-	)
-	static final WorldMapID field2877;
-	@ObfuscatedName("l")
 	@ObfuscatedGetter(
-		intValue = 923674533
+		intValue = 785745011
 	)
 	@Export("value")
 	final int value;
 
 	static {
-		field2879 = new WorldMapID(0); // L: 4
-		field2877 = new WorldMapID(1); // L: 5
+		field2843 = new WorldMapID(0); // L: 4
+		field2840 = new WorldMapID(1); // L: 5
 	}
 
 	WorldMapID(int var1) {
-		this.value = var1;
+		this.value = var1; // L: 9
 	} // L: 10
 
-	@ObfuscatedName("o")
-	public static double method4811(double var0) {
-		return Math.exp(-var0 * var0 / 2.0D) / Math.sqrt(6.283185307179586D); // L: 9
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "(II)I",
+		garbageValue = "-1614868880"
+	)
+	@Export("Widget_unpackTargetMask")
+	public static int Widget_unpackTargetMask(int var0) {
+		return var0 >> 11 & 63; // L: 13
+	}
+
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		descriptor = "(IS)Z",
+		garbageValue = "255"
+	)
+	public static boolean method5003(int var0) {
+		return (var0 >> 20 & 1) != 0; // L: 21
 	}
 }

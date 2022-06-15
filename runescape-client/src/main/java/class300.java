@@ -1,13 +1,8 @@
-import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
-import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("kc")
-public final class class300 {
-	@ObfuscatedName("h")
-	@ObfuscatedSignature(
-		descriptor = "Lpx;"
-	)
-	@Export("NetCache_reference")
-	public static Buffer NetCache_reference;
+public class class300 {
+	static {
+		Math.sqrt(8192.0D); // L: 9
+	} // L: 10
 }

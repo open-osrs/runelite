@@ -5,24 +5,24 @@ import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("iy")
+@ObfuscatedName("ix")
 @Implements("WorldMapDecoration")
 public class WorldMapDecoration {
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -170825093
+		intValue = 1217125903
 	)
 	@Export("objectDefinitionId")
 	final int objectDefinitionId;
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = -727750889
+		intValue = -1822794685
 	)
 	@Export("decoration")
 	final int decoration;
-	@ObfuscatedName("l")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -1798867267
+		intValue = -1636858953
 	)
 	@Export("rotation")
 	final int rotation;
@@ -33,105 +33,64 @@ public class WorldMapDecoration {
 		this.rotation = var3; // L: 11
 	} // L: 12
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("a")
 	@ObfuscatedSignature(
-		descriptor = "(II)Z",
-		garbageValue = "2105271367"
+		descriptor = "(ILbi;ZI)I",
+		garbageValue = "-2049294776"
 	)
-	@Export("loadInterface")
-	public static boolean loadInterface(int var0) {
-		if (class120.Widget_loadedInterfaces[var0]) { // L: 246
-			return true;
-		} else if (!class134.Widget_archive.tryLoadGroup(var0)) { // L: 247
-			return false;
+	static int method4992(int var0, Script var1, boolean var2) {
+		Widget var3 = class140.getWidget(Interpreter.Interpreter_intStack[--class446.Interpreter_intStackSize]); // L: 1322
+		if (var0 == ScriptOpcodes.IF_GETX) { // L: 1323
+			Interpreter.Interpreter_intStack[++class446.Interpreter_intStackSize - 1] = var3.x; // L: 1324
+			return 1; // L: 1325
+		} else if (var0 == ScriptOpcodes.IF_GETY) { // L: 1327
+			Interpreter.Interpreter_intStack[++class446.Interpreter_intStackSize - 1] = var3.y; // L: 1328
+			return 1; // L: 1329
+		} else if (var0 == ScriptOpcodes.IF_GETWIDTH) { // L: 1331
+			Interpreter.Interpreter_intStack[++class446.Interpreter_intStackSize - 1] = var3.width; // L: 1332
+			return 1; // L: 1333
+		} else if (var0 == ScriptOpcodes.IF_GETHEIGHT) { // L: 1335
+			Interpreter.Interpreter_intStack[++class446.Interpreter_intStackSize - 1] = var3.height; // L: 1336
+			return 1; // L: 1337
+		} else if (var0 == ScriptOpcodes.IF_GETHIDE) { // L: 1339
+			Interpreter.Interpreter_intStack[++class446.Interpreter_intStackSize - 1] = var3.isHidden ? 1 : 0; // L: 1340
+			return 1; // L: 1341
+		} else if (var0 == ScriptOpcodes.IF_GETLAYER) { // L: 1343
+			Interpreter.Interpreter_intStack[++class446.Interpreter_intStackSize - 1] = var3.parentId; // L: 1344
+			return 1; // L: 1345
 		} else {
-			int var1 = class134.Widget_archive.getGroupFileCount(var0); // L: 248
-			if (var1 == 0) { // L: 249
-				class120.Widget_loadedInterfaces[var0] = true; // L: 250
-				return true; // L: 251
-			} else {
-				if (NetSocket.Widget_interfaceComponents[var0] == null) { // L: 253
-					NetSocket.Widget_interfaceComponents[var0] = new Widget[var1];
-				}
+			return 2; // L: 1347
+		}
+	}
 
-				for (int var2 = 0; var2 < var1; ++var2) { // L: 254
-					if (NetSocket.Widget_interfaceComponents[var0][var2] == null) { // L: 255
-						byte[] var3 = class134.Widget_archive.takeFile(var0, var2); // L: 256
-						if (var3 != null) { // L: 257
-							NetSocket.Widget_interfaceComponents[var0][var2] = new Widget(); // L: 258
-							NetSocket.Widget_interfaceComponents[var0][var2].id = var2 + (var0 << 16); // L: 259
-							if (var3[0] == -1) { // L: 260
-								NetSocket.Widget_interfaceComponents[var0][var2].decode(new Buffer(var3));
-							} else {
-								NetSocket.Widget_interfaceComponents[var0][var2].decodeLegacy(new Buffer(var3)); // L: 261
-							}
-						}
-					}
-				}
-
-				class120.Widget_loadedInterfaces[var0] = true; // L: 265
-				return true; // L: 266
+	@ObfuscatedName("ig")
+	@ObfuscatedSignature(
+		descriptor = "(B)V",
+		garbageValue = "-80"
+	)
+	@Export("Widget_runOnTargetLeave")
+	static void Widget_runOnTargetLeave() {
+		if (Client.isSpellSelected) { // L: 9573
+			Widget var0 = ScriptFrame.getWidgetChild(NetCache.selectedSpellWidget, Client.selectedSpellChildIndex); // L: 9574
+			if (var0 != null && var0.onTargetLeave != null) { // L: 9575
+				ScriptEvent var1 = new ScriptEvent(); // L: 9576
+				var1.widget = var0; // L: 9577
+				var1.args = var0.onTargetLeave; // L: 9578
+				BoundaryObject.runScriptEvent(var1); // L: 9579
 			}
-		}
-	}
 
-	@ObfuscatedName("f")
-	@ObfuscatedSignature(
-		descriptor = "(ILbb;ZI)I",
-		garbageValue = "1988799748"
-	)
-	static int method4804(int var0, Script var1, boolean var2) {
-		Widget var3 = class92.getWidget(Interpreter.Interpreter_intStack[--class12.Interpreter_intStackSize]); // L: 1341
-		if (var0 == ScriptOpcodes.IF_GETSCROLLX) { // L: 1342
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.scrollX; // L: 1343
-			return 1; // L: 1344
-		} else if (var0 == ScriptOpcodes.IF_GETSCROLLY) { // L: 1346
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.scrollY; // L: 1347
-			return 1; // L: 1348
-		} else if (var0 == ScriptOpcodes.IF_GETTEXT) { // L: 1350
-			Interpreter.Interpreter_stringStack[++class9.Interpreter_stringStackSize - 1] = var3.text; // L: 1351
-			return 1; // L: 1352
-		} else if (var0 == ScriptOpcodes.IF_GETSCROLLWIDTH) { // L: 1354
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.scrollWidth; // L: 1355
-			return 1; // L: 1356
-		} else if (var0 == ScriptOpcodes.IF_GETSCROLLHEIGHT) { // L: 1358
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.scrollHeight; // L: 1359
-			return 1; // L: 1360
-		} else if (var0 == ScriptOpcodes.IF_GETMODELZOOM) { // L: 1362
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.modelZoom; // L: 1363
-			return 1; // L: 1364
-		} else if (var0 == ScriptOpcodes.IF_GETMODELANGLE_X) { // L: 1366
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.modelAngleX; // L: 1367
-			return 1; // L: 1368
-		} else if (var0 == ScriptOpcodes.IF_GETMODELANGLE_Z) { // L: 1370
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.modelAngleZ; // L: 1371
-			return 1; // L: 1372
-		} else if (var0 == ScriptOpcodes.IF_GETMODELANGLE_Y) { // L: 1374
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.modelAngleY; // L: 1375
-			return 1; // L: 1376
-		} else if (var0 == ScriptOpcodes.IF_GETTRANS) { // L: 1378
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.transparencyTop; // L: 1379
-			return 1; // L: 1380
-		} else if (var0 == 2610) { // L: 1382
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.transparencyBot; // L: 1383
-			return 1; // L: 1384
-		} else if (var0 == ScriptOpcodes.IF_GETCOLOUR) { // L: 1386
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.color; // L: 1387
-			return 1; // L: 1388
-		} else if (var0 == ScriptOpcodes.IF_GETFILLCOLOUR) { // L: 1390
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.color2; // L: 1391
-			return 1; // L: 1392
-		} else if (var0 == 2613) { // L: 1394
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.fillMode.rsOrdinal(); // L: 1395
-			return 1; // L: 1396
-		} else if (var0 == ScriptOpcodes.IF_GETMODELTRANSPARENT) { // L: 1398
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.modelTransparency ? 1 : 0; // L: 1399
-			return 1; // L: 1400
-		} else if (var0 != 2615 && var0 != 2616) { // L: 1402
-			return 2; // L: 1406
-		} else {
-			++class12.Interpreter_intStackSize; // L: 1403
-			return 1; // L: 1404
+			Client.selectedSpellItemId = -1; // L: 9581
+			Client.isSpellSelected = false; // L: 9582
+			ChatChannel.invalidateWidget(var0); // L: 9583
 		}
-	}
+	} // L: 9584
+
+	@ObfuscatedName("lp")
+	@ObfuscatedSignature(
+		descriptor = "(II)V",
+		garbageValue = "1243783436"
+	)
+	static void method4991(int var0) {
+		Client.oculusOrbState = var0; // L: 12414
+	} // L: 12415
 }

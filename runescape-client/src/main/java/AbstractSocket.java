@@ -4,57 +4,66 @@ import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("nf")
+@ObfuscatedName("nl")
 @Implements("AbstractSocket")
 public abstract class AbstractSocket {
-	protected AbstractSocket() {
+	AbstractSocket() {
 	} // L: 7
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(I)V",
-		garbageValue = "731891927"
-	)
-	@Export("close")
-	public abstract void close();
-
-	@ObfuscatedName("q")
-	@ObfuscatedSignature(
-		descriptor = "(B)I",
-		garbageValue = "18"
-	)
-	@Export("readUnsignedByte")
-	public abstract int readUnsignedByte() throws IOException;
-
-	@ObfuscatedName("l")
-	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-1429957580"
-	)
-	@Export("available")
-	public abstract int available() throws IOException;
-
-	@ObfuscatedName("k")
-	@ObfuscatedSignature(
-		descriptor = "(II)Z",
-		garbageValue = "-15219997"
+		descriptor = "(IB)Z",
+		garbageValue = "1"
 	)
 	@Export("isAvailable")
 	public abstract boolean isAvailable(int var1) throws IOException;
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("q")
+	@ObfuscatedSignature(
+		descriptor = "(I)I",
+		garbageValue = "-439883726"
+	)
+	@Export("available")
+	public abstract int available() throws IOException;
+
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		descriptor = "(I)I",
+		garbageValue = "-1889844897"
+	)
+	@Export("readUnsignedByte")
+	public abstract int readUnsignedByte() throws IOException;
+
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
 		descriptor = "([BIII)I",
-		garbageValue = "-642682113"
+		garbageValue = "695516749"
 	)
 	@Export("read")
 	public abstract int read(byte[] var1, int var2, int var3) throws IOException;
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
 		descriptor = "([BIII)V",
-		garbageValue = "257086671"
+		garbageValue = "1416716039"
 	)
 	@Export("write")
 	public abstract void write(byte[] var1, int var2, int var3) throws IOException;
+
+	@ObfuscatedName("g")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "-17278531"
+	)
+	@Export("close")
+	public abstract void close();
+
+	@ObfuscatedName("e")
+	@ObfuscatedSignature(
+		descriptor = "(Llh;IB)Lqu;",
+		garbageValue = "-106"
+	)
+	public static IndexedSprite method6819(AbstractArchive var0, int var1) {
+		return !class431.method7559(var0, var1) ? null : class390.method7053(); // L: 131 132
+	}
 }

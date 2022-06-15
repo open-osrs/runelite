@@ -4,51 +4,51 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("ht")
+@ObfuscatedName("hk")
 @Implements("TextureProvider")
 public class TextureProvider implements TextureLoader {
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "[Lgo;"
+		descriptor = "[Lgd;"
 	)
 	@Export("textures")
 	Texture[] textures;
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "Llv;"
+		descriptor = "Llo;"
 	)
 	@Export("deque")
 	NodeDeque deque;
-	@ObfuscatedName("l")
+	@ObfuscatedName("q")
 	@ObfuscatedGetter(
-		intValue = -1556133807
+		intValue = -1240613953
 	)
 	@Export("capacity")
 	int capacity;
-	@ObfuscatedName("k")
+	@ObfuscatedName("f")
 	@ObfuscatedGetter(
-		intValue = -1550792351
+		intValue = 131497903
 	)
 	@Export("remaining")
 	int remaining;
-	@ObfuscatedName("a")
+	@ObfuscatedName("j")
 	@Export("brightness")
 	double brightness;
-	@ObfuscatedName("m")
+	@ObfuscatedName("e")
 	@ObfuscatedGetter(
-		intValue = 125957321
+		intValue = 2025819025
 	)
 	@Export("textureSize")
 	int textureSize;
-	@ObfuscatedName("p")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
-		descriptor = "Llp;"
+		descriptor = "Llh;"
 	)
 	@Export("archive")
 	AbstractArchive archive;
 
 	@ObfuscatedSignature(
-		descriptor = "(Llp;Llp;IDI)V"
+		descriptor = "(Llh;Llh;IDI)V"
 	)
 	public TextureProvider(AbstractArchive var1, AbstractArchive var2, int var3, double var4, int var6) {
 		this.deque = new NodeDeque(); // L: 9
@@ -71,10 +71,10 @@ public class TextureProvider implements TextureLoader {
 
 	} // L: 29
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "-1270321324"
+		descriptor = "(B)I",
+		garbageValue = "-29"
 	)
 	@Export("getLoadedPercentage")
 	public int getLoadedPercentage() {
@@ -90,7 +90,7 @@ public class TextureProvider implements TextureLoader {
 
 				for (int var7 = 0; var7 < var6.length; ++var7) { // L: 43
 					int var8 = var6[var7]; // L: 44
-					if (this.archive.method5668(var8)) { // L: 46
+					if (this.archive.method5849(var8)) { // L: 46
 						++var2; // L: 47
 					}
 				}
@@ -104,17 +104,17 @@ public class TextureProvider implements TextureLoader {
 		}
 	}
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@Export("setBrightness")
 	public void setBrightness(double var1) {
 		this.brightness = var1; // L: 60
 		this.clear(); // L: 61
 	} // L: 62
 
-	@ObfuscatedName("l")
+	@ObfuscatedName("q")
 	@ObfuscatedSignature(
-		descriptor = "(II)[I",
-		garbageValue = "-1172311447"
+		descriptor = "(IB)[I",
+		garbageValue = "24"
 	)
 	@Export("getTexturePixels")
 	public int[] getTexturePixels(int var1) {
@@ -144,39 +144,39 @@ public class TextureProvider implements TextureLoader {
 		return null; // L: 84
 	}
 
-	@ObfuscatedName("k")
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
-		descriptor = "(II)I",
-		garbageValue = "-1180986754"
+		descriptor = "(IS)I",
+		garbageValue = "-3917"
 	)
 	@Export("getAverageTextureRGB")
 	public int getAverageTextureRGB(int var1) {
 		return this.textures[var1] != null ? this.textures[var1].averageRGB : 0; // L: 88 89
 	}
 
-	@ObfuscatedName("a")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
 		descriptor = "(IB)Z",
-		garbageValue = "53"
+		garbageValue = "-52"
 	)
-	public boolean vmethod4381(int var1) {
-		return this.textures[var1].field2332; // L: 93
+	public boolean vmethod4538(int var1) {
+		return this.textures[var1].field2293; // L: 93
 	}
 
-	@ObfuscatedName("m")
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
-		descriptor = "(IB)Z",
-		garbageValue = "40"
+		descriptor = "(II)Z",
+		garbageValue = "-1596996574"
 	)
 	@Export("isLowDetail")
 	public boolean isLowDetail(int var1) {
 		return this.textureSize == 64; // L: 97
 	}
 
-	@ObfuscatedName("p")
+	@ObfuscatedName("g")
 	@ObfuscatedSignature(
 		descriptor = "(I)V",
-		garbageValue = "412770361"
+		garbageValue = "586737024"
 	)
 	@Export("clear")
 	public void clear() {
@@ -190,10 +190,10 @@ public class TextureProvider implements TextureLoader {
 		this.remaining = this.capacity; // L: 105
 	} // L: 106
 
-	@ObfuscatedName("s")
+	@ObfuscatedName("w")
 	@ObfuscatedSignature(
 		descriptor = "(II)V",
-		garbageValue = "1167642279"
+		garbageValue = "-924908553"
 	)
 	@Export("animate")
 	public void animate(int var1) {
@@ -207,59 +207,117 @@ public class TextureProvider implements TextureLoader {
 
 	} // L: 116
 
-	@ObfuscatedName("ai")
+	@ObfuscatedName("ia")
 	@ObfuscatedSignature(
-		descriptor = "(ILbb;ZI)I",
-		garbageValue = "-496024306"
+		descriptor = "(IIIILjava/lang/String;I)V",
+		garbageValue = "-18765802"
 	)
-	static int method4246(int var0, Script var1, boolean var2) {
-		if (var0 != 7000 && var0 != 7005 && var0 != 7010 && var0 != 7015 && var0 != 7020 && var0 != 7025 && var0 != 7030 && var0 != 7035) { // L: 4547
-			if (var0 != 7001 && var0 != 7002 && var0 != 7011 && var0 != 7012 && var0 != 7021 && var0 != 7022) { // L: 4551
-				if (var0 != 7003 && var0 != 7013 && var0 != 7023) { // L: 4555
-					if (var0 != 7006 && var0 != 7007 && var0 != 7016 && var0 != 7017 && var0 != 7026 && var0 != 7027) { // L: 4559
-						if (var0 != 7008 && var0 != 7018 && var0 != 7028) { // L: 4563
-							if (var0 != 7031 && var0 != 7032) { // L: 4567
-								if (var0 == 7033) { // L: 4572
-									--class9.Interpreter_stringStackSize; // L: 4573
-									return 1; // L: 4574
-								} else if (var0 != 7036 && var0 != 7037) { // L: 4576
-									if (var0 == 7038) { // L: 4580
-										--class12.Interpreter_intStackSize; // L: 4581
-										return 1; // L: 4582
-									} else if (var0 != 7004 && var0 != 7009 && var0 != 7014 && var0 != 7019 && var0 != 7024 && var0 != 7029 && var0 != 7034 && var0 != 7039) { // L: 4584
-										return 2; // L: 4588
-									} else {
-										--class12.Interpreter_intStackSize; // L: 4585
-										return 1; // L: 4586
-									}
-								} else {
-									class12.Interpreter_intStackSize -= 2; // L: 4577
-									return 1; // L: 4578
-								}
-							} else {
-								--class9.Interpreter_stringStackSize; // L: 4568
-								--class12.Interpreter_intStackSize; // L: 4569
-								return 1; // L: 4570
-							}
-						} else {
-							--class12.Interpreter_intStackSize; // L: 4564
-							return 1; // L: 4565
-						}
-					} else {
-						class12.Interpreter_intStackSize -= 2; // L: 4560
-						return 1; // L: 4561
-					}
-				} else {
-					class12.Interpreter_intStackSize -= 2; // L: 4556
-					return 1; // L: 4557
-				}
-			} else {
-				class12.Interpreter_intStackSize -= 3; // L: 4552
-				return 1; // L: 4553
+	@Export("widgetDefaultMenuAction")
+	static void widgetDefaultMenuAction(int var0, int var1, int var2, int var3, String var4) {
+		Widget var5 = ScriptFrame.getWidgetChild(var1, var2); // L: 9595
+		if (var5 != null) { // L: 9596
+			if (var5.onOp != null) { // L: 9597
+				ScriptEvent var6 = new ScriptEvent(); // L: 9598
+				var6.widget = var5; // L: 9599
+				var6.opIndex = var0; // L: 9600
+				var6.targetName = var4; // L: 9601
+				var6.args = var5.onOp; // L: 9602
+				BoundaryObject.runScriptEvent(var6); // L: 9603
 			}
-		} else {
-			class12.Interpreter_intStackSize -= 5; // L: 4548
-			return 1; // L: 4549
+
+			boolean var11 = true; // L: 9605
+			if (var5.contentType > 0) { // L: 9606
+				var11 = Message.method1065(var5);
+			}
+
+			if (var11) { // L: 9607
+				int var8 = class124.getWidgetFlags(var5); // L: 9609
+				int var9 = var0 - 1; // L: 9610
+				boolean var7 = (var8 >> var9 + 1 & 1) != 0; // L: 9612
+				if (var7) { // L: 9614
+					PacketBufferNode var10;
+					if (var0 == 1) { // L: 9617
+						var10 = EnumComposition.getPacketBufferNode(ClientPacket.field2934, Client.packetWriter.isaacCipher); // L: 9619
+						var10.packetBuffer.writeInt(var1); // L: 9620
+						var10.packetBuffer.writeShort(var2); // L: 9621
+						var10.packetBuffer.writeShort(var3); // L: 9622
+						Client.packetWriter.addNode(var10); // L: 9623
+					}
+
+					if (var0 == 2) { // L: 9625
+						var10 = EnumComposition.getPacketBufferNode(ClientPacket.field2983, Client.packetWriter.isaacCipher); // L: 9627
+						var10.packetBuffer.writeInt(var1); // L: 9628
+						var10.packetBuffer.writeShort(var2); // L: 9629
+						var10.packetBuffer.writeShort(var3); // L: 9630
+						Client.packetWriter.addNode(var10); // L: 9631
+					}
+
+					if (var0 == 3) { // L: 9633
+						var10 = EnumComposition.getPacketBufferNode(ClientPacket.field2930, Client.packetWriter.isaacCipher); // L: 9635
+						var10.packetBuffer.writeInt(var1); // L: 9636
+						var10.packetBuffer.writeShort(var2); // L: 9637
+						var10.packetBuffer.writeShort(var3); // L: 9638
+						Client.packetWriter.addNode(var10); // L: 9639
+					}
+
+					if (var0 == 4) { // L: 9641
+						var10 = EnumComposition.getPacketBufferNode(ClientPacket.field2915, Client.packetWriter.isaacCipher); // L: 9643
+						var10.packetBuffer.writeInt(var1); // L: 9644
+						var10.packetBuffer.writeShort(var2); // L: 9645
+						var10.packetBuffer.writeShort(var3); // L: 9646
+						Client.packetWriter.addNode(var10); // L: 9647
+					}
+
+					if (var0 == 5) { // L: 9649
+						var10 = EnumComposition.getPacketBufferNode(ClientPacket.field2905, Client.packetWriter.isaacCipher); // L: 9651
+						var10.packetBuffer.writeInt(var1); // L: 9652
+						var10.packetBuffer.writeShort(var2); // L: 9653
+						var10.packetBuffer.writeShort(var3); // L: 9654
+						Client.packetWriter.addNode(var10); // L: 9655
+					}
+
+					if (var0 == 6) { // L: 9657
+						var10 = EnumComposition.getPacketBufferNode(ClientPacket.field2954, Client.packetWriter.isaacCipher); // L: 9659
+						var10.packetBuffer.writeInt(var1); // L: 9660
+						var10.packetBuffer.writeShort(var2); // L: 9661
+						var10.packetBuffer.writeShort(var3); // L: 9662
+						Client.packetWriter.addNode(var10); // L: 9663
+					}
+
+					if (var0 == 7) { // L: 9665
+						var10 = EnumComposition.getPacketBufferNode(ClientPacket.field2963, Client.packetWriter.isaacCipher); // L: 9667
+						var10.packetBuffer.writeInt(var1); // L: 9668
+						var10.packetBuffer.writeShort(var2); // L: 9669
+						var10.packetBuffer.writeShort(var3); // L: 9670
+						Client.packetWriter.addNode(var10); // L: 9671
+					}
+
+					if (var0 == 8) { // L: 9673
+						var10 = EnumComposition.getPacketBufferNode(ClientPacket.field2996, Client.packetWriter.isaacCipher); // L: 9675
+						var10.packetBuffer.writeInt(var1); // L: 9676
+						var10.packetBuffer.writeShort(var2); // L: 9677
+						var10.packetBuffer.writeShort(var3); // L: 9678
+						Client.packetWriter.addNode(var10); // L: 9679
+					}
+
+					if (var0 == 9) { // L: 9681
+						var10 = EnumComposition.getPacketBufferNode(ClientPacket.field2974, Client.packetWriter.isaacCipher); // L: 9683
+						var10.packetBuffer.writeInt(var1); // L: 9684
+						var10.packetBuffer.writeShort(var2); // L: 9685
+						var10.packetBuffer.writeShort(var3); // L: 9686
+						Client.packetWriter.addNode(var10); // L: 9687
+					}
+
+					if (var0 == 10) { // L: 9689
+						var10 = EnumComposition.getPacketBufferNode(ClientPacket.field2952, Client.packetWriter.isaacCipher); // L: 9691
+						var10.packetBuffer.writeInt(var1); // L: 9692
+						var10.packetBuffer.writeShort(var2); // L: 9693
+						var10.packetBuffer.writeShort(var3); // L: 9694
+						Client.packetWriter.addNode(var10); // L: 9695
+					}
+
+				}
+			}
 		}
-	}
+	} // L: 9615 9697
 }

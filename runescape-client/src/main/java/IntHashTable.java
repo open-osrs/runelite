@@ -1,4 +1,3 @@
-import java.io.IOException;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedName;
@@ -7,7 +6,7 @@ import net.runelite.mapping.ObfuscatedSignature;
 @ObfuscatedName("qz")
 @Implements("IntHashTable")
 public class IntHashTable {
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@Export("array")
 	int[] array;
 
@@ -33,10 +32,10 @@ public class IntHashTable {
 
 	} // L: 17
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(IS)I",
-		garbageValue = "-5470"
+		descriptor = "(II)I",
+		garbageValue = "-1743119884"
 	)
 	@Export("get")
 	public int get(int var1) {
@@ -56,36 +55,4 @@ public class IntHashTable {
 			var3 = var3 + 1 & var2; // L: 26
 		}
 	}
-
-	@ObfuscatedName("ly")
-	@ObfuscatedSignature(
-		descriptor = "(Lpx;B)V",
-		garbageValue = "20"
-	)
-	static void method8124(Buffer var0) {
-		if (Client.randomDatData != null) { // L: 12625
-			var0.writeBytes(Client.randomDatData, 0, Client.randomDatData.length); // L: 12626
-		} else {
-			byte[] var2 = new byte[24]; // L: 12631
-
-			try {
-				JagexCache.JagexCache_randomDat.seek(0L); // L: 12633
-				JagexCache.JagexCache_randomDat.readFully(var2); // L: 12634
-
-				int var3;
-				for (var3 = 0; var3 < 24 && var2[var3] == 0; ++var3) { // L: 12635 12636 12637
-				}
-
-				if (var3 >= 24) { // L: 12639
-					throw new IOException();
-				}
-			} catch (Exception var6) {
-				for (int var4 = 0; var4 < 24; ++var4) { // L: 12642
-					var2[var4] = -1;
-				}
-			}
-
-			var0.writeBytes(var2, 0, var2.length); // L: 12647
-		}
-	} // L: 12627 12648
 }

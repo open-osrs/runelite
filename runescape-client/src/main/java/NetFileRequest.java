@@ -1,38 +1,43 @@
+import java.security.SecureRandom;
 import net.runelite.mapping.Export;
 import net.runelite.mapping.Implements;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("li")
+@ObfuscatedName("le")
 @Implements("NetFileRequest")
 public class NetFileRequest extends DualNode {
-	@ObfuscatedName("o")
+	@ObfuscatedName("p")
+	@Export("formattedOperatingSystemName")
+	public static String formattedOperatingSystemName;
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "Lle;"
+		descriptor = "Llc;"
 	)
 	@Export("archive")
 	public Archive archive;
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 211628067
+		intValue = -196698659
 	)
 	@Export("crc")
 	public int crc;
-	@ObfuscatedName("l")
+	@ObfuscatedName("q")
 	@Export("padding")
 	public byte padding;
 
 	NetFileRequest() {
 	} // L: 10
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/CharSequence;B)Z",
-		garbageValue = "112"
+		descriptor = "(I)Ljava/security/SecureRandom;",
+		garbageValue = "-1298247103"
 	)
-	@Export("isNumber")
-	public static boolean isNumber(CharSequence var0) {
-		return class162.method3207(var0, 10, true); // L: 35
+	static SecureRandom method5843() {
+		SecureRandom var0 = new SecureRandom(); // L: 39
+		var0.nextInt(); // L: 40
+		return var0; // L: 41
 	}
 }

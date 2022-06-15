@@ -2,91 +2,100 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("de")
+@ObfuscatedName("dl")
 public class class114 {
-	@ObfuscatedName("k")
-	public static final float field1435;
-	@ObfuscatedName("a")
-	public static final float field1436;
-	@ObfuscatedName("cs")
-	@ObfuscatedSignature(
-		descriptor = "[Lqd;"
-	)
-	@Export("worldSelectArrows")
-	static IndexedSprite[] worldSelectArrows;
-	@ObfuscatedName("ep")
-	@ObfuscatedSignature(
-		descriptor = "Lle;"
-	)
-	@Export("archive17")
-	static Archive archive17;
+	@ObfuscatedName("f")
+	public static final float field1429;
+	@ObfuscatedName("j")
+	public static final float field1432;
 
 	static {
-		field1435 = Math.ulp(1.0F); // L: 10
-		field1436 = 2.0F * field1435; // L: 11
+		field1429 = Math.ulp(1.0F); // L: 10
+		field1432 = 2.0F * field1429; // L: 11
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Ljava/lang/CharSequence;I)J",
-		garbageValue = "-1342157785"
+		descriptor = "(Llh;Llh;ZLmt;I)V",
+		garbageValue = "1005410507"
 	)
-	public static long method2626(CharSequence var0) {
-		long var1 = 0L; // L: 16
-		int var3 = var0.length(); // L: 17
+	public static void method2636(AbstractArchive var0, AbstractArchive var1, boolean var2, Font var3) {
+		UserComparator4.ItemDefinition_archive = var0; // L: 84
+		ItemComposition.ItemDefinition_modelArchive = var1; // L: 85
+		DevicePcmPlayerProvider.ItemDefinition_inMembersWorld = var2; // L: 86
+		PacketBufferNode.ItemDefinition_fileCount = UserComparator4.ItemDefinition_archive.getGroupFileCount(10); // L: 87
+		ItemComposition.ItemDefinition_fontPlain11 = var3; // L: 88
+	} // L: 89
 
-		for (int var4 = 0; var4 < var3; ++var4) { // L: 18
-			var1 *= 37L; // L: 19
-			char var5 = var0.charAt(var4); // L: 20
-			if (var5 >= 'A' && var5 <= 'Z') { // L: 21
-				var1 += (long)(var5 + 1 - 65);
-			} else if (var5 >= 'a' && var5 <= 'z') { // L: 22
-				var1 += (long)(var5 + 1 - 97);
-			} else if (var5 >= '0' && var5 <= '9') {
-				var1 += (long)(var5 + 27 - 48); // L: 23
-			}
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "(Ljava/lang/CharSequence;B)Z",
+		garbageValue = "-111"
+	)
+	@Export("isNumber")
+	public static boolean isNumber(CharSequence var0) {
+		boolean var2 = false; // L: 38
+		boolean var3 = false; // L: 39
+		int var4 = 0; // L: 40
+		int var5 = var0.length(); // L: 41
+		int var6 = 0;
 
-			if (var1 >= 177917621779460413L) { // L: 24
+		boolean var1;
+		while (true) {
+			if (var6 >= var5) {
+				var1 = var3; // L: 71
 				break;
 			}
-		}
 
-		while (0L == var1 % 37L && var1 != 0L) { // L: 26
-			var1 /= 37L;
-		}
+			label84: {
+				char var7 = var0.charAt(var6); // L: 43
+				if (var6 == 0) { // L: 44
+					if (var7 == '-') { // L: 45
+						var2 = true; // L: 46
+						break label84;
+					}
 
-		return var1; // L: 27
-	}
+					if (var7 == '+') { // L: 49
+						break label84;
+					}
+				}
 
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(II)Lgq;",
-		garbageValue = "111011513"
-	)
-	@Export("SequenceDefinition_get")
-	public static SequenceDefinition SequenceDefinition_get(int var0) {
-		SequenceDefinition var1 = (SequenceDefinition)SequenceDefinition.SequenceDefinition_cached.get((long)var0); // L: 46
-		if (var1 != null) { // L: 47
-			return var1;
-		} else {
-			byte[] var2 = SequenceDefinition.SequenceDefinition_archive.takeFile(12, var0); // L: 48
-			var1 = new SequenceDefinition(); // L: 49
-			if (var2 != null) { // L: 50
-				var1.decode(new Buffer(var2));
+				int var9;
+				if (var7 >= '0' && var7 <= '9') { // L: 51
+					var9 = var7 - '0';
+				} else if (var7 >= 'A' && var7 <= 'Z') { // L: 52
+					var9 = var7 - '7';
+				} else {
+					if (var7 < 'a' || var7 > 'z') { // L: 53
+						var1 = false; // L: 55
+						break;
+					}
+
+					var9 = var7 - 'W';
+				}
+
+				if (var9 >= 10) { // L: 58
+					var1 = false; // L: 59
+					break; // L: 60
+				}
+
+				if (var2) { // L: 62
+					var9 = -var9;
+				}
+
+				int var8 = var4 * 10 + var9; // L: 63
+				if (var4 != var8 / 10) { // L: 64
+					var1 = false; // L: 65
+					break; // L: 66
+				}
+
+				var4 = var8; // L: 68
+				var3 = true; // L: 69
 			}
 
-			var1.postDecode(); // L: 51
-			SequenceDefinition.SequenceDefinition_cached.put(var1, (long)var0); // L: 52
-			return var1; // L: 53
+			++var6; // L: 42
 		}
-	}
 
-	@ObfuscatedName("o")
-	@ObfuscatedSignature(
-		descriptor = "(I)I",
-		garbageValue = "809732836"
-	)
-	public static int method2637() {
-		return ViewportMouse.ViewportMouse_entityCount; // L: 44
+		return var1; // L: 73
 	}
 }

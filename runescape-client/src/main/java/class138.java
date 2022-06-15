@@ -2,109 +2,82 @@ import net.runelite.mapping.Export;
 import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
-import net.runelite.rs.ScriptOpcodes;
 
-@ObfuscatedName("ec")
+@ObfuscatedName("eq")
 public class class138 extends class128 {
-	@ObfuscatedName("hs")
-	@Export("xteaKeys")
-	static int[][] xteaKeys;
-	@ObfuscatedName("o")
-	@ObfuscatedGetter(
-		intValue = -1158452921
+	@ObfuscatedName("he")
+	@ObfuscatedSignature(
+		descriptor = "Lcd;"
 	)
-	int field1629;
-	@ObfuscatedName("q")
-	String field1627;
+	@Export("urlRequester")
+	static UrlRequester urlRequester;
+	@ObfuscatedName("c")
+	@ObfuscatedGetter(
+		intValue = -1956537991
+	)
+	int field1623;
+	@ObfuscatedName("v")
+	String field1620;
 	// $FF: synthetic field
 	@ObfuscatedSignature(
-		descriptor = "Leh;"
+		descriptor = "Lej;"
 	)
 	final class131 this$0;
 
 	@ObfuscatedSignature(
-		descriptor = "(Leh;)V"
+		descriptor = "(Lej;)V"
 	)
 	class138(class131 var1) {
 		this.this$0 = var1; // L: 323
 	}
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(Lpx;I)V",
-		garbageValue = "-611912046"
+		descriptor = "(Lqt;B)V",
+		garbageValue = "5"
 	)
-	void vmethod3040(Buffer var1) {
-		this.field1629 = var1.readInt(); // L: 326
-		this.field1627 = var1.readStringCp1252NullTerminated(); // L: 327
+	void vmethod3150(Buffer var1) {
+		this.field1623 = var1.readInt(); // L: 326
+		this.field1620 = var1.readStringCp1252NullTerminated(); // L: 327
 	} // L: 328
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(Lek;B)V",
-		garbageValue = "-73"
+		descriptor = "(Len;I)V",
+		garbageValue = "-1718344311"
 	)
-	void vmethod3041(ClanSettings var1) {
-		var1.method2900(this.field1629, this.field1627); // L: 331
+	void vmethod3149(ClanSettings var1) {
+		var1.method2968(this.field1623, this.field1620); // L: 331
 	} // L: 332
 
-	@ObfuscatedName("b")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
-		descriptor = "(ILbb;ZI)I",
-		garbageValue = "1258686923"
+		descriptor = "(Llh;B)V",
+		garbageValue = "4"
 	)
-	static int method2880(int var0, Script var1, boolean var2) {
-		Widget var3 = var2 ? Interpreter.scriptDotWidget : KeyHandler.scriptActiveWidget; // L: 1130
-		if (var0 == ScriptOpcodes.CC_GETSCROLLX) { // L: 1131
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.scrollX; // L: 1132
-			return 1; // L: 1133
-		} else if (var0 == ScriptOpcodes.CC_GETSCROLLY) { // L: 1135
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.scrollY; // L: 1136
-			return 1; // L: 1137
-		} else if (var0 == ScriptOpcodes.CC_GETTEXT) { // L: 1139
-			Interpreter.Interpreter_stringStack[++class9.Interpreter_stringStackSize - 1] = var3.text; // L: 1140
-			return 1; // L: 1141
-		} else if (var0 == ScriptOpcodes.CC_GETSCROLLWIDTH) { // L: 1143
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.scrollWidth; // L: 1144
-			return 1; // L: 1145
-		} else if (var0 == ScriptOpcodes.CC_GETSCROLLHEIGHT) { // L: 1147
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.scrollHeight; // L: 1148
-			return 1; // L: 1149
-		} else if (var0 == ScriptOpcodes.CC_GETMODELZOOM) { // L: 1151
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.modelZoom; // L: 1152
-			return 1; // L: 1153
-		} else if (var0 == ScriptOpcodes.CC_GETMODELANGLE_X) { // L: 1155
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.modelAngleX; // L: 1156
-			return 1; // L: 1157
-		} else if (var0 == ScriptOpcodes.CC_GETMODELANGLE_Z) { // L: 1159
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.modelAngleZ; // L: 1160
-			return 1; // L: 1161
-		} else if (var0 == ScriptOpcodes.CC_GETMODELANGLE_Y) { // L: 1163
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.modelAngleY; // L: 1164
-			return 1; // L: 1165
-		} else if (var0 == ScriptOpcodes.CC_GETTRANS) { // L: 1167
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.transparencyTop; // L: 1168
-			return 1; // L: 1169
-		} else if (var0 == 1610) { // L: 1171
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.transparencyBot; // L: 1172
-			return 1; // L: 1173
-		} else if (var0 == ScriptOpcodes.CC_GETCOLOUR) { // L: 1175
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.color; // L: 1176
-			return 1; // L: 1177
-		} else if (var0 == ScriptOpcodes.CC_GETFILLCOLOUR) { // L: 1179
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.color2; // L: 1180
-			return 1; // L: 1181
-		} else if (var0 == 1613) { // L: 1183
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.fillMode.rsOrdinal(); // L: 1184
-			return 1; // L: 1185
-		} else if (var0 == ScriptOpcodes.CC_GETMODELTRANSPARENT) { // L: 1187
-			Interpreter.Interpreter_intStack[++class12.Interpreter_intStackSize - 1] = var3.modelTransparency ? 1 : 0; // L: 1188
-			return 1; // L: 1189
-		} else if (var0 != 1615 && var0 != 1616) { // L: 1191
-			return 2; // L: 1195
-		} else {
-			++class12.Interpreter_intStackSize; // L: 1192
-			return 1; // L: 1193
+	public static void method2948(AbstractArchive var0) {
+		class435.field4666 = var0; // L: 19
+	} // L: 20
+
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		descriptor = "(IZIZI)V",
+		garbageValue = "1195912675"
+	)
+	@Export("sortWorldList")
+	static void sortWorldList(int var0, boolean var1, int var2, boolean var3) {
+		if (class362.World_worlds != null) { // L: 171
+			class131.doWorldSorting(0, class362.World_worlds.length - 1, var0, var1, var2, var3); // L: 172
 		}
+
+	} // L: 174
+
+	@ObfuscatedName("hj")
+	@ObfuscatedSignature(
+		descriptor = "(I)Z",
+		garbageValue = "1549613437"
+	)
+	static boolean method2944() {
+		return (Client.drawPlayerNames & 8) != 0; // L: 4953
 	}
 }

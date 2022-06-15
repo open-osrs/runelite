@@ -4,29 +4,28 @@ import net.runelite.mapping.ObfuscatedGetter;
 import net.runelite.mapping.ObfuscatedName;
 import net.runelite.mapping.ObfuscatedSignature;
 
-@ObfuscatedName("cg")
+@ObfuscatedName("cy")
 @Implements("TileItem")
 public final class TileItem extends Renderable {
-	@ObfuscatedName("sb")
-	@ObfuscatedGetter(
-		intValue = -1684889403
-	)
-	static int field1292;
-	@ObfuscatedName("ev")
+	@ObfuscatedName("ar")
+	protected static String field1301;
+	@ObfuscatedName("aw")
+	static String field1299;
+	@ObfuscatedName("hi")
 	@ObfuscatedSignature(
-		descriptor = "Lle;"
+		descriptor = "Lmt;"
 	)
-	@Export("archive9")
-	static Archive archive9;
-	@ObfuscatedName("o")
+	@Export("fontBold12")
+	static Font fontBold12;
+	@ObfuscatedName("c")
 	@ObfuscatedGetter(
-		intValue = -2046412949
+		intValue = -1688540919
 	)
 	@Export("id")
 	int id;
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedGetter(
-		intValue = 129863863
+		intValue = -895126303
 	)
 	@Export("quantity")
 	int quantity;
@@ -34,26 +33,22 @@ public final class TileItem extends Renderable {
 	TileItem() {
 	} // L: 11
 
-	@ObfuscatedName("q")
+	@ObfuscatedName("v")
 	@ObfuscatedSignature(
-		descriptor = "(I)Lhv;",
-		garbageValue = "-238822980"
+		descriptor = "(I)Lhy;",
+		garbageValue = "1081110576"
 	)
 	@Export("getModel")
 	protected final Model getModel() {
-		return FileSystem.ItemDefinition_get(this.id).getModel(this.quantity); // L: 14
+		return EnumComposition.ItemDefinition_get(this.id).getModel(this.quantity); // L: 14
 	}
 
-	@ObfuscatedName("fk")
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
-		descriptor = "(Lgq;IIIB)V",
-		garbageValue = "11"
+		descriptor = "(II)I",
+		garbageValue = "1179876648"
 	)
-	static void method2407(SequenceDefinition var0, int var1, int var2, int var3) {
-		if (Client.soundEffectCount < 50 && class12.clientPreferences.method2239() != 0) { // L: 3768
-			if (var0.field2209 != null && var0.field2209.containsKey(var1)) { // L: 3769
-				MouseHandler.method588((Integer)var0.field2209.get(var1), var2, var3); // L: 3770
-			}
-		}
-	} // L: 3771
+	public static int method2414(int var0) {
+		return class7.method51(ViewportMouse.ViewportMouse_entityTags[var0]); // L: 73
+	}
 }

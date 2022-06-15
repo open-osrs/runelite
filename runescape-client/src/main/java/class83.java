@@ -5,66 +5,84 @@ import net.runelite.mapping.ObfuscatedSignature;
 
 @ObfuscatedName("cm")
 public enum class83 implements MouseWheel {
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "Lcm;"
 	)
-	field1088(0, -1),
+	field1074(0, -1),
+	@ObfuscatedName("v")
+	@ObfuscatedSignature(
+		descriptor = "Lcm;"
+	)
+	field1084(1, 2),
 	@ObfuscatedName("q")
 	@ObfuscatedSignature(
 		descriptor = "Lcm;"
 	)
-	field1083(1, 2),
-	@ObfuscatedName("l")
+	field1075(2, 3),
+	@ObfuscatedName("f")
 	@ObfuscatedSignature(
 		descriptor = "Lcm;"
 	)
-	field1084(2, 3),
-	@ObfuscatedName("k")
+	field1077(3, 4),
+	@ObfuscatedName("j")
 	@ObfuscatedSignature(
 		descriptor = "Lcm;"
 	)
-	field1087(3, 4),
-	@ObfuscatedName("a")
+	field1078(4, 5),
+	@ObfuscatedName("e")
 	@ObfuscatedSignature(
 		descriptor = "Lcm;"
 	)
-	field1086(4, 5),
-	@ObfuscatedName("m")
-	@ObfuscatedSignature(
-		descriptor = "Lcm;"
-	)
-	field1092(5, 6);
+	field1079(5, 6);
 
-	@ObfuscatedName("n")
-	@Export("cacheSubPaths")
-	static String[] cacheSubPaths;
-	@ObfuscatedName("he")
-	@Export("regionMapArchiveIds")
-	static int[] regionMapArchiveIds;
-	@ObfuscatedName("p")
+	@ObfuscatedName("g")
 	@ObfuscatedGetter(
-		intValue = 403650745
+		intValue = -91214193
 	)
-	final int field1090;
-	@ObfuscatedName("s")
+	final int field1080;
+	@ObfuscatedName("w")
 	@ObfuscatedGetter(
-		intValue = 105353159
+		intValue = -1146405405
 	)
-	final int field1089;
+	final int field1081;
 
 	class83(int var3, int var4) {
-		this.field1090 = var3; // L: 21
-		this.field1089 = var4; // L: 22
+		this.field1080 = var3; // L: 21
+		this.field1081 = var4; // L: 22
 	} // L: 23
 
-	@ObfuscatedName("o")
+	@ObfuscatedName("c")
 	@ObfuscatedSignature(
 		descriptor = "(B)I",
-		garbageValue = "30"
+		garbageValue = "-100"
 	)
 	@Export("rsOrdinal")
 	public int rsOrdinal() {
-		return this.field1089; // L: 27
+		return this.field1081; // L: 27
+	}
+
+	@ObfuscatedName("f")
+	@ObfuscatedSignature(
+		descriptor = "(I)V",
+		garbageValue = "155608234"
+	)
+	public static void method2118() {
+		if (KeyHandler.KeyHandler_instance != null) { // L: 167
+			synchronized(KeyHandler.KeyHandler_instance) { // L: 168
+				KeyHandler.KeyHandler_instance = null; // L: 169
+			} // L: 170
+		}
+
+	} // L: 172
+
+	@ObfuscatedName("s")
+	@ObfuscatedSignature(
+		descriptor = "(CI)Z",
+		garbageValue = "563268449"
+	)
+	@Export("isDigit")
+	public static boolean isDigit(char var0) {
+		return var0 >= '0' && var0 <= '9'; // L: 159
 	}
 }
