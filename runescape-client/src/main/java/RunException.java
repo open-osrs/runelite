@@ -17,7 +17,8 @@ public class RunException extends RuntimeException {
 	@ObfuscatedGetter(
 		intValue = -906997917
 	)
-	public static int field4838;
+	@Export("RunException_revision")
+	public static int RunException_revision;
 	@ObfuscatedName("f")
 	@ObfuscatedGetter(
 		intValue = 47816443

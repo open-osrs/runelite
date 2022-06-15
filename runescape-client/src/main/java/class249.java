@@ -53,7 +53,7 @@ public abstract class class249 implements class251 {
 					return;
 				}
 
-				URL var3 = new URL(RunException.RunException_applet.getCodeBase(), "clienterror.ws?cv=" + RunException.field4838 + "&cs=" + RunException.field4839 + "&u=" + RunException.localPlayerName + "&v1=" + class360.javaVendor + "&v2=" + TaskHandler.javaVersion + "&ct=" + class20.clientType + "&e=" + var2); // L: 46
+				URL var3 = new URL(RunException.RunException_applet.getCodeBase(), "clienterror.ws?cv=" + RunException.RunException_revision + "&cs=" + RunException.field4839 + "&u=" + RunException.localPlayerName + "&v1=" + class360.javaVendor + "&v2=" + TaskHandler.javaVersion + "&ct=" + class20.clientType + "&e=" + var2); // L: 46
 				DataInputStream var4 = new DataInputStream(var3.openStream()); // L: 47
 				var4.read(); // L: 48
 				var4.close(); // L: 49

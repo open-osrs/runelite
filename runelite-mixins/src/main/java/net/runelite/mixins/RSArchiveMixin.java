@@ -20,7 +20,7 @@ public abstract class RSArchiveMixin implements RSArchive
 
 	@MethodHook(value = "<init>", end = true)
 	@Inject
-	private void rl$init(RSArchiveDisk var1, RSArchiveDisk var2, int archive, boolean var4, boolean var5, boolean var6)
+	private void rl$init(RSArchiveDisk var1, RSArchiveDisk var2, int archive, boolean var4, boolean var5, boolean var6, boolean var7)
 	{
 		if (archive >= 0 && archive < 21)
 		{

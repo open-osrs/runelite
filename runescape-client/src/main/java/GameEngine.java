@@ -456,7 +456,7 @@ public abstract class GameEngine extends Applet implements Runnable, FocusListen
 			gameEngine = this; // L: 224
 			Script.canvasWidth = var1; // L: 225
 			class78.canvasHeight = var2; // L: 226
-			RunException.field4838 = var3; // L: 227
+			RunException.RunException_revision = var3; // L: 227
 			RunException.field4839 = var4; // L: 228
 			RunException.RunException_applet = this; // L: 229
 			if (taskHandler == null) { // L: 230
