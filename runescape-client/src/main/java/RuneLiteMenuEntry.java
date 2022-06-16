@@ -4,11 +4,8 @@ import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.NPC;
 import net.runelite.api.Player;
-import net.runelite.api.events.NpcSpawned;
 import net.runelite.api.widgets.Widget;
 import net.runelite.rs.api.RSClient;
-import net.runelite.rs.api.RSNPC;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class RuneLiteMenuEntry implements MenuEntry
 {

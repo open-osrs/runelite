@@ -94,7 +94,7 @@ public class RuneliteMenuEntry extends AbstractInjector
 		{
 			Instruction i = iterator.next();
 
-			if (found < 4)
+			if (found < 1)
 			{
 				if (!(i instanceof GetStatic))
 				{
