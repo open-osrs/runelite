@@ -45,6 +45,11 @@ public abstract class RSAbstractArchiveMixin implements RSAbstractArchive
 		final byte[] rsData = copy$getConfigData(groupId, fileId);
 		final int archiveId = ((RSArchive) this).getIndex();
 
+		if (OverlayIndex.hasCacheTransformer(archiveId, groupId))
+		{
+			return OverlayIndex.getCacheTransformer(archiveId, groupId).apply(rsData);
+		}
+
 		if (!OverlayIndex.hasOverlay(archiveId, groupId))
 		{
 			return rsData;
