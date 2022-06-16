@@ -41,7 +41,7 @@ public class UserComparator6 extends AbstractUserComparator {
 		garbageValue = "20"
 	)
 	public static class435 method2626(int var0) {
-		class435 var1 = (class435)class435.PlayerAppearance_cachedModels.get((long)var0); // L: 23
+		class435 var1 = (class435)class435.DBTableType_cache.get((long)var0); // L: 23
 		if (var1 != null) { // L: 24
 			return var1;
 		} else {
@@ -52,7 +52,7 @@ public class UserComparator6 extends AbstractUserComparator {
 			}
 
 			var1.method7602(); // L: 28
-			class435.PlayerAppearance_cachedModels.put(var1, (long)var0); // L: 29
+			class435.DBTableType_cache.put(var1, (long)var0); // L: 29
 			return var1; // L: 30
 		}
 	}

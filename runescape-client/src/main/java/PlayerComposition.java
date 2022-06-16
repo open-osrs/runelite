@@ -25,8 +25,8 @@ public class PlayerComposition {
 	@ObfuscatedSignature(
 		descriptor = "Lii;"
 	)
-	@Export("Widget_cachedSpriteMasks")
-	static EvictingDualNodeHashTable Widget_cachedSpriteMasks;
+	@Export("PlayerAppearance_cachedModels")
+	static EvictingDualNodeHashTable PlayerAppearance_cachedModels;
 	@ObfuscatedName("c")
 	@Export("equipment")
 	int[] equipment;
@@ -63,7 +63,7 @@ public class PlayerComposition {
 
 	static {
 		equipmentIndices = new int[]{8, 11, 4, 6, 9, 7, 10}; // L: 26
-		Widget_cachedSpriteMasks = new EvictingDualNodeHashTable(260);
+		PlayerAppearance_cachedModels = new EvictingDualNodeHashTable(260);
 	}
 
 	public PlayerComposition() {
@@ -261,7 +261,7 @@ public class PlayerComposition {
 		this.equipment[5] = var3;
 		this.equipment[9] = var4;
 		if (0L != var1 && this.hash != var1 || this.field3341) {
-			Widget_cachedSpriteMasks.remove(var1);
+			PlayerAppearance_cachedModels.remove(var1);
 		}
 
 	} // L: 151
@@ -296,7 +296,7 @@ public class PlayerComposition {
 				}
 			}
 
-			Model var18 = (Model)Widget_cachedSpriteMasks.get(var5);
+			Model var18 = (Model) PlayerAppearance_cachedModels.get(var5);
 			if (var18 == null) {
 				boolean var9 = false; // L: 173
 
@@ -314,7 +314,7 @@ public class PlayerComposition {
 
 				if (var9) { // L: 183
 					if (-1L != this.field3345) { // L: 184
-						var18 = (Model)Widget_cachedSpriteMasks.get(this.field3345);
+						var18 = (Model) PlayerAppearance_cachedModels.get(this.field3345);
 					}
 
 					if (var18 == null) { // L: 185
@@ -376,7 +376,7 @@ public class PlayerComposition {
 					}
 
 					var18 = var20.toModel(64, 850, -30, -50, -30); // L: 224
-					Widget_cachedSpriteMasks.put(var18, var5); // L: 225
+					PlayerAppearance_cachedModels.put(var18, var5); // L: 225
 					this.field3345 = var5; // L: 226
 				}
 			}

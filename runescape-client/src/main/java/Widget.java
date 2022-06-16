@@ -14,24 +14,26 @@ public class Widget extends Node {
 	@ObfuscatedSignature(
 		descriptor = "Lii;"
 	)
-	public static EvictingDualNodeHashTable field3360;
+	@Export("Widget_cachedSprites")
+	public static EvictingDualNodeHashTable Widget_cachedSprites;
 	@ObfuscatedName("ad")
 	@ObfuscatedSignature(
 		descriptor = "Lii;"
 	)
-	public static EvictingDualNodeHashTable field3361;
+	@Export("Widget_cachedModels")
+	public static EvictingDualNodeHashTable Widget_cachedModels;
 	@ObfuscatedName("ak")
 	@ObfuscatedSignature(
 		descriptor = "Lii;"
 	)
-	@Export("archive0")
-	public static EvictingDualNodeHashTable archive0;
+	@Export("Widget_cachedFonts")
+	public static EvictingDualNodeHashTable Widget_cachedFonts;
 	@ObfuscatedName("al")
 	@ObfuscatedSignature(
 		descriptor = "Lii;"
 	)
-	@Export("archive1")
-	public static EvictingDualNodeHashTable archive1;
+	@Export("Widget_cachedSpriteMasks")
+	public static EvictingDualNodeHashTable Widget_cachedSpriteMasks;
 	@ObfuscatedName("ao")
 	@ObfuscatedSignature(
 		descriptor = "Lmy;"
@@ -710,10 +712,10 @@ public class Widget extends Node {
 	public boolean prioritizeMenuEntry;
 
 	static {
-		field3360 = new EvictingDualNodeHashTable(200); // L: 52
-		field3361 = new EvictingDualNodeHashTable(50); // L: 53
-		archive0 = new EvictingDualNodeHashTable(20); // L: 54
-		archive1 = new EvictingDualNodeHashTable(8); // L: 55
+		Widget_cachedSprites = new EvictingDualNodeHashTable(200); // L: 52
+		Widget_cachedModels = new EvictingDualNodeHashTable(50); // L: 53
+		Widget_cachedFonts = new EvictingDualNodeHashTable(20); // L: 54
+		Widget_cachedSpriteMasks = new EvictingDualNodeHashTable(8); // L: 55
 		field3364 = new class361(10, class359.field4260); // L: 56
 		field3434 = new class361(10, class359.field4260); // L: 57
 		field3366 = false; // L: 58
@@ -1305,7 +1307,7 @@ public class Widget extends Node {
 			return null;
 		} else {
 			long var4 = ((long)this.spriteShadow << 40) + ((this.spriteFlipH ? 1L : 0L) << 39) + ((long)this.outline << 36) + (long)var7 + ((this.spriteFlipV ? 1L : 0L) << 38); // L: 575
-			SpritePixels var6 = (SpritePixels)field3360.get(var4); // L: 576
+			SpritePixels var6 = (SpritePixels) Widget_cachedSprites.get(var4); // L: 576
 			if (var6 != null) { // L: 577
 				return var6;
 			} else {
@@ -1315,7 +1317,7 @@ public class Widget extends Node {
 					return null; // L: 581
 				} else {
 					this.method5699(var6); // L: 583
-					field3360.put(var6, var4); // L: 584
+					Widget_cachedSprites.put(var6, var4); // L: 584
 					return var6; // L: 585
 				}
 			}
@@ -1417,7 +1419,7 @@ public class Widget extends Node {
 		if (this.fontId == -1) { // L: 632
 			return null;
 		} else {
-			Font var1 = (Font)archive0.get((long)this.fontId); // L: 633
+			Font var1 = (Font) Widget_cachedFonts.get((long)this.fontId); // L: 633
 			if (var1 != null) { // L: 634
 				return var1;
 			} else {
@@ -1447,7 +1449,7 @@ public class Widget extends Node {
 				}
 
 				if (var2 != null) { // L: 665
-					archive0.put(var2, (long)this.fontId);
+					Widget_cachedFonts.put(var2, (long)this.fontId);
 				} else {
 					field3366 = true; // L: 666
 				}
@@ -1470,13 +1472,13 @@ public class Widget extends Node {
 			if (var2 == -1) { // L: 674
 				return null;
 			} else {
-				SpritePixels var3 = (SpritePixels)field3360.get((long)var2); // L: 675
+				SpritePixels var3 = (SpritePixels) Widget_cachedSprites.get((long)var2); // L: 675
 				if (var3 != null) { // L: 676
 					return var3;
 				} else {
 					var3 = class7.SpriteBuffer_getSprite(StructComposition.Widget_spritesArchive, var2, 0); // L: 677
 					if (var3 != null) { // L: 678
-						field3360.put(var3, (long)var2);
+						Widget_cachedSprites.put(var3, (long)var2);
 					} else {
 						field3366 = true; // L: 679
 					}
@@ -1512,7 +1514,7 @@ public class Widget extends Node {
 		} else if (var5 == 1 && var6 == -1) { // L: 696
 			return null;
 		} else {
-			Model var7 = (Model)field3361.get((long)(var6 + (var5 << 16))); // L: 697
+			Model var7 = (Model) Widget_cachedModels.get((long)(var6 + (var5 << 16))); // L: 697
 			if (var7 == null) { // L: 698
 				ModelData var8;
 				if (var5 == 1) { // L: 700
@@ -1560,7 +1562,7 @@ public class Widget extends Node {
 					var7 = var8.toModel(var9.ambient + 64, var9.contrast + 768, -50, -10, -50); // L: 732
 				}
 
-				field3361.put(var7, (long)(var6 + (var5 << 16))); // L: 734
+				Widget_cachedModels.put(var7, (long)(var6 + (var5 << 16))); // L: 734
 			}
 
 			if (var1 != null) { // L: 736
@@ -1587,7 +1589,7 @@ public class Widget extends Node {
 			return null;
 		} else {
 			long var3 = ((long)this.spriteShadow << 40) + ((this.spriteFlipV ? 1L : 0L) << 38) + ((long)this.outline << 36) + (long)var2 + ((this.spriteFlipH ? 1L : 0L) << 39); // L: 746
-			SpriteMask var5 = (SpriteMask)archive1.get(var3); // L: 747
+			SpriteMask var5 = (SpriteMask) Widget_cachedSpriteMasks.get(var3); // L: 747
 			if (var5 != null) { // L: 748
 				return var5;
 			} else {
@@ -1623,7 +1625,7 @@ public class Widget extends Node {
 					}
 
 					var5 = new SpriteMask(var7.subWidth, var7.subHeight, var9, var8, var2); // L: 772
-					archive1.put(var5, var3); // L: 773
+					Widget_cachedSpriteMasks.put(var5, var3); // L: 773
 					return var5; // L: 774
 				}
 			}

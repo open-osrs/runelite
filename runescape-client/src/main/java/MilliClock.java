@@ -181,7 +181,7 @@ public class MilliClock extends Clock {
 		garbageValue = "-631328346"
 	)
 	public static void method3301() {
-		class435.PlayerAppearance_cachedModels.clear(); // L: 67
+		class435.DBTableType_cache.clear(); // L: 67
 	} // L: 68
 
 	@ObfuscatedName("av")

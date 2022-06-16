@@ -37,7 +37,7 @@ public class FriendLoginUpdate extends Link {
 		garbageValue = "-1096065009"
 	)
 	public static class437 method6631(int var0) {
-		class437 var1 = (class437)class437.Widget_cachedSprites.get((long)var0); // L: 24
+		class437 var1 = (class437)class437.DBRowType_cache.get((long)var0); // L: 24
 		if (var1 != null) { // L: 25
 			return var1;
 		} else {
@@ -48,7 +48,7 @@ public class FriendLoginUpdate extends Link {
 			}
 
 			var1.method7636(); // L: 29
-			class437.Widget_cachedSprites.put(var1, (long)var0); // L: 30
+			class437.DBRowType_cache.put(var1, (long)var0); // L: 30
 			return var1; // L: 31
 		}
 	}
