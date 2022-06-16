@@ -14,8 +14,8 @@ public class class437 extends DualNode {
 	@ObfuscatedSignature(
 		descriptor = "Lii;"
 	)
-	@Export("Widget_cachedSprites")
-	static EvictingDualNodeHashTable Widget_cachedSprites;
+	@Export("DBRowType_cache")
+	static EvictingDualNodeHashTable DBRowType_cache;
 	@ObfuscatedName("q")
 	Object[][] field4676;
 	@ObfuscatedName("f")
@@ -27,7 +27,7 @@ public class class437 extends DualNode {
 	public int field4678;
 
 	static {
-		Widget_cachedSprites = new EvictingDualNodeHashTable(64); // L: 11
+		DBRowType_cache = new EvictingDualNodeHashTable(64); // L: 11
 	}
 
 	class437() {

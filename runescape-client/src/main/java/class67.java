@@ -88,6 +88,6 @@ public class class67 {
 		garbageValue = "-1419146368"
 	)
 	public static void method1887() {
-		class437.Widget_cachedSprites.clear(); // L: 90
+		class437.DBRowType_cache.clear(); // L: 90
 	} // L: 91
 }

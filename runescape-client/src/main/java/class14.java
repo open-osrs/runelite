@@ -277,7 +277,7 @@ public class class14 {
 		garbageValue = "-46"
 	)
 	public static void method148() {
-		PlayerComposition.Widget_cachedSpriteMasks.clear(); // L: 279
+		PlayerComposition.PlayerAppearance_cachedModels.clear(); // L: 279
 	} // L: 280
 
 	@ObfuscatedName("r")

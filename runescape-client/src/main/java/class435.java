@@ -13,15 +13,15 @@ public class class435 extends DualNode {
 	@ObfuscatedSignature(
 		descriptor = "Lii;"
 	)
-	@Export("PlayerAppearance_cachedModels")
-	static EvictingDualNodeHashTable PlayerAppearance_cachedModels;
+	@Export("DBTableType_cache")
+	static EvictingDualNodeHashTable DBTableType_cache;
 	@ObfuscatedName("q")
 	public int[][] field4668;
 	@ObfuscatedName("f")
 	public Object[][] field4669;
 
 	static {
-		PlayerAppearance_cachedModels = new EvictingDualNodeHashTable(64); // L: 11
+		DBTableType_cache = new EvictingDualNodeHashTable(64); // L: 11
 	}
 
 	class435() {
