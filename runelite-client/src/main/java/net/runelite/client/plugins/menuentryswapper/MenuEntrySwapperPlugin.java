@@ -56,7 +56,6 @@ import net.runelite.api.MenuAction;
 import net.runelite.api.MenuEntry;
 import net.runelite.api.NPC;
 import net.runelite.api.NPCComposition;
-import net.runelite.api.NpcID;
 import net.runelite.api.ObjectComposition;
 import net.runelite.api.ParamID;
 import net.runelite.api.events.ClientTick;
@@ -74,6 +73,7 @@ import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.events.ConfigChanged;
 import net.runelite.client.game.ItemManager;
 import net.runelite.client.game.ItemVariationMapping;
+import net.runelite.client.game.NpcUtil;
 import net.runelite.client.menus.MenuManager;
 import net.runelite.client.menus.WidgetMenuOption;
 import net.runelite.client.plugins.Plugin;
@@ -1184,9 +1184,18 @@ public class MenuEntrySwapperPlugin extends Plugin
 			final NPC npc = menuEntry.getNpc();
 			assert npc != null;
 			final NPCComposition composition = npc.getTransformedComposition();
+			assert composition != null;
 
 			Integer customOption = getNpcSwapConfig(shiftModifier(), composition.getId());
-			if (customOption != null)
+			if (customOption == null)
+			{
+				if (shiftModifier() && config.npcShiftClickWalkHere())
+				{
+					// we can achieve this by just deprioritizing the normal npc menus
+					menuEntry.setDeprioritized(true);
+				}
+			}
+			else
 			{
 				// Walk here swap
 				if (customOption == -1)
@@ -1276,33 +1285,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 			.filter(e ->
 			{
 				final NPC npc = e.getNpc();
-				if (npc == null)
-				{
-					return true;
-				}
-
-				final int id = npc.getId();
-				switch (id)
-				{
-					// These NPCs hit 0hp but don't actually die
-					case NpcID.GARGOYLE:
-					case NpcID.GARGOYLE_413:
-					case NpcID.GARGOYLE_1543:
-					case NpcID.ZYGOMITE:
-					case NpcID.ZYGOMITE_1024:
-					case NpcID.ANCIENT_ZYGOMITE:
-					case NpcID.ROCKSLUG:
-					case NpcID.ROCKSLUG_422:
-					case NpcID.DESERT_LIZARD:
-					case NpcID.DESERT_LIZARD_460:
-					case NpcID.DESERT_LIZARD_461:
-					case NpcID.ICE_DEMON:
-					case NpcID.ICE_DEMON_7585:
-						return true;
-					default:
-						return !npc.isDead();
-
-				}
+				return npc == null || !NpcUtil.isDying(npc);
 			})
 			.toArray(MenuEntry[]::new);
 		if (oldEntries.length != newEntries.length)
@@ -1401,11 +1384,11 @@ public class MenuEntrySwapperPlugin extends Plugin
 		// Item op4 and op5 are CC_OP_LOW_PRIORITY so they get added underneath Use,
 		// but this also causes them to get sorted after client tick. Change them to
 		// CC_OP to avoid this.
-		if (entry1.isItemOp() && entry1.getType() == MenuAction.CC_OP_LOW_PRIORITY)
+		if (entry1.getType() == MenuAction.CC_OP_LOW_PRIORITY)
 		{
 			entry1.setType(MenuAction.CC_OP);
 		}
-		if (entry2.isItemOp() && entry2.getType() == MenuAction.CC_OP_LOW_PRIORITY)
+		if (entry2.getType() == MenuAction.CC_OP_LOW_PRIORITY)
 		{
 			entry2.setType(MenuAction.CC_OP);
 		}
