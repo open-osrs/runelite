@@ -192,6 +192,9 @@ public class MenuEntrySwapperPlugin extends Plugin
 	@Inject
 	private ChatMessageManager chatMessageManager;
 
+	@Inject
+	private NpcUtil npcUtil;
+
 	private boolean configuringShiftClick = false;
 	private boolean configuringLeftClick = false;
 
@@ -1285,7 +1288,7 @@ public class MenuEntrySwapperPlugin extends Plugin
 			.filter(e ->
 			{
 				final NPC npc = e.getNpc();
-				return npc == null || !NpcUtil.isDying(npc);
+				return npc == null || !npcUtil.isDying(npc);
 			})
 			.toArray(MenuEntry[]::new);
 		if (oldEntries.length != newEntries.length)
