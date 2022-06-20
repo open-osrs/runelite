@@ -11,7 +11,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import javax.inject.Inject;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -288,7 +287,7 @@ public class ExternalPluginManagerPanel extends PluginPanel
 		label.setPreferredSize(new Dimension(450, 200));
 		label.setFont(font);
 
-		return JOptionPane.showOptionDialog(new JFrame(),
+		return JOptionPane.showOptionDialog(ClientUI.getFrame(),
 			label,
 			"Account security warning",
 			JOptionPane.YES_NO_OPTION,
