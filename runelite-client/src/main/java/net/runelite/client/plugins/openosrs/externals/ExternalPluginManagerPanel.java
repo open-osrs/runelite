@@ -11,7 +11,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import javax.inject.Inject;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
