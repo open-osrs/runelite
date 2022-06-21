@@ -33,6 +33,7 @@ buildscript {
     }
     dependencies {
         classpath("org.ajoberstar.grgit:grgit-core:4.1.0")
+        classpath("com.openosrs:injector-plugin:2.0.0")
     }
 }
 

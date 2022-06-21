@@ -91,6 +91,7 @@ dependencies {
     implementation(group = "net.runelite.jocl", name = "jocl", version = "1.0")
 
     runtimeOnly(project(":runescape-api"))
+    runtimeOnly(project(":injected-client"))
     runtimeOnly(group = "net.runelite.pushingpixels", name = "trident", version = "1.5.00")
     runtimeOnly(group = "net.runelite.gluegen", name = "gluegen-rt", version = "2.4.0-rc-20220318", classifier = "natives-linux-amd64")
     runtimeOnly(group = "net.runelite.gluegen", name = "gluegen-rt", version = "2.4.0-rc-20220318", classifier = "natives-windows-amd64")
@@ -133,10 +134,6 @@ tasks {
         finalizedBy("shadowJar")
     }
 
-    compileJava {
-        // dependsOn("packInjectedClient")
-    }
-
     processResources {
         val tokens = mapOf(
                 "project.version" to ProjectVersions.rlVersion,
@@ -154,16 +151,6 @@ tasks {
         }
     }
 
-    register<Copy>("packInjectedClient") {
-        dependsOn(":injector:inject")
-
-        from("build/injected/")
-        include("**/injected-client.oprs")
-        into("${buildDir}/resources/main")
-
-        outputs.upToDateWhen { false }
-    }
-
     jar {
         manifest {
             attributes(mutableMapOf("Main-Class" to "net.runelite.client.RuneLite"))
@@ -179,9 +166,10 @@ tasks {
 
         from("${buildDir}/scripts")
 
-        dependsOn(":injector:inject")
+        dependsOn(":injected-client:inject")
 
-        from("build/injected")
+        from("${project(":injected-client").buildDir}/libs")
+        from("${project(":injected-client").buildDir}/resources/main")
     }
 
     withType<BootstrapTask> {
