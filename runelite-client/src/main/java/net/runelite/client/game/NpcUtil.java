@@ -85,6 +85,7 @@ public class NpcUtil
 			case NpcID.ANCIENT_ZYGOMITE:
 			case NpcID.ROCKSLUG:
 			case NpcID.ROCKSLUG_422:
+			case NpcID.GIANT_ROCKSLUG:
 			case NpcID.DESERT_LIZARD:
 			case NpcID.DESERT_LIZARD_460:
 			case NpcID.DESERT_LIZARD_461:
@@ -94,6 +95,12 @@ public class NpcUtil
 			case NpcID.GROWTHLING:
 			case NpcID.KALPHITE_QUEEN_963: // KQ's first form sometimes regenerates 1hp after reaching 0hp, thus not dying
 				return false;
+			// These NPCs transform and have their `isDead()` reset to `false` despite actually being dead in these forms
+			case NpcID.DRAKE_8613:
+			case NpcID.GUARDIAN_DRAKE_10401:
+			case NpcID.ALCHEMICAL_HYDRA_8634:
+			case NpcID.NEX_11282:
+				return true;
 			default:
 				if (runtimeConfig != null)
 				{
@@ -101,6 +108,12 @@ public class NpcUtil
 					if (ignoredNpcs != null && ignoredNpcs.contains(id))
 					{
 						return false;
+					}
+
+					Set<Integer> forceDeadNpcs = runtimeConfig.getForceDeadNpcs();
+					if (forceDeadNpcs != null && forceDeadNpcs.contains(id))
+					{
+						return true;
 					}
 				}
 
