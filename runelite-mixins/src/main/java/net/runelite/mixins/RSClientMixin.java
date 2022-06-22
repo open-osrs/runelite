@@ -752,6 +752,29 @@ public abstract class RSClientMixin implements RSClient
 
 	@Inject
 	@Override
+	public int getServerVarpValue(int varpId)
+	{
+		int[] varps = this.getServerVarps();
+		return varps[varpId];
+	}
+
+	@Inject
+	@Override
+	public int getServerVar(VarPlayer varPlayer)
+	{
+		int[] varps = getServerVarps();
+		return varps[varPlayer.getId()];
+	}
+
+	@Inject
+	@Override
+	public int getServerVarbitValue(int varbit)
+	{
+		return this.getVarbitValue(this.getServerVarps(), varbit);
+	}
+
+	@Inject
+	@Override
 	public int getVar(VarPlayer varPlayer)
 	{
 		int[] varps = getVarps();
