@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.HashSet;
 import java.util.Set;
+import javax.swing.JOptionPane;
 
 public class GameHandler implements KeyListener {
 	private static final int DEFAULT_REFRESH_INTERVAL = 100;
@@ -37,6 +38,9 @@ public class GameHandler implements KeyListener {
 	}
 
 	public void reset() {
+		if (score != 0) {
+			JOptionPane.showMessageDialog(null, "You died! Your score: " + score, "OpenOSRS Snake", JOptionPane.INFORMATION_MESSAGE);
+		}
 		head = new SnakePart();
 		SnakePart current = head;
 		current.x = MIDDLE_X;

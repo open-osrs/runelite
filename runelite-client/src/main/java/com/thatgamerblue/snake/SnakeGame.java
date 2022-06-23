@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import lombok.SneakyThrows;
 import net.runelite.client.RuneLite;
@@ -30,13 +31,18 @@ public class SnakeGame {
 	}
 
 	public void stop() throws Exception {
-		running = false;
-		Component c = component;
-		while (c != null) {
-			c.setVisible(false);
-			c = c.getParent();
+		int option = JOptionPane.showConfirmDialog(null,
+			"You scored 40! Press Yes to launch OpenOSRS, press No to keep playing snake.",
+			"OpenOSRS Snake", JOptionPane.YES_NO_OPTION);
+		if (option == JOptionPane.YES_OPTION) {
+			running = false;
+			Component c = component;
+			while (c != null) {
+				c.setVisible(false);
+				c = c.getParent();
+			}
+			RuneLite.oldMain(arguments);
 		}
-		RuneLite.oldMain(arguments);
 	}
 
 	@SneakyThrows
