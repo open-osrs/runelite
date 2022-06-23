@@ -29,6 +29,7 @@ import java.util.Date
 
 plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
+    id("com.openosrs.scriptassembler")
     java
 }
 
@@ -63,6 +64,7 @@ dependencies {
         exclude(group = "org.codehaus.mojo", module = "animal-sniffer-annotations")
     }
     implementation(group = "com.google.inject", name = "guice", version = "5.0.1")
+    implementation(group = "com.google.protobuf", name = "protobuf-javalite", version = "3.21.1")
     implementation(group = "com.jakewharton.rxrelay3", name = "rxrelay", version = "3.0.1")
     implementation(group = "com.squareup.okhttp3", name = "okhttp", version = "4.9.1")
     implementation(group = "io.reactivex.rxjava3", name = "rxjava", version = "3.1.2")
@@ -90,6 +92,7 @@ dependencies {
     implementation(group = "net.runelite.jocl", name = "jocl", version = "1.0")
 
     runtimeOnly(project(":runescape-api"))
+    runtimeOnly(project(":injected-client"))
     runtimeOnly(group = "net.runelite.pushingpixels", name = "trident", version = "1.5.00")
     runtimeOnly(group = "net.runelite.gluegen", name = "gluegen-rt", version = "2.4.0-rc-20220318", classifier = "natives-linux-amd64")
     runtimeOnly(group = "net.runelite.gluegen", name = "gluegen-rt", version = "2.4.0-rc-20220318", classifier = "natives-windows-amd64")
@@ -132,10 +135,6 @@ tasks {
         finalizedBy("shadowJar")
     }
 
-    compileJava {
-        // dependsOn("packInjectedClient")
-    }
-
     processResources {
         val tokens = mapOf(
                 "project.version" to ProjectVersions.rlVersion,
@@ -153,16 +152,6 @@ tasks {
         }
     }
 
-    register<Copy>("packInjectedClient") {
-        dependsOn(":injector:inject")
-
-        from("build/injected/")
-        include("**/injected-client.oprs")
-        into("${buildDir}/resources/main")
-
-        outputs.upToDateWhen { false }
-    }
-
     jar {
         manifest {
             attributes(mutableMapOf("Main-Class" to "net.runelite.client.RuneLite"))
@@ -173,14 +162,25 @@ tasks {
         archiveClassifier.set("shaded")
     }
 
+    assembleScripts {
+        val inp = "${projectDir}/src/main/scripts"
+        val out = "${buildDir}/scripts/runelite"
+
+        inputs.dir(inp)
+        outputs.dir(out)
+
+        input.set(file(inp))
+        output.set(file(out))
+    }
+
     processResources {
-        dependsOn(":runelite-script-assembler-plugin:assembleMojo")
+        dependsOn("assembleScripts")
+        dependsOn(":injected-client:inject")
 
         from("${buildDir}/scripts")
 
-        dependsOn(":injector:inject")
-
-        from("build/injected")
+        from("${project(":injected-client").buildDir}/libs")
+        from("${project(":injected-client").buildDir}/resources/main")
     }
 
     withType<BootstrapTask> {
