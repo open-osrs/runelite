@@ -178,7 +178,7 @@ public class RuneLite
 	@Nullable
 	private RuntimeConfig runtimeConfig;
 
-	private static final String BYPASS_ARG = "--letmeplayyesiknowtherisks";
+	private static final String BYPASS_ARG = "--IWillNotComplainIfIGetSentToTheGulagByJamflex";
 
 	public static void main(String[] args) throws Exception
 	{
