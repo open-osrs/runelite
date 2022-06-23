@@ -165,7 +165,7 @@ subprojects {
             exclude("**/RoomType.java")
         }
 
-        /*withType<Jar> {
+        withType<Jar> {
             doLast {
                 // sign jar
                 if (System.getProperty("signKeyStore") != null) {
@@ -187,7 +187,7 @@ subprojects {
                     }
                 }
             }
-        }*/
+        }
     }
 
     configurations.compileOnly.get().extendsFrom(configurations["annotationProcessor"])

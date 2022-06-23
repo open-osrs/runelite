@@ -92,7 +92,6 @@ dependencies {
     implementation(group = "net.runelite.jocl", name = "jocl", version = "1.0")
 
     runtimeOnly(project(":runescape-api"))
-    runtimeOnly(project(":injected-client"))
     runtimeOnly(group = "net.runelite.pushingpixels", name = "trident", version = "1.5.00")
     runtimeOnly(group = "net.runelite.gluegen", name = "gluegen-rt", version = "2.4.0-rc-20220318", classifier = "natives-linux-amd64")
     runtimeOnly(group = "net.runelite.gluegen", name = "gluegen-rt", version = "2.4.0-rc-20220318", classifier = "natives-windows-amd64")
