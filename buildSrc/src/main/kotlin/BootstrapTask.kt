@@ -136,7 +136,7 @@ open class BootstrapTask @Inject constructor(@Input val type: String) : DefaultT
         val artifactsSet = HashSet<String>()
 
         project.configurations["runtimeClasspath"].resolvedConfiguration.resolvedArtifacts.forEach {
-            if (it.file.name.contains("injection-annotations")) {
+            if (it.file.name.contains("injection-annotations") || it.file.name.contains("injected-client")) {
                 return@forEach
             }
 
