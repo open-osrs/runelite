@@ -75,7 +75,7 @@ public class GameHandler implements KeyListener {
 			ateApple = true;
 			score++;
 			SnakeGame.currentRefreshInterval = Math.max(50, DEFAULT_REFRESH_INTERVAL - score);
-			if (score == 40) {
+			if (score == 15) {
 				game.stop();
 			}
 		}

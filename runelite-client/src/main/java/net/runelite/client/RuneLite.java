@@ -185,7 +185,7 @@ public class RuneLite
 		if (!ArrayUtils.contains(args, BYPASS_ARG))
 		{
 			JOptionPane.showMessageDialog(null,
-				String.format("If you want to actually use the client despite the risks add\n%s\nto your launch arguments.\n\nOr score 40 and the client opens anyway.\nI'm not your dad.",
+				String.format("If you want to actually use the client despite the risks add\n%s\nto your launch arguments.\n\nOr score 15 and the client opens anyway.\nI'm not your dad.",
 					"unknown".equals(RuneLiteProperties.getLauncherVersion()) ? BYPASS_ARG : ("--clientargs=\"" + BYPASS_ARG + "\"")),
 				"OpenOSRS",
 				JOptionPane.INFORMATION_MESSAGE);

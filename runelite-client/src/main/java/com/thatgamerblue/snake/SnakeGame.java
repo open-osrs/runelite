@@ -32,7 +32,7 @@ public class SnakeGame {
 
 	public void stop() throws Exception {
 		int option = JOptionPane.showConfirmDialog(null,
-			"You scored 40! Press Yes to launch OpenOSRS, press No to keep playing snake.",
+			"You scored 15! Press Yes to launch OpenOSRS, press No to keep playing snake.",
 			"OpenOSRS Snake", JOptionPane.YES_NO_OPTION);
 		if (option == JOptionPane.YES_OPTION) {
 			running = false;
