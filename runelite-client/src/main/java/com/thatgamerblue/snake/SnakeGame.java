@@ -6,8 +6,11 @@ import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import lombok.SneakyThrows;
+import net.runelite.client.RuneLite;
 
 public class SnakeGame {
+	public static String[] arguments;
 	public static final int FRAME_WIDTH = 800;
 	public static final int FRAME_HEIGHT = 608;
 	public static long currentRefreshInterval = 100;
@@ -15,6 +18,7 @@ public class SnakeGame {
 	private final Object redrawLock = new Object();
 	private Component component;
 	private Image imageBuffer;
+	private boolean running = true;
 
 	public void start(Component component) {
 		this.component = component;
@@ -25,9 +29,20 @@ public class SnakeGame {
 		thread.start();
 	}
 
+	public void stop() throws Exception {
+		running = false;
+		Component c = component;
+		while (c != null) {
+			c.setVisible(false);
+			c = c.getParent();
+		}
+		RuneLite.oldMain(arguments);
+	}
+
+	@SneakyThrows
 	private void runGameLoop() {
 		// update the game repeatedly
-		while (true) {
+		while (running) {
 			long durationMs = redraw();
 			try {
 				Thread.sleep(Math.max(0, currentRefreshInterval - durationMs));
@@ -36,7 +51,7 @@ public class SnakeGame {
 		}
 	}
 
-	private long redraw() {
+	private long redraw() throws Exception {
 
 		long t = System.currentTimeMillis();
 
@@ -62,7 +77,7 @@ public class SnakeGame {
 		return System.currentTimeMillis() - t;
 	}
 
-	private void updateModel() {
+	private void updateModel() throws Exception {
 		gameHandler.update();
 	}
 
@@ -115,11 +130,12 @@ public class SnakeGame {
 	}
 
 	public static void main(String[] args) {
+		arguments = args;
 		java.awt.EventQueue.invokeLater(() -> {
 			SnakeGame game = new SnakeGame();
 			SnakeComponent component = new SnakeComponent(game);
 
-			gameHandler = new GameHandler();
+			gameHandler = new GameHandler(game);
 
 			component.setPreferredSize(new java.awt.Dimension(FRAME_WIDTH, FRAME_HEIGHT));
 			JFrame frame = new JFrame();

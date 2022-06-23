@@ -185,7 +185,7 @@ public class RuneLite
 		if (!ArrayUtils.contains(args, BYPASS_ARG))
 		{
 			JOptionPane.showMessageDialog(null,
-				String.format("If you want to actually use the client despite the risks add\n%s\nto your launch arguments",
+				String.format("If you want to actually use the client despite the risks add\n%s\nto your launch arguments.\n\nOr score 40 and the client opens anyway.\nI'm not your dad.",
 					"unknown".equals(RuneLiteProperties.getLauncherVersion()) ? BYPASS_ARG : ("--clientargs=\"" + BYPASS_ARG + "\"")),
 				"OpenOSRS",
 				JOptionPane.INFORMATION_MESSAGE);
@@ -193,13 +193,13 @@ public class RuneLite
 		}
 		else
 		{
-			String[] newArgs = Arrays.stream(args).filter(s -> !BYPASS_ARG.equals(s)).toArray(String[]::new);
-			oldMain(newArgs);
+			oldMain(args);
 		}
 	}
 
 	public static void oldMain(String[] args) throws Exception
 	{
+		args = Arrays.stream(args).filter(s -> !BYPASS_ARG.equals(s)).toArray(String[]::new);
 		Locale.setDefault(Locale.ENGLISH);
 
 		final OptionParser parser = new OptionParser(false);

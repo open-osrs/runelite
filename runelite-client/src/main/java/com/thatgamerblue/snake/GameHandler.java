@@ -30,6 +30,12 @@ public class GameHandler implements KeyListener {
 	private SnakePart apple = new SnakePart();
 	private int score;
 
+	private SnakeGame game;
+
+	public GameHandler(SnakeGame game) {
+		this.game = game;
+	}
+
 	public void reset() {
 		head = new SnakePart();
 		SnakePart current = head;
@@ -50,7 +56,7 @@ public class GameHandler implements KeyListener {
 		SnakeGame.currentRefreshInterval = DEFAULT_REFRESH_INTERVAL;
 	}
 
-	public void update() {
+	public void update() throws Exception {
 		processInput();
 		direction = pendingDirection;
 		SnakePart newHead = new SnakePart();
@@ -65,6 +71,9 @@ public class GameHandler implements KeyListener {
 			ateApple = true;
 			score++;
 			SnakeGame.currentRefreshInterval = Math.max(50, DEFAULT_REFRESH_INTERVAL - score);
+			if (score == 40) {
+				game.stop();
+			}
 		}
 
 		if (!ateApple) {
