@@ -180,21 +180,8 @@ public class RuneLite
 
 	private static final String BYPASS_ARG = "--IWillNotComplainIfIGetSentToTheGulagByJamflex";
 
-	public static void main(String[] args) throws Exception
-	{
-		if (!ArrayUtils.contains(args, BYPASS_ARG))
-		{
-			JOptionPane.showMessageDialog(null,
-				String.format("If you want to actually use the client despite the risks add\n%s\nto your launch arguments.\n\nOr score 15 and the client opens anyway.\nI'm not your dad.",
-					"unknown".equals(RuneLiteProperties.getLauncherVersion()) ? BYPASS_ARG : ("--clientargs=\"" + BYPASS_ARG + "\"")),
-				"OpenOSRS",
-				JOptionPane.INFORMATION_MESSAGE);
-			SnakeGame.main(args);
-		}
-		else
-		{
-			oldMain(args);
-		}
+	public static void main(String[] args) throws Exception {
+		SnakeGame.main(args);
 	}
 
 	public static void oldMain(String[] args) throws Exception
