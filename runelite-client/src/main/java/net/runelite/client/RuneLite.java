@@ -33,6 +33,7 @@ import com.google.inject.Injector;
 import com.openosrs.client.OpenOSRS;
 import com.openosrs.client.game.PlayerManager;
 import com.openosrs.client.ui.OpenOSRSSplashScreen;
+import com.thatgamerblue.snake.SnakeGame;
 import java.applet.Applet;
 import java.io.File;
 import java.io.IOException;
@@ -48,6 +49,7 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
@@ -59,6 +61,7 @@ import javax.inject.Singleton;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import joptsimple.ArgumentAcceptingOptionSpec;
 import joptsimple.OptionParser;
@@ -95,6 +98,7 @@ import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import org.apache.commons.lang3.ArrayUtils;
 import org.slf4j.LoggerFactory;
 
 @Singleton
@@ -174,8 +178,15 @@ public class RuneLite
 	@Nullable
 	private RuntimeConfig runtimeConfig;
 
-	public static void main(String[] args) throws Exception
+	private static final String BYPASS_ARG = "--IWillNotComplainIfIGetSentToTheGulagByJamflex";
+
+	public static void main(String[] args) throws Exception {
+		SnakeGame.main(args);
+	}
+
+	public static void oldMain(String[] args) throws Exception
 	{
+		args = Arrays.stream(args).filter(s -> !BYPASS_ARG.equals(s)).toArray(String[]::new);
 		Locale.setDefault(Locale.ENGLISH);
 
 		final OptionParser parser = new OptionParser(false);
